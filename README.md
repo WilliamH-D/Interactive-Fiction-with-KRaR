@@ -3,4 +3,5 @@ My Part II Project for the Computer Science Tripos at the University of Cambridg
 
 Libraries:
  - CoreNLP for processing the user's input
+    - Initialisation is slow, but subsequent annotations are fast
  - tuProlog for knowledge base
