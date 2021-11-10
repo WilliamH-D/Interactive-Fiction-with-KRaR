@@ -1,5 +1,6 @@
 package ProcessInput;
 
+import Game.GameController;
 import SimpleEngine.GameObject;
 import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader;
 import edu.stanford.nlp.coref.data.CorefChain;
@@ -20,24 +21,27 @@ public class ConstructCommand {
     public static Map<String, String> verbSynonyms;
     static {
         verbSynonyms = new HashMap<>();
-        verbSynonyms.put("attack", "attack");
+        for (String verb : ExecuteCommand.getVerbs()) {
+            verbSynonyms.put(verb, verb);
+            System.out.println("Verb: " + verb);
+        }
+        System.out.println();
+        /*verbSynonyms.put("attack", "attack");
         verbSynonyms.put("fight", "attack");
         verbSynonyms.put("strike", "attack");
         verbSynonyms.put("ambush", "attack");
         verbSynonyms.put("assault", "attack");
-        verbSynonyms.put("burn", "attack");
+        verbSynonyms.put("burn", "attack");*/
     }
 
-    private String userIn;
+    public static void processInput(String userIn) {
+        GameController.setPRSA(null);
+        GameController.setPRSO(null);
+        GameController.setPRSI(null);
 
-    public ConstructCommand(String userIn) {
-        this.userIn = userIn.toLowerCase();
-    }
-
-    public void processInput() {
-        System.out.println(this.userIn);
+        System.out.println(userIn);
         // create a document object
-        CoreDocument document = new CoreDocument(this.userIn);
+        CoreDocument document = new CoreDocument(userIn);
         // annotate the document
         pipeline.annotate(document);
 
@@ -45,10 +49,10 @@ public class ConstructCommand {
         List<String> lemmas = sentence.lemmas();
         List<String> posTags = sentence.posTags();
 
-        String[] rets = new String[2];
-        String preprocessed = preprocess(lemmas, posTags, rets);
-        //System.out.println("Preprocessed: " + preprocessed);
+        if (specialCase(lemmas)) { return; }
 
+        GameObject[] rets = new GameObject[2];
+        String preprocessed = preprocess(lemmas, posTags, rets);
 
         CoreDocument preprocessedDocument = new CoreDocument(preprocessed);
         // annotate the document
@@ -56,13 +60,12 @@ public class ConstructCommand {
 
         sentence = preprocessedDocument.sentences().get(0);
         lemmas = sentence.lemmas();
-
-        IFCommand cmd = new IFCommand();
+        GameController.setLemmas(lemmas);
 
         // Find the main verb of the input
         for (String verb : verbSynonyms.keySet()) {
             if (lemmas.contains(verb)) {
-                cmd.setFunctor(verbSynonyms.get(verb));
+                GameController.setPRSA(verbSynonyms.get(verb));
                 break;
             }
         }
@@ -94,24 +97,20 @@ public class ConstructCommand {
                 toVisit.addAll(dependencyParse.getChildList(curr));
             }
             if (item1First) {
-                cmd.setFirstArg(new GameObject(rets[0]));
-                cmd.setSecondArg(new GameObject(rets[1]));
+                GameController.setPRSO(rets[0]);
+                GameController.setPRSI(rets[1]);
             }
             else {
-                cmd.setFirstArg(new GameObject(rets[1]));
-                cmd.setSecondArg(new GameObject(rets[0]));
+                GameController.setPRSO(rets[1]);
+                GameController.setPRSI(rets[0]);
             }
         }
         else {
-            if (numArgs == 1) { cmd.setFirstArg(new GameObject(rets[0])); }
+            if (numArgs == 1) { GameController.setPRSO(rets[0]); }
         }
-
-        cmd.printCommand();
-        System.out.println();
-
     }
 
-    public String preprocess(List<String> lemmas, List<String> posTags, String[] rets) {
+    public static String preprocess(List<String> lemmas, List<String> posTags, GameObject[] rets) {
         // Pre-process the users input and replace direct/indirect object with item1/item2
         ArrayList<LemmaPOS> tokens = new ArrayList<>();
         for (int i = 0; i < lemmas.size(); i++) {
@@ -119,13 +118,13 @@ public class ConstructCommand {
         }
 
         HashMap<String, String> objSynonyms = getObjSynonyms();
-        ArrayList<String> objects = getAllowedObjects();
+        ArrayList<GameObject> objects = getAllowedObjects();
         ArrayList<String[]> matchedObjects = new ArrayList<>();
         ArrayList<Integer> matchedIndxs = new ArrayList<>();
 
         int count = 0;
-        for (String obj : objects) {
-            String[] parts = obj.split(" ");
+        for (GameObject obj : objects) {
+            String[] parts = obj.getId().split(" ");
             for (int i = 0; i < tokens.size(); i++) {
                 if (i + parts.length <= tokens.size()) {
                     boolean match = true;
@@ -143,7 +142,6 @@ public class ConstructCommand {
                         }
                     }
                     if (match) {
-                        //System.out.println("MATCH: " + obj + " at " + i);
                         rets[count] = obj;
                         count++;
                         matchedObjects.add(parts);
@@ -172,7 +170,7 @@ public class ConstructCommand {
                 itemCounter++;
             }
             if (!inRemoveRegion) {
-                processedInput.append(" " + lemmas.get(i));
+                processedInput.append(" ").append(lemmas.get(i));
             }
             if (removeEnd.contains(i)) { inRemoveRegion = false; }
         }
@@ -180,7 +178,22 @@ public class ConstructCommand {
         return processedInput.toString();
     }
 
-    public HashMap<String, String> getObjSynonyms() {
+    // Check for special cases (e.g. input = "north")
+    private static boolean specialCase(List<String> lemmas) {
+        if (lemmas.size() == 1) {
+            String l = lemmas.get(0).toUpperCase();
+            if (l.equals("NORTH") || l.equals("N")) { GameController.setPRSO(GameController.northObj()); GameController.setPRSA("move"); return true; }
+            if (l.equals("SOUTH") || l.equals("S")) { GameController.setPRSO(GameController.southObj()); GameController.setPRSA("move"); return true; }
+            if (l.equals("EAST") || l.equals("E")) { GameController.setPRSO(GameController.eastObj()); GameController.setPRSA("move"); return true; }
+            if (l.equals("WEST") || l.equals("W")) { GameController.setPRSO(GameController.westObj()); GameController.setPRSA("move"); return true; }
+            if (l.equals("UP") || l.equals("U")) { GameController.setPRSO(GameController.upObj()); GameController.setPRSA("move"); return true; }
+            if (l.equals("DOWN") || l.equals("D")) { GameController.setPRSO(GameController.downObj()); GameController.setPRSA("move"); return true; }
+        }
+        return false;
+    }
+
+    private static HashMap<String, String> getObjSynonyms() {
+        //Todo: Generate automatically
         HashMap<String, String> synonyms = new HashMap<>();
         synonyms.put("monster", "goblin");
         synonyms.put("goblin", "goblin");
@@ -191,19 +204,23 @@ public class ConstructCommand {
         return synonyms;
     }
 
-    public ArrayList<String> getAllowedObjects() {
-        ArrayList<String> objects = new ArrayList<>();
-        objects.add("green goblin");
-        objects.add("red goblin");
-        objects.add("rusty sword");
-        objects.add("shiny sword");
+    private static ArrayList<GameObject> getAllowedObjects() {
+        //Todo: Generate automatically
+        ArrayList<GameObject> objects = new ArrayList<>();
+        /*objects.add(new GameObject("green goblin"));
+        objects.add(new GameObject("red goblin"));
+        objects.add(new GameObject("rusty sword"));
+        objects.add(new GameObject("shiny sword"));*/
         return objects;
     }
 
     public static void main(String[] args) {
-        ConstructCommand cc = new ConstructCommand("attack the green monster with the shiny blade");
-        cc.processInput();
-        cc = new ConstructCommand("With the rusty   weapon, assault the red creature.");
-        cc.processInput();
+        GameController.instantiateGameController();
+        processInput("attack the green monster with the shiny blade");
+        ExecuteCommand.executeAction();
+        processInput("With the rusty   weapon, attack the red creature.");
+        ExecuteCommand.executeAction();
+        processInput("d");
+        ExecuteCommand.executeAction();
     }
 }

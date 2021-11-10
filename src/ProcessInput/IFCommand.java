@@ -34,11 +34,11 @@ public class IFCommand {
 
     public void printCommand() {
         if (arg2 != null && arg1 != null) {
-            System.out.println(functor + "([" + arg1.name + "],[" + arg2.name + "])");
+            System.out.println(functor + "([" + arg1.getId() + "],[" + arg2.getId() + "])");
         }
         else {
             if (arg1 != null) {
-                System.out.println(functor + "([" + arg1.name + "])");
+                System.out.println(functor + "([" + arg1.getId() + "])");
             }
             else {
                 System.out.println(functor + "()");
