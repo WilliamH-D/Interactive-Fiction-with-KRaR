@@ -18,7 +18,6 @@ public class ExecuteCommand {
     }
 
     public static boolean decodePRSA() {
-        System.out.println("Decoding PRSA: " + GameController.getPRSA());
         if (GameController.getPRSA().equals("ATTACK")) { return cmd_attack(); }
         if (GameController.getPRSA().equals("MOVE")) { return cmd_move(); }
         return false;
@@ -30,15 +29,18 @@ public class ExecuteCommand {
 
     public static boolean cmd_move() {
         // PRSO should be a direction (NORTH/SOUTH/EAST/WEST/UP/DOWN), or a named room
+        if (GameController.getPRSO() == null) {
+            System.out.println("You try moving your legs, but you don't end up getting anywhere...");
+            return true;
+        }
+
         GameRoom currLoc = GameController.getPlayer().getLocation();
+
         for (Direction d : Direction.values()) {
             if (GameController.getPRSO().getId().equals(d.name())) {
                 // Cardinal direction
 
-                // This is only for testing purposes whilst player loc has not been set TODO: remove
-                GameRoom nextLoc = null;
-                if (currLoc != null) { nextLoc = currLoc.getDir(d); }
-
+                GameRoom nextLoc = currLoc.getDir(d);
 
                 if (nextLoc == null) { System.out.println("You cannot move " + d.name().toLowerCase() + "."); }
                 else {
@@ -50,6 +52,39 @@ public class ExecuteCommand {
         }
 
         // Named room
+        if (!(GameController.getPRSO() instanceof GameRoom)) { return false; }
+        GameRoom nextLoc = (GameRoom)GameController.getPRSO();
+        // TODO: This is messy, can I fix it?
+        if (currLoc.getNorth().equals(nextLoc)) {
+            GameController.getPlayer().movePlayer(nextLoc);
+            System.out.println("You moved north to the " + nextLoc.getId().toLowerCase() + ".");
+            return true;
+        }
+        if (currLoc.getSouth().equals(nextLoc)) {
+            GameController.getPlayer().movePlayer(nextLoc);
+            System.out.println("You moved south to the " + nextLoc.getId().toLowerCase() + ".");
+            return true;
+        }
+        if (currLoc.getEast().equals(nextLoc)) {
+            GameController.getPlayer().movePlayer(nextLoc);
+            System.out.println("You moved east to the " + nextLoc.getId().toLowerCase() + ".");
+            return true;
+        }
+        if (currLoc.getWest().equals(nextLoc)) {
+            GameController.getPlayer().movePlayer(nextLoc);
+            System.out.println("You moved west to the " + nextLoc.getId().toLowerCase() + ".");
+            return true;
+        }
+        if (currLoc.getUp().equals(nextLoc)) {
+            GameController.getPlayer().movePlayer(nextLoc);
+            System.out.println("You moved up to the " + nextLoc.getId().toLowerCase() + ".");
+            return true;
+        }
+        if (currLoc.getDown().equals(nextLoc)) {
+            GameController.getPlayer().movePlayer(nextLoc);
+            System.out.println("You moved down to the " + nextLoc.getId().toLowerCase() + ".");
+            return true;
+        }
 
         return false;
     }

@@ -136,7 +136,7 @@ public class ConstructCommand {
                             }
                         }
                         else {
-                            if (!tokens.get(i+j).getLemma().equals(parts[j])) {
+                            if (!tokens.get(i+j).getLemma().toUpperCase().equals(parts[j])) {
                                 match = false;
                             }
                         }
@@ -207,6 +207,12 @@ public class ConstructCommand {
     private static ArrayList<GameObject> getAllowedObjects() {
         //Todo: Generate automatically
         ArrayList<GameObject> objects = new ArrayList<>();
+        objects.add(GameController.northObj());
+        objects.add(GameController.southObj());
+        objects.add(GameController.eastObj());
+        objects.add(GameController.westObj());
+        objects.add(GameController.upObj());
+        objects.add(GameController.downObj());
         /*objects.add(new GameObject("green goblin"));
         objects.add(new GameObject("red goblin"));
         objects.add(new GameObject("rusty sword"));
@@ -219,8 +225,6 @@ public class ConstructCommand {
         processInput("attack the green monster with the shiny blade");
         ExecuteCommand.executeAction();
         processInput("With the rusty   weapon, attack the red creature.");
-        ExecuteCommand.executeAction();
-        processInput("d");
         ExecuteCommand.executeAction();
     }
 }

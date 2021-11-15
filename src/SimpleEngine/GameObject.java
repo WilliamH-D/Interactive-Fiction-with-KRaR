@@ -9,10 +9,13 @@ public class GameObject {
     private String desc;
     private String[] synonyms; // Generate automatically when parsing input rather than defining here (can be difference for enhanced engine)
     private ArrayList<ObjectFlag> flags;
-    private Map<String, Integer> intVars;
+    private HashMap<String, Integer> intVars;
 
     public GameObject(String n) {
         this.id = n.toUpperCase();
+        this.children = new ArrayList<>();
+        this.flags = new ArrayList<>();
+        this.intVars = new HashMap<>();
     }
 
     public String getId() { return this.id; }
@@ -47,7 +50,10 @@ public class GameObject {
     }
 
     public boolean setParent(GameObject parent) {
-        if (this.parent != null) { this.parent.removeChild(this); }
+        if (this.parent != null) {
+            this.parent.removeChild(this);
+            this.parent = null;
+        }
         return parent.addChild(this);
     }
 

@@ -13,5 +13,7 @@ public class Player extends GameObject {
         return (GameRoom)this.getParent();
     }
 
-    public void movePlayer(GameRoom loc) { this.setParent(loc); }
+    public void movePlayer(GameRoom loc) {
+        this.setParent(loc);
+    }
 }
