@@ -1,4 +1,4 @@
-grammar editorGrammar;
+grammar EditorGrammar;
 
 // Lexing rules (Must be upper case)
 ALPHA: [a-zA-Z]+;
@@ -15,20 +15,13 @@ QUOTES: '"';         UNDERSCORE: '_';
 COMMA: ',';          DOT: '.';
 PLUS: '+';           Minus: '-';
 
-// Can convert some of these to parsing rules
-INT: NUMERIC;
-FLOAT: NUMERIC DOT NUMERIC | DOT NUMERIC;
-NUMBER: INT | FLOAT;
-STRING: QUOTES (~('"'))* QUOTES;
-BOOL: 'TRUE' | 'FALSE';
-VAR: NUMBER | STRING | BOOL;
-AND: 'AND' | '&&';
-OR: 'OR' | '||';
-NOT: 'NOT' | '!';
+TRUE: 'TRUE';        FALSE: 'FALSE';
+AND1: 'AND';         AND2: '&&';
+OR1: 'OR';           OR2: '||';
+NOR1: 'NOT';         NOT2: '!';
 
+STRING: QUOTES (~('"'))* QUOTES;
 ID: LB_SHARP ALPHANUMERIC RB_SHARP;
-FLAG: UNDERSCORE ALPHANUMERIC;
-VALUE: LB_ROUND ALPHANUMERIC COLON VAR RB_ROUND;
 
 OBJECT_TAG: LB_SQUARE 'object' RB_SQUARE;
 ROOM_TAG: LB_SQUARE 'room' RB_SQUARE;
@@ -68,16 +61,26 @@ PLACE_EFF: 'PLACE' COLON;
 SET_EFF: 'SET' COLON;
 
 // Parsing rules (Must be lower case)
+alpha_numeric: ALPHA | NUMERIC | ALPHANUMERIC;
+num_int: NUMERIC;
+num_float: NUMERIC DOT NUMERIC | DOT NUMERIC;
+number: num_int | num_float;
+bool: TRUE | FALSE;
+var: number | STRING | bool;
+and: AND1 | AND2;
+or: OR1 | OR2;
+not: NOR1 | NOT2;
+value: LB_ROUND alpha_numeric COLON var RB_ROUND;
+flag: UNDERSCORE alpha_numeric;
+
 id_entry: ID_KEY ID SEMICOLON;
 loc_entry: LOC_KEY ID SEMICOLON;
 name_entry: NAME_KEY STRING SEMICOLON;
 desc_entry: DESC_KEY STRING SEMICOLON | /* epsilon */;
-flags_entry: FLAGS_KEY FLAG (COMMA FLAG)* SEMICOLON | /* epsilon */;
+flags_entry: FLAGS_KEY flag (COMMA flag)* SEMICOLON | /* epsilon */;
 values_entry: VALUES_KEY value (COMMA value)* SEMICOLON| /* epsilon */;
 dir_entry: DIR_KEY ID SEMICOLON (DIR_KEY ID SEMICOLON)*;
 action_entry: ACTION_KEY action_block SEMICOLON;
-
-value: LB_ROUND ALPHANUMERIC COLON VAR RB_ROUND;
 
 object: OBJECT_TAG LB_CURLY
             id_entry
@@ -106,40 +109,40 @@ action_block: effects
               | conditional action_block;
 conditional: COND_TAG LB_SHARP conditions RB_SHARP LB_CURLY action_block RB_CURLY;
 conditions: condition_aux
-            | condition_aux AND conditions
-            | condition_aux OR conditions;
+            | condition_aux and conditions
+            | condition_aux or conditions;
 effects: effect_aux
          | effect_aux effects;
 effect_aux: EFFECT_TAG LB_SHARP effect RB_SHARP;
 condition_aux: condition
-               | NOT condition;
+               | not condition;
 
 // condition bodies
 prsa_cond: PRSA_COND ALPHA (COMMA ALPHA)*;
 prso_cond: PRSO_COND ID (COMMA ID)*;
 prsi_cond: PRSI_COND ID (COMMA ID)*;
 here_cond: HERE_COND ID (COMMA ID)*;
-andflags_cond: ANDFLAGS_COND FLAG (COMMA FLAG)*;
-orflags_cond: ORFLAGS_COND FLAG (COMMA FLAG)*;
+andflags_cond: ANDFLAGS_COND flag (COMMA flag)*;
+orflags_cond: ORFLAGS_COND flag (COMMA flag)*;
 haveitem_cond: HAVEITEM_COND ID (COMMA ID)*;
 haveitems_cond: HAVEITEMS_COND ID (COMMA ID)*;
-equals_cond: EQUALS_COND ALPHANUMERIC COMMA VALUE
-             | EQUALS_COND ALPHANUMERIC COMMA ALPHANUMERIC;
-gt_cond: GT_COND ALPHANUMERIC COMMA VALUE
-         | GT_COND ALPHANUMERIC COMMA ALPHANUMERIC;
-lt_cond: LT_COND ALPHANUMERIC COMMA VALUE
-         | LT_COND ALPHANUMERIC COMMA ALPHANUMERIC;
+equals_cond: EQUALS_COND alpha_numeric COMMA value
+             | EQUALS_COND alpha_numeric COMMA alpha_numeric;
+gt_cond: GT_COND alpha_numeric COMMA value
+         | GT_COND alpha_numeric COMMA alpha_numeric;
+lt_cond: LT_COND alpha_numeric COMMA value
+         | LT_COND alpha_numeric COMMA alpha_numeric;
 
 condition: prsa_cond|prso_cond|prsi_cond|here_cond|andflags_cond|orflags_cond|haveitem_cond|haveitems_cond|equals_cond|gt_cond|lt_cond;
 
 // effect bodies
 tell_eff: TELL_EFF STRING;
 goto_eff: GOTO_EFF ID;
-setflag_eff: SETFLAG_EFF FLAG;
-remflag_eff: REMFLAG_EFF FLAG;
+setflag_eff: SETFLAG_EFF flag;
+remflag_eff: REMFLAG_EFF flag;
 take_eff: TAKE_EFF ID;
 place_eff: PLACE_EFF ID COMMA ID;
-set_eff: SET_EFF ALPHANUMERIC COMMA VAR;
+set_eff: SET_EFF alpha_numeric COMMA var;
 
 effect: tell_eff|goto_eff|setflag_eff|remflag_eff|take_eff|place_eff|set_eff;
 

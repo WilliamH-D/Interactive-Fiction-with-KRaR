@@ -10,6 +10,7 @@ import edu.stanford.nlp.pipeline.*;
 import edu.stanford.nlp.semgraph.*;
 import edu.stanford.nlp.trees.*;
 
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.*;
@@ -220,11 +221,12 @@ public class ConstructCommand {
         return objects;
     }
 
-    public static void main(String[] args) {
-        GameController.instantiateGameController();
+    public static void main(String[] args) throws IOException {
+        /*GameController.instantiateGameController();
         processInput("attack the green monster with the shiny blade");
         ExecuteCommand.executeAction();
         processInput("With the rusty   weapon, attack the red creature.");
-        ExecuteCommand.executeAction();
+        ExecuteCommand.executeAction();*/
+        StoryCompiler.get().compile("D:\\Documents\\University\\Part II Project\\Interactive Fiction with KRaR\\src\\ProcessInput\\testStory.txt");
     }
 }
