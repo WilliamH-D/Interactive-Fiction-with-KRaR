@@ -17,8 +17,6 @@ import java.util.*;
 
 public class ConstructCommand {
 
-    static StanfordCoreNLP pipeline = new NLPPipeline().getPipeline();
-
     public static Map<String, String> verbSynonyms;
     static {
         verbSynonyms = new HashMap<>();
@@ -40,11 +38,10 @@ public class ConstructCommand {
         GameController.setPRSO(null);
         GameController.setPRSI(null);
 
-        System.out.println(userIn);
         // create a document object
         CoreDocument document = new CoreDocument(userIn);
         // annotate the document
-        pipeline.annotate(document);
+        NLPPipeline.getPipeline().annotate(document);
 
         CoreSentence sentence = document.sentences().get(0);
         List<String> lemmas = sentence.lemmas();
@@ -57,7 +54,9 @@ public class ConstructCommand {
 
         CoreDocument preprocessedDocument = new CoreDocument(preprocessed);
         // annotate the document
-        pipeline.annotate(preprocessedDocument);
+        NLPPipeline.getPipeline().annotate(preprocessedDocument);
+
+        System.out.println(userIn);
 
         sentence = preprocessedDocument.sentences().get(0);
         lemmas = sentence.lemmas();
@@ -222,11 +221,13 @@ public class ConstructCommand {
     }
 
     public static void main(String[] args) throws IOException {
-        /*GameController.instantiateGameController();
+        GameController.instantiateGameController();
         processInput("attack the green monster with the shiny blade");
         ExecuteCommand.executeAction();
         processInput("With the rusty   weapon, attack the red creature.");
-        ExecuteCommand.executeAction();*/
-        StoryCompiler.get().compile("D:\\Documents\\University\\Part II Project\\Interactive Fiction with KRaR\\src\\ProcessInput\\testStory.txt");
+        ExecuteCommand.executeAction();
+        processInput("move.");
+        ExecuteCommand.executeAction();
+        //StoryCompiler.get().compile("D:\\Documents\\University\\Part II Project\\Interactive Fiction with KRaR\\src\\ProcessInput\\testStory.txt");
     }
 }

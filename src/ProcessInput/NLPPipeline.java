@@ -9,9 +9,11 @@ import java.util.Properties;
 
 public class NLPPipeline {
 
+    private static NLPPipeline instance;
+
     private StanfordCoreNLP pipeline;
 
-    public NLPPipeline() {
+    private NLPPipeline() {
         // Silence the output stream from coreNLP
         PrintStream err = System.err;
         System.setErr(new PrintStream(new OutputStream() {
@@ -32,5 +34,12 @@ public class NLPPipeline {
         System.setErr(err);
     }
 
-    public StanfordCoreNLP getPipeline() { return this.pipeline; }
+    public static NLPPipeline get() {
+        if (instance == null) {
+            instance = new NLPPipeline();
+        }
+        return instance;
+    }
+
+    public static StanfordCoreNLP getPipeline() { return get().pipeline; }
 }

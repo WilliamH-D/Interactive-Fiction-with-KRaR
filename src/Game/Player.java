@@ -2,6 +2,7 @@ package Game;
 
 import SimpleEngine.GameObject;
 import SimpleEngine.GameRoom;
+import SimpleEngine.GameState;
 
 public class Player extends GameObject {
 
@@ -10,10 +11,10 @@ public class Player extends GameObject {
     }
 
     public GameRoom getLocation() {
-        return (GameRoom)this.getParent();
+        return (GameRoom) GameState.getGameObject(this.getParent());
     }
 
     public void movePlayer(GameRoom loc) {
-        this.setParent(loc);
+        this.setParent(loc.getId());
     }
 }

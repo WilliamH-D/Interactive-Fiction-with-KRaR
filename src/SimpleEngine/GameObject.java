@@ -4,42 +4,48 @@ import java.util.*;
 
 public class GameObject {
     private String id;
-    private GameObject parent;
-    private ArrayList<GameObject> children;
+    private String parent;
+    private Set<String> children;
+    private String name;
     private String desc;
-    private String[] synonyms; // Generate automatically when parsing input rather than defining here (can be difference for enhanced engine)
-    private ArrayList<ObjectFlag> flags;
-    private HashMap<String, Integer> intVars;
+    private Set<String> synonyms; // Generate automatically when parsing input rather than defining here (can be difference for enhanced engine)
+    private Set<String> flags; // Static flags for this object
+    private HashMap<String, Object> variables;
 
     public GameObject(String n) {
         this.id = n.toUpperCase();
-        this.children = new ArrayList<>();
-        this.flags = new ArrayList<>();
-        this.intVars = new HashMap<>();
+        this.children = new HashSet<>();
+        this.flags = new HashSet<>();
+        this.variables = new HashMap<>();
     }
 
     public String getId() { return this.id; }
 
-    public GameObject getParent() { return this.parent; }
+    public void setParent(String parent) { this.parent = parent; }
 
-    public ArrayList<GameObject> getChildren() { return this.children; }
+    public String getParent() { return this.parent; }
 
-    public ArrayList<GameObject> hasDescendant(GameObject obj) {
-        // Todo: Might be a better way than to match on IDs
-        ArrayList<GameObject> path = new ArrayList<>();
+    public void addChild(String child) { this.children.add(child); }
+
+    public void removeChild(String child) { this.children.remove(child); }
+
+    public Set<String> getChildren() { return this.children; }
+
+    public ArrayList<String> hasDescendant(String objID) {
+        ArrayList<String> path = new ArrayList<>();
 
         // Implement breadth first search to find descendant and path
-        Queue<GameObject> queue = new ArrayDeque<>();
-        queue.add(this);
+        Queue<String> queue = new ArrayDeque<>();
+        queue.add(this.id);
 
         while (queue.size() > 0) {
-            GameObject curr = queue.remove();
-            if (curr.id.equals(obj.id)) {
+            GameObject curr = GameState.getGameObject(queue.remove());
+            if (curr.id.equals(objID)) {
                 // We have found the object
-                path.add(0, obj);
+                path.add(0, objID);
                 while (!(curr.id.equals(this.id))) {
-                    curr = curr.parent;
-                    path.add(0, curr);
+                    curr = GameState.getGameObject(curr.parent);
+                    path.add(0, curr.id);
                 }
 
                 return path;
@@ -49,59 +55,28 @@ public class GameObject {
         return path;
     }
 
-    public boolean setParent(GameObject parent) {
-        if (this.parent != null) {
-            this.parent.removeChild(this);
-            this.parent = null;
-        }
-        return parent.addChild(this);
-    }
+    public void setName(String name) { this.name = name; }
 
-    public boolean addChild(GameObject child) {
-        GameObject oldParent = child.parent;
-        if (oldParent != null && !oldParent.removeChild(child)) { return false; }
-        this.children.add(child);
-        child.parent = this;
-        return true;
-    }
+    public String getName() { return this.name; }
 
-    private boolean removeChild(GameObject child) {
-        if (this.children.contains(child)) {
-            this.children.remove(child);
-            return true;
-        }
-        return false;
-    }
+    public void setDesc(String desc) { this.desc = desc; }
 
     public String getDesc() { return this.desc; }
 
-    public boolean setFlag(ObjectFlag flag) {
-        //Todo: Will need logic updating if flags have values
-        if (this.flags.contains(flag)) { return false; }
-        this.flags.add(flag);
-        return true;
-    }
+    public void setFlag(String flag) { this.flags.add(flag); }
 
-    public boolean removeFlag(ObjectFlag flag) {
-        //Todo: Will need logic updating if flags have values (want to remove by flag name)
-        if (this.flags.contains(flag)) {
-            this.flags.remove(flag);
-            return true;
-        }
-        return false;
-    }
+    public void removeFlag(String flag) { this.flags.remove(flag); }
 
-    public boolean hasFlag(ObjectFlag flag) {
-        //Todo: Will need logic updating if flags have values
-        return this.flags.contains(flag);
-    }
+    public boolean hasFlag(String flag) { return this.flags.contains(flag); }
 
-    public boolean updateFlag(ObjectFlag flag, int val) {
-        //Todo: Implement once flags have been properly implemented
-        return true;
-    }
+    public void addVariable(String varName, Object varValue) { this.variables.put(varName, varValue); }
+
+    public Object getVariable(String varName) { return this.variables.get(varName); }
 
     public boolean action() {
+        if (GameState.existsAction(this.id)) {
+            return GameState.getAction(this.id).executeAction();
+        }
         return false;
     }
 }

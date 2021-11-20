@@ -4,6 +4,7 @@ import Game.Direction;
 import Game.GameController;
 import SimpleEngine.GameObject;
 import SimpleEngine.GameRoom;
+import SimpleEngine.GameState;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -18,13 +19,19 @@ public class ExecuteCommand {
     }
 
     public static boolean decodePRSA() {
-        if (GameController.getPRSA().equals("ATTACK")) { return cmd_attack(); }
-        if (GameController.getPRSA().equals("MOVE")) { return cmd_move(); }
-        return false;
+        try {
+            Class c = ExecuteCommand.class;
+            Method verbAction = c.getDeclaredMethod("cmd_" + GameController.getPRSA().toLowerCase());
+            return (boolean)verbAction.invoke(null);
+        }
+        catch (Exception e) {
+            return false;
+        }
     }
 
     public static boolean cmd_attack() {
-        return false;
+        System.out.println("You Attacked!");
+        return true;
     }
 
     public static boolean cmd_move() {
@@ -40,7 +47,7 @@ public class ExecuteCommand {
             if (GameController.getPRSO().getId().equals(d.name())) {
                 // Cardinal direction
 
-                GameRoom nextLoc = currLoc.getDir(d);
+                GameRoom nextLoc = (GameRoom)GameState.getGameObject(currLoc.getDir(d));
 
                 if (nextLoc == null) { System.out.println("You cannot move " + d.name().toLowerCase() + "."); }
                 else {

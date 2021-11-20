@@ -33,22 +33,26 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
     // --------------------------------------------------------------------------------------
 
     @Override public T visitId_entry(EditorGrammarParser.Id_entryContext ctx) {
-        StoryCompiler.get().id = ctx.ID().toString();
+        String id = ctx.ID().toString();
+        StoryCompiler.get().id = id.substring(1, id.length()-1);
         return visitChildren(ctx);
     }
 
     @Override public T visitLoc_entry(EditorGrammarParser.Loc_entryContext ctx) {
-        StoryCompiler.get().location = ctx.ID().toString();
+        String loc = ctx.ID().toString();
+        StoryCompiler.get().location = loc.substring(1, loc.length()-1);
         return visitChildren(ctx);
     }
 
     @Override public T visitName_entry(EditorGrammarParser.Name_entryContext ctx) {
-        StoryCompiler.get().name = ctx.STRING().toString();
+        String name = ctx.STRING().toString();
+        StoryCompiler.get().name = name.substring(1, name.length()-1);
         return visitChildren(ctx);
     }
 
     @Override public T visitDesc_entry(EditorGrammarParser.Desc_entryContext ctx) {
-        StoryCompiler.get().desc = ctx.STRING().toString();
+        String desc = ctx.STRING().toString();
+        StoryCompiler.get().desc = desc.substring(1, desc.length()-1);
         return visitChildren(ctx);
     }
 
@@ -69,13 +73,15 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
 
     @Override public T visitDir_entry(EditorGrammarParser.Dir_entryContext ctx) {
         for (int i = 0; i < ctx.DIR_KEY().size(); i++) {
+            String room = ctx.ID(i).toString();
+            room = room.substring(1, room.length()-1);
             switch(ctx.DIR_KEY(i).toString().substring(0,1)) {
-                case("N"): StoryCompiler.get().n = ctx.ID(i).toString() ;break;
-                case("S"): StoryCompiler.get().s = ctx.ID(i).toString() ;break;
-                case("E"): StoryCompiler.get().e = ctx.ID(i).toString() ;break;
-                case("W"): StoryCompiler.get().w = ctx.ID(i).toString() ;break;
-                case("U"): StoryCompiler.get().u = ctx.ID(i).toString() ;break;
-                case("D"): StoryCompiler.get().d = ctx.ID(i).toString() ;break;
+                case("N"): StoryCompiler.get().n = room ;break;
+                case("S"): StoryCompiler.get().s = room ;break;
+                case("E"): StoryCompiler.get().e = room ;break;
+                case("W"): StoryCompiler.get().w = room ;break;
+                case("U"): StoryCompiler.get().u = room ;break;
+                case("D"): StoryCompiler.get().d = room ;break;
             }
         }
         return visitChildren(ctx);
