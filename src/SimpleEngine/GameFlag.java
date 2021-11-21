@@ -3,20 +3,22 @@ package SimpleEngine;
 public class GameFlag {
 
     private String id;
-    private boolean set;
+    private int set;
 
-    public GameFlag(String id) {
+    public GameFlag(String id, int val) {
         this.id = id;
-        set = false;
+        set = val;
     }
 
     public String getId() {
         return this.id;
     }
 
-    public void set() { this.set = true; }
+    public void set() { this.set = 1; }
 
-    public void unset() { this.set = false; }
+    public void set(int val) { this.set = val; }
 
-    public boolean isSet() { return this.set; }
+    public void unset() { this.set = 0; }
+
+    public boolean isSet() { return this.set > 0; }
 }

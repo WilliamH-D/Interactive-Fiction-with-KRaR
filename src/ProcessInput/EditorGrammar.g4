@@ -13,12 +13,13 @@ LB_CURLY: '{';       RB_CURLY: '}';
 LB_ROUND: '(';       RB_ROUND: ')';
 QUOTES: '"';         UNDERSCORE: '_';
 COMMA: ',';          DOT: '.';
-PLUS: '+';           Minus: '-';
+PLUS: '+';           MINUS: '-';
+BAR: '|';             ANDPERSAND: '&';
 
 TRUE: 'TRUE';        FALSE: 'FALSE';
-AND1: 'AND';         AND2: '&&';
-OR1: 'OR';           OR2: '||';
-NOR1: 'NOT';         NOT2: '!';
+AND: ANDPERSAND ANDPERSAND;
+OR: BAR BAR;
+NOT:'!';
 
 STRING: QUOTES (~('"'))* QUOTES;
 ID: LB_SHARP ALPHANUMERIC RB_SHARP;
@@ -26,15 +27,18 @@ ID: LB_SHARP ALPHANUMERIC RB_SHARP;
 OBJECT_TAG: LB_SQUARE 'object' RB_SQUARE;
 ROOM_TAG: LB_SQUARE 'room' RB_SQUARE;
 ACTION_TAG: LB_SQUARE 'action' RB_SQUARE;
-COND_TAG: '_COND_';
-EFFECT_TAG: '_EFF_';
+FLAG_TAG: LB_SQUARE 'flag' RB_SQUARE;
+COND_TAG: UNDERSCORE 'COND';
+EFFECT_TAG: UNDERSCORE 'EFF';
 
 ID_KEY: 'ID' COLON;
 LOC_KEY: 'LOCATION' COLON;
 NAME_KEY: 'NAME' COLON;
 DESC_KEY: 'DESC' COLON;
 FLAGS_KEY: 'FLAGS' COLON;
+FLAG_KEY: 'FLAG' COLON;
 VALUES_KEY: 'VALUES' COLON;
+VALUE_KEY: 'VALUE' COLON;
 DIR_KEY: 'N' COLON | 'S' COLON | 'E' COLON | 'W' COLON | 'U' COLON | 'D' COLON;
 ACTION_KEY: 'ACTION' COLON;
 
@@ -67,9 +71,6 @@ num_float: NUMERIC DOT NUMERIC | DOT NUMERIC;
 number: num_int | num_float;
 bool: TRUE | FALSE;
 var: number | STRING | bool;
-and: AND1 | AND2;
-or: OR1 | OR2;
-not: NOR1 | NOT2;
 value: LB_ROUND alpha_numeric COLON var RB_ROUND;
 flag: UNDERSCORE alpha_numeric;
 
@@ -78,9 +79,11 @@ loc_entry: LOC_KEY ID SEMICOLON;
 name_entry: NAME_KEY STRING SEMICOLON;
 desc_entry: DESC_KEY STRING SEMICOLON | /* epsilon */;
 flags_entry: FLAGS_KEY flag (COMMA flag)* SEMICOLON | /* epsilon */;
-values_entry: VALUES_KEY value (COMMA value)* SEMICOLON| /* epsilon */;
+values_entry: VALUES_KEY value (COMMA value)* SEMICOLON | /* epsilon */;
 dir_entry: DIR_KEY ID SEMICOLON (DIR_KEY ID SEMICOLON)*;
 action_entry: ACTION_KEY action_block SEMICOLON;
+global_flag_entry: FLAG_KEY flag SEMICOLON;
+flag_val_entry: VALUE_KEY num_int SEMICOLON | /* epsilon*/;
 
 object: OBJECT_TAG LB_CURLY
             id_entry
@@ -103,19 +106,25 @@ action: ACTION_TAG LB_CURLY
         id_entry
         action_entry
         RB_CURLY;
+
+global_flag: FLAG_TAG LB_CURLY
+        global_flag_entry
+        flag_val_entry
+        RB_CURLY;
+
 action_block: effects
               | effects action_block
               | conditional
               | conditional action_block;
 conditional: COND_TAG LB_SHARP conditions RB_SHARP LB_CURLY action_block RB_CURLY;
 conditions: condition_aux
-            | condition_aux and conditions
-            | condition_aux or conditions;
+            | condition_aux AND conditions
+            | condition_aux OR conditions;
 effects: effect_aux
          | effect_aux effects;
 effect_aux: EFFECT_TAG LB_SHARP effect RB_SHARP;
 condition_aux: condition
-               | not condition;
+               | NOT condition;
 
 // condition bodies
 prsa_cond: PRSA_COND ALPHA (COMMA ALPHA)*;
@@ -138,7 +147,7 @@ condition: prsa_cond|prso_cond|prsi_cond|here_cond|andflags_cond|orflags_cond|ha
 // effect bodies
 tell_eff: TELL_EFF STRING;
 goto_eff: GOTO_EFF ID;
-setflag_eff: SETFLAG_EFF flag;
+setflag_eff: SETFLAG_EFF flag | SETFLAG_EFF flag COMMA num_int;
 remflag_eff: REMFLAG_EFF flag;
 take_eff: TAKE_EFF ID;
 place_eff: PLACE_EFF ID COMMA ID;
@@ -147,4 +156,4 @@ set_eff: SET_EFF alpha_numeric COMMA var;
 effect: tell_eff|goto_eff|setflag_eff|remflag_eff|take_eff|place_eff|set_eff;
 
 // Entry point
-game_grammar: room (room | object | action)*;
+game_grammar: room (room | object | action | global_flag)*;

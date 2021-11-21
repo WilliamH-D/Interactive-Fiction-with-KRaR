@@ -1,9 +1,5 @@
 package SimpleEngine.Actions;
 
-public class Effect extends Action {
+public abstract class Effect extends ActionPart {
 
-    @Override
-    public boolean performAction() {
-        return true;
-    }
 }

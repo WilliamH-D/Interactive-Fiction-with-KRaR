@@ -75,6 +75,8 @@ public class GameObject {
 
     public boolean hasVariable(String varName) { return this.variables.containsKey(varName); }
 
+    public void setVariable(String varName, String value) { addVariable(varName, value); }
+
     public boolean action() {
         if (GameState.existsAction(this.id)) {
             return GameState.getAction(this.id).executeAction();

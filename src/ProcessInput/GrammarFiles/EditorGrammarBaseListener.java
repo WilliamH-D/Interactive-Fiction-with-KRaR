@@ -88,42 +88,6 @@ public class EditorGrammarBaseListener implements EditorGrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAnd(EditorGrammarParser.AndContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitAnd(EditorGrammarParser.AndContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterOr(EditorGrammarParser.OrContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitOr(EditorGrammarParser.OrContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterNot(EditorGrammarParser.NotContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitNot(EditorGrammarParser.NotContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterValue(EditorGrammarParser.ValueContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -244,6 +208,30 @@ public class EditorGrammarBaseListener implements EditorGrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterGlobal_flag_entry(EditorGrammarParser.Global_flag_entryContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitGlobal_flag_entry(EditorGrammarParser.Global_flag_entryContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFlag_val_entry(EditorGrammarParser.Flag_val_entryContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFlag_val_entry(EditorGrammarParser.Flag_val_entryContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterObject(EditorGrammarParser.ObjectContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -275,6 +263,18 @@ public class EditorGrammarBaseListener implements EditorGrammarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAction(EditorGrammarParser.ActionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterGlobal_flag(EditorGrammarParser.Global_flagContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitGlobal_flag(EditorGrammarParser.Global_flagContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

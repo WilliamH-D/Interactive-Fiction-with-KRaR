@@ -1,6 +1,10 @@
 package SimpleEngine.Actions;
 
-public abstract class Action {
+import java.util.List;
 
-    public abstract boolean performAction();
+public class Action {
+
+    private List<ActionPart> actions;
+
+
 }

@@ -11,7 +11,7 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface EditorGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link EditorGrammarParser#num_int}.
+	 * Visit a parse tree produced by {@link EditorGrammarParser#alpha_numeric}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
@@ -46,24 +46,6 @@ public interface EditorGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitVar(EditorGrammarParser.VarContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link EditorGrammarParser#and}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAnd(EditorGrammarParser.AndContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link EditorGrammarParser#or}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitOr(EditorGrammarParser.OrContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link EditorGrammarParser#not}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitNot(EditorGrammarParser.NotContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link EditorGrammarParser#value}.
 	 * @param ctx the parse tree
@@ -125,6 +107,18 @@ public interface EditorGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAction_entry(EditorGrammarParser.Action_entryContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#global_flag_entry}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitGlobal_flag_entry(EditorGrammarParser.Global_flag_entryContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#flag_val_entry}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFlag_val_entry(EditorGrammarParser.Flag_val_entryContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link EditorGrammarParser#object}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -142,6 +136,12 @@ public interface EditorGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitAction(EditorGrammarParser.ActionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#global_flag}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitGlobal_flag(EditorGrammarParser.Global_flagContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link EditorGrammarParser#action_block}.
 	 * @param ctx the parse tree

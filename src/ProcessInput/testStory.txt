@@ -23,3 +23,23 @@
     FLAGS: _takeable, _container;
     VALUES: (capacity: 50);
 }
+
+[action]
+{
+    ID: <SMALLBOX>;
+    ACTION:
+        _COND<PRSA: TAKE, OBTAIN>
+        {
+            _COND<HERE: <LIVINGROOM>>
+            {
+                _EFF<TAKE: <SMALLBOX>>
+                _EFF<SETFLAG: _BOXTAKEN, 1>
+            }
+        };
+}
+
+[flag]
+{
+    FLAG: _BOXTAKEN;
+    VALUE: 0;
+}

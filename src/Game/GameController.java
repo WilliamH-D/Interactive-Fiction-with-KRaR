@@ -1,9 +1,8 @@
 package Game;
 
 import SimpleEngine.GameObject;
-import SimpleEngine.GameRoom;
+import SimpleEngine.GameState;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GameController {
@@ -26,6 +25,7 @@ public class GameController {
 
     private GameController() {
         this.player = new Player();
+        GameState.addGameObject(this.player);
         this.north = new GameObject("NORTH");
         this.south = new GameObject("SOUTH");
         this.east = new GameObject("EAST");

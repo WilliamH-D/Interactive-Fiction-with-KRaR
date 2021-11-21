@@ -4,6 +4,9 @@ import ProcessInput.GrammarFiles.EditorGrammarParser;
 import ProcessInput.GrammarFiles.EditorGrammarVisitor;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements EditorGrammarVisitor<T> {
 
     @Override public T visitAlpha_numeric(EditorGrammarParser.Alpha_numericContext ctx) { return visitChildren(ctx); }
@@ -18,12 +21,6 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
 
     @Override public T visitVar(EditorGrammarParser.VarContext ctx) { return visitChildren(ctx); }
 
-    @Override public T visitAnd(EditorGrammarParser.AndContext ctx) { return visitChildren(ctx); }
-
-    @Override public T visitOr(EditorGrammarParser.OrContext ctx) { return visitChildren(ctx); }
-
-    @Override public T visitNot(EditorGrammarParser.NotContext ctx) { return visitChildren(ctx); }
-
     @Override public T visitValue(EditorGrammarParser.ValueContext ctx) { return visitChildren(ctx); }
 
     @Override public T visitFlag(EditorGrammarParser.FlagContext ctx) { return visitChildren(ctx); }
@@ -34,13 +31,13 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
 
     @Override public T visitId_entry(EditorGrammarParser.Id_entryContext ctx) {
         String id = ctx.ID().toString();
-        StoryCompiler.get().id = id.substring(1, id.length()-1);
+        StoryCompiler.get().id = id.substring(1, id.length()-1).toUpperCase();
         return visitChildren(ctx);
     }
 
     @Override public T visitLoc_entry(EditorGrammarParser.Loc_entryContext ctx) {
         String loc = ctx.ID().toString();
-        StoryCompiler.get().location = loc.substring(1, loc.length()-1);
+        StoryCompiler.get().location = loc.substring(1, loc.length()-1).toUpperCase();
         return visitChildren(ctx);
     }
 
@@ -58,7 +55,7 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
 
     @Override public T visitFlags_entry(EditorGrammarParser.Flags_entryContext ctx) {
         for (int i = 0; i < ctx.flag().size(); i++) {
-            StoryCompiler.get().flags.add("_" + ctx.flag(i).alpha_numeric().getText());
+            StoryCompiler.get().flags.add("_" + ctx.flag(i).alpha_numeric().getText().toUpperCase());
         }
         return visitChildren(ctx);
     }
@@ -91,6 +88,16 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
         return visitChildren(ctx);
     }
 
+    @Override public T visitGlobal_flag_entry(EditorGrammarParser.Global_flag_entryContext ctx) {
+        StoryCompiler.get().flagName = "_" + ctx.flag().alpha_numeric().getText().toUpperCase();
+        return visitChildren(ctx);
+    }
+
+    @Override public T visitFlag_val_entry(EditorGrammarParser.Flag_val_entryContext ctx) {
+        StoryCompiler.get().flagValue = Integer.parseInt(ctx.num_int().NUMERIC().getText());
+        return visitChildren(ctx);
+    }
+
     // --------------------------------------------------------------------------------------
     //                                OBJECT / ROOM / ACTION
     // --------------------------------------------------------------------------------------
@@ -113,59 +120,214 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
         return children;
     }
 
+    @Override
+    public T visitGlobal_flag(EditorGrammarParser.Global_flagContext ctx) {
+        T children = visitChildren(ctx);
+        StoryCompiler.get().compileFlag();
+        return children;
+    }
+
     // --------------------------------------------------------------------------------------
     //                                  ACTION PARTS
     // --------------------------------------------------------------------------------------
     
     @Override public T visitAction_block(EditorGrammarParser.Action_blockContext ctx) { return visitChildren(ctx); }
     
-    @Override public T visitConditional(EditorGrammarParser.ConditionalContext ctx) { return visitChildren(ctx); }
+    @Override public T visitConditional(EditorGrammarParser.ConditionalContext ctx) {
+        StoryCompiler.get().newConditional();
+        T children = visitChildren(ctx);
+        StoryCompiler.get().compileConditional();
+        return children;
+    }
     
-    @Override public T visitConditions(EditorGrammarParser.ConditionsContext ctx) { return visitChildren(ctx); }
+    @Override public T visitConditions(EditorGrammarParser.ConditionsContext ctx) {
+        T children = visitChildren(ctx);
+        boolean isAnd = (ctx.invokingState == 2);
+        boolean isOr = (ctx.invokingState == 3);
+        StoryCompiler.get().compileConditions(isAnd, isOr);
+        // If this node's parent is a Conditional node, then we need to add the current built condition to the conditions list
+        if (ctx.parent instanceof EditorGrammarParser.ConditionalContext) {
+            StoryCompiler.get().addConditional();
+        }
+        return children;
+    }
     
     @Override public T visitEffects(EditorGrammarParser.EffectsContext ctx) { return visitChildren(ctx); }
     
     @Override public T visitEffect_aux(EditorGrammarParser.Effect_auxContext ctx) { return visitChildren(ctx); }
     
-    @Override public T visitCondition_aux(EditorGrammarParser.Condition_auxContext ctx) { return visitChildren(ctx); }
+    @Override public T visitCondition_aux(EditorGrammarParser.Condition_auxContext ctx) {
+        if (ctx.invokingState == 2) {
+            StoryCompiler.get().setIsNot();
+        }
+        return visitChildren(ctx);
+    }
     
-    @Override public T visitPrsa_cond(EditorGrammarParser.Prsa_condContext ctx) { return visitChildren(ctx); }
+    @Override public T visitPrsa_cond(EditorGrammarParser.Prsa_condContext ctx) {
+        T children = visitChildren(ctx);
+        Set<String> objs = new HashSet<>();
+        for (int i = 0; i < ctx.ALPHA().size(); i++) {
+            objs.add(ctx.ALPHA(i).getText());
+        }
+        StoryCompiler.get().compilePRSACond(objs);
+        return children;
+    }
     
-    @Override public T visitPrso_cond(EditorGrammarParser.Prso_condContext ctx) { return visitChildren(ctx); }
+    @Override public T visitPrso_cond(EditorGrammarParser.Prso_condContext ctx) {
+        T children = visitChildren(ctx);
+        Set<String> objs = new HashSet<>();
+        for (int i = 0; i < ctx.ID().size(); i++) {
+            objs.add(ctx.ID(i).getText().substring(1, ctx.ID(i).getText().length()-1));
+        }
+        StoryCompiler.get().compilePRSOCond(objs);
+        return children;
+    }
     
-    @Override public T visitPrsi_cond(EditorGrammarParser.Prsi_condContext ctx) { return visitChildren(ctx); }
+    @Override public T visitPrsi_cond(EditorGrammarParser.Prsi_condContext ctx) {
+        T children = visitChildren(ctx);
+        Set<String> objs = new HashSet<>();
+        for (int i = 0; i < ctx.ID().size(); i++) {
+            objs.add(ctx.ID(i).getText().substring(1, ctx.ID(i).getText().length()-1));
+        }
+        StoryCompiler.get().compilePRSICond(objs);
+        return children;
+    }
     
-    @Override public T visitHere_cond(EditorGrammarParser.Here_condContext ctx) { return visitChildren(ctx); }
+    @Override public T visitHere_cond(EditorGrammarParser.Here_condContext ctx) {
+        T children = visitChildren(ctx);
+        Set<String> locs = new HashSet<>();
+        for (int i = 0; i < ctx.ID().size(); i++) {
+            locs.add(ctx.ID(i).getText().substring(1, ctx.ID(i).getText().length()-1));
+        }
+        StoryCompiler.get().compileHereCond(locs);
+        return children;
+    }
     
-    @Override public T visitAndflags_cond(EditorGrammarParser.Andflags_condContext ctx) { return visitChildren(ctx); }
+    @Override public T visitAndflags_cond(EditorGrammarParser.Andflags_condContext ctx) {
+        T children = visitChildren(ctx);
+        Set<String> flags = new HashSet<>();
+        for (int i = 0; i < ctx.flag().size(); i++) {
+            flags.add(ctx.flag(i).getText());
+        }
+        StoryCompiler.get().compileAndFlagsCond(flags);
+        return children;
+    }
     
-    @Override public T visitOrflags_cond(EditorGrammarParser.Orflags_condContext ctx) { return visitChildren(ctx); }
+    @Override public T visitOrflags_cond(EditorGrammarParser.Orflags_condContext ctx) {
+        T children = visitChildren(ctx);
+        Set<String> flags = new HashSet<>();
+        for (int i = 0; i < ctx.flag().size(); i++) {
+            flags.add(ctx.flag(i).getText());
+        }
+        StoryCompiler.get().compileOrFlagsCond(flags);
+        return children;
+    }
     
-    @Override public T visitHaveitem_cond(EditorGrammarParser.Haveitem_condContext ctx) { return visitChildren(ctx); }
+    @Override public T visitHaveitem_cond(EditorGrammarParser.Haveitem_condContext ctx) {
+        T children = visitChildren(ctx);
+        Set<String> objs = new HashSet<>();
+        for (int i = 0; i < ctx.ID().size(); i++) {
+            objs.add(ctx.ID(i).getText().substring(1, ctx.ID(i).getText().length()-1));
+        }
+        StoryCompiler.get().compileHaveItemCond(objs);
+        return children;
+    }
     
-    @Override public T visitHaveitems_cond(EditorGrammarParser.Haveitems_condContext ctx) { return visitChildren(ctx); }
+    @Override public T visitHaveitems_cond(EditorGrammarParser.Haveitems_condContext ctx) {
+        T children = visitChildren(ctx);
+        Set<String> objs = new HashSet<>();
+        for (int i = 0; i < ctx.ID().size(); i++) {
+            objs.add(ctx.ID(i).getText().substring(1, ctx.ID(i).getText().length()-1));
+        }
+        StoryCompiler.get().compileHaveItemsCond(objs);
+        return children;
+    }
     
-    @Override public T visitEquals_cond(EditorGrammarParser.Equals_condContext ctx) { return visitChildren(ctx); }
+    @Override public T visitEquals_cond(EditorGrammarParser.Equals_condContext ctx) {
+        T children = visitChildren(ctx);
+        if (ctx.invokingState == 1) {
+            StoryCompiler.get().compileEqualsCond(ctx.alpha_numeric(0).getText(), ctx.value().getText(), false);
+        }
+        else {
+            StoryCompiler.get().compileEqualsCond(ctx.alpha_numeric(0).getText(), ctx.alpha_numeric(1).getText(), true);
+        }
+        return children;
+    }
     
-    @Override public T visitGt_cond(EditorGrammarParser.Gt_condContext ctx) { return visitChildren(ctx); }
+    @Override public T visitGt_cond(EditorGrammarParser.Gt_condContext ctx) {
+        T children = visitChildren(ctx);
+        if (ctx.invokingState == 1) {
+            StoryCompiler.get().compileGTCond(ctx.alpha_numeric(0).getText(), ctx.value().getText(), false);
+        }
+        else {
+            StoryCompiler.get().compileGTCond(ctx.alpha_numeric(0).getText(), ctx.alpha_numeric(1).getText(), true);
+        }
+        return children;
+    }
     
-    @Override public T visitLt_cond(EditorGrammarParser.Lt_condContext ctx) { return visitChildren(ctx); }
+    @Override public T visitLt_cond(EditorGrammarParser.Lt_condContext ctx) {
+        T children = visitChildren(ctx);
+        if (ctx.invokingState == 1) {
+            StoryCompiler.get().compileLTCond(ctx.alpha_numeric(0).getText(), ctx.value().getText(), false);
+        }
+        else {
+            StoryCompiler.get().compileLTCond(ctx.alpha_numeric(0).getText(), ctx.alpha_numeric(1).getText(), true);
+        }
+        return children;
+    }
     
     @Override public T visitCondition(EditorGrammarParser.ConditionContext ctx) { return visitChildren(ctx); }
     
-    @Override public T visitTell_eff(EditorGrammarParser.Tell_effContext ctx) { return visitChildren(ctx); }
+    @Override public T visitTell_eff(EditorGrammarParser.Tell_effContext ctx) {
+        T children = visitChildren(ctx);
+        String text = ctx.STRING().getText();
+        StoryCompiler.get().compileTellEff(text.substring(1, text.length()-1));
+        return children;
+    }
     
-    @Override public T visitGoto_eff(EditorGrammarParser.Goto_effContext ctx) { return visitChildren(ctx); }
+    @Override public T visitGoto_eff(EditorGrammarParser.Goto_effContext ctx) {
+        T children = visitChildren(ctx);
+        String loc = ctx.ID().getText();
+        StoryCompiler.get().compileGotoEff(loc.substring(1, loc.length()-1));
+        return children;
+    }
     
-    @Override public T visitSetflag_eff(EditorGrammarParser.Setflag_effContext ctx) { return visitChildren(ctx); }
+    @Override public T visitSetflag_eff(EditorGrammarParser.Setflag_effContext ctx) {
+        T children = visitChildren(ctx);
+        int val = 1;
+        if (ctx.invokingState == 2) {
+            val = Integer.parseInt(ctx.num_int().getText());
+        }
+        StoryCompiler.get().compileSetFlagEff(ctx.flag().getText(), val);
+        return children;
+    }
     
-    @Override public T visitRemflag_eff(EditorGrammarParser.Remflag_effContext ctx) { return visitChildren(ctx); }
+    @Override public T visitRemflag_eff(EditorGrammarParser.Remflag_effContext ctx) {
+        T children = visitChildren(ctx);
+        StoryCompiler.get().compileRemFlagEff(ctx.flag().getText());
+        return children;
+    }
     
-    @Override public T visitTake_eff(EditorGrammarParser.Take_effContext ctx) { return visitChildren(ctx); }
+    @Override public T visitTake_eff(EditorGrammarParser.Take_effContext ctx) {
+        T children = visitChildren(ctx);
+        String obj = ctx.ID().getText();
+        StoryCompiler.get().compileTakeEff(obj.substring(1, obj.length()-1));
+        return children;
+    }
     
-    @Override public T visitPlace_eff(EditorGrammarParser.Place_effContext ctx) { return visitChildren(ctx); }
+    @Override public T visitPlace_eff(EditorGrammarParser.Place_effContext ctx) {
+        T children = visitChildren(ctx);
+        String obj = ctx.ID(0).getText();
+        String loc = ctx.ID(1).getText();
+        StoryCompiler.get().compilePlaceEff(obj.substring(1, obj.length()-1), loc.substring(1, loc.length()-1));
+        return children;
+    }
     
-    @Override public T visitSet_eff(EditorGrammarParser.Set_effContext ctx) { return visitChildren(ctx); }
+    @Override public T visitSet_eff(EditorGrammarParser.Set_effContext ctx) {
+        T children = visitChildren(ctx);
+        StoryCompiler.get().compileSetEff(ctx.alpha_numeric().getText(), ctx.var().getText());
+        return children;
+    }
     
     @Override public T visitEffect(EditorGrammarParser.EffectContext ctx) { return visitChildren(ctx); }
 
