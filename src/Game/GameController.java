@@ -47,7 +47,7 @@ public class GameController {
     public static void setPRSO(GameObject o) { GC.PRSO = o; }
     public static void setPRSI(GameObject o) { GC.PRSI = o; }
     public static void setPRSA(String s) {
-        if (s == null) { GC.PRSA = s; }
+        if (s == null) { GC.PRSA = null; }
         else { GC.PRSA = s.toUpperCase(); }
     }
     public static void setLemmas(List<String> lemmas) { GC.lemmas = lemmas; }

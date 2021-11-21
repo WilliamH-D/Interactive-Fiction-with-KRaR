@@ -42,4 +42,12 @@ public class GameState {
     public static boolean existsAction(String id) {
         return actions.containsKey(id);
     }
+
+    public static void setChildren() {
+        for (GameObject obj : gameObjects.values()) {
+            if (obj.getParent() != null) {
+                gameObjects.get(obj.getParent()).addChild(obj.getId());
+            }
+        }
+    }
 }

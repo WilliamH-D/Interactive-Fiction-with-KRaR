@@ -221,13 +221,13 @@ public class ConstructCommand {
     }
 
     public static void main(String[] args) throws IOException {
-        GameController.instantiateGameController();
+        /*GameController.instantiateGameController();
         processInput("attack the green monster with the shiny blade");
         ExecuteCommand.executeAction();
         processInput("With the rusty   weapon, attack the red creature.");
         ExecuteCommand.executeAction();
         processInput("move.");
-        ExecuteCommand.executeAction();
-        //StoryCompiler.get().compile("D:\\Documents\\University\\Part II Project\\Interactive Fiction with KRaR\\src\\ProcessInput\\testStory.txt");
+        ExecuteCommand.executeAction();*/
+        StoryCompiler.get().compile("D:\\Documents\\University\\Part II Project\\Interactive Fiction with KRaR\\src\\ProcessInput\\testStory.txt");
     }
 }

@@ -10,7 +10,7 @@ public class GameObject {
     private String desc;
     private Set<String> synonyms; // Generate automatically when parsing input rather than defining here (can be difference for enhanced engine)
     private Set<String> flags; // Static flags for this object
-    private HashMap<String, Object> variables;
+    private HashMap<String, String> variables;
 
     public GameObject(String n) {
         this.id = n.toUpperCase();
@@ -69,9 +69,11 @@ public class GameObject {
 
     public boolean hasFlag(String flag) { return this.flags.contains(flag); }
 
-    public void addVariable(String varName, Object varValue) { this.variables.put(varName, varValue); }
+    public void addVariable(String varName, String varValue) { this.variables.put(varName, varValue); }
 
-    public Object getVariable(String varName) { return this.variables.get(varName); }
+    public String getVariable(String varName) { return this.variables.get(varName); }
+
+    public boolean hasVariable(String varName) { return this.variables.containsKey(varName); }
 
     public boolean action() {
         if (GameState.existsAction(this.id)) {

@@ -37,7 +37,7 @@ public class StoryCompiler {
     String location; // Parent
 
     List<String> flags;
-    Map<String, Object> values;
+    Map<String, String> values;
 
     private StoryCompiler() {
         flags = new ArrayList<>();
@@ -60,9 +60,11 @@ public class StoryCompiler {
         ParseTree parseTree = parser.game_grammar();
         EditorGrammarVisitor visitor = new GrammarVisitor();
         visitor.visit(parseTree);
+
+        GameState.setChildren();
     }
 
-    public void resetVars() {
+    private void resetVars() {
         id = null;
 
         n = null;
@@ -81,7 +83,7 @@ public class StoryCompiler {
         values = new HashMap<>();
     }
 
-    public void compileRoom() {
+    void compileRoom() {
         System.out.println();
         System.out.println("Compile Room:");
         System.out.println("ID: " + id);
@@ -108,7 +110,7 @@ public class StoryCompiler {
         resetVars();
     }
 
-    public void compileObject() {
+    void compileObject() {
         System.out.println();
         System.out.println("Compile Object:");
         System.out.println("ID: " + id);
@@ -127,7 +129,7 @@ public class StoryCompiler {
             obj.setFlag(flag);
         }
         for (Map.Entry value : values.entrySet()) {
-            obj.addVariable(value.getKey().toString(), value.getValue());
+            obj.addVariable(value.getKey().toString(), value.getValue().toString());
         }
 
         GameState.addGameObject(obj);
@@ -135,13 +137,13 @@ public class StoryCompiler {
         resetVars();
     }
 
-    public void compileAction() {
+    void compileAction() {
         System.out.println();
         System.out.println("Compile Action:");
 
         // ToDo: Implement actions
 
-        GameAction action = new GameAction(id);
+        GameAction action = new GameAction(id, null);
 
         GameState.addAction(action);
         resetVars();

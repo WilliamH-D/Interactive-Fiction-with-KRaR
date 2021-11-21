@@ -7,7 +7,9 @@ import SimpleEngine.GameState;
 public class Player extends GameObject {
 
     public Player() {
+
         super("PLAYER");
+        GameState.addGameObject(this);
     }
 
     public GameRoom getLocation() {

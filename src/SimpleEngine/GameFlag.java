@@ -13,4 +13,10 @@ public class GameFlag {
     public String getId() {
         return this.id;
     }
+
+    public void set() { this.set = true; }
+
+    public void unset() { this.set = false; }
+
+    public boolean isSet() { return this.set; }
 }
