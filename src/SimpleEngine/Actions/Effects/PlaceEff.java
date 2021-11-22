@@ -17,7 +17,7 @@ public class PlaceEff extends Effect {
     @Override
     public boolean performAction() {
         // Check given itemID is an actual item
-        if (!(GameState.getGameObject(itemID) == null)) {
+        if (GameState.getGameObject(itemID) == null) {
             System.err.println(itemID + " IS NOT A VALID OBJECT!");
             return false;
         }
@@ -26,9 +26,9 @@ public class PlaceEff extends Effect {
             System.err.println(itemID + " IS NOT IN THE PLAYER'S INVENTORY!");
             return false;
         }
-        if (!locID.toUpperCase().equals("CURR")) {
+        if (!locID.toUpperCase().equals("HERE")) {
             // Check given location exists
-            if (!(GameState.getGameObject(locID) == null)) {
+            if (GameState.getGameObject(locID) == null) {
                 System.err.println(locID + " IS NOT A VALID LOCATION!");
                 return false;
             }

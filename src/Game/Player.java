@@ -18,5 +18,8 @@ public class Player extends GameObject {
 
     public void movePlayer(GameRoom loc) {
         this.setParent(loc.getId());
+        if (Main.continueLooping) {
+            GameController.describeLocation();
+        }
     }
 }

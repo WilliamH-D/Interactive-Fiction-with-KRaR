@@ -14,7 +14,7 @@ public class RemFlagEff extends Effect {
     @Override
     public boolean performAction() {
         // Check given flagID is an actual flag
-        if (!(GameState.getFlag(flagID) == null)) {
+        if (GameState.getFlag(flagID) == null) {
             System.err.println(flagID + " IS NOT A VALID FLAG!");
             return false;
         }

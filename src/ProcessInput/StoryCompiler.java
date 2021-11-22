@@ -1,5 +1,6 @@
 package ProcessInput;
 
+import Game.GameController;
 import ProcessInput.GrammarFiles.EditorGrammarLexer;
 import ProcessInput.GrammarFiles.EditorGrammarParser;
 import ProcessInput.GrammarFiles.EditorGrammarVisitor;
@@ -40,6 +41,8 @@ public class StoryCompiler {
 
     String flagName;
     int flagValue;
+
+    boolean playerStartSet = false;
 
 
     private StoryCompiler() {
@@ -110,8 +113,17 @@ public class StoryCompiler {
         room.setWest(w);
         room.setUp(u);
         room.setDown(d);
+        room.setName(name);
+        room.setDesc(desc);
+
+        System.out.println("New Room: " + room);
 
         GameState.addGameObject(room);
+
+        if (!playerStartSet) {
+            GameController.getPlayer().movePlayer(room);
+            playerStartSet = true;
+        }
 
         resetVars();
     }
@@ -184,7 +196,8 @@ public class StoryCompiler {
         isNot = false;
     }
 
-    public void setIsNot() { isNot = true; }
+    public void setIsNot() {
+        isNot = true; }
 
     private Condition popLastCondition() {
         return conditions.remove(conditions.size()-1);
@@ -240,7 +253,8 @@ public class StoryCompiler {
 
         System.out.println();
         System.out.println("Compiling Conditions:");
-        System.out.println("FIRST TEST: " + test);
+        System.out.println("TEST: " + test);
+        System.out.println("TES IS NOT: " + test.not());
         System.out.println("CONTINUATION: " + currConditionPart);
         System.out.println("IsAND: " + isAnd);
         System.out.println("IsOR: " + isOr);

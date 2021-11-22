@@ -18,21 +18,24 @@ public class GameAction {
     public String getId() { return this.id; }
 
     public boolean executeAction() {
+        //System.out.println("EXECUTING ACTION:");
         boolean actionPerformed = false;
-        boolean conditionalEntered = false;
 
         for (ActionPart action : actions) {
+            //System.out.println("Iterating into ActionPart: " + action.toString());
             // If conditions are satisfied, for each action in this conditional's contents:
             if (action instanceof Conditional) {
                 // The action is a conditional
-                if (!conditionalEntered && action.performAction()) {
+                if (action.performAction()) {
+                    //System.out.println("Conditional Succeeded!");
                     actionPerformed = true;
                     // Don't want to enter any more conditionals once this one has had a successful effect performed
-                    conditionalEntered = true;
+                    break;
                 }
             }
-            else if (!conditionalEntered && action.performAction()) {
+            else if (action.performAction()) {
                 // Effects will always be performed
+                //System.out.println("Effect Succeeded!");
                 actionPerformed = true;
             }
         }

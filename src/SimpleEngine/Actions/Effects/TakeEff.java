@@ -2,6 +2,7 @@ package SimpleEngine.Actions.Effects;
 
 import Game.GameController;
 import SimpleEngine.Actions.Effect;
+import SimpleEngine.GameObject;
 import SimpleEngine.GameState;
 
 public class TakeEff extends Effect {
@@ -15,11 +16,12 @@ public class TakeEff extends Effect {
     @Override
     public boolean performAction() {
         // Check given itemID is an actual item
-        if (!(GameState.getGameObject(itemID) == null)) {
+        if (GameState.getGameObject(itemID) == null) {
             System.err.println(itemID + " IS NOT A VALID OBJECT!");
             return false;
         }
         GameState.getGameObject(itemID).setParent(GameController.getPlayer().getId());
+        System.out.println("You took the " + GameState.getGameObject(itemID).getName() + ".");
         return true;
     }
 }

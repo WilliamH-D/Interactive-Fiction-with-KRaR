@@ -14,6 +14,7 @@ public class GameObject {
 
     public GameObject(String n) {
         this.id = n.toUpperCase();
+        this.name = n.toLowerCase();
         this.children = new HashSet<>();
         this.flags = new HashSet<>();
         this.variables = new HashMap<>();
@@ -21,7 +22,19 @@ public class GameObject {
 
     public String getId() { return this.id; }
 
-    public void setParent(String parent) { this.parent = parent; }
+    public void setParent(String parent) {
+        if (this.parent != null) {
+            GameObject oldParent = GameState.getGameObject(this.parent);
+            if (oldParent != null) {
+                oldParent.removeChild(this.id);
+            }
+        }
+        GameObject newParent = GameState.getGameObject(parent);
+        if (newParent != null) {
+            newParent.addChild(this.id);
+        }
+        this.parent = parent;
+    }
 
     public String getParent() { return this.parent; }
 

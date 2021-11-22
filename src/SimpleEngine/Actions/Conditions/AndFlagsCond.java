@@ -19,9 +19,11 @@ public class AndFlagsCond extends ConditionTest {
     public boolean satisfied() {
         for (String flagID : flags) {
             if (!GameState.getFlag(flagID).isSet()) {
+                System.out.println("ANDFLAGSCOND: Flag " + flagID + " not set - NOT SATISFIED");
                 return false;
             }
         }
+        System.out.println("ANDFLAGSCOND: All flags set - SATISFIED");
         return true;
     }
 }

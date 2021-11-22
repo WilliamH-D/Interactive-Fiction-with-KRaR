@@ -142,8 +142,8 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
     
     @Override public T visitConditions(EditorGrammarParser.ConditionsContext ctx) {
         T children = visitChildren(ctx);
-        boolean isAnd = (ctx.invokingState == 2);
-        boolean isOr = (ctx.invokingState == 3);
+        boolean isAnd = (ctx.children.contains(ctx.AND()));
+        boolean isOr = (ctx.children.contains(ctx.OR()));
         StoryCompiler.get().compileConditions(isAnd, isOr);
         // If this node's parent is a Conditional node, then we need to add the current built condition to the conditions list
         if (ctx.parent instanceof EditorGrammarParser.ConditionalContext) {
@@ -157,7 +157,7 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
     @Override public T visitEffect_aux(EditorGrammarParser.Effect_auxContext ctx) { return visitChildren(ctx); }
     
     @Override public T visitCondition_aux(EditorGrammarParser.Condition_auxContext ctx) {
-        if (ctx.invokingState == 2) {
+        if (ctx.children.contains(ctx.NOT())) {
             StoryCompiler.get().setIsNot();
         }
         return visitChildren(ctx);
@@ -245,7 +245,7 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
     
     @Override public T visitEquals_cond(EditorGrammarParser.Equals_condContext ctx) {
         T children = visitChildren(ctx);
-        if (ctx.invokingState == 1) {
+        if (ctx.children.contains(ctx.value())) {
             StoryCompiler.get().compileEqualsCond(ctx.alpha_numeric(0).getText(), ctx.value().getText(), false);
         }
         else {
@@ -256,7 +256,7 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
     
     @Override public T visitGt_cond(EditorGrammarParser.Gt_condContext ctx) {
         T children = visitChildren(ctx);
-        if (ctx.invokingState == 1) {
+        if (ctx.children.contains(ctx.value())) {
             StoryCompiler.get().compileGTCond(ctx.alpha_numeric(0).getText(), ctx.value().getText(), false);
         }
         else {
@@ -267,7 +267,7 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
     
     @Override public T visitLt_cond(EditorGrammarParser.Lt_condContext ctx) {
         T children = visitChildren(ctx);
-        if (ctx.invokingState == 1) {
+        if (ctx.children.contains(ctx.value())) {
             StoryCompiler.get().compileLTCond(ctx.alpha_numeric(0).getText(), ctx.value().getText(), false);
         }
         else {
@@ -295,7 +295,7 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
     @Override public T visitSetflag_eff(EditorGrammarParser.Setflag_effContext ctx) {
         T children = visitChildren(ctx);
         int val = 1;
-        if (ctx.invokingState == 2) {
+        if (ctx.children.contains(ctx.num_int())) {
             val = Integer.parseInt(ctx.num_int().getText());
         }
         StoryCompiler.get().compileSetFlagEff(ctx.flag().getText(), val);

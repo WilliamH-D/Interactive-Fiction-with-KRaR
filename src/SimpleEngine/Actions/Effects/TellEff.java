@@ -12,7 +12,6 @@ public class TellEff extends Effect {
 
     @Override
     public boolean performAction() {
-        System.out.println();
         System.out.println(text);
         return true;
     }

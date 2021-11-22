@@ -34,9 +34,13 @@ public class NLPPipeline {
         System.setErr(err);
     }
 
+    public static void init() {
+        instance = new NLPPipeline();
+    }
+
     public static NLPPipeline get() {
         if (instance == null) {
-            instance = new NLPPipeline();
+            init();
         }
         return instance;
     }

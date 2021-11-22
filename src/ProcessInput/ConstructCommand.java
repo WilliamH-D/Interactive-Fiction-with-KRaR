@@ -2,6 +2,8 @@ package ProcessInput;
 
 import Game.GameController;
 import SimpleEngine.GameObject;
+import SimpleEngine.GameRoom;
+import SimpleEngine.GameState;
 import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader;
 import edu.stanford.nlp.coref.data.CorefChain;
 import edu.stanford.nlp.ling.*;
@@ -22,21 +24,16 @@ public class ConstructCommand {
         verbSynonyms = new HashMap<>();
         for (String verb : ExecuteCommand.getVerbs()) {
             verbSynonyms.put(verb, verb);
-            System.out.println("Verb: " + verb);
         }
         System.out.println();
-        /*verbSynonyms.put("attack", "attack");
-        verbSynonyms.put("fight", "attack");
-        verbSynonyms.put("strike", "attack");
-        verbSynonyms.put("ambush", "attack");
-        verbSynonyms.put("assault", "attack");
-        verbSynonyms.put("burn", "attack");*/
     }
 
     public static void processInput(String userIn) {
         GameController.setPRSA(null);
         GameController.setPRSO(null);
         GameController.setPRSI(null);
+
+        userIn = userIn.toUpperCase();
 
         // create a document object
         CoreDocument document = new CoreDocument(userIn);
@@ -56,17 +53,38 @@ public class ConstructCommand {
         // annotate the document
         NLPPipeline.getPipeline().annotate(preprocessedDocument);
 
-        System.out.println(userIn);
-
         sentence = preprocessedDocument.sentences().get(0);
         lemmas = sentence.lemmas();
         GameController.setLemmas(lemmas);
 
         // Find the main verb of the input
         for (String verb : verbSynonyms.keySet()) {
-            if (lemmas.contains(verb)) {
+            String[] parts = verb.split(" ");
+            if (parts.length == 1 && lemmas.contains(verb)) {
                 GameController.setPRSA(verbSynonyms.get(verb));
                 break;
+            }
+            else {
+                // Verb has multiple parts
+                boolean breakLoop = false;
+                for (int i = 0; i < lemmas.size() - parts.length + 1; i++) {
+                    if (lemmas.get(i).equals(parts[0])) {
+                        boolean match = true;
+                        for (int j = 1; j < parts.length; j++) {
+                            if (!lemmas.get(i+j).equals(parts[j])) {
+                                match = false;
+                            }
+                        }
+                        if (match) {
+                            // Verb found
+                            GameController.setPRSA(verbSynonyms.get(verb));
+                            breakLoop = true;
+                        }
+                    }
+                }
+                if (breakLoop) {
+                    break;
+                }
             }
         }
 
@@ -74,8 +92,6 @@ public class ConstructCommand {
         int numArgs = 0;
         if (lemmas.contains("item1")) { numArgs++; }
         if (lemmas.contains("item2")) { numArgs++; }
-
-
 
         // Only inspect dependency parse if there are two arguments (determine which is direct and which is indirect)
         if (numArgs == 2) {
@@ -124,24 +140,35 @@ public class ConstructCommand {
 
         int count = 0;
         for (GameObject obj : objects) {
-            String[] parts = obj.getId().split(" ");
+
+            CoreDocument objName = new CoreDocument(obj.getName().toUpperCase());
+            NLPPipeline.getPipeline().annotate(objName);
+            CoreSentence sentence = objName.sentences().get(0);
+            List<String> nameLemmas = sentence.lemmas();
+
+            String[] parts = nameLemmas.toArray(new String[0]);
+            //System.out.println();
+            //System.out.println("PARTS: " + Arrays.toString(parts));
             for (int i = 0; i < tokens.size(); i++) {
                 if (i + parts.length <= tokens.size()) {
                     boolean match = true;
                     for (int j = 0; j < parts.length; j++) {
 
-                        if (objSynonyms.containsKey(tokens.get(i+j).getLemma())) {
-                            if (!objSynonyms.get(tokens.get(i+j).getLemma()).equals(parts[j])) {
+                        if (objSynonyms.containsKey(tokens.get(i+j).getLemma().toUpperCase())) {
+                            if (!objSynonyms.get(tokens.get(i+j).getLemma().toUpperCase()).equals(parts[j].toUpperCase())) {
                                 match = false;
                             }
                         }
+                        else if (!tokens.get(i+j).getLemma().toUpperCase().equals(parts[j].toUpperCase())) {
+                            //System.out.println("LEMMA: " + tokens.get(i+j).getLemma().toUpperCase() + ", PART: " + parts[j].toUpperCase());
+                            match = false;
+                        }
                         else {
-                            if (!tokens.get(i+j).getLemma().toUpperCase().equals(parts[j])) {
-                                match = false;
-                            }
+                            //System.out.println("MATCH!!! LEMMA: " + tokens.get(i+j).getLemma().toUpperCase() + ", PART: " + parts[j].toUpperCase());
                         }
                     }
                     if (match) {
+                        //System.out.println("MATCH ADDED TO RETS");
                         rets[count] = obj;
                         count++;
                         matchedObjects.add(parts);
@@ -195,17 +222,11 @@ public class ConstructCommand {
     private static HashMap<String, String> getObjSynonyms() {
         //Todo: Generate automatically
         HashMap<String, String> synonyms = new HashMap<>();
-        synonyms.put("monster", "goblin");
-        synonyms.put("goblin", "goblin");
-        synonyms.put("creature", "goblin");
-        synonyms.put("sword", "sword");
-        synonyms.put("weapon", "sword");
-        synonyms.put("blade", "sword");
         return synonyms;
     }
 
+    // Return a list of all Game Objects that can be referenced by the player in their current location
     private static ArrayList<GameObject> getAllowedObjects() {
-        //Todo: Generate automatically
         ArrayList<GameObject> objects = new ArrayList<>();
         objects.add(GameController.northObj());
         objects.add(GameController.southObj());
@@ -213,21 +234,50 @@ public class ConstructCommand {
         objects.add(GameController.westObj());
         objects.add(GameController.upObj());
         objects.add(GameController.downObj());
-        /*objects.add(new GameObject("green goblin"));
-        objects.add(new GameObject("red goblin"));
-        objects.add(new GameObject("rusty sword"));
-        objects.add(new GameObject("shiny sword"));*/
-        return objects;
-    }
 
-    public static void main(String[] args) throws IOException {
-        /*GameController.instantiateGameController();
-        processInput("attack the green monster with the shiny blade");
-        ExecuteCommand.executeAction();
-        processInput("With the rusty   weapon, attack the red creature.");
-        ExecuteCommand.executeAction();
-        processInput("move.");
-        ExecuteCommand.executeAction();*/
-        StoryCompiler.get().compile("D:\\Documents\\University\\Part II Project\\Interactive Fiction with KRaR\\src\\ProcessInput\\testStory.txt");
+        GameRoom currLocation = GameController.getPlayer().getLocation();
+        //System.out.println("CURRENT LOCATION: " + currLocation.getId());
+
+        // Perform a depth first search on the game tree using the current location as the root
+        Stack<GameObject> stack = new Stack<>();
+        stack.push(currLocation);
+        while (!stack.empty()) {
+            GameObject obj = stack.pop();
+            if (!obj.equals(GameController.getPlayer()) && !obj.equals(currLocation)) {
+                objects.add(obj);
+            }
+            for (String child : obj.getChildren()) {
+                //System.out.println("PUSHING CHILD <" + child + "> OF <" + obj.getId() + ">");
+                stack.push(GameState.getGameObject(child));
+            }
+        }
+
+        if (currLocation.getNorth() != null) {
+            objects.add(GameState.getGameObject(currLocation.getNorth()));
+        }
+        if (currLocation.getSouth() != null) {
+            objects.add(GameState.getGameObject(currLocation.getSouth()));
+        }
+        if (currLocation.getEast() != null) {
+            objects.add(GameState.getGameObject(currLocation.getEast()));
+        }
+        if (currLocation.getWest() != null) {
+            objects.add(GameState.getGameObject(currLocation.getWest()));
+        }
+        if (currLocation.getUp() != null) {
+            objects.add(GameState.getGameObject(currLocation.getUp()));
+        }
+        if (currLocation.getDown() != null) {
+            objects.add(GameState.getGameObject(currLocation.getDown()));
+        }
+
+        /*System.out.println("///////////////");
+        System.out.println("OBJECTS:");
+        for (GameObject object : objects) {
+            System.out.println(object.getId());
+        }
+        System.out.println("///////////////");*/
+
+        return objects;
     }
 }
