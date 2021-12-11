@@ -1,0 +1,110 @@
+Create a location:
+
+[room]
+{
+    ID: <ROOMID>;
+    N: <NORTHID>;      //optional//
+    S: <SOUTHID>;      //optional//
+    E: <EASTID>;       //optional//
+    W: <WESTID>;       //optional//
+    U: <UPID>;         //optional//
+    D: <DOWNID>;       //optional//
+    NAME: "text-name";
+    DESC: "text-desc"; //optional//
+}
+
+----------------------------------------------------------------------------------------------------------------
+
+Create an object:
+
+[object]
+{
+    ID: <OBJECTID>;
+    LOC: <LOCID>;
+    NAME: "text-name";
+    DESC: "text-desc";                                             //optional//
+    FLAGS: _flag1, ..., _flagn;                                    //optional//
+    VALUES: (var1: num/string/bool), ..., (varn: num/string/bool); //optional//
+}
+
+----------------------------------------------------------------------------------------------------------------
+
+Create a global flag:
+
+[flag]
+{
+    FLAG: _FLAG;
+    VALUE: int; //optional//
+}
+
+----------------------------------------------------------------------------------------------------------------
+
+Create an object action:
+
+[action]
+{
+    ID: <OBJECTID>;
+    ACTION: [ACTIONS];  //see below//
+}
+
+----------------------------------------------------------------------------------------------------------------
+
+ACTIONS:
+
+ - An ACTION block is a list of at least one CONDITIONAL, or EFFECT.
+ - A CONDITIONAL has a set of PRE-CONDITIONS that must be met for its nested ACTION block to be entered.
+ - If a CONDITIONAL's nested ACTION block is entered, then every action after the CONDITIONAL is ignored.
+ - An EFFECT has an impact on the state of the game.
+ - EFFECT's one after another are chained, but EFFECT's after a taken CONDITIONAL are ignored.
+
+
+
+ CONDITIONAL:
+
+ COND<PRE-CONDITIONS>
+ {
+    [ACTIONS]
+ }
+ [ACTIONS] //ignored if nested ACTION block is taken//
+
+
+
+ PRE-CONDITIONS:
+
+ - PRE-CONDITIONS can be ANDed together with 'PRE-CONDTION && PRE-CONDITIONS' (if ANDing, do not OR)
+ - PRE-CONDITIONS can be ORed together with 'PRE-CONDITION || PRE-CONDITIONS' (if ORing, do not AND)
+ - PRE-CONDITIONS can be NOTed with '!PRE-CONDITION'
+
+ PRSA: VERB1, ..., VERBn
+ PRSO: <OBJECTID1>, ..., <OBJECTIDn>
+ PRSI: <OBJECTID1>, ..., <OBJECTIDn>
+ ANDFLAGS: _FLAG1, ..., _FLAGn
+ ORFLAGS: _FLAG1, ..., _FLAGn
+ HAVEITEM: <OBJECTID1>, ..., <OBJECTIDn>
+ HAVEITEMS: <OBJECTID1>, ..., <OBJECTIDn>
+ EQUALS: var, num/string/bool
+ EQUALS: var1, var2
+ GT: var, num/string/bool
+ GT: var1, var2
+ LT: var, num/string/bool
+ LT: var1, var2
+
+
+
+ EFFECT:
+
+ EFF<STATE-CHANGE>
+ [ACTIONS]
+
+
+
+ STATE-CHANGES:
+
+ TELL: "text"
+ GOTO: <ROOMID>
+ SETFLAG: _FLAG               //defaults to 1
+ SETFLAG: _FLAG, int
+ REMFLAG: _FLAG
+ TAKE: <OBJECTID>
+ PLACE: <OBJECTID>, <ROOMID>
+ SET: var, num/string/bool

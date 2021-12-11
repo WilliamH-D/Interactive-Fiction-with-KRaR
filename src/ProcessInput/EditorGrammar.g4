@@ -1,11 +1,6 @@
 grammar EditorGrammar;
 
 // Lexing rules (Must be upper case)
-ALPHA: [a-zA-Z]+;
-NUMERIC: [0-9]+;
-ALPHANUMERIC: [a-zA-Z0-9]+;
-WHITESPACE: [ \n\t\r]+ -> skip;
-
 COLON: ':';          SEMICOLON: ';';
 LB_SQUARE: '[';      RB_SQUARE: ']';
 LB_SHARP: '<';       RB_SHARP: '>';
@@ -21,6 +16,14 @@ AND: ANDPERSAND ANDPERSAND;
 OR: BAR BAR;
 NOT:'!';
 
+COND_TAG: 'COND';
+EFFECT_TAG: 'EFF';
+
+ALPHA: [a-zA-Z]+;
+NUMERIC: [0-9]+;
+ALPHANUMERIC: [a-zA-Z0-9]+;
+WHITESPACE: [ \n\t\r]+ -> skip;
+
 STRING: QUOTES (~('"'))* QUOTES;
 ID: LB_SHARP ALPHANUMERIC RB_SHARP;
 
@@ -28,8 +31,6 @@ OBJECT_TAG: LB_SQUARE 'object' RB_SQUARE;
 ROOM_TAG: LB_SQUARE 'room' RB_SQUARE;
 ACTION_TAG: LB_SQUARE 'action' RB_SQUARE;
 FLAG_TAG: LB_SQUARE 'flag' RB_SQUARE;
-COND_TAG: UNDERSCORE 'COND';
-EFFECT_TAG: UNDERSCORE 'EFF';
 
 ID_KEY: 'ID' COLON;
 LOC_KEY: 'LOCATION' COLON;
@@ -112,16 +113,14 @@ global_flag: FLAG_TAG LB_CURLY
         flag_val_entry
         RB_CURLY;
 
-action_block: effects
-              | effects action_block
+action_block: effect_aux
+              | effect_aux action_block
               | conditional
               | conditional action_block;
 conditional: COND_TAG LB_SHARP conditions RB_SHARP LB_CURLY action_block RB_CURLY;
 conditions: condition_aux
             | condition_aux AND conditions
             | condition_aux OR conditions;
-effects: effect_aux
-         | effect_aux effects;
 effect_aux: EFFECT_TAG LB_SHARP effect RB_SHARP;
 condition_aux: condition
                | NOT condition;
@@ -135,6 +134,7 @@ andflags_cond: ANDFLAGS_COND flag (COMMA flag)*;
 orflags_cond: ORFLAGS_COND flag (COMMA flag)*;
 haveitem_cond: HAVEITEM_COND ID (COMMA ID)*;
 haveitems_cond: HAVEITEMS_COND ID (COMMA ID)*;
+// Use variables instead of values
 equals_cond: EQUALS_COND alpha_numeric COMMA value
              | EQUALS_COND alpha_numeric COMMA alpha_numeric;
 gt_cond: GT_COND alpha_numeric COMMA value

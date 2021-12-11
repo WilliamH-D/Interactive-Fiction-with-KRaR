@@ -28,19 +28,19 @@
 {
     ID: <SMALLBOX>;
     ACTION:
-        _COND<PRSA: TAKE, OBTAIN>
+        COND<PRSA: TAKE, OBTAIN>
         {
-            _COND<HERE: <LIVINGROOM> && !HAVEITEM: <SMALLBOX>>
+            COND<HERE: <LIVINGROOM> && !HAVEITEM: <SMALLBOX>>
             {
-                _EFF<TAKE: <SMALLBOX>>
-                _EFF<SETFLAG: _BOXTAKEN, 1>
+                EFF<TAKE: <SMALLBOX>>
+                EFF<SETFLAG: _BOXTAKEN, 1>
             }
         }
-        _COND<PRSA: DROP, PLACE && HAVEITEM: <SMALLBOX>>
+        COND<PRSA: DROP, PLACE && HAVEITEM: <SMALLBOX>>
         {
-            _EFF<PLACE: <SMALLBOX>, <HERE>>
-            _EFF<REMFLAG: _BOXTAKEN>
-            _EFF<TELL: "You placed the small box down.">
+            EFF<PLACE: <SMALLBOX>, <HERE>>
+            EFF<REMFLAG: _BOXTAKEN>
+            EFF<TELL: "You placed the small box down.">
         };
 }
 
