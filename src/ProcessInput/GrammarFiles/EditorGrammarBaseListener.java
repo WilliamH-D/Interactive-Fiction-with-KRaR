@@ -316,18 +316,6 @@ public class EditorGrammarBaseListener implements EditorGrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterEffects(EditorGrammarParser.EffectsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitEffects(EditorGrammarParser.EffectsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterEffect_aux(EditorGrammarParser.Effect_auxContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -419,6 +407,18 @@ public class EditorGrammarBaseListener implements EditorGrammarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitOrflags_cond(EditorGrammarParser.Orflags_condContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFlagvalue_cond(EditorGrammarParser.Flagvalue_condContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFlagvalue_cond(EditorGrammarParser.Flagvalue_condContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

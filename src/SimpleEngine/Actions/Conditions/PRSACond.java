@@ -15,6 +15,15 @@ public class PRSACond extends ConditionTest {
 
     @Override
     public boolean satisfied() {
-        return verbs.contains(GameController.getPRSA());
+        String[] split = GameController.getPRSA().split(" ");
+        if (split.length == 1) {
+            return verbs.contains(split[0]);
+        }
+        for (String s : split) {
+            if (verbs.contains(s)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

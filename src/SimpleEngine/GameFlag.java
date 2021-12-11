@@ -21,4 +21,6 @@ public class GameFlag {
     public void unset() { this.set = 0; }
 
     public boolean isSet() { return this.set > 0; }
+
+    public int getValue() { return this.set; }
 }

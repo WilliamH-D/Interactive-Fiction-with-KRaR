@@ -4,64 +4,57 @@ import Game.GameController;
 import SimpleEngine.GameObject;
 import SimpleEngine.GameRoom;
 import SimpleEngine.GameState;
-import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader;
-import edu.stanford.nlp.coref.data.CorefChain;
 import edu.stanford.nlp.ling.*;
-import edu.stanford.nlp.ie.util.*;
 import edu.stanford.nlp.pipeline.*;
 import edu.stanford.nlp.semgraph.*;
-import edu.stanford.nlp.trees.*;
-
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.util.*;
 
 public class ConstructCommand {
 
     public static Map<String, String> verbSynonyms;
     static {
-        verbSynonyms = new HashMap<>();
-        for (String verb : ExecuteCommand.getVerbs()) {
-            verbSynonyms.put(verb, verb);
-        }
-        System.out.println();
+        verbSynonyms = GameController.getVerbSynonyms();
     }
 
+
+
     public static void processInput(String userIn) {
+        // Initialise command parts to null
         GameController.setPRSA(null);
         GameController.setPRSO(null);
         GameController.setPRSI(null);
 
+        // Make the user's input upper case
         userIn = userIn.toUpperCase();
 
-        // create a document object
+        // Set up the NLP pipeline
         CoreDocument document = new CoreDocument(userIn);
-        // annotate the document
         NLPPipeline.getPipeline().annotate(document);
-
         CoreSentence sentence = document.sentences().get(0);
         List<String> lemmas = sentence.lemmas();
         List<String> posTags = sentence.posTags();
 
+        // Check to see if the input matches a special instruction
         if (specialCase(lemmas)) { return; }
 
+        // Pre-process user input to extract any direct and indirect object (replacing them with 'item1' and 'item2')
         GameObject[] rets = new GameObject[2];
         String preprocessed = preprocess(lemmas, posTags, rets);
 
+        // Create a new annotated pipeline for the pre-processed input
         CoreDocument preprocessedDocument = new CoreDocument(preprocessed);
-        // annotate the document
         NLPPipeline.getPipeline().annotate(preprocessedDocument);
-
         sentence = preprocessedDocument.sentences().get(0);
         lemmas = sentence.lemmas();
+
+        // Give the game controller access to the lemmas (words)
         GameController.setLemmas(lemmas);
 
         // Find the main verb of the input
         for (String verb : verbSynonyms.keySet()) {
-            String[] parts = verb.split(" ");
+            String[] parts = verb.toLowerCase().split(" ");
             if (parts.length == 1 && lemmas.contains(verb)) {
-                GameController.setPRSA(verbSynonyms.get(verb));
+                GameController.setPRSA(verb);
                 break;
             }
             else {
@@ -77,12 +70,32 @@ public class ConstructCommand {
                         }
                         if (match) {
                             // Verb found
-                            GameController.setPRSA(verbSynonyms.get(verb));
+                            GameController.setPRSA(verb);
                             breakLoop = true;
                         }
                     }
                 }
                 if (breakLoop) {
+                    break;
+                }
+            }
+        }
+
+        // Try non-command verbs if they exist
+        if (GameController.getPRSA() == null) {
+            for (int i=0; i<posTags.size(); i++) {
+                if (posTags.get(i).equals("VB") || posTags.get(i).equals("NNP")) {
+                    if (!lemmas.get(i).equals("item1") && !lemmas.get(i).equals("item2")) {
+                        StringBuilder verb = new StringBuilder(lemmas.get(i));
+                        for (int j = i + 1; j < posTags.size(); j++) {
+                            if (!posTags.get(j).equals("RB")) {
+                                break;
+                            } else {
+                                verb.append(" ").append(lemmas.get(j));
+                            }
+                        }
+                        GameController.setPRSA(verb.toString());
+                    }
                     break;
                 }
             }
@@ -128,6 +141,8 @@ public class ConstructCommand {
 
     public static String preprocess(List<String> lemmas, List<String> posTags, GameObject[] rets) {
         // Pre-process the users input and replace direct/indirect object with item1/item2
+        System.out.println("Lemmas: " + lemmas);
+        System.out.println("PosTags: " + posTags);
         ArrayList<LemmaPOS> tokens = new ArrayList<>();
         for (int i = 0; i < lemmas.size(); i++) {
             tokens.add(new LemmaPOS(lemmas.get(i), posTags.get(i)));
@@ -153,7 +168,10 @@ public class ConstructCommand {
                 if (i + parts.length <= tokens.size()) {
                     boolean match = true;
                     for (int j = 0; j < parts.length; j++) {
-
+                        if (posTags.get(i+j).equals("NN")) {
+                            match = false;
+                            continue;
+                        }
                         if (objSynonyms.containsKey(tokens.get(i+j).getLemma().toUpperCase())) {
                             if (!objSynonyms.get(tokens.get(i+j).getLemma().toUpperCase()).equals(parts[j].toUpperCase())) {
                                 match = false;
@@ -202,6 +220,7 @@ public class ConstructCommand {
             if (removeEnd.contains(i)) { inRemoveRegion = false; }
         }
         processedInput.delete(0, 1);
+        System.out.println("Pre-processed: " + processedInput.toString());
         return processedInput.toString();
     }
 

@@ -4,8 +4,9 @@ import SimpleEngine.GameObject;
 import SimpleEngine.GameRoom;
 import SimpleEngine.GameState;
 
-import java.util.List;
-import java.util.Stack;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
 
 public class GameController {
     private static GameController GC;
@@ -25,6 +26,8 @@ public class GameController {
     private GameObject up;
     private GameObject down;
 
+    private Map<String, String> verbSynonyms;
+
     private GameController() {
         this.player = new Player();
         GameState.addGameObject(this.player);
@@ -34,6 +37,7 @@ public class GameController {
         this.west = new GameObject("WEST");
         this.up = new GameObject("UP");
         this.down = new GameObject("DOWN");
+        this.verbSynonyms = constructSynonyms();
     }
 
     public static GameController instantiateGameController() {
@@ -137,4 +141,38 @@ public class GameController {
             }
         }
     }
+
+    private Map<String, String> constructSynonyms() {
+        // Sorted map based on how many words are in the verb
+        Map<String, String> synonyms = new TreeMap<>(
+            (s1, s2) -> {
+                int words1 = s1.split(" ").length;
+                int words2 = s2.split(" ").length;
+                if (words1 > words2) {
+                    return -1;
+                } else if (words1 < words2) {
+                    return 1;
+                } else {
+                    return s1.compareTo(s2);
+                }
+            }
+        );
+        try {
+            File myObj = new File("D:\\Documents\\University\\Part II Project\\Interactive Fiction with KRaR\\src\\ProcessInput\\verbSynonyms.txt");
+            Scanner myReader = new Scanner(myObj);
+            while (myReader.hasNextLine()) {
+                String[] verbs = myReader.nextLine().split(",");
+                for (String verb : verbs) {
+                    synonyms.put(verb.toUpperCase(), verbs[0].toUpperCase());
+                }
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        return synonyms;
+    }
+
+    public static Map<String, String> getVerbSynonyms() { return GC.verbSynonyms; }
 }

@@ -50,6 +50,7 @@ PRSI_COND: 'PRSI' COLON;
 HERE_COND: 'HERE' COLON;
 ANDFLAGS_COND: 'ANDFLAGS' COLON;
 ORFLAGS_COND: 'ORFLAGS' COLON;
+FLAGVALUE_COND: 'FLAGVALUE' COLON;
 HAVEITEM_COND: 'HAVEITEM' COLON;
 HAVEITEMS_COND: 'HAVEITEMS' COLON;
 EQUALS_COND: 'EQUALS' COLON;
@@ -132,17 +133,17 @@ prsi_cond: PRSI_COND ID (COMMA ID)*;
 here_cond: HERE_COND ID (COMMA ID)*;
 andflags_cond: ANDFLAGS_COND flag (COMMA flag)*;
 orflags_cond: ORFLAGS_COND flag (COMMA flag)*;
+flagvalue_cond: FLAGVALUE_COND flag COMMA num_int;
 haveitem_cond: HAVEITEM_COND ID (COMMA ID)*;
 haveitems_cond: HAVEITEMS_COND ID (COMMA ID)*;
-// Use variables instead of values
-equals_cond: EQUALS_COND alpha_numeric COMMA value
+equals_cond: EQUALS_COND alpha_numeric COMMA var
              | EQUALS_COND alpha_numeric COMMA alpha_numeric;
-gt_cond: GT_COND alpha_numeric COMMA value
+gt_cond: GT_COND alpha_numeric COMMA var
          | GT_COND alpha_numeric COMMA alpha_numeric;
-lt_cond: LT_COND alpha_numeric COMMA value
+lt_cond: LT_COND alpha_numeric COMMA var
          | LT_COND alpha_numeric COMMA alpha_numeric;
 
-condition: prsa_cond|prso_cond|prsi_cond|here_cond|andflags_cond|orflags_cond|haveitem_cond|haveitems_cond|equals_cond|gt_cond|lt_cond;
+condition: prsa_cond|prso_cond|prsi_cond|here_cond|andflags_cond|orflags_cond|flagvalue_cond|haveitem_cond|haveitems_cond|equals_cond|gt_cond|lt_cond;
 
 // effect bodies
 tell_eff: TELL_EFF STRING;

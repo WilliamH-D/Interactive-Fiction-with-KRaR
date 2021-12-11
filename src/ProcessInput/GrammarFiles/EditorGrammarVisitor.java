@@ -161,12 +161,6 @@ public interface EditorGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitConditions(EditorGrammarParser.ConditionsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link EditorGrammarParser#effects}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitEffects(EditorGrammarParser.EffectsContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link EditorGrammarParser#effect_aux}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -214,6 +208,12 @@ public interface EditorGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitOrflags_cond(EditorGrammarParser.Orflags_condContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#flagvalue_cond}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFlagvalue_cond(EditorGrammarParser.Flagvalue_condContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link EditorGrammarParser#haveitem_cond}.
 	 * @param ctx the parse tree

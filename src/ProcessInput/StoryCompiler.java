@@ -346,6 +346,15 @@ public class StoryCompiler {
         setTest(new OrFlagsCond(flags));
     }
 
+    public void compileFlagValue(String flag, int value) {
+        System.out.println();
+        System.out.println("Compiling FlagValueCond:");
+        System.out.println("FLAG: " + flag);
+        System.out.println("VALUE: " + value);
+
+        setTest(new FlagValueCond(flag, value));
+    }
+
     public void compilePRSACond(Set<String> verbs) {
         System.out.println();
         System.out.println("Compiling PRSACond:");

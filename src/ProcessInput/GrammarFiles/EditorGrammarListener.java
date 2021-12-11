@@ -258,16 +258,6 @@ public interface EditorGrammarListener extends ParseTreeListener {
 	 */
 	void exitConditions(EditorGrammarParser.ConditionsContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link EditorGrammarParser#effects}.
-	 * @param ctx the parse tree
-	 */
-	void enterEffects(EditorGrammarParser.EffectsContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link EditorGrammarParser#effects}.
-	 * @param ctx the parse tree
-	 */
-	void exitEffects(EditorGrammarParser.EffectsContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link EditorGrammarParser#effect_aux}.
 	 * @param ctx the parse tree
 	 */
@@ -347,6 +337,16 @@ public interface EditorGrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitOrflags_cond(EditorGrammarParser.Orflags_condContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#flagvalue_cond}.
+	 * @param ctx the parse tree
+	 */
+	void enterFlagvalue_cond(EditorGrammarParser.Flagvalue_condContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#flagvalue_cond}.
+	 * @param ctx the parse tree
+	 */
+	void exitFlagvalue_cond(EditorGrammarParser.Flagvalue_condContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link EditorGrammarParser#haveitem_cond}.
 	 * @param ctx the parse tree

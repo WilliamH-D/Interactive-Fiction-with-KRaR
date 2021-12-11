@@ -2,17 +2,15 @@ package ProcessInput;
 
 import Game.Direction;
 import Game.GameController;
-import SimpleEngine.GameObject;
 import SimpleEngine.GameRoom;
 import SimpleEngine.GameState;
-
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 public class ExecuteCommand {
 
     public static void executeAction() {
-        //System.out.println("PRSA: " + GameController.getPRSA() + ", PRSO: " + (GameController.getPRSO() == null ? "null" : GameController.getPRSO().getId()) + ", PRSI: " + (GameController.getPRSI() == null ? "null" : GameController.getPRSI().getId()));
+        System.out.println("PRSA: " + GameController.getPRSA() + ", PRSO: " + (GameController.getPRSO() == null ? "null" : GameController.getPRSO().getId()) + ", PRSI: " + (GameController.getPRSI() == null ? "null" : GameController.getPRSI().getId()));
 
         if (GameController.getPRSI() != null && GameController.getPRSI().action()) { return; }
         if (GameController.getPRSO() != null && GameController.getPRSO().action()) { return; }
@@ -21,9 +19,15 @@ public class ExecuteCommand {
     }
 
     public static boolean decodePRSA() {
+        String correctedVerb = GameController.getVerbSynonyms().get(GameController.getPRSA());
+        if (correctedVerb == null) { return false; }
+        else { correctedVerb = correctedVerb.toLowerCase(); }
+
+        if (!getVerbs().contains(correctedVerb)) { return false; }
+
         try {
             Class c = ExecuteCommand.class;
-            Method verbAction = c.getDeclaredMethod("cmd_" + GameController.getPRSA().toLowerCase().replace(' ', '_'));
+            Method verbAction = c.getDeclaredMethod("cmd_" + correctedVerb.replace(' ', '_'));
             return (boolean)verbAction.invoke(null);
         }
         catch (Exception e) {
@@ -120,7 +124,6 @@ public class ExecuteCommand {
         System.out.println("You look at nothing in particular...");
         return true;
     }
-
 
     public static ArrayList<String> getVerbs() {
         ArrayList<String> verbs = new ArrayList<>();
