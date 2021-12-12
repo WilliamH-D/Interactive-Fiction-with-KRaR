@@ -174,5 +174,52 @@ public class GameController {
         return synonyms;
     }
 
+    // Return a list of all Game Objects that can be referenced by the player in their current location
+    public static List<GameObject> getAllowedObjects() {
+        ArrayList<GameObject> objects = new ArrayList<>();
+        objects.add(GameController.northObj());
+        objects.add(GameController.southObj());
+        objects.add(GameController.eastObj());
+        objects.add(GameController.westObj());
+        objects.add(GameController.upObj());
+        objects.add(GameController.downObj());
+
+        GameRoom currLocation = GameController.getPlayer().getLocation();
+
+        // Perform a depth first search on the game tree using the current location as the root
+        Stack<GameObject> stack = new Stack<>();
+        stack.push(currLocation);
+        while (!stack.empty()) {
+            GameObject obj = stack.pop();
+            if (!obj.equals(GameController.getPlayer()) && !obj.equals(currLocation)) {
+                objects.add(obj);
+            }
+            for (String child : obj.getChildren()) {
+                stack.push(GameState.getGameObject(child));
+            }
+        }
+
+        if (currLocation.getNorth() != null) {
+            objects.add(GameState.getGameObject(currLocation.getNorth()));
+        }
+        if (currLocation.getSouth() != null) {
+            objects.add(GameState.getGameObject(currLocation.getSouth()));
+        }
+        if (currLocation.getEast() != null) {
+            objects.add(GameState.getGameObject(currLocation.getEast()));
+        }
+        if (currLocation.getWest() != null) {
+            objects.add(GameState.getGameObject(currLocation.getWest()));
+        }
+        if (currLocation.getUp() != null) {
+            objects.add(GameState.getGameObject(currLocation.getUp()));
+        }
+        if (currLocation.getDown() != null) {
+            objects.add(GameState.getGameObject(currLocation.getDown()));
+        }
+
+        return objects;
+    }
+
     public static Map<String, String> getVerbSynonyms() { return GC.verbSynonyms; }
 }

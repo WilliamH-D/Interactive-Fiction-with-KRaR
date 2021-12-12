@@ -1,6 +1,6 @@
 package Game;
 
-import ProcessInput.ConstructCommand;
+import ProcessInput.CommandConstructor;
 import ProcessInput.ExecuteCommand;
 import ProcessInput.NLPPipeline;
 import ProcessInput.StoryCompiler;
@@ -10,7 +10,8 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static boolean continueLooping = false;
+    static boolean continueLooping = false;
+    static CommandConstructor commandConstructor;
 
     // Initialise the game ready for running
     // If initialisation fails, print the stack trace and safely exit
@@ -39,6 +40,9 @@ public class Main {
         // Initialise the NLP pipeline
         NLPPipeline.init();
 
+        // Create the Command Constructor
+        Main.commandConstructor = new CommandConstructor();
+
         // Print a starting message
         System.out.println();
         System.out.println("==============================================================");
@@ -57,7 +61,9 @@ public class Main {
         System.out.println();
 
         // Process the user's input and update the game state (via executeAction())
-        ConstructCommand.processInput(userInput);
+        Main.commandConstructor.setAllowedObjects(GameController.getAllowedObjects());
+        Main.commandConstructor.setVerbSynonyms(GameController.getVerbSynonyms());
+        Main.commandConstructor.processInput(userInput);
         ExecuteCommand.executeAction();
         System.out.println();
     }

@@ -1,6 +1,9 @@
 look around
 look,observe,inspect
 take,pick up,obtain,get
+place in,put in,put,place inside,put inside
 place,put down,drop
 move,walk,run,go,traverse
+climb,go up,climb up
+descend,go down,climb down
 attack,fight,assault,hit,punch,kick

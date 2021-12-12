@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class ExecuteCommand {
 
     public static void executeAction() {
-        System.out.println("PRSA: " + GameController.getPRSA() + ", PRSO: " + (GameController.getPRSO() == null ? "null" : GameController.getPRSO().getId()) + ", PRSI: " + (GameController.getPRSI() == null ? "null" : GameController.getPRSI().getId()));
+        //System.out.println("PRSA: " + GameController.getPRSA() + ", PRSO: " + (GameController.getPRSO() == null ? "null" : GameController.getPRSO().getId()) + ", PRSI: " + (GameController.getPRSI() == null ? "null" : GameController.getPRSI().getId()));
 
         if (GameController.getPRSI() != null && GameController.getPRSI().action()) { return; }
         if (GameController.getPRSO() != null && GameController.getPRSO().action()) { return; }
@@ -18,10 +18,14 @@ public class ExecuteCommand {
         System.out.println("I didn't understand that input.");
     }
 
-    public static boolean decodePRSA() {
+    public static String getCorrectedVerb() {
         String correctedVerb = GameController.getVerbSynonyms().get(GameController.getPRSA());
-        if (correctedVerb == null) { return false; }
-        else { correctedVerb = correctedVerb.toLowerCase(); }
+        if (correctedVerb == null) { return null; }
+        else { return correctedVerb.toLowerCase(); }
+    }
+
+    public static boolean decodePRSA() {
+        String correctedVerb = getCorrectedVerb();
 
         if (!getVerbs().contains(correctedVerb)) { return false; }
 
