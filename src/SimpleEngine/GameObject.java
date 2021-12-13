@@ -76,6 +76,14 @@ public class GameObject {
 
     public String getDesc() { return this.desc; }
 
+    public void setSynonyms(Set<String> synonyms) {
+        if (synonyms != null) {
+            this.synonyms = new HashSet<>(synonyms);
+        }
+    }
+
+    public Set<String> getSynonyms() { return this.synonyms; }
+
     public void setFlag(String flag) { this.flags.add(flag); }
 
     public void removeFlag(String flag) { this.flags.remove(flag); }

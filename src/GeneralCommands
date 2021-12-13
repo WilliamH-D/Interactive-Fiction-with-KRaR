@@ -1,9 +1,9 @@
-look around  - look at surroundings
-look [observe, inspect] - look at something
-take [pick up, obtain, get] - pick up an item
+look around                                      - look at surroundings
+look [observe, inspect]                          - look at something
+take [pick up, obtain, get]                      - pick up an item
 place in [put in, place inside, put inside, put] - put an object inside something
-place [put down, drop] - place an item down
-move [walk, run, go, traverse] - move to an adjacent location
-climb [go up, climb up] - climb up something
-descend [go down, climb down] - climb down something
-attack [fight, assault, hit, punch, kick] - attack something
+place [put down, drop]                           - place an item down
+move [walk, run, go, traverse]                   - move to an adjacent location
+climb [go up, climb up]                          - climb up something
+descend [go down, climb down]                    - climb down something
+attack [fight, assault, hit, punch, kick]        - attack something

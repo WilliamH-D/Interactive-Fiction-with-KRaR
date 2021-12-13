@@ -3,6 +3,7 @@ package ProcessInput;
 import ProcessInput.GrammarFiles.EditorGrammarParser;
 import ProcessInput.GrammarFiles.EditorGrammarVisitor;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
+import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -53,6 +54,16 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
         return visitChildren(ctx);
     }
 
+    @Override
+    public T visitSynonyms_entry(EditorGrammarParser.Synonyms_entryContext ctx) {
+        Set<String> synonyms = new HashSet<>();
+        for (TerminalNode syn : ctx.STRING()) {
+            synonyms.add(syn.toString());
+        }
+        StoryCompiler.get().synonyms = synonyms;
+        return visitChildren(ctx);
+    }
+
     @Override public T visitFlags_entry(EditorGrammarParser.Flags_entryContext ctx) {
         for (int i = 0; i < ctx.flag().size(); i++) {
             StoryCompiler.get().flags.add("_" + ctx.flag(i).alpha_numeric().getText().toUpperCase());
@@ -68,19 +79,111 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
         return visitChildren(ctx);
     }
 
-    @Override public T visitDir_entry(EditorGrammarParser.Dir_entryContext ctx) {
-        for (int i = 0; i < ctx.DIR_KEY().size(); i++) {
-            String room = ctx.ID(i).toString();
-            room = room.substring(1, room.length()-1);
-            switch(ctx.DIR_KEY(i).toString().substring(0,1)) {
-                case("N"): StoryCompiler.get().n = room ;break;
-                case("S"): StoryCompiler.get().s = room ;break;
-                case("E"): StoryCompiler.get().e = room ;break;
-                case("W"): StoryCompiler.get().w = room ;break;
-                case("U"): StoryCompiler.get().u = room ;break;
-                case("D"): StoryCompiler.get().d = room ;break;
-            }
+    @Override
+    public T visitNorth_entry(EditorGrammarParser.North_entryContext ctx) {
+        if (ctx.children == null) {
+            return visitChildren(ctx);
         }
+
+        String room = ctx.ID().toString();
+        room = room.substring(1, room.length()-1);
+        StoryCompiler.get().n = room;
+
+        Set<String> flagValuePairs = new HashSet<>();
+        for (int i = 0; i < ctx.flag().size(); i++) {
+            flagValuePairs.add(ctx.flag(i).getText() + "=" + ctx.num_int(i).getText());
+        }
+        StoryCompiler.get().nconds = flagValuePairs;
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public T visitSouth_entry(EditorGrammarParser.South_entryContext ctx) {
+        if (ctx.children == null) {
+            return visitChildren(ctx);
+        }
+
+        String room = ctx.ID().toString();
+        room = room.substring(1, room.length()-1);
+        StoryCompiler.get().s = room;
+
+        Set<String> flagValuePairs = new HashSet<>();
+        for (int i = 0; i < ctx.flag().size(); i++) {
+            flagValuePairs.add(ctx.flag(i).getText() + "=" + ctx.num_int(i).getText());
+        }
+        StoryCompiler.get().sconds = flagValuePairs;
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public T visitEast_entry(EditorGrammarParser.East_entryContext ctx) {
+        if (ctx.children == null) {
+            return visitChildren(ctx);
+        }
+
+        String room = ctx.ID().toString();
+        room = room.substring(1, room.length()-1);
+        StoryCompiler.get().e = room;
+
+        Set<String> flagValuePairs = new HashSet<>();
+        for (int i = 0; i < ctx.flag().size(); i++) {
+            flagValuePairs.add(ctx.flag(i).getText() + "=" + ctx.num_int(i).getText());
+        }
+        StoryCompiler.get().econds = flagValuePairs;
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public T visitWest_entry(EditorGrammarParser.West_entryContext ctx) {
+        if (ctx.children == null) {
+            return visitChildren(ctx);
+        }
+
+        String room = ctx.ID().toString();
+        room = room.substring(1, room.length()-1);
+        StoryCompiler.get().w = room;
+
+        Set<String> flagValuePairs = new HashSet<>();
+        for (int i = 0; i < ctx.flag().size(); i++) {
+            flagValuePairs.add(ctx.flag(i).getText() + "=" + ctx.num_int(i).getText());
+        }
+        StoryCompiler.get().wconds = flagValuePairs;
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public T visitUp_entry(EditorGrammarParser.Up_entryContext ctx) {
+        if (ctx.children == null) {
+            return visitChildren(ctx);
+        }
+
+        String room = ctx.ID().toString();
+        room = room.substring(1, room.length()-1);
+        StoryCompiler.get().u = room;
+
+        Set<String> flagValuePairs = new HashSet<>();
+        for (int i = 0; i < ctx.flag().size(); i++) {
+            flagValuePairs.add(ctx.flag(i).getText() + "=" + ctx.num_int(i).getText());
+        }
+        StoryCompiler.get().uconds = flagValuePairs;
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public T visitDown_entry(EditorGrammarParser.Down_entryContext ctx) {
+        if (ctx.children == null) {
+            return visitChildren(ctx);
+        }
+
+        String room = ctx.ID().toString();
+        room = room.substring(1, room.length()-1);
+        StoryCompiler.get().d = room;
+
+        Set<String> flagValuePairs = new HashSet<>();
+        for (int i = 0; i < ctx.flag().size(); i++) {
+            flagValuePairs.add(ctx.flag(i).getText() + "=" + ctx.num_int(i).getText());
+        }
+        StoryCompiler.get().dconds = flagValuePairs;
         return visitChildren(ctx);
     }
 

@@ -2,15 +2,22 @@ Create a location:
 
 [room]
 {
-    ID: <ROOMID>;      - Unique ID
-    N: <NORTHID>;      - Location to the north (optional)
-    S: <SOUTHID>;      - Location to the south (optional)
-    E: <EASTID>;       - Location to the east (optional)
-    W: <WESTID>;       - Location to the west (optional)
-    U: <UPID>;         - Location above (optional)
-    D: <DOWNID>;       - Location below (optional)
-    NAME: "text-name"; - Display name of the room
-    DESC: "text-desc"; - Room description shown when entering room or looking around (optional)
+    ID: <ROOMID>;                            - Unique ID
+    N: <NORTHID>;                            - Location to the north (optional)
+    NCOND: _flag1[=int]?, ..., _flagn[=int]? - All conditions must be met to move north (optional)
+    S: <SOUTHID>;                            - Location to the south (optional)
+    SCOND: _flag1[=int]?, ..., _flagn[=int]? - All conditions must be met to move south (optional)
+    E: <EASTID>;                             - Location to the east (optional)
+    ECOND: _flag1[=int]?, ..., _flagn[=int]? - All conditions must be met to move east (optional)
+    W: <WESTID>;                             - Location to the west (optional)
+    WCOND: _flag1[=int]?, ..., _flagn[=int]? - All conditions must be met to move west (optional)
+    U: <UPID>;                               - Location above (optional)
+    UCOND: _flag1[=int]?, ..., _flagn[=int]? - All conditions must be met to move up (optional)
+    D: <DOWNID>;                             - Location below (optional)
+    DCOND: _flag1[=int]?, ..., _flagn[=int]? - All conditions must be met to move down (optional)
+    NAME: "text-name";                       - Display name of the room
+    DESC: "text-desc";                       - Room description shown when entering room or looking around (optional)
+    SYNS: "text-syn1", ..., "text-synn";     - List of synonyms for the room (optional)
 }
 
 ----------------------------------------------------------------------------------------------------------------
@@ -23,6 +30,7 @@ Create an object:
     LOC: <LOCID>;                                                  - Location of the object
     NAME: "text-name";                                             - Display name of the object
     DESC: "text-desc";                                             - Object description for when it's inspected (optional)
+    SYNS: "text-syn1", ..., "text-synn";                           - List of synonyms for the object (optional)
     FLAGS: _flag1, ..., _flagn;                                    - Bit flags (tags) for this object (optional)
     VALUES: (var1: num/string/bool), ..., (varn: num/string/bool); - Variables only accessible within this object (optional)
 }

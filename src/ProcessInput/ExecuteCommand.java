@@ -6,6 +6,7 @@ import SimpleEngine.GameRoom;
 import SimpleEngine.GameState;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Set;
 
 public class ExecuteCommand {
 
@@ -18,13 +19,13 @@ public class ExecuteCommand {
         System.out.println("I didn't understand that input.");
     }
 
-    public static String getCorrectedVerb() {
+    private static String getCorrectedVerb() {
         String correctedVerb = GameController.getVerbSynonyms().get(GameController.getPRSA());
         if (correctedVerb == null) { return null; }
         else { return correctedVerb.toLowerCase(); }
     }
 
-    public static boolean decodePRSA() {
+    private static boolean decodePRSA() {
         String correctedVerb = getCorrectedVerb();
 
         if (!getVerbs().contains(correctedVerb)) { return false; }
@@ -68,6 +69,25 @@ public class ExecuteCommand {
 
                 if (nextLoc == null) { System.out.println("You cannot move " + d.name().toLowerCase() + "."); }
                 else {
+                    // Check if there are any pre-conditions
+                    Set<String> conditions = null;
+                    switch (d) {
+                        case NORTH: conditions = currLoc.getNConds(); break;
+                        case SOUTH: conditions = currLoc.getSConds(); break;
+                        case EAST: conditions = currLoc.getEConds(); break;
+                        case WEST: conditions = currLoc.getWConds(); break;
+                        case UP: conditions = currLoc.getUConds(); break;
+                        case DOWN: conditions = currLoc.getDConds(); break;
+                    }
+                    if (conditions != null && conditions.size() > 0) {
+                        for (String cond : conditions) {
+                            String[] flagValuePair = cond.split("=");
+                            if (GameState.getFlag(flagValuePair[0]).getValue() != Integer.parseInt(flagValuePair[1])) {
+                                System.out.println("Something is preventing you from moving " + d.name().toLowerCase() + ".");
+                                return true;
+                            }
+                        }
+                    }
                     GameController.getPlayer().movePlayer(nextLoc);
                     //System.out.println("You moved " + d.name().toLowerCase() + " to the " + nextLoc.getName() + ".");
                 }
@@ -80,26 +100,86 @@ public class ExecuteCommand {
         GameRoom nextLoc = (GameRoom)GameController.getPRSO();
         // TODO: This is messy, can I fix it?
         if (currLoc.getNorth() != null && GameState.getGameObject(currLoc.getNorth()).equals(nextLoc)) {
+            Set<String> conditions = currLoc.getNConds();
+            if (conditions != null && conditions.size() > 0) {
+                for (String cond : conditions) {
+                    String[] flagValuePair = cond.split("=");
+                    if (GameState.getFlag(flagValuePair[0]).getValue() != Integer.parseInt(flagValuePair[1])) {
+                        System.out.println("Something is preventing you from moving north.");
+                        return true;
+                    }
+                }
+            }
             GameController.getPlayer().movePlayer(nextLoc);
             return true;
         }
         if (currLoc.getSouth() != null && GameState.getGameObject(currLoc.getSouth()).equals(nextLoc)) {
+            Set<String> conditions = currLoc.getSConds();
+            if (conditions != null && conditions.size() > 0) {
+                for (String cond : conditions) {
+                    String[] flagValuePair = cond.split("=");
+                    if (GameState.getFlag(flagValuePair[0]).getValue() != Integer.parseInt(flagValuePair[1])) {
+                        System.out.println("Something is preventing you from moving south.");
+                        return true;
+                    }
+                }
+            }
             GameController.getPlayer().movePlayer(nextLoc);
             return true;
         }
         if (currLoc.getEast() != null && GameState.getGameObject(currLoc.getEast()).equals(nextLoc)) {
+            Set<String> conditions = currLoc.getEConds();
+            if (conditions != null && conditions.size() > 0) {
+                for (String cond : conditions) {
+                    String[] flagValuePair = cond.split("=");
+                    if (GameState.getFlag(flagValuePair[0]).getValue() != Integer.parseInt(flagValuePair[1])) {
+                        System.out.println("Something is preventing you from moving east.");
+                        return true;
+                    }
+                }
+            }
             GameController.getPlayer().movePlayer(nextLoc);
             return true;
         }
         if (currLoc.getWest() != null && GameState.getGameObject(currLoc.getWest()).equals(nextLoc)) {
+            Set<String> conditions = currLoc.getWConds();
+            if (conditions != null && conditions.size() > 0) {
+                for (String cond : conditions) {
+                    String[] flagValuePair = cond.split("=");
+                    if (GameState.getFlag(flagValuePair[0]).getValue() != Integer.parseInt(flagValuePair[1])) {
+                        System.out.println("Something is preventing you from moving west.");
+                        return true;
+                    }
+                }
+            }
             GameController.getPlayer().movePlayer(nextLoc);
             return true;
         }
         if (currLoc.getUp() != null && GameState.getGameObject(currLoc.getUp()).equals(nextLoc)) {
+            Set<String> conditions = currLoc.getUConds();
+            if (conditions != null && conditions.size() > 0) {
+                for (String cond : conditions) {
+                    String[] flagValuePair = cond.split("=");
+                    if (GameState.getFlag(flagValuePair[0]).getValue() != Integer.parseInt(flagValuePair[1])) {
+                        System.out.println("Something is preventing you from moving up.");
+                        return true;
+                    }
+                }
+            }
             GameController.getPlayer().movePlayer(nextLoc);
             return true;
         }
         if (currLoc.getDown() != null && GameState.getGameObject(currLoc.getDown()).equals(nextLoc)) {
+            Set<String> conditions = currLoc.getDConds();
+            if (conditions != null && conditions.size() > 0) {
+                for (String cond : conditions) {
+                    String[] flagValuePair = cond.split("=");
+                    if (GameState.getFlag(flagValuePair[0]).getValue() != Integer.parseInt(flagValuePair[1])) {
+                        System.out.println("Something is preventing you from moving down.");
+                        return true;
+                    }
+                }
+            }
             GameController.getPlayer().movePlayer(nextLoc);
             return true;
         }
@@ -129,7 +209,8 @@ public class ExecuteCommand {
         return true;
     }
 
-    public static ArrayList<String> getVerbs() {
+    // Return a list of all of the general commands that can be executed in the case of
+    private static ArrayList<String> getVerbs() {
         ArrayList<String> verbs = new ArrayList<>();
         Class execcmd = ExecuteCommand.class;
         for (Method m : execcmd.getMethods()) {

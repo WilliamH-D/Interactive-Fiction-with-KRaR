@@ -25,14 +25,22 @@ public class StoryCompiler {
 
     // Directions
     String n;
+    Set<String> nconds;
     String s;
+    Set<String> sconds;
     String e;
+    Set<String> econds;
     String w;
+    Set<String> wconds;
     String u;
+    Set<String> uconds;
     String d;
+    Set<String> dconds;
 
     String name;
     String desc;
+
+    Set<String> synonyms;
 
     String location; // Parent
 
@@ -74,14 +82,22 @@ public class StoryCompiler {
         id = null;
 
         n = null;
+        nconds = null;
         s = null;
+        sconds = null;
         e = null;
+        econds = null;
         w = null;
+        wconds = null;
         u = null;
+        uconds = null;
         d = null;
+        dconds = null;
 
         name = null;
         desc = null;
+
+        synonyms = null;
 
         location = null;
 
@@ -97,24 +113,38 @@ public class StoryCompiler {
         System.out.println("Compile Room:");
         System.out.println("ID: " + id);
         System.out.println("N: " + n);
+        System.out.println("NCONDS: " + nconds);
         System.out.println("S: " + s);
+        System.out.println("SCONDS: " + sconds);
         System.out.println("E: " + e);
+        System.out.println("ECONDS: " + econds);
         System.out.println("W: " + w);
+        System.out.println("WCONDS: " + wconds);
         System.out.println("U: " + u);
+        System.out.println("UCONDS: " + uconds);
         System.out.println("D: " + d);
+        System.out.println("DCONDS: " + dconds);
         System.out.println("NAME: " + name);
         System.out.println("DESC: " + desc);
+        System.out.println("SYNS: " + synonyms);
 
         GameRoom room = new GameRoom(id);
         room.setParent("ROOT");
         room.setNorth(n);
+        room.setNConds(nconds);
         room.setSouth(s);
+        room.setSConds(sconds);
         room.setEast(e);
+        room.setEConds(econds);
         room.setWest(w);
+        room.setWConds(wconds);
         room.setUp(u);
+        room.setUConds(uconds);
         room.setDown(d);
+        room.setDConds(dconds);
         room.setName(name);
         room.setDesc(desc);
+        room.setSynonyms(synonyms);
 
         System.out.println("New Room: " + room);
 
@@ -135,6 +165,7 @@ public class StoryCompiler {
         System.out.println("LOCATION: " + location);
         System.out.println("NAME: " + name);
         System.out.println("DESC: " + desc);
+        System.out.println("SYNS: " + synonyms);
         System.out.println("FLAGS: " + Arrays.toString(flags.toArray()));
         System.out.println("VALUES: ");
         values.forEach((key, value) -> System.out.println("\t" + key + ":" + value));
@@ -143,6 +174,7 @@ public class StoryCompiler {
         obj.setParent(location);
         obj.setName(name);
         obj.setDesc(desc);
+        obj.setSynonyms(synonyms);
         for (String flag : flags) {
             obj.setFlag(flag);
         }

@@ -128,6 +128,16 @@ public interface EditorGrammarListener extends ParseTreeListener {
 	 */
 	void exitDesc_entry(EditorGrammarParser.Desc_entryContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#synonyms_entry}.
+	 * @param ctx the parse tree
+	 */
+	void enterSynonyms_entry(EditorGrammarParser.Synonyms_entryContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#synonyms_entry}.
+	 * @param ctx the parse tree
+	 */
+	void exitSynonyms_entry(EditorGrammarParser.Synonyms_entryContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link EditorGrammarParser#flags_entry}.
 	 * @param ctx the parse tree
 	 */
@@ -148,15 +158,65 @@ public interface EditorGrammarListener extends ParseTreeListener {
 	 */
 	void exitValues_entry(EditorGrammarParser.Values_entryContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link EditorGrammarParser#dir_entry}.
+	 * Enter a parse tree produced by {@link EditorGrammarParser#north_entry}.
 	 * @param ctx the parse tree
 	 */
-	void enterDir_entry(EditorGrammarParser.Dir_entryContext ctx);
+	void enterNorth_entry(EditorGrammarParser.North_entryContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link EditorGrammarParser#dir_entry}.
+	 * Exit a parse tree produced by {@link EditorGrammarParser#north_entry}.
 	 * @param ctx the parse tree
 	 */
-	void exitDir_entry(EditorGrammarParser.Dir_entryContext ctx);
+	void exitNorth_entry(EditorGrammarParser.North_entryContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#south_entry}.
+	 * @param ctx the parse tree
+	 */
+	void enterSouth_entry(EditorGrammarParser.South_entryContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#south_entry}.
+	 * @param ctx the parse tree
+	 */
+	void exitSouth_entry(EditorGrammarParser.South_entryContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#east_entry}.
+	 * @param ctx the parse tree
+	 */
+	void enterEast_entry(EditorGrammarParser.East_entryContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#east_entry}.
+	 * @param ctx the parse tree
+	 */
+	void exitEast_entry(EditorGrammarParser.East_entryContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#west_entry}.
+	 * @param ctx the parse tree
+	 */
+	void enterWest_entry(EditorGrammarParser.West_entryContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#west_entry}.
+	 * @param ctx the parse tree
+	 */
+	void exitWest_entry(EditorGrammarParser.West_entryContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#up_entry}.
+	 * @param ctx the parse tree
+	 */
+	void enterUp_entry(EditorGrammarParser.Up_entryContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#up_entry}.
+	 * @param ctx the parse tree
+	 */
+	void exitUp_entry(EditorGrammarParser.Up_entryContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#down_entry}.
+	 * @param ctx the parse tree
+	 */
+	void enterDown_entry(EditorGrammarParser.Down_entryContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#down_entry}.
+	 * @param ctx the parse tree
+	 */
+	void exitDown_entry(EditorGrammarParser.Down_entryContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link EditorGrammarParser#action_entry}.
 	 * @param ctx the parse tree

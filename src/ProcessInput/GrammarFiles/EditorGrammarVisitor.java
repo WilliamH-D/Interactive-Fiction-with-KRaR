@@ -83,6 +83,12 @@ public interface EditorGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDesc_entry(EditorGrammarParser.Desc_entryContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#synonyms_entry}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSynonyms_entry(EditorGrammarParser.Synonyms_entryContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link EditorGrammarParser#flags_entry}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -95,11 +101,41 @@ public interface EditorGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitValues_entry(EditorGrammarParser.Values_entryContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link EditorGrammarParser#dir_entry}.
+	 * Visit a parse tree produced by {@link EditorGrammarParser#north_entry}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDir_entry(EditorGrammarParser.Dir_entryContext ctx);
+	T visitNorth_entry(EditorGrammarParser.North_entryContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#south_entry}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSouth_entry(EditorGrammarParser.South_entryContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#east_entry}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEast_entry(EditorGrammarParser.East_entryContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#west_entry}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWest_entry(EditorGrammarParser.West_entryContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#up_entry}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUp_entry(EditorGrammarParser.Up_entryContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#down_entry}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDown_entry(EditorGrammarParser.Down_entryContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link EditorGrammarParser#action_entry}.
 	 * @param ctx the parse tree

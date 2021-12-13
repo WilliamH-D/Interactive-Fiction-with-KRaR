@@ -10,6 +10,7 @@ QUOTES: '"';         UNDERSCORE: '_';
 COMMA: ',';          DOT: '.';
 PLUS: '+';           MINUS: '-';
 BAR: '|';             ANDPERSAND: '&';
+EQUALS: '=';
 
 TRUE: 'TRUE';        FALSE: 'FALSE';
 AND: ANDPERSAND ANDPERSAND;
@@ -36,11 +37,13 @@ ID_KEY: 'ID' COLON;
 LOC_KEY: 'LOCATION' COLON;
 NAME_KEY: 'NAME' COLON;
 DESC_KEY: 'DESC' COLON;
+SYNS_KEY: 'SYNS' COLON;
 FLAGS_KEY: 'FLAGS' COLON;
 FLAG_KEY: 'FLAG' COLON;
 VALUES_KEY: 'VALUES' COLON;
 VALUE_KEY: 'VALUE' COLON;
-DIR_KEY: 'N' COLON | 'S' COLON | 'E' COLON | 'W' COLON | 'U' COLON | 'D' COLON;
+NORTH_KEY: 'N' COLON; SOUTH_KEY: 'S' COLON; EAST_KEY: 'E' COLON; WEST_KEY: 'W' COLON; UP_KEY: 'U' COLON; DOWN_KEY: 'D' COLON;
+NORTH_COND_KEY: 'NCOND' COLON; SOUTH_COND_KEY: 'SCOND' COLON; EAST_COND_KEY: 'ECOND' COLON; WEST_COND_KEY: 'WCOND' COLON; UP_COND_KEY: 'UCOND' COLON; DOWN_COND_KEY: 'DCOND' COLON;
 ACTION_KEY: 'ACTION' COLON;
 
 // Condition type keys
@@ -80,9 +83,15 @@ id_entry: ID_KEY ID SEMICOLON;
 loc_entry: LOC_KEY ID SEMICOLON;
 name_entry: NAME_KEY STRING SEMICOLON;
 desc_entry: DESC_KEY STRING SEMICOLON | /* epsilon */;
+synonyms_entry: SYNS_KEY STRING (COMMA STRING)* SEMICOLON | /* epsilon */;
 flags_entry: FLAGS_KEY flag (COMMA flag)* SEMICOLON | /* epsilon */;
 values_entry: VALUES_KEY value (COMMA value)* SEMICOLON | /* epsilon */;
-dir_entry: DIR_KEY ID SEMICOLON (DIR_KEY ID SEMICOLON)*;
+north_entry: NORTH_KEY ID SEMICOLON (NORTH_COND_KEY flag EQUALS num_int (COMMA flag EQUALS num_int)* SEMICOLON|/*e*/) | /*epsilon*/;
+south_entry: SOUTH_KEY ID SEMICOLON (SOUTH_COND_KEY flag EQUALS num_int (COMMA flag EQUALS num_int)* SEMICOLON|/*e*/) | /*epsilon*/;
+east_entry: EAST_KEY ID SEMICOLON (EAST_COND_KEY flag EQUALS num_int (COMMA flag EQUALS num_int)* SEMICOLON|/*e*/) | /*epsilon*/;
+west_entry: WEST_KEY ID SEMICOLON (WEST_COND_KEY flag EQUALS num_int (COMMA flag EQUALS num_int)* SEMICOLON|/*e*/) | /*epsilon*/;
+up_entry: UP_KEY ID SEMICOLON (UP_COND_KEY flag EQUALS num_int (COMMA flag EQUALS num_int)* SEMICOLON|/*e*/) | /*epsilon*/;
+down_entry: DOWN_KEY ID SEMICOLON (DOWN_COND_KEY flag EQUALS num_int (COMMA flag EQUALS num_int)* SEMICOLON|/*e*/) | /*epsilon*/;
 action_entry: ACTION_KEY action_block SEMICOLON;
 global_flag_entry: FLAG_KEY flag SEMICOLON;
 flag_val_entry: VALUE_KEY num_int SEMICOLON | /* epsilon*/;
@@ -92,6 +101,7 @@ object: OBJECT_TAG LB_CURLY
             loc_entry
             name_entry
             desc_entry
+            synonyms_entry
             flags_entry
             values_entry
             RB_CURLY;
@@ -99,9 +109,15 @@ object: OBJECT_TAG LB_CURLY
 // May want to add conditions to directions
 room: ROOM_TAG LB_CURLY
             id_entry
-            dir_entry
+            north_entry
+            south_entry
+            east_entry
+            west_entry
+            up_entry
+            down_entry
             name_entry
             desc_entry
+            synonyms_entry
             RB_CURLY;
 
 action: ACTION_TAG LB_CURLY

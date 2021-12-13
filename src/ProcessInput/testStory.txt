@@ -2,6 +2,7 @@
 {
     ID: <LIVINGROOM>;
     N: <DININGROOM>;
+    NCOND: _BOXTAKEN=1;
     NAME: "Living-Room";
     DESC: "A nice and cosy living-room.";
 }
@@ -20,6 +21,7 @@
     LOCATION: <LIVINGROOM>;
     NAME: "Small Box";
     DESC: "It's a small box.";
+    SYNS: "box", "container", "small container", "little box", "little container";
     FLAGS: _takeable, _container;
     VALUES: (capacity: 50);
 }
