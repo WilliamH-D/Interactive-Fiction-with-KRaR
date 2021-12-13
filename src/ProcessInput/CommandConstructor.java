@@ -6,6 +6,8 @@ import edu.stanford.nlp.ling.*;
 import edu.stanford.nlp.pipeline.*;
 import edu.stanford.nlp.semgraph.*;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CommandConstructor {
 
@@ -272,39 +274,71 @@ public class CommandConstructor {
             tokens.add(new LemmaPOS(lemmas.get(i), posTags.get(i)));
         }
 
-        HashMap<String, String> objSynonyms = getObjSynonyms();
+        HashMap<String, String> objSynonyms = getObjSynonyms(allowedObjects);
         ArrayList<String[]> matchedObjects = new ArrayList<>();
         ArrayList<Integer> matchedIndxs = new ArrayList<>();
 
         int count = 0;
         for (GameObject obj : allowedObjects) {
-            CoreDocument objName = new CoreDocument(obj.getName().toUpperCase());
-            NLPPipeline.getPipeline().annotate(objName);
-            CoreSentence sentence = objName.sentences().get(0);
-            List<String> nameLemmas = sentence.lemmas();
-            makeLemmasLowerCase(nameLemmas);
+            boolean match = false;
+            int startInd = -1;
 
+            // try match on name
+            List<String> nameLemmas = getTokens(obj.getName());
+            makeLemmasLowerCase(nameLemmas);
             String[] parts = nameLemmas.toArray(new String[0]);
+
             for (int i = 0; i < tokens.size(); i++) {
                 if (i + parts.length <= tokens.size()) {
-                    boolean match = true;
                     for (int j = 0; j < parts.length; j++) {
-                        if (objSynonyms.containsKey(tokens.get(i+j).getLemma().toLowerCase())) {
-                            if (!objSynonyms.get(tokens.get(i+j).getLemma()).equals(parts[j].toLowerCase())) {
-                                match = false;
-                            }
-                        }
-                        else if (!tokens.get(i+j).getLemma().equals(parts[j].toLowerCase())) {
-                            match = false;
-                        }
-                    }
-                    if (match) {
-                        rets[count] = obj;
-                        count++;
-                        matchedObjects.add(parts);
-                        matchedIndxs.add(i);
+                        match = tokens.get(i + j).getLemma().equals(parts[j].toLowerCase());
+                        if (!match) { break; }
                     }
                 }
+                // If we found a match, then break out of the loop
+                if (match) {
+                    startInd = i;
+                    break;
+                }
+            }
+
+            // try match on synonym
+            if (!match) {
+                // Find only the synonyms for this object from the synonyms map
+                Map<String, String> synonyms = objSynonyms.entrySet()
+                        .stream()
+                        .filter(entry -> entry.getValue().equals(obj.getName().toLowerCase()))
+                        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+                for (String syn : synonyms.keySet()) {
+                    List<String> synLemmas = getTokens(syn);
+                    makeLemmasLowerCase(synLemmas);
+                    String[] synParts = synLemmas.toArray(new String[0]);
+
+                    for (int i = 0; i < tokens.size(); i++) {
+                        if (i + synParts.length <= tokens.size()) {
+                            for (int j = 0; j < synParts.length; j++) {
+                                match = tokens.get(i + j).getLemma().equals(synParts[j].toLowerCase());
+                                if (!match) { break; }
+                            }
+                        }
+                        // Stop reading rest of input if match found for this synonym
+                        if (match) {
+                            startInd = i;
+                            break;
+                        }
+                    }
+                    // If we find a matching synonym for this object, ignore all other synonyms
+                    if (match) { break; }
+                }
+            }
+
+            // A match has been found
+            if (match) {
+                rets[count] = obj;
+                count++;
+                matchedObjects.add(parts);
+                matchedIndxs.add(startInd);
             }
         }
 
@@ -350,9 +384,28 @@ public class CommandConstructor {
         return false;
     }
 
-    private static HashMap<String, String> getObjSynonyms() {
-        //Todo: Generate automatically
+    private static HashMap<String, String> getObjSynonyms(List<GameObject> allowedObjects) {
         HashMap<String, String> synonyms = new HashMap<>();
+        HashSet<String> conflicts = new HashSet<>();
+        for (GameObject obj : allowedObjects) {
+            Set<String> objSynonyms = obj.getSynonyms();
+            if (objSynonyms == null) { continue; }
+            for (String synonym : objSynonyms) {
+                String syn = synonym.substring(1,synonym.length()-1).toLowerCase();
+                if (synonyms.containsKey(syn)) {
+                    // remove conflicting synonyms from table
+                    synonyms.remove(syn);
+                    conflicts.add(syn);
+                }
+                if (!conflicts.contains(syn)) {
+                    synonyms.put(syn, obj.getName().toLowerCase());
+                }
+            }
+        }
+        /*System.out.println("Synonyms:");
+        for (Map.Entry entry : synonyms.entrySet()) {
+            System.out.println(entry.getKey() + " : " + entry.getValue());
+        }*/
         return synonyms;
     }
 }
