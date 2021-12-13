@@ -69,6 +69,66 @@ public class GameController {
     public static GameObject upObj() { return GC.up; }
     public static GameObject downObj() { return GC.down; }
 
+    public static void describeNorth() {
+        GameRoom location = GameController.getPlayer().getLocation();
+        if (location.getNorth() != null) {
+            System.out.println("To the north is a " + GameState.getGameObject(location.getNorth()).getName() + ".");
+        }
+        else {
+            System.out.println("There is nothing to the north.");
+        }
+    }
+
+    public static void describeSouth() {
+        GameRoom location = GameController.getPlayer().getLocation();
+        if (location.getSouth() != null) {
+            System.out.println("To the south is a " + GameState.getGameObject(location.getSouth()).getName() + ".");
+        }
+        else {
+            System.out.println("There is nothing to the south.");
+        }
+    }
+
+    public static void describeEast() {
+        GameRoom location = GameController.getPlayer().getLocation();
+        if (location.getEast() != null) {
+            System.out.println("To the east is a " + GameState.getGameObject(location.getEast()).getName() + ".");
+        }
+        else {
+            System.out.println("There is nothing to the east.");
+        }
+    }
+
+    public static void describeWest() {
+        GameRoom location = GameController.getPlayer().getLocation();
+        if (location.getWest() != null) {
+            System.out.println("To the west is a " + GameState.getGameObject(location.getWest()).getName() + ".");
+        }
+        else {
+            System.out.println("There is nothing to the west.");
+        }
+    }
+
+    public static void describeUp() {
+        GameRoom location = GameController.getPlayer().getLocation();
+        if (location.getUp() != null) {
+            System.out.println("Above you is a " + GameState.getGameObject(location.getUp()).getName() + ".");
+        }
+        else {
+            System.out.println("There is nothing above you.");
+        }
+    }
+
+    public static void describeDown() {
+        GameRoom location = GameController.getPlayer().getLocation();
+        if (location.getDown() != null) {
+            System.out.println("Below you is a " + GameState.getGameObject(location.getDown()).getName() + ".");
+        }
+        else {
+            System.out.println("There is nothing below you.");
+        }
+    }
+
     public static void describeLocation() {
         GameRoom location = GameController.getPlayer().getLocation();
         System.out.println("You find yourself in the " + location.getName() + ".");
@@ -77,22 +137,22 @@ public class GameController {
         System.out.println();
 
         if (location.getNorth() != null) {
-            System.out.println("To the north is a " + GameState.getGameObject(location.getNorth()).getName() + ".");
+            describeNorth();
         }
         if (location.getEast() != null) {
-            System.out.println("To the east is a " + GameState.getGameObject(location.getEast()).getName() + ".");
+            describeEast();
         }
         if (location.getSouth() != null) {
-            System.out.println("To the south is a " + GameState.getGameObject(location.getSouth()).getName() + ".");
+            describeSouth();
         }
         if (location.getWest() != null) {
-            System.out.println("To the west is a " + GameState.getGameObject(location.getWest()).getName() + ".");
+            describeWest();
         }
         if (location.getUp() != null) {
-            System.out.println("Above you is a " + GameState.getGameObject(location.getUp()).getName() + ".");
+            describeUp();
         }
         if (location.getDown() != null) {
-            System.out.println("Below is a " + GameState.getGameObject(location.getDown()).getName() + ".");
+            describeDown();
         }
 
 
@@ -191,7 +251,7 @@ public class GameController {
         stack.push(currLocation);
         while (!stack.empty()) {
             GameObject obj = stack.pop();
-            if (!obj.equals(GameController.getPlayer()) && !obj.equals(currLocation)) {
+            if (/*!obj.equals(GameController.getPlayer()) && */!obj.equals(currLocation)) {
                 objects.add(obj);
             }
             for (String child : obj.getChildren()) {

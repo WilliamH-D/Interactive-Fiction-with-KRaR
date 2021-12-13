@@ -28,6 +28,7 @@ public class Main {
         while (continueLooping) {
             loop();
         }
+        System.out.println("Exiting game.");
     }
 
     private static void init() throws IOException {
@@ -50,11 +51,11 @@ public class Main {
         System.out.println("==============================================================");
         System.out.println();
         GameController.describeLocation();
-        System.out.println();
     }
 
     private static void loop() {
         // Get a user input
+        System.out.println();
         Scanner myObj = new Scanner(System.in);
         System.out.print("INPUT: ");
         String userInput = myObj.nextLine();
@@ -65,6 +66,9 @@ public class Main {
         Main.commandConstructor.setVerbSynonyms(GameController.getVerbSynonyms());
         Main.commandConstructor.processInput(userInput);
         ExecuteCommand.executeAction();
-        System.out.println();
+    }
+
+    public static void quitGame() {
+        continueLooping = false;
     }
 }

@@ -1,6 +1,7 @@
 package ProcessInput;
 
 import Game.GameController;
+import Game.Main;
 import SimpleEngine.GameObject;
 import edu.stanford.nlp.ling.*;
 import edu.stanford.nlp.pipeline.*;
@@ -374,6 +375,7 @@ public class CommandConstructor {
     private static boolean specialCase(List<String> lemmas) {
         if (lemmas.size() == 1) {
             String l = lemmas.get(0).toUpperCase();
+            if (l.equals("QUIT") || l.equals("Q")) { Main.quitGame(); GameController.setPRSA("quit"); return true;}
             if (l.equals("NORTH") || l.equals("N")) { GameController.setPRSO(GameController.northObj()); GameController.setPRSA("move"); return true; }
             if (l.equals("SOUTH") || l.equals("S")) { GameController.setPRSO(GameController.southObj()); GameController.setPRSA("move"); return true; }
             if (l.equals("EAST") || l.equals("E")) { GameController.setPRSO(GameController.eastObj()); GameController.setPRSA("move"); return true; }
@@ -391,7 +393,7 @@ public class CommandConstructor {
             Set<String> objSynonyms = obj.getSynonyms();
             if (objSynonyms == null) { continue; }
             for (String synonym : objSynonyms) {
-                String syn = synonym.substring(1,synonym.length()-1).toLowerCase();
+                String syn = synonym.toLowerCase();
                 if (synonyms.containsKey(syn)) {
                     // remove conflicting synonyms from table
                     synonyms.remove(syn);

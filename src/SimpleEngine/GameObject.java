@@ -78,7 +78,10 @@ public class GameObject {
 
     public void setSynonyms(Set<String> synonyms) {
         if (synonyms != null) {
-            this.synonyms = new HashSet<>(synonyms);
+            this.synonyms = new HashSet<>();
+            for (String syn : synonyms) {
+                this.synonyms.add(syn.substring(1, syn.length()-1));
+            }
         }
     }
 
@@ -103,5 +106,9 @@ public class GameObject {
             return GameState.getAction(this.id).executeAction();
         }
         return false;
+    }
+
+    public void inspectObject() {
+        System.out.println(getDesc());
     }
 }

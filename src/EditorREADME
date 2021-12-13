@@ -117,3 +117,11 @@ ACTIONS:
  TAKE: <OBJECTID>            - Put the object into the player's inventory
  PLACE: <OBJECTID>, <ROOMID> - Place the given object in the desired room
  SET: var, num/string/bool   - Update a variable for this object
+
+----------------------------------------------------------------------------------------------------------------
+
+Important GameObject flags:
+
+ - _TAKEABLE - signifies that the object can be taken by the player
+ - _ISWEAPON - the GameObject is a weapon
+ - _ISAGENT  - the GameObject is an agent (NPC)
