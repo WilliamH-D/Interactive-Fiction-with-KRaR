@@ -1,5 +1,7 @@
 package SimpleEngine;
 
+import Game.GameController;
+
 import java.util.*;
 
 public class GameObject {
@@ -110,5 +112,15 @@ public class GameObject {
 
     public void inspectObject() {
         System.out.println(getDesc());
+    }
+
+    public void takeItem() {
+        setParent(GameController.getPlayer().getId());
+        System.out.println("You took the " + getName() + ".");
+    }
+
+    public void placeItem() {
+        setParent(GameController.getPlayer().getLocation().getId());
+        System.out.println("You placed down the " + getName() + ".");
     }
 }

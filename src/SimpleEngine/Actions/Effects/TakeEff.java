@@ -20,8 +20,7 @@ public class TakeEff extends Effect {
             System.err.println(itemID + " IS NOT A VALID OBJECT!");
             return false;
         }
-        GameState.getGameObject(itemID).setParent(GameController.getPlayer().getId());
-        System.out.println("You took the " + GameState.getGameObject(itemID).getName() + ".");
+        GameState.getGameObject(itemID).takeItem();
         return true;
     }
 }

@@ -2,6 +2,7 @@ package ProcessInput;
 
 import Game.Direction;
 import Game.GameController;
+import SimpleEngine.GameObject;
 import SimpleEngine.GameRoom;
 import SimpleEngine.GameState;
 import java.lang.reflect.Method;
@@ -135,13 +136,37 @@ public class ExecuteCommand {
 
     // General action for trying to take an object
     public static boolean cmd_take() {
-        System.out.println("You can't try and pick up nothing!");
+        GameObject obj = GameController.getPRSO();
+        // There is no target object
+        if (obj == null) {
+            System.out.println("You can't try and pick up nothing!");
+        }
+        // The target object has the takeable flag
+        if (obj.hasFlag("_TAKEABLE")) {
+            obj.takeItem();
+        }
+        // Unable to take the object
+        else {
+            System.out.println("What do you think you're doing trying to take the " + obj.getName() + "!?");
+        }
         return true;
     }
 
     // General action for trying to place an object
     public static boolean cmd_place() {
-        System.out.println("What are you trying to place?!");
+        GameObject obj = GameController.getPRSO();
+        // There is no target to place
+        if (obj == null) {
+            System.out.println("What are you trying to place!?");
+        }
+        // The item is in the player's inventory
+        if (GameState.getGameObject(obj.getParent()).equals(GameController.getPlayer())) {
+            obj.placeItem();
+        }
+        // Unable to place item you do not own
+        else {
+            System.out.println("You don't currently possess a " + obj.getName() + ", so how are you planning on placing that down genius?");
+        }
         return true;
     }
 
