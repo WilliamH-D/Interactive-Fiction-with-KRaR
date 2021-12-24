@@ -1,5 +1,6 @@
 package EnhancedEngine;
 
+import Game.GameController;
 import alice.tuprolog.*;
 import alice.tuprolog.Var;
 import alice.tuprolog.exceptions.*;
@@ -19,6 +20,7 @@ public class KnowledgeBase {
         this.clauses = new ArrayList<>();
         this.dirty = false;
         this.debug = false;
+        addRules();
     }
 
     //Get the singleton instance
@@ -27,6 +29,25 @@ public class KnowledgeBase {
             KB = new KnowledgeBase();
         }
         return KB;
+    }
+
+    private void addRules() {
+        addClause("isObject(" + GameController.getPlayer().getId().toLowerCase() + ")");
+        addClause("capacity(" + GameController.getPlayer().getId().toLowerCase() + "," + Integer.MAX_VALUE + ")");
+        addClause("capacityUsed(" + GameController.getPlayer().getId().toLowerCase() + ",0)");
+
+        // Object is in scope (first arg is object, second arg is the scope of the object)
+        addClause("inScope(A,B) :- isObject(A), isLocated(A,B), isLocated(" + GameController.getPlayer().getId() + ",B),!");
+        addClause("inScope(A,C) :- isObject(A), isLocated(A,B), inScope(B,C)");
+
+        // Put object in other object (put object A inside object B)
+        addClause("putIn(A,B) :- inScope(A,C), inScope(B,C), A \\= B, volume(A,X), capacity(B,Y), capacityUsed(B,Z), Y2 is Y+1, X+Z<Y2");
+
+        // Put object on top of other object (put object A on top of object B)
+        addClause("putOn(A,B) :- inScope(A,C), inScope(B,C), A \\= B, volume(A,X), surface(B,Y), surfaceUsed(B,Z), Y2 is Y+1, X+Z<Y2");
+
+        // Put object below other object (put object A below object B)
+        addClause("putBelow(A,B) :- inScope(A,C), inScope(B,C), A \\= B, volume(A,X), below(B,Y), belowUsed(B,Z), Y2 is Y+1, X+Z<Y2");
     }
 
     // Used for debugging with print statements
@@ -44,27 +65,30 @@ public class KnowledgeBase {
     }
 
     // Query from the knowledge base, print results to console with no returned objects
-    public ArrayList<ArrayList<Var>> query(String q) throws MalformedGoalException, NoSolutionException, NoMoreSolutionException {
-        replaceTheory();
-        q = q.replaceAll("\\s", "");
-        SolveInfo info = this.engine.solve(q + ".");
-        if (this.debug) {
-            System.out.println("");
-            System.out.println("DEBUG: Querying: " + q);
-        }
+    public ArrayList<ArrayList<Var>> query(String q) {
         ArrayList<ArrayList<Var>> solutions = new ArrayList<>();
-        while (info.isSuccess()) {
+        try {
+            replaceTheory();
+            q = q.replaceAll("\\s", "");
+            SolveInfo info = this.engine.solve(q + ".");
             if (this.debug) {
-                System.out.println("DEBUG: Solution: " + info.getSolution() +
-                        " - bindings: " + info);
+                System.out.println("");
+                System.out.println("DEBUG: Querying: " + q);
             }
-            solutions.add((ArrayList<Var>) info.getBindingVars());
-            if (this.engine.hasOpenAlternatives()) {
-                info = this.engine.solveNext();
-            } else {
-                break;
+            while (info.isSuccess()) {
+                if (this.debug) {
+                    System.out.println("DEBUG: Solution: " + info.getSolution() +
+                            " - bindings: " + info);
+                }
+                solutions.add((ArrayList<Var>) info.getBindingVars());
+                if (this.engine.hasOpenAlternatives()) {
+                    info = this.engine.solveNext();
+                } else {
+                    break;
+                }
             }
         }
+        catch (MalformedGoalException | NoSolutionException | NoMoreSolutionException ignored) { }
         return solutions;
     }
 

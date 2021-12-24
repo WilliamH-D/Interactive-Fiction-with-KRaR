@@ -5,14 +5,16 @@ import ProcessInput.CommandConstructor;
 import ProcessInput.ExecuteCommand;
 import ProcessInput.NLPPipeline;
 import ProcessInput.StoryCompiler;
+import alice.tuprolog.Var;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
 
     static boolean continueLooping = false;
-    static CommandConstructor commandConstructor;
+    private static CommandConstructor commandConstructor;
 
     // Initialise the game ready for running
     // If initialisation fails, print the stack trace and safely exit
@@ -39,7 +41,7 @@ public class Main {
         // Compile the game file
         StoryCompiler.get().compile("D:\\Documents\\University\\Part II Project\\Interactive Fiction with KRaR\\src\\ProcessInput\\testStory.txt");
 
-        // Print knowledge base
+        // Print knowledge base -- FOR DEBUGGING PURPOSES
         KnowledgeBase.getInstance().printKB();
         KnowledgeBase.getInstance().setDebug(true);
 

@@ -22,8 +22,18 @@
     NAME: "Small Box";
     DESC: "It's a small box.";
     SYNS: "box", "container", "small container", "little box", "little container";
-    FLAGS: _takeable, _container;
-    VALUES: (capacity: 50);
+    VALUES: (capacity: 50), (volume: 50);
+}
+
+[object]
+{
+    ID: <BIGBOX>;
+    LOCATION: <DININGROOM>;
+    NAME: "Big Box";
+    DESC: "It's a big box.";
+    SYNS: "box", "container", "big box", "big container";
+    FLAGS: _TAKEABLE;
+    VALUES: (capacity: 100), (volume: 100);
 }
 
 [action]

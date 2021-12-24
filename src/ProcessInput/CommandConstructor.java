@@ -58,7 +58,15 @@ public class CommandConstructor {
 
         // Pre-process user input to extract any direct and indirect object (replacing them with 'item1' and 'item2')
         GameObject[] rets = new GameObject[2];
-        String preprocessed = extractObjects(lemmas, posTags, rets);
+
+        String preprocessed;
+
+        try {
+            preprocessed = extractObjects(lemmas, posTags, rets);
+        } catch (ConflictException e) {
+            GameController.setPRSA("CONFLICT");
+            return;
+        }
 
         // Create a new annotated pipeline for the pre-processed input
         preprocessedDocument = new CoreDocument(preprocessed);
@@ -266,7 +274,7 @@ public class CommandConstructor {
         return tokens;
     }
 
-    private String extractObjects(List<String> lemmas, List<String> posTags, GameObject[] rets) {
+    private String extractObjects(List<String> lemmas, List<String> posTags, GameObject[] rets) throws ConflictException {
         // Pre-process the users input and replace direct/indirect object with item1/item2
 
         //System.out.println("Pre-process input lemmas: " + lemmas);
@@ -275,11 +283,14 @@ public class CommandConstructor {
             tokens.add(new LemmaPOS(lemmas.get(i), posTags.get(i)));
         }
 
-        HashMap<String, String> objSynonyms = getObjSynonyms(allowedObjects);
+        SynonymsAndConflicts synsAndCons = getObjSynonyms(allowedObjects);
+        HashMap<String, String> objSynonyms = synsAndCons.synonyms;
+        HashSet<String> conflicts = synsAndCons.conflicts;
         ArrayList<String[]> matchedObjects = new ArrayList<>();
         ArrayList<Integer> matchedIndxs = new ArrayList<>();
 
         int count = 0;
+        boolean conflictFound = false;
         for (GameObject obj : allowedObjects) {
             boolean match = false;
             int startInd = -1;
@@ -334,6 +345,30 @@ public class CommandConstructor {
                 }
             }
 
+            // try match on conflicts
+            if (!match && !conflictFound) {
+                for (String conflict : conflicts) {
+                    List<String> conLemmas = getTokens(conflict);
+                    makeLemmasLowerCase(conLemmas);
+                    String[] conParts = conLemmas.toArray(new String[0]);
+
+                    for (int i = 0; i < tokens.size(); i++) {
+                        if (i + conParts.length <= tokens.size()) {
+                            for (int j = 0; j < conParts.length; j++) {
+                                conflictFound = tokens.get(i + j).getLemma().equals(conParts[j].toLowerCase());
+                                if (!conflictFound) { break; }
+                            }
+                        }
+                        // Stop reading rest of input if match found for this synonym
+                        if (conflictFound) {
+                            break;
+                        }
+                    }
+                    // If we find a matching synonym for this object, ignore all other synonyms
+                    if (conflictFound) { break; }
+                }
+            }
+
             // A match has been found
             if (match) {
                 rets[count] = obj;
@@ -341,6 +376,11 @@ public class CommandConstructor {
                 matchedObjects.add(parts);
                 matchedIndxs.add(startInd);
             }
+        }
+
+        // No unique objects identified, but conflict found
+        if (conflictFound && count == 0) {
+            throw new ConflictException();
         }
 
         ArrayList<Integer> removeStart = new ArrayList<>();
@@ -386,21 +426,20 @@ public class CommandConstructor {
         return false;
     }
 
-    private static HashMap<String, String> getObjSynonyms(List<GameObject> allowedObjects) {
-        HashMap<String, String> synonyms = new HashMap<>();
-        HashSet<String> conflicts = new HashSet<>();
+    private static SynonymsAndConflicts getObjSynonyms(List<GameObject> allowedObjects) {
+        SynonymsAndConflicts synsAndCons = new SynonymsAndConflicts();
         for (GameObject obj : allowedObjects) {
             Set<String> objSynonyms = obj.getSynonyms();
             if (objSynonyms == null) { continue; }
             for (String synonym : objSynonyms) {
                 String syn = synonym.toLowerCase();
-                if (synonyms.containsKey(syn)) {
+                if (synsAndCons.synonyms.containsKey(syn)) {
                     // remove conflicting synonyms from table
-                    synonyms.remove(syn);
-                    conflicts.add(syn);
+                    synsAndCons.synonyms.remove(syn);
+                    synsAndCons.conflicts.add(syn);
                 }
-                if (!conflicts.contains(syn)) {
-                    synonyms.put(syn, obj.getName().toLowerCase());
+                if (!synsAndCons.conflicts.contains(syn)) {
+                    synsAndCons.synonyms.put(syn, obj.getName().toLowerCase());
                 }
             }
         }
@@ -408,6 +447,18 @@ public class CommandConstructor {
         for (Map.Entry entry : synonyms.entrySet()) {
             System.out.println(entry.getKey() + " : " + entry.getValue());
         }*/
-        return synonyms;
+        return synsAndCons;
     }
 }
+
+class SynonymsAndConflicts {
+    HashMap<String, String> synonyms;
+    HashSet<String> conflicts;
+
+    public SynonymsAndConflicts() {
+        synonyms = new HashMap<>();
+        conflicts = new HashSet<>();
+    }
+}
+
+class ConflictException extends Exception { }

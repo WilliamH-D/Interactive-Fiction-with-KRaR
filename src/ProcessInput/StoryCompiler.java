@@ -158,7 +158,6 @@ public class StoryCompiler {
 
         if (!playerStartSet) {
             GameController.getPlayer().movePlayer(room);
-            kb.addClause("startRoom(" + id.toLowerCase() + ")");
             playerStartSet = true;
         }
 
@@ -185,24 +184,44 @@ public class StoryCompiler {
         for (String flag : flags) {
             obj.setFlag(flag);
         }
-        int capacity = 0;
         int volume = 1;
+        int capacity = 0;
+        int surface = 0;
+        int below = 0;
         for (Map.Entry value : values.entrySet()) {
             obj.addVariable(value.getKey().toString(), value.getValue().toString());
-            if (value.getKey().toString().equals("capacity")) {
-                capacity = Integer.parseInt(value.getValue().toString());
-            }
-            if (value.getKey().toString().equals("volume")) {
-                volume = Integer.parseInt(value.getValue().toString());
+            switch (value.getKey().toString()) {
+                case "volume":
+                    volume = Integer.parseInt(value.getValue().toString());
+                    break;
+                case "capacity":
+                    capacity = Integer.parseInt(value.getValue().toString());
+                    break;
+                case "surface":
+                    surface = Integer.parseInt(value.getValue().toString());
+                    break;
+                case "below":
+                    below = Integer.parseInt(value.getValue().toString());
+                    break;
             }
         }
 
         System.out.println("New Object: " + obj);
 
         kb.addClause("isObject(" + id.toLowerCase() + ")");
-        kb.addClause("capacity(" + id.toLowerCase() + "," + capacity + ")");
-        kb.addClause("capacityUsed(" + id.toLowerCase() + ",0)");
         kb.addClause("volume(" + id.toLowerCase() + "," + volume + ")");
+        if (capacity > 0) {
+            kb.addClause("capacity(" + id.toLowerCase() + "," + capacity + ")");
+            kb.addClause("capacityUsed(" + id.toLowerCase() + ",0)");
+        }
+        if (surface > 0) {
+            kb.addClause("surface(" + id.toLowerCase() + "," + surface + ")");
+            kb.addClause("surfaceUsed(" + id.toLowerCase() + ",0)");
+        }
+        if (below > 0) {
+            kb.addClause("below(" + id.toLowerCase() + "," + below + ")");
+            kb.addClause("belowUsed(" + id.toLowerCase() + ",0)");
+        }
         kb.addClause("isLocated(" + id.toLowerCase() + "," + location.toLowerCase() + ")");
 
         GameState.addGameObject(obj);

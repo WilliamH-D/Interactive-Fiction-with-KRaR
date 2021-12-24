@@ -123,6 +123,12 @@ ACTIONS:
 Important GameObject flags:
 
  - _TAKEABLE - signifies that the GameObject can be taken by the player
- - _CONTAINER - things can be placed inside the GameObject
  - _ISWEAPON - the GameObject is a weapon
  - _ISAGENT  - the GameObject is an agent (NPC)
+
+Important GameObject variables:
+
+ - volume - Amount of space this object takes up (default 1)
+ - capacity - How much volume can be stored inside game object (default 0)
+ - surface - How much volume can be placed on top of the object (default 0)
+ - below - How much volume can be placed below the object (default 0)

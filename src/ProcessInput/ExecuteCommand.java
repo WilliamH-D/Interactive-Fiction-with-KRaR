@@ -15,6 +15,12 @@ public class ExecuteCommand {
     public static void executeAction() {
         //System.out.println("PRSA: " + GameController.getPRSA() + ", PRSO: " + (GameController.getPRSO() == null ? "null" : GameController.getPRSO().getId()) + ", PRSI: " + (GameController.getPRSI() == null ? "null" : GameController.getPRSI().getId()));
 
+        // Handle object conflict
+        if (GameController.getPRSA().equals("CONFLICT")) {
+            System.out.println("I cannot determine which object you are referencing, please be more specific.");
+            return;
+        }
+
         if (GameController.getPRSI() != null && GameController.getPRSI().action()) { return; }
         if (GameController.getPRSO() != null && GameController.getPRSO().action()) { return; }
         if (GameController.getPRSA() != null && decodePRSA()) { return; }
