@@ -1,5 +1,6 @@
 package SimpleEngine.Actions.Effects;
 
+import EnhancedEngine.KnowledgeBase;
 import Game.GameController;
 import SimpleEngine.Actions.Effect;
 import SimpleEngine.GameState;
@@ -33,9 +34,13 @@ public class PlaceEff extends Effect {
                 return false;
             }
             GameState.getGameObject(itemID).setParent(locID);
+            KnowledgeBase.getInstance().removeClause("isLocated(" + itemID.toLowerCase() + ",X)", true);
+            KnowledgeBase.getInstance().addClause("isLocated(" + itemID.toLowerCase() + "," + locID.toLowerCase() + ")");
         }
         else {
             GameState.getGameObject(itemID).setParent(GameController.getPlayer().getLocation().getId());
+            KnowledgeBase.getInstance().removeClause("isLocated(" + itemID.toLowerCase() + ",X)", true);
+            KnowledgeBase.getInstance().addClause("isLocated(" + itemID.toLowerCase() + "," + GameController.getPlayer().getLocation().getId().toLowerCase() + ")");
         }
         return true;
     }

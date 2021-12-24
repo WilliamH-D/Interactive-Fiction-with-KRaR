@@ -1,5 +1,6 @@
 package SimpleEngine;
 
+import EnhancedEngine.KnowledgeBase;
 import Game.GameController;
 
 import java.util.*;
@@ -116,11 +117,15 @@ public class GameObject {
 
     public void takeItem() {
         setParent(GameController.getPlayer().getId());
+        KnowledgeBase.getInstance().removeClause("isLocated(" + this.getId().toLowerCase() + ",X)", true);
+        KnowledgeBase.getInstance().addClause("isLocated(" + this.getId().toLowerCase() + "," + GameController.getPlayer().getId().toLowerCase() + ")");
         System.out.println("You took the " + getName() + ".");
     }
 
     public void placeItem() {
         setParent(GameController.getPlayer().getLocation().getId());
+        KnowledgeBase.getInstance().removeClause("isLocated(" + this.getId().toLowerCase() + ",X)", true);
+        KnowledgeBase.getInstance().addClause("isLocated(" + this.getId().toLowerCase() + "," + this.getParent().toLowerCase() + ")");
         System.out.println("You placed down the " + getName() + ".");
     }
 }

@@ -142,7 +142,7 @@ public class ExecuteCommand {
             System.out.println("You can't try and pick up nothing!");
         }
         // The target object has the takeable flag
-        if (obj.hasFlag("_TAKEABLE")) {
+        else if (obj.hasFlag("_TAKEABLE")) {
             obj.takeItem();
         }
         // Unable to take the object
@@ -160,12 +160,12 @@ public class ExecuteCommand {
             System.out.println("What are you trying to place!?");
         }
         // The item is in the player's inventory
-        if (GameState.getGameObject(obj.getParent()).equals(GameController.getPlayer())) {
+        else if (GameState.getGameObject(obj.getParent()).equals(GameController.getPlayer())) {
             obj.placeItem();
         }
         // Unable to place item you do not own
         else {
-            System.out.println("You don't currently possess a " + obj.getName() + ", so how are you planning on placing that down genius?");
+            System.out.println("You don't currently possess this, so how are you planning on placing that down genius?");
         }
         return true;
     }

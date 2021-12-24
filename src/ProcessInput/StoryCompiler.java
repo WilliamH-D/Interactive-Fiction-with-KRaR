@@ -1,5 +1,6 @@
 package ProcessInput;
 
+import EnhancedEngine.KnowledgeBase;
 import Game.GameController;
 import ProcessInput.GrammarFiles.EditorGrammarLexer;
 import ProcessInput.GrammarFiles.EditorGrammarParser;
@@ -50,12 +51,15 @@ public class StoryCompiler {
     String flagName;
     int flagValue;
 
+    KnowledgeBase kb;
+
     boolean playerStartSet = false;
 
 
     private StoryCompiler() {
         flags = new ArrayList<>();
         values = new HashMap<>();
+        kb = KnowledgeBase.getInstance();
     }
 
     public static StoryCompiler get() {
@@ -148,10 +152,13 @@ public class StoryCompiler {
 
         System.out.println("New Room: " + room);
 
+        kb.addClause("isRoom(" + id.toLowerCase() + ")");
+
         GameState.addGameObject(room);
 
         if (!playerStartSet) {
             GameController.getPlayer().movePlayer(room);
+            kb.addClause("startRoom(" + id.toLowerCase() + ")");
             playerStartSet = true;
         }
 
@@ -178,9 +185,25 @@ public class StoryCompiler {
         for (String flag : flags) {
             obj.setFlag(flag);
         }
+        int capacity = 0;
+        int volume = 1;
         for (Map.Entry value : values.entrySet()) {
             obj.addVariable(value.getKey().toString(), value.getValue().toString());
+            if (value.getKey().toString().equals("capacity")) {
+                capacity = Integer.parseInt(value.getValue().toString());
+            }
+            if (value.getKey().toString().equals("volume")) {
+                volume = Integer.parseInt(value.getValue().toString());
+            }
         }
+
+        System.out.println("New Object: " + obj);
+
+        kb.addClause("isObject(" + id.toLowerCase() + ")");
+        kb.addClause("capacity(" + id.toLowerCase() + "," + capacity + ")");
+        kb.addClause("capacityUsed(" + id.toLowerCase() + ",0)");
+        kb.addClause("volume(" + id.toLowerCase() + "," + volume + ")");
+        kb.addClause("isLocated(" + id.toLowerCase() + "," + location.toLowerCase() + ")");
 
         GameState.addGameObject(obj);
 
@@ -208,6 +231,9 @@ public class StoryCompiler {
         System.out.println("VALUE: " + flagValue);
 
         GameFlag flag = new GameFlag(flagName, flagValue);
+
+        kb.addClause("flag(" + flagName.toLowerCase() + "," + flagValue + ")");
+
         GameState.addFlag(flag);
         resetVars();
     }

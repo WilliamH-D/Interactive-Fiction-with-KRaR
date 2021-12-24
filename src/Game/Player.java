@@ -1,5 +1,6 @@
 package Game;
 
+import EnhancedEngine.KnowledgeBase;
 import SimpleEngine.GameObject;
 import SimpleEngine.GameRoom;
 import SimpleEngine.GameState;
@@ -23,6 +24,8 @@ public class Player extends GameObject {
 
     public void movePlayer(GameRoom loc) {
         this.setParent(loc.getId());
+        KnowledgeBase.getInstance().removeClause("isLocated(" + getId().toLowerCase() + ",X)", true);
+        KnowledgeBase.getInstance().addClause("isLocated(" + getId().toLowerCase() + "," + loc.getId().toLowerCase() + ")");
         if (Main.continueLooping) {
             GameController.describeLocation();
         }

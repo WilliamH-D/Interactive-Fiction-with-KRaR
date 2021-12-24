@@ -1,5 +1,6 @@
 package Game;
 
+import EnhancedEngine.KnowledgeBase;
 import ProcessInput.CommandConstructor;
 import ProcessInput.ExecuteCommand;
 import ProcessInput.NLPPipeline;
@@ -38,6 +39,10 @@ public class Main {
         // Compile the game file
         StoryCompiler.get().compile("D:\\Documents\\University\\Part II Project\\Interactive Fiction with KRaR\\src\\ProcessInput\\testStory.txt");
 
+        // Print knowledge base
+        KnowledgeBase.getInstance().printKB();
+        KnowledgeBase.getInstance().setDebug(true);
+
         // Initialise the NLP pipeline
         NLPPipeline.init();
 
@@ -66,6 +71,7 @@ public class Main {
         Main.commandConstructor.setVerbSynonyms(GameController.getVerbSynonyms());
         Main.commandConstructor.processInput(userInput);
         ExecuteCommand.executeAction();
+        KnowledgeBase.getInstance().printKB();
     }
 
     public static void quitGame() {
