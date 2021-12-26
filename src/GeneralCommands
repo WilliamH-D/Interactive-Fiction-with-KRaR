@@ -1,7 +1,9 @@
 look around                                      - look at surroundings
 look [observe, inspect]                          - look at something
 take [pick up, obtain, get]                      - pick up an item
-place in [put in, place inside, put inside, put] - put an object inside something
+place in [put ITEM in ITEM, place ITEM in ITEM, put ITEM inside ITEM, place ITEM inside ITEM] - put an object inside something
+place on [put on]
+place under [put under]
 place [put down, drop]                           - place an item down
 move [walk, run, go, traverse]                   - move to an adjacent location
 climb [go up, climb up]                          - climb up something

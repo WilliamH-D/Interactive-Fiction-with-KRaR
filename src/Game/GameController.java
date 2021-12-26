@@ -3,6 +3,7 @@ package Game;
 import SimpleEngine.GameObject;
 import SimpleEngine.GameRoom;
 import SimpleEngine.GameState;
+import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -27,6 +28,8 @@ public class GameController {
     private GameObject down;
 
     private Map<String, String> verbSynonyms;
+
+    private boolean usingEnhanced;
 
     private GameController() {
         this.player = new Player();
@@ -56,6 +59,10 @@ public class GameController {
         if (s == null) { GC.PRSA = null; }
         else { GC.PRSA = s.toUpperCase(); }
     }
+
+    public static void useEnhancedEngine() { GC.usingEnhanced = true; }
+    public static void useTraditionalEngine() { GC.usingEnhanced = false; }
+
     public static void setLemmas(List<String> lemmas) { GC.lemmas = lemmas; }
 
     public static GameObject getMap() { return GC.map; }
@@ -202,6 +209,7 @@ public class GameController {
         }
     }
 
+    // Create a map of verb synonyms using the patterns defined in verbSynonymsImproved.txt
     private Map<String, String> constructSynonyms() {
         // Sorted map based on how many words are in the verb
         Map<String, String> synonyms = new TreeMap<>(
@@ -218,20 +226,90 @@ public class GameController {
             }
         );
         try {
-            File myObj = new File("D:\\Documents\\University\\Part II Project\\Interactive Fiction with KRaR\\src\\ProcessInput\\verbSynonyms.txt");
+            File myObj = new File("D:\\Documents\\University\\Part II Project\\Interactive Fiction with KRaR\\src\\ProcessInput\\verbSynonymsImproved.txt");
             Scanner myReader = new Scanner(myObj);
+
+            String verb = "";
+            String[] pattern = new String[0];
+            List<List<String>> patternParts = new ArrayList<>();
             while (myReader.hasNextLine()) {
-                String[] verbs = myReader.nextLine().split(",");
-                for (String verb : verbs) {
-                    synonyms.put(verb.toUpperCase(), verbs[0].toUpperCase());
+                String line = myReader.nextLine();
+                if (line.length() == 0) {
+                    addSynonymsToMap(synonyms, verb, pattern, patternParts);
+                    verb = null;
+                    patternParts = null;
                 }
+                // Match new verb
+                else if (line.length() > 6 && line.substring(0,6).equals("verb: ")) {
+                    verb = line.substring(6);
+
+                }
+                // Match new pattern
+                else if (!line.contains("=")) {
+                    addSynonymsToMap(synonyms, verb, pattern, patternParts);
+                    pattern = line.split(" ");
+                    patternParts = new ArrayList<>();
+                    for (String part : pattern) {
+                        if (!part.equals("ITEM")) {
+                            patternParts.add(new ArrayList<>());
+                        }
+                    }
+                }
+                // Fill in parts
+                else {
+                    String[] patternFill = line.split("=");
+                    int ind = Integer.parseInt(patternFill[0]);
+                    String[] choices = patternFill[1].split(",");
+                    for (String choice : choices) {
+                        assert patternParts != null;
+                        patternParts.get(ind).add(choice);
+                    }
+                }
+
             }
+            addSynonymsToMap(synonyms, verb, pattern, patternParts);
             myReader.close();
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
         return synonyms;
+    }
+
+    // Given a pattern and a list of choices for that pattern, add all permutations as a synonym for the given verb to the map
+    private void addSynonymsToMap(Map<String, String> synonyms, String verb, String[] pattern, List<List<String>> patternParts) {
+        if (patternParts != null && patternParts.size() > 0) {
+            StringBuilder key;
+            List<String> permutations = new ArrayList<>();
+            generatePermutations(patternParts, permutations, 0, "");
+            for (String perm : permutations) {
+                String[] parts = perm.split(" ");
+                key = new StringBuilder();
+                for (String p : pattern) {
+                    if(p.equals("ITEM")) {
+                        key.append(" ITEM");
+                    }
+                    else {
+                        int i = Integer.parseInt(p);
+                        key.append(" ").append(parts[i]);
+                    }
+                }
+                synonyms.put(key.toString().substring(1).toUpperCase(), verb);
+                //System.out.println("Key: " + key.toString().substring(1) + ", verb: " + verb);
+            }
+        }
+    }
+
+    // Auxiliary function for generating permutations
+    private void generatePermutations(List<List<String>> lists, List<String> result, int depth, String current) {
+        if (depth == lists.size()) {
+            result.add(current.substring(1));
+            return;
+        }
+
+        for (int i = 0; i < lists.get(depth).size(); i++) {
+            generatePermutations(lists, result, depth + 1, current + " " + lists.get(depth).get(i));
+        }
     }
 
     // Return a list of all Game Objects that can be referenced by the player in their current location

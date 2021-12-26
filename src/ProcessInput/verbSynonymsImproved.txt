@@ -1,0 +1,82 @@
+verb: look around
+0 1
+0=look,observe
+1=around,surroundings,environment
+0 1 2
+0=observe
+1=the
+2=surroundings,environment
+0 1 2 3
+0=look
+1=at
+2=the
+3=surroundings,environment
+
+verb: look
+0
+0=look,observe,inspect,analyse,peek,peer,stare
+
+verb: take
+0
+0=take,obtain,get,claim,acquire
+0 1
+0=pick
+1=up
+
+verb: place in
+0 ITEM 1 ITEM
+0=put,place
+1=in,inside
+0 ITEM 1 2 ITEM
+0=put,place
+1=inside
+2=of
+
+verb: place on
+0 ITEM 1 ITEM
+0=put,place
+1=on
+0 ITEM 1 2 3 ITEM
+0=put,place
+1=on
+2=top
+3=of
+
+verb: place under
+0 ITEM 1 ITEM
+0=put,place
+1=under,underneath,beneath,below
+0 ITEM 1 2 ITEM
+0=put,place
+1=underneath,beneath
+2=of
+
+verb: place
+0
+0=place,drop,discard
+0 1
+0=put,place
+1=down
+
+verb: move
+0
+0=move,walk,run,go,traverse
+
+verb: climb
+0
+0=climb,ascend
+0 1
+0=climb,go
+1=up
+
+verb: descend
+0
+0=descend
+0 1
+0=descend,go,climb
+1=down
+
+verb: attack
+0
+0=attack,fight,assault,hit,punch,kick
+

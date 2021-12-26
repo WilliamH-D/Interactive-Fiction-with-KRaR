@@ -253,4 +253,37 @@ public class testNLPInputs {
         Assert.assertEquals(GameController.getPRSO().getId(), "GOBLIN");
         Assert.assertEquals(GameController.getPRSI().getId(), "SWORD");
     }
+
+    @Test
+    public void testInputPutTheSmallBoxInTheBigBox() {
+        // Create synonyms map
+        Map<String, String> synonyms = new TreeMap<>();
+        synonyms.put("place in", "place in");
+        synonyms.put("place item in item", "place in");
+        synonyms.put("put item in item", "place in");
+        synonyms.put("place item inside item", "place in");
+        synonyms.put("put item inside item", "place in");
+        synonyms.put("place", "place");
+        synonyms.put("put down", "place");
+        synonyms.put("drop", "place");
+        synonyms.put("discard", "place");
+        synonyms.put("place down", "place");
+
+        // Create interactable objects list
+        ArrayList<GameObject> objects = new ArrayList<>();
+        GameObject smallbox = new GameObject("SMALLBOX");
+        smallbox.setName("small box");
+        objects.add(smallbox);
+        GameObject bigbox = new GameObject("BIGBOX");
+        bigbox.setName("big box");
+        objects.add(bigbox);
+
+        testNLPInputs.commandConstructor.setVerbSynonyms(synonyms);
+        testNLPInputs.commandConstructor.setAllowedObjects(objects);
+        testNLPInputs.commandConstructor.processInput("put the small box in the big box");
+
+        Assert.assertEquals(getCorrectedVerb(synonyms), "PLACE IN");
+        Assert.assertEquals(GameController.getPRSO().getId(), "SMALLBOX");
+        Assert.assertEquals(GameController.getPRSI().getId(), "BIGBOX");
+    }
 }

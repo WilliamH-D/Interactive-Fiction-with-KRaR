@@ -13,10 +13,10 @@ public class ExecuteCommand {
 
     // Execute the command extracted from the user input
     public static void executeAction() {
-        //System.out.println("PRSA: " + GameController.getPRSA() + ", PRSO: " + (GameController.getPRSO() == null ? "null" : GameController.getPRSO().getId()) + ", PRSI: " + (GameController.getPRSI() == null ? "null" : GameController.getPRSI().getId()));
+        System.out.println("PRSA: " + GameController.getPRSA() + ", PRSO: " + (GameController.getPRSO() == null ? "null" : GameController.getPRSO().getId()) + ", PRSI: " + (GameController.getPRSI() == null ? "null" : GameController.getPRSI().getId()));
 
         // Handle object conflict
-        if (GameController.getPRSA().equals("CONFLICT")) {
+        if (GameController.getPRSA() != null && GameController.getPRSA().equals("CONFLICT")) {
             System.out.println("I cannot determine which object you are referencing, please be more specific.");
             return;
         }
@@ -41,6 +41,7 @@ public class ExecuteCommand {
         }
 
         String correctedVerb = getCorrectedVerb();
+        System.out.println("Corrected Verb: " + correctedVerb);
 
         if (!getVerbs().contains(correctedVerb)) { return false; }
 

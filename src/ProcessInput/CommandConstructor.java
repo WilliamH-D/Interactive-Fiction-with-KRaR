@@ -77,39 +77,6 @@ public class CommandConstructor {
         // Give the game controller access to the lemmas (words)
         GameController.setLemmas(lemmas);
 
-        // Try non-command verbs if they exist
-        if (GameController.getPRSA() == null) {
-            tryExtractNewVerb(lemmas, posTags);
-        }
-
-        // Replace "do" with the verb
-        /*if (!userIn.contains("do")) {
-            if (lemmas.contains("do")) {
-                System.out.println("FIX");
-                StringBuilder replaced = new StringBuilder();
-                for (String lemma : lemmas) {
-                    if (lemma.equals("do")) {
-                        replaced.append(" ").append(GameController.getPRSA().toLowerCase());
-                    }
-                    else {
-                        replaced.append(" ").append(lemma);
-                    }
-                }
-                replaced.delete(0,1);
-                System.out.println("replaced: " + replaced.toString());
-                CoreDocument fixedDocument = new CoreDocument(replaced.toString());
-                NLPPipeline.getPipeline().annotate(fixedDocument);
-                sentence = fixedDocument.sentences().get(0);
-                lemmas = sentence.lemmas();
-                makeLemmasLowerCase(lemmas);
-            }
-
-        }*/
-        /*else {
-            // Need to find which "do" is the verb replacement
-            String[] words = userIn.split(" ")
-        }*/
-
         // Find the inputs
         int numArgs = 0;
         if (lemmas.contains("item1")) { numArgs++; }
@@ -146,6 +113,13 @@ public class CommandConstructor {
         else {
             if (numArgs == 1) { GameController.setPRSO(rets[0]); }
         }
+
+        extractComplexVerb(lemmas);
+
+        // Try non-command verbs if they exist
+        if (GameController.getPRSA() == null) {
+            tryExtractNewVerb(lemmas, posTags);
+        }
     }
 
     private void makeLemmasLowerCase(List<String> lemmas) {
@@ -159,13 +133,12 @@ public class CommandConstructor {
         int endInd = -1;
         boolean found = false;
 
-        //System.out.println("Remove verb input lemmas: " + lemmas);
-
         // Find the main verb of the input
         for (String verb : verbSynonyms.keySet()) {
             String[] parts = verb.toLowerCase().split(" ");
             if (parts.length == 1 && lemmas.contains(verb.toLowerCase())) {
                 GameController.setPRSA(verb.toLowerCase());
+                System.out.println("Matched verb: " + verb.toLowerCase());
                 startInd = lemmas.indexOf(verb.toLowerCase());
                 endInd = startInd;
                 found = true;
@@ -187,6 +160,7 @@ public class CommandConstructor {
                         if (match) {
                             // Verb found
                             GameController.setPRSA(verb);
+                            System.out.println("Matched verb: " + verb);
                             breakLoop = true;
                             found = true;
                         }
@@ -222,8 +196,58 @@ public class CommandConstructor {
             }
         }
         simplifiedVerb.delete(0, 1);
-       // System.out.println("Simplified verb: " + simplifiedVerb.toString());
+        System.out.println("Simplified verb: " + simplifiedVerb.toString());
         return simplifiedVerb.toString();
+    }
+
+    // Allow for complex commands such as "put item1 in item2"
+    private void extractComplexVerb(List<String> lemmas) {
+        /*System.out.println("Synonyms:");
+        for (String syn : verbSynonyms.keySet()) {
+            System.out.println(syn);
+        }
+        System.out.println();
+
+        System.out.println("Unsimplified: " + lemmas);*/
+
+        if (lemmas.contains("item1")) {
+            lemmas.set(lemmas.indexOf("item1"),"item");
+        }
+        if (lemmas.contains("item2")) {
+            lemmas.set(lemmas.indexOf("item2"),"item");
+        }
+        System.out.println("Lemmas: " + lemmas);
+
+        for (String verb : verbSynonyms.keySet()) {
+            String[] parts = verb.toLowerCase().split(" ");
+            if (parts.length == 1 && lemmas.contains(verb.toLowerCase())) {
+                GameController.setPRSA(verb.toLowerCase());
+                break;
+            }
+            else {
+                // Verb has multiple parts
+                boolean breakLoop = false;
+                for (int i = 0; i < lemmas.size() - parts.length + 1; i++) {
+                    if (lemmas.get(i).equals(parts[0].toLowerCase())) {
+                        boolean match = true;
+                        for (int j = 1; j < parts.length; j++) {
+                            if (!lemmas.get(i+j).equals(parts[j].toLowerCase())) {
+                                match = false;
+                            }
+                        }
+                        if (match) {
+                            // Verb found
+                            GameController.setPRSA(verb);
+                            breakLoop = true;
+                        }
+                    }
+                }
+                if (breakLoop) {
+                    break;
+                }
+            }
+        }
+
     }
 
     private void tryExtractNewVerb(List<String> lemmas, List<String> posTags) {
@@ -239,6 +263,7 @@ public class CommandConstructor {
                         }
                     }
                     GameController.setPRSA(verb.toString());
+                    System.out.println("Extracted non-listed verb: " + verb.toString());
                 }
                 break;
             }
@@ -387,7 +412,7 @@ public class CommandConstructor {
         ArrayList<Integer> removeEnd = new ArrayList<>();
         for (int i = 0; i < matchedObjects.size(); i++) {
             int idx = matchedIndxs.get(i);
-            if (idx > 0 && tokens.get(idx-1).getPos().equals("DT")) { removeStart.add(idx-1); }
+            if (idx > 0 && tokens.get(idx-1).getPos().equals("DT") || tokens.get(idx-1).getPos().equals("JJ") || tokens.get(idx-1).getPos().equals("JJR")) { removeStart.add(idx-1); }
             else { removeStart.add(idx); }
             removeEnd.add(idx + matchedObjects.get(i).length - 1);
         }
@@ -407,7 +432,7 @@ public class CommandConstructor {
             if (removeEnd.contains(i)) { inRemoveRegion = false; }
         }
         processedInput.delete(0, 1);
-        //System.out.println("Pre-processed: " + processedInput.toString());
+        System.out.println("Pre-processed: " + processedInput.toString());
         return processedInput.toString();
     }
 
@@ -443,10 +468,6 @@ public class CommandConstructor {
                 }
             }
         }
-        /*System.out.println("Synonyms:");
-        for (Map.Entry entry : synonyms.entrySet()) {
-            System.out.println(entry.getKey() + " : " + entry.getValue());
-        }*/
         return synsAndCons;
     }
 }

@@ -73,7 +73,7 @@ public class Main {
         Main.commandConstructor.setVerbSynonyms(GameController.getVerbSynonyms());
         Main.commandConstructor.processInput(userInput);
         ExecuteCommand.executeAction();
-        KnowledgeBase.getInstance().printKB();
+        //KnowledgeBase.getInstance().printKB();
     }
 
     public static void quitGame() {

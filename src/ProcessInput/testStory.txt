@@ -28,10 +28,10 @@
 [object]
 {
     ID: <BIGBOX>;
-    LOCATION: <DININGROOM>;
+    LOCATION: <LIVINGROOM>;
     NAME: "Big Box";
     DESC: "It's a big box.";
-    SYNS: "box", "container", "big box", "big container";
+    SYNS: "box", "container", "big container";
     FLAGS: _TAKEABLE;
     VALUES: (capacity: 100), (volume: 100);
 }
