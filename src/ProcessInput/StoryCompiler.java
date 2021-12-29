@@ -45,6 +45,7 @@ public class StoryCompiler {
     Set<String> synonyms;
 
     String location; // Parent
+    int locationType = 0;
 
     List<String> properties;
     Map<String, String> values;
@@ -84,6 +85,7 @@ public class StoryCompiler {
         visitor.visit(parseTree);
 
         GameState.setChildren();
+        kb.initVariablesAfterCompilation();
     }
 
     private void resetVars() {
@@ -108,6 +110,7 @@ public class StoryCompiler {
         synonyms = null;
 
         location = null;
+        locationType = 0;
 
         properties = new ArrayList<>();
         values = new HashMap<>();
@@ -137,7 +140,7 @@ public class StoryCompiler {
         logger.logRaw("SYNS: " + synonyms);
 
         GameRoom room = new GameRoom(id);
-        room.setParent("ROOT");
+        room.setParent("ROOT", 0);
         room.setNorth(n);
         room.setNConds(nconds);
         room.setSouth(s);
@@ -173,6 +176,7 @@ public class StoryCompiler {
         logger.logRaw("Compile Object:");
         logger.logRaw("ID: " + id);
         logger.logRaw("LOCATION: " + location);
+        logger.logRaw("LOCATION TYPE: " + locationType);
         logger.logRaw("NAME: " + name);
         logger.logRaw("DESC: " + desc);
         logger.logRaw("SYNS: " + synonyms);
@@ -181,13 +185,13 @@ public class StoryCompiler {
         values.forEach((key, value) -> logger.logRaw("\t" + key + ":" + value));
 
         GameObject obj = new GameObject(id);
-        obj.setParent(location);
+        obj.setParent(location, locationType);
+        obj.setParentType(locationType);
         obj.setName(name);
         obj.setDesc(desc);
         obj.setSynonyms(synonyms);
-        for (String property : properties) {
-            obj.setProperty(property);
-        }
+        properties.forEach(obj::setProperty);
+
         int volume = 1;
         int capacity = 0;
         int surface = 0;
@@ -200,12 +204,15 @@ public class StoryCompiler {
                     break;
                 case "capacity":
                     capacity = Integer.parseInt(value.getValue().toString());
+                    obj.addVariable("capacityUsed", "0");
                     break;
                 case "surface":
                     surface = Integer.parseInt(value.getValue().toString());
+                    obj.addVariable("surfaceUsed", "0");
                     break;
                 case "below":
                     below = Integer.parseInt(value.getValue().toString());
+                    obj.addVariable("belowUsed", "0");
                     break;
             }
         }
@@ -226,7 +233,10 @@ public class StoryCompiler {
             kb.addClause("below(" + id.toLowerCase() + "," + below + ")");
             kb.addClause("belowUsed(" + id.toLowerCase() + ",0)");
         }
-        kb.addClause("isLocated(" + id.toLowerCase() + "," + location.toLowerCase() + ")");
+
+        properties.forEach(property -> kb.addClause("hasProperty(" + id.toLowerCase() + "," + property.toLowerCase() + ")"));
+
+        kb.addClause("isLocated(" + id.toLowerCase() + "," + location.toLowerCase() + "," + locationType + ")");
 
         GameState.addGameObject(obj);
 
@@ -462,6 +472,14 @@ public class StoryCompiler {
         setTest(new PRSACond(verbs));
     }
 
+    public void compilePRSAAndCond(Set<String> verbs) {
+        logger.logLine();
+        logger.logRaw("Compiling PRSAAndCond:");
+        logger.logRaw("VERBS: " + verbs.toString());
+
+        setTest(new PRSAAndCond(verbs));
+    }
+
     public void compilePRSICond(Set<String> objs) {
         logger.logLine();
         logger.logRaw("Compiling PRSICond:");
@@ -488,13 +506,14 @@ public class StoryCompiler {
         addToLastActionBlock(new GotoEff(locID));
     }
 
-    public void compilePlaceEff(String objID, String locID) {
+    public void compilePlaceEff(String objID, String locID, int type) {
         logger.logLine();
         logger.logRaw("Compiling PlaceEff:");
         logger.logRaw("ITEM: " + objID);
         logger.logRaw("LOCATION: " + locID);
+        logger.logRaw("LOCATION TYPE: " + type);
 
-        addToLastActionBlock(new PlaceEff(objID, locID));
+        addToLastActionBlock(new PlaceEff(objID, locID, type));
     }
 
     public void compileRemFlagEff(String flagID) {

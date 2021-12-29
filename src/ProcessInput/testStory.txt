@@ -28,12 +28,23 @@
 [object]
 {
     ID: <BIGBOX>;
-    LOCATION: <LIVINGROOM>;
+    LOCATION: <TABLE>;
+    LOCATIONTYPE: 1;
     NAME: "Big Box";
     DESC: "It's a big box.";
     SYNS: "box", "container", "big container";
     PROPERTIES: _TAKEABLE;
     VALUES: (capacity: 100), (volume: 100);
+}
+
+[object]
+{
+    ID: <TABLE>;
+    LOCATION: <DININGROOM>;
+    NAME: "Table";
+    DESC: "An expensive looking table.";
+    SYNS: "surface";
+    VALUES: (surface: 100);
 }
 
 [action]
@@ -50,9 +61,16 @@
         }
         COND<PRSA: DROP, PLACE && HAVEITEM: <SMALLBOX>>
         {
-            EFF<PLACE: <SMALLBOX>, <HERE>>
-            EFF<REMFLAG: _BOXTAKEN>
+            EFF<PLACE: <SMALLBOX>, <HERE>, IN>
             EFF<TELL: "You placed the small box down.">
+        }
+        COND<PRSAAnd: PUT, IN || PRSAAnd: PUT, INSIDE || PRSAAnd: PLACE, IN || PRSAAnd: PLACE, INSIDE>
+        {
+            COND<PRSI: <BIGBOX>>
+            {
+                EFF<PLACE: <SMALLBOX>, <BIGBOX>, IN>
+                EFF<TELL: "You placed the small box inside the big box.">
+            }
         };
 }
 

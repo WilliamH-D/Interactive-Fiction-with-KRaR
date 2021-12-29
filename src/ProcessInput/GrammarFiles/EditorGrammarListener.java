@@ -108,6 +108,16 @@ public interface EditorGrammarListener extends ParseTreeListener {
 	 */
 	void exitLoc_entry(EditorGrammarParser.Loc_entryContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#loc_type_entry}.
+	 * @param ctx the parse tree
+	 */
+	void enterLoc_type_entry(EditorGrammarParser.Loc_type_entryContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#loc_type_entry}.
+	 * @param ctx the parse tree
+	 */
+	void exitLoc_type_entry(EditorGrammarParser.Loc_type_entryContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link EditorGrammarParser#name_entry}.
 	 * @param ctx the parse tree
 	 */
@@ -347,6 +357,16 @@ public interface EditorGrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitPrsa_cond(EditorGrammarParser.Prsa_condContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#prsa_and_cond}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrsa_and_cond(EditorGrammarParser.Prsa_and_condContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#prsa_and_cond}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrsa_and_cond(EditorGrammarParser.Prsa_and_condContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link EditorGrammarParser#prso_cond}.
 	 * @param ctx the parse tree

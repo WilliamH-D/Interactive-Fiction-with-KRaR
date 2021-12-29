@@ -71,6 +71,12 @@ public interface EditorGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitLoc_entry(EditorGrammarParser.Loc_entryContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#loc_type_entry}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLoc_type_entry(EditorGrammarParser.Loc_type_entryContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link EditorGrammarParser#name_entry}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -214,6 +220,12 @@ public interface EditorGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitPrsa_cond(EditorGrammarParser.Prsa_condContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#prsa_and_cond}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrsa_and_cond(EditorGrammarParser.Prsa_and_condContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link EditorGrammarParser#prso_cond}.
 	 * @param ctx the parse tree

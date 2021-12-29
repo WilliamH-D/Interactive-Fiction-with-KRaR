@@ -156,6 +156,7 @@ public class ExecuteCommand {
         // The target object has the takeable flag
         else if (obj.hasProperty("_TAKEABLE")) {
             obj.takeItem();
+            obj.setParentType(0);
         }
         // Unable to take the object
         else {
@@ -174,6 +175,7 @@ public class ExecuteCommand {
         // The item is in the player's inventory
         else if (GameState.getGameObject(obj.getParent()).equals(GameController.getPlayer())) {
             obj.placeItem();
+            obj.setParentType(0);
         }
         // Unable to place item you do not own
         else {

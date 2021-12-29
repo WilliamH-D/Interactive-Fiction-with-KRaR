@@ -1,9 +1,13 @@
 package SimpleEngine.Actions.Effects;
 
+import EnhancedEngine.KnowledgeBase;
 import Game.GameController;
+import Logging.DebugLogger;
 import SimpleEngine.Actions.Effect;
 import SimpleEngine.GameObject;
 import SimpleEngine.GameState;
+
+import java.util.logging.Logger;
 
 public class TakeEff extends Effect {
 
@@ -17,7 +21,7 @@ public class TakeEff extends Effect {
     public boolean performAction() {
         // Check given itemID is an actual item
         if (GameState.getGameObject(itemID) == null) {
-            System.err.println(itemID + " IS NOT A VALID OBJECT!");
+            DebugLogger.getInstance().logError(itemID + " IS NOT A VALID OBJECT!");
             return false;
         }
         GameState.getGameObject(itemID).takeItem();

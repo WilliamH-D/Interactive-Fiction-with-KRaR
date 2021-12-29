@@ -54,7 +54,7 @@ public class GameState {
     public static void setChildren() {
         for (GameObject obj : gameObjects.values()) {
             if (obj.getParent() != null) {
-                gameObjects.get(obj.getParent()).addChild(obj.getId());
+                gameObjects.get(obj.getParent()).addChild(obj.getId(), obj.getParentType());
             }
         }
     }

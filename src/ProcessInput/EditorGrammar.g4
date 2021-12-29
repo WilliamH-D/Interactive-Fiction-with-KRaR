@@ -19,6 +19,9 @@ NOT:'!';
 
 COND_TAG: 'COND';
 EFFECT_TAG: 'EFF';
+IN_TAG: 'IN';
+ON_TAG: 'ON';
+UNDER_TAG: 'UNDER';
 
 ALPHA: [a-zA-Z]+;
 NUMERIC: [0-9]+;
@@ -35,6 +38,7 @@ FLAG_TAG: LB_SQUARE 'flag' RB_SQUARE;
 
 ID_KEY: 'ID' COLON;
 LOC_KEY: 'LOCATION' COLON;
+LOC_TYPE_KEY: 'LOCATIONTYPE' COLON;
 NAME_KEY: 'NAME' COLON;
 DESC_KEY: 'DESC' COLON;
 SYNS_KEY: 'SYNS' COLON;
@@ -48,6 +52,7 @@ ACTION_KEY: 'ACTION' COLON;
 
 // Condition type keys
 PRSA_COND: 'PRSA' COLON;
+PRSA_AND_COND: 'PRSAAnd' COLON;
 PRSO_COND: 'PRSO' COLON;
 PRSI_COND: 'PRSI' COLON;
 HERE_COND: 'HERE' COLON;
@@ -83,6 +88,7 @@ flag: UNDERSCORE alpha_numeric;
 
 id_entry: ID_KEY ID SEMICOLON;
 loc_entry: LOC_KEY ID SEMICOLON;
+loc_type_entry: LOC_TYPE_KEY num_int SEMICOLON | /* epsilon*/;
 name_entry: NAME_KEY STRING SEMICOLON;
 desc_entry: DESC_KEY STRING SEMICOLON | /* epsilon */;
 synonyms_entry: SYNS_KEY STRING (COMMA STRING)* SEMICOLON | /* epsilon */;
@@ -101,6 +107,7 @@ flag_val_entry: VALUE_KEY num_int SEMICOLON | /* epsilon*/;
 object: OBJECT_TAG LB_CURLY
             id_entry
             loc_entry
+            loc_type_entry
             name_entry
             desc_entry
             synonyms_entry
@@ -146,6 +153,7 @@ condition_aux: condition
 
 // condition bodies
 prsa_cond: PRSA_COND ALPHA (COMMA ALPHA)*;
+prsa_and_cond: PRSA_AND_COND (ALPHA|IN_TAG|ON_TAG|UNDER_TAG) (COMMA (ALPHA|IN_TAG|ON_TAG|UNDER_TAG))*;
 prso_cond: PRSO_COND ID (COMMA ID)*;
 prsi_cond: PRSI_COND ID (COMMA ID)*;
 here_cond: HERE_COND ID (COMMA ID)*;
@@ -163,7 +171,7 @@ gt_cond: GT_COND alpha_numeric COMMA var
 lt_cond: LT_COND alpha_numeric COMMA var
          | LT_COND alpha_numeric COMMA alpha_numeric;
 
-condition: prsa_cond|prso_cond|prsi_cond|here_cond|andflags_cond|orflags_cond|andproperties_cond|orproperties_cond|flagvalue_cond|haveitem_cond|haveitems_cond|equals_cond|gt_cond|lt_cond;
+condition: prsa_cond|prsa_and_cond|prso_cond|prsi_cond|here_cond|andflags_cond|orflags_cond|andproperties_cond|orproperties_cond|flagvalue_cond|haveitem_cond|haveitems_cond|equals_cond|gt_cond|lt_cond;
 
 // effect bodies
 tell_eff: TELL_EFF STRING;
@@ -171,7 +179,7 @@ goto_eff: GOTO_EFF ID;
 setflag_eff: SETFLAG_EFF flag | SETFLAG_EFF flag COMMA num_int;
 remflag_eff: REMFLAG_EFF flag;
 take_eff: TAKE_EFF ID;
-place_eff: PLACE_EFF ID COMMA ID;
+place_eff: PLACE_EFF ID COMMA ID COMMA (IN_TAG|ON_TAG|UNDER_TAG);
 set_eff: SET_EFF alpha_numeric COMMA var;
 
 effect: tell_eff|goto_eff|setflag_eff|remflag_eff|take_eff|place_eff|set_eff;

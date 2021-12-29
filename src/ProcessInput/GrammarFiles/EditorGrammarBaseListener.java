@@ -136,6 +136,18 @@ public class EditorGrammarBaseListener implements EditorGrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterLoc_type_entry(EditorGrammarParser.Loc_type_entryContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLoc_type_entry(EditorGrammarParser.Loc_type_entryContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterName_entry(EditorGrammarParser.Name_entryContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -419,6 +431,18 @@ public class EditorGrammarBaseListener implements EditorGrammarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitPrsa_cond(EditorGrammarParser.Prsa_condContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPrsa_and_cond(EditorGrammarParser.Prsa_and_condContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPrsa_and_cond(EditorGrammarParser.Prsa_and_condContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

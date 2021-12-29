@@ -2,6 +2,8 @@ package EnhancedEngine;
 
 import Game.GameController;
 import Logging.DebugLogger;
+import SimpleEngine.GameObject;
+import SimpleEngine.GameState;
 import alice.tuprolog.*;
 import alice.tuprolog.Var;
 import alice.tuprolog.exceptions.*;
@@ -162,6 +164,64 @@ public class KnowledgeBase {
         if (this.dirty) {
             this.engine.setTheory(new Theory(new Struct(this.clauses)));
             this.dirty = false;
+        }
+    }
+
+    // Set capacityUsed/surfaceUsed/belowUsed for objects that already have something in/on/below them
+    public void initVariablesAfterCompilation() {
+        ArrayList<ArrayList<Var>> objects = query("isObject(X)");
+        for (ArrayList<Var> solution : objects) {
+            String id = solution.get(0).getTerm().toString().toUpperCase();
+
+            // Ignore player case
+            if (id.equals("PLAYER")) {
+                continue;
+            }
+
+            GameObject obj = GameState.getGameObject(id);
+
+            //Ignore if parent doesn't exist
+            if (obj.getParent() == null) {
+                continue;
+            }
+
+            GameObject parent = GameState.getGameObject(obj.getParent());
+
+            // Ignore if parent isn't an object or parent is player
+            if (query("isObject(" + parent.getId().toLowerCase() + ")").size() == 0 || parent.equals(GameController.getPlayer())) {
+                continue;
+            }
+
+            int state = obj.getParentType();
+
+            try {
+                switch (state) {
+                    case 0:
+                        int volume = Integer.parseInt(obj.getVariable("volume"));
+                        int capacityUsed = Integer.parseInt(query("capacityUsed(" + parent.getId().toLowerCase() + ",X)").get(0).get(0).getTerm().toString());
+                        int newCapacityUsed = capacityUsed + volume;
+                        removeClause("capacityUsed(" + parent.getId().toLowerCase() + ",X)", true);
+                        addClause("capacityUsed(" + parent.getId().toLowerCase() + "," + newCapacityUsed + ")");
+                        break;
+                    case 1:
+                        volume = Integer.parseInt(obj.getVariable("volume"));
+                        int surfaceUsed = Integer.parseInt(query("surfaceUsed(" + parent.getId().toLowerCase() + ",X)").get(0).get(0).getTerm().toString());
+                        int newSurfaceUsed = surfaceUsed + volume;
+                        removeClause("surfaceUsed(" + parent.getId().toLowerCase() + ",X)", true);
+                        addClause("surfaceUsed(" + parent.getId().toLowerCase() + "," + newSurfaceUsed + ")");
+                        break;
+                    case 2:
+                        volume = Integer.parseInt(obj.getVariable("volume"));
+                        int belowUsed = Integer.parseInt(query("belowUsed(" + parent.getId().toLowerCase() + ",X)").get(0).get(0).getTerm().toString());
+                        int newBelowUsed = belowUsed + volume;
+                        removeClause("belowUsed(" + parent.getId().toLowerCase() + ",X)", true);
+                        addClause("belowUsed(" + parent.getId().toLowerCase() + "," + newBelowUsed + ")");
+                        break;
+                }
+            }
+            catch (Exception e) {
+                DebugLogger.getInstance().logError("Error initialising parent variables for " + obj.getId());
+            }
         }
     }
 }

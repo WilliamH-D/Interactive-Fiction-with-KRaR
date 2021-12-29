@@ -166,16 +166,18 @@ public class GameController {
         class ParentChildPair {
             private GameObject parent;
             private GameObject child;
+            private int childType; // 0 = inside, 1 = on surface, 2 = below
 
-            public ParentChildPair(GameObject parent, GameObject child) {
+            public ParentChildPair(GameObject parent, GameObject child, int childType) {
                 this.parent = parent;
                 this.child = child;
+                this.childType = childType;
             }
         }
 
         // Depth first search on objects in the scene
         Stack<ParentChildPair> stack = new Stack<>();
-        stack.push(new ParentChildPair(null, location));
+        stack.push(new ParentChildPair(null, location, 0));
 
         boolean printedGap = false;
 
@@ -183,26 +185,33 @@ public class GameController {
             ParentChildPair pair = stack.pop();
             if (!pair.child.equals(location) && !pair.child.equals(GameController.getPlayer())) {
                 if (!pair.child.hasProperty("_HIDE")) {
-                    if (pair.child.hasProperty("_SURFACE")) {
-                        if (!printedGap) {
-                            System.out.println();
-                            printedGap = true;
-                        }
-                        System.out.println("A " + pair.child.getName() + " is on the " + pair.parent.getName() + ".");
-                    }
-                    else {
+                    if (pair.child.getParentType() == 0) {
                         if (!printedGap) {
                             System.out.println();
                             printedGap = true;
                         }
                         System.out.println("A " + pair.child.getName() + " is in the " + pair.parent.getName() + ".");
                     }
+                    else if (pair.child.getParentType() == 1) {
+                        if (!printedGap) {
+                            System.out.println();
+                            printedGap = true;
+                        }
+                        System.out.println("A " + pair.child.getName() + " is on the " + pair.parent.getName() + ".");
+                    }
+                    else if (pair.child.getParentType() == 2) {
+                        if (!printedGap) {
+                            System.out.println();
+                            printedGap = true;
+                        }
+                        System.out.println("A " + pair.child.getName() + " is below the " + pair.parent.getName() + ".");
+                    }
                 }
             }
             if (!pair.child.equals(GameController.getPlayer())) {
                 for (String childID : pair.child.getChildren()) {
                     GameObject child = GameState.getGameObject(childID);
-                    stack.push(new ParentChildPair(pair.child, child));
+                    stack.push(new ParentChildPair(pair.child, child, child.getParentType()));
                 }
             }
         }

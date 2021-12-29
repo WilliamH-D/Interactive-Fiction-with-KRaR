@@ -16,7 +16,7 @@ DCONDS: null
 NAME: Living-Room
 DESC: A nice and cosy living-room.
 SYNS: []
-INFO: New Room: SimpleEngine.GameRoom@1df8b5b8
+INFO: New Room: SimpleEngine.GameRoom@1130520d
 
 Compile Room:
 ID: DININGROOM
@@ -35,11 +35,12 @@ DCONDS: null
 NAME: Dining-Room
 DESC: A well cleaned dining-room.
 SYNS: []
-INFO: New Room: SimpleEngine.GameRoom@3e44f2a5
+INFO: New Room: SimpleEngine.GameRoom@7354b8c5
 
 Compile Object:
 ID: SMALLBOX
 LOCATION: LIVINGROOM
+LOCATION TYPE: 0
 NAME: Small Box
 DESC: It's a small box.
 SYNS: ["box", "little box", "container", "little container", "small container"]
@@ -47,11 +48,12 @@ FLAGS: []
 VALUES: 
 	volume:50
 	capacity:50
-INFO: New Object: SimpleEngine.GameObject@52815fa3
+INFO: New Object: SimpleEngine.GameObject@48c76607
 
 Compile Object:
 ID: BIGBOX
-LOCATION: LIVINGROOM
+LOCATION: TABLE
+LOCATION TYPE: 1
 NAME: Big Box
 DESC: It's a big box.
 SYNS: ["big container", "box", "container"]
@@ -59,18 +61,30 @@ FLAGS: [_TAKEABLE]
 VALUES: 
 	volume:100
 	capacity:100
-INFO: New Object: SimpleEngine.GameObject@62833051
+INFO: New Object: SimpleEngine.GameObject@3e2059ae
+
+Compile Object:
+ID: TABLE
+LOCATION: DININGROOM
+LOCATION TYPE: 0
+NAME: Table
+DESC: An expensive looking table.
+SYNS: ["surface"]
+FLAGS: []
+VALUES: 
+	surface:100
+INFO: New Object: SimpleEngine.GameObject@398dada8
 
 Compiling PRSACond:
 VERBS: [TAKE, OBTAIN]
 
 Compiling Conditions:
-TEST: SimpleEngine.Actions.Conditions.PRSACond@5d99c6b5
+TEST: SimpleEngine.Actions.Conditions.PRSACond@1b8a29df
 TES IS NOT: false
 CONTINUATION: null
 IsAND: true
 IsOR: false
-INFO: New Conditions: SimpleEngine.Actions.Condition@3b79fd76
+INFO: New Conditions: SimpleEngine.Actions.Condition@12a94400
 
 Compiling HereCond:
 LOCATIONS: [LIVINGROOM]
@@ -79,20 +93,20 @@ Compiling HaveItemCond:
 OBJS: [SMALLBOX]
 
 Compiling Conditions:
-TEST: SimpleEngine.Actions.Conditions.HaveItemCond@1f81aa00
+TEST: SimpleEngine.Actions.Conditions.HaveItemCond@1ef6d34c
 TES IS NOT: true
 CONTINUATION: null
 IsAND: true
 IsOR: false
-INFO: New Conditions: SimpleEngine.Actions.Condition@6b6776cb
+INFO: New Conditions: SimpleEngine.Actions.Condition@46271dd6
 
 Compiling Conditions:
-TEST: SimpleEngine.Actions.Conditions.HereCond@1863d2fe
+TEST: SimpleEngine.Actions.Conditions.HereCond@11bb571c
 TES IS NOT: false
-CONTINUATION: SimpleEngine.Actions.Condition@6b6776cb
+CONTINUATION: SimpleEngine.Actions.Condition@46271dd6
 IsAND: true
 IsOR: false
-INFO: New Conditions: SimpleEngine.Actions.Condition@1787bc24
+INFO: New Conditions: SimpleEngine.Actions.Condition@7c51f34b
 
 Compiling TakeEff:
 ITEM: SMALLBOX
@@ -102,14 +116,14 @@ FLAG: _BOXTAKEN
 VALUE: 1
 
 Compiling Conditional:
-CONDITION: SimpleEngine.Actions.Condition@1787bc24
-ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@5a37d3ed, SimpleEngine.Actions.Effects.SetFlagEff@26df6e3a]
-INFO: New Conditional: SimpleEngine.Actions.Conditional@6b58b9e9
+CONDITION: SimpleEngine.Actions.Condition@7c51f34b
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@6fa34d52, SimpleEngine.Actions.Effects.SetFlagEff@57576994]
+INFO: New Conditional: SimpleEngine.Actions.Conditional@67b9b51a
 
 Compiling Conditional:
-CONDITION: SimpleEngine.Actions.Condition@3b79fd76
-ACTIONS: [SimpleEngine.Actions.Conditional@6b58b9e9]
-INFO: New Conditional: SimpleEngine.Actions.Conditional@f14a7d4
+CONDITION: SimpleEngine.Actions.Condition@12a94400
+ACTIONS: [SimpleEngine.Actions.Conditional@67b9b51a]
+INFO: New Conditional: SimpleEngine.Actions.Conditional@1205bd62
 
 Compiling PRSACond:
 VERBS: [PLACE, DROP]
@@ -118,39 +132,110 @@ Compiling HaveItemCond:
 OBJS: [SMALLBOX]
 
 Compiling Conditions:
-TEST: SimpleEngine.Actions.Conditions.HaveItemCond@52e7a6b2
+TEST: SimpleEngine.Actions.Conditions.HaveItemCond@7ef27d7f
 TES IS NOT: false
 CONTINUATION: null
 IsAND: true
 IsOR: false
-INFO: New Conditions: SimpleEngine.Actions.Condition@29a5f4e7
+INFO: New Conditions: SimpleEngine.Actions.Condition@490caf5f
 
 Compiling Conditions:
-TEST: SimpleEngine.Actions.Conditions.PRSACond@79c97cb
+TEST: SimpleEngine.Actions.Conditions.PRSACond@6337c201
 TES IS NOT: false
-CONTINUATION: SimpleEngine.Actions.Condition@29a5f4e7
+CONTINUATION: SimpleEngine.Actions.Condition@490caf5f
 IsAND: true
 IsOR: false
-INFO: New Conditions: SimpleEngine.Actions.Condition@2d9caaeb
+INFO: New Conditions: SimpleEngine.Actions.Condition@5c669da8
 
 Compiling PlaceEff:
 ITEM: SMALLBOX
 LOCATION: HERE
-
-Compiling RemFlagEff:
-FLAG: _BOXTAKEN
+LOCATION TYPE: 0
 
 Compiling TellEff:
 TEXT: You placed the small box down.
 
 Compiling Conditional:
-CONDITION: SimpleEngine.Actions.Condition@2d9caaeb
-ACTIONS: [SimpleEngine.Actions.Effects.PlaceEff@6f6745d6, SimpleEngine.Actions.Effects.RemFlagEff@27508c5d, SimpleEngine.Actions.Effects.TellEff@4f704591]
-INFO: New Conditional: SimpleEngine.Actions.Conditional@4b5189ac
+CONDITION: SimpleEngine.Actions.Condition@5c669da8
+ACTIONS: [SimpleEngine.Actions.Effects.PlaceEff@4032d386, SimpleEngine.Actions.Effects.TellEff@28d18df5]
+INFO: New Conditional: SimpleEngine.Actions.Conditional@934b6cb
+
+Compiling PRSAAndCond:
+VERBS: [IN, PUT]
+
+Compiling PRSAAndCond:
+VERBS: [PUT, INSIDE]
+
+Compiling PRSAAndCond:
+VERBS: [IN, PLACE]
+
+Compiling PRSAAndCond:
+VERBS: [PLACE, INSIDE]
+
+Compiling Conditions:
+TEST: SimpleEngine.Actions.Conditions.PRSAAndCond@3b74ac8
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@27adc16e
+
+Compiling Conditions:
+TEST: SimpleEngine.Actions.Conditions.PRSAAndCond@b83a9be
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@27adc16e
+IsAND: false
+IsOR: true
+INFO: New Conditions: SimpleEngine.Actions.Condition@2609b277
+
+Compiling Conditions:
+TEST: SimpleEngine.Actions.Conditions.PRSAAndCond@1fd14d74
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@2609b277
+IsAND: false
+IsOR: true
+INFO: New Conditions: SimpleEngine.Actions.Condition@563e4951
+
+Compiling Conditions:
+TEST: SimpleEngine.Actions.Conditions.PRSAAndCond@4066c471
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@563e4951
+IsAND: false
+IsOR: true
+INFO: New Conditions: SimpleEngine.Actions.Condition@2b175c00
+
+Compiling PRSICond:
+OBJS: [BIGBOX]
+
+Compiling Conditions:
+TEST: SimpleEngine.Actions.Conditions.PRSICond@1ae8bcbc
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@6cdba6dc
+
+Compiling PlaceEff:
+ITEM: SMALLBOX
+LOCATION: BIGBOX
+LOCATION TYPE: 0
+
+Compiling TellEff:
+TEXT: You placed the small box inside the big box.
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@6cdba6dc
+ACTIONS: [SimpleEngine.Actions.Effects.PlaceEff@7d3d101b, SimpleEngine.Actions.Effects.TellEff@30c8681]
+INFO: New Conditional: SimpleEngine.Actions.Conditional@5cdec700
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@2b175c00
+ACTIONS: [SimpleEngine.Actions.Conditional@5cdec700]
+INFO: New Conditional: SimpleEngine.Actions.Conditional@6d026701
 
 Compile Action:
 ID: SMALLBOX
-ACTIONS: [SimpleEngine.Actions.Conditional@f14a7d4, SimpleEngine.Actions.Conditional@4b5189ac]
+ACTIONS: [SimpleEngine.Actions.Conditional@1205bd62, SimpleEngine.Actions.Conditional@934b6cb, SimpleEngine.Actions.Conditional@6d026701]
 
 Compile Flag:
 FLAG: _BOXTAKEN
@@ -166,48 +251,26 @@ capacityUsed(player,0)
 ':-'(putOn(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putBelow(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 isRoom(livingroom)
-isLocated(player,livingroom)
+isLocated(player,livingroom,0)
 isRoom(diningroom)
 isObject(smallbox)
 volume(smallbox,50)
 capacity(smallbox,50)
 capacityUsed(smallbox,0)
-isLocated(smallbox,livingroom)
+isLocated(smallbox,livingroom,0)
 isObject(bigbox)
 volume(bigbox,100)
 capacity(bigbox,100)
 capacityUsed(bigbox,0)
-isLocated(bigbox,livingroom)
+hasProperty(bigbox,_takeable)
+isLocated(bigbox,table,1)
+isObject(table)
+volume(table,1)
+surface(table,100)
+isLocated(table,diningroom,0)
 flag(_boxtaken,0)
-DEBUG: Processing user input: look around the room
-DEBUG: Matched verb: LOOK AROUND
-DEBUG: Simplified verb: do the room
-DEBUG: Pre-processed: do the room
-DEBUG: Lemmas: [do, the, room]
+surfaceUsed(table,100)
 
-DEBUG: PRSA: LOOK AROUND, PRSO: null, PRSI: null
-DEBUG: Corrected Verb: look around
-DEBUG: Processing user input: look at small box
-DEBUG: Matched verb: look
-DEBUG: Simplified verb: do at small box
-DEBUG: Pre-processed: do at item1
-DEBUG: Lemmas: [do, at, item]
-
-DEBUG: PRSA: LOOK, PRSO: SMALLBOX, PRSI: null
-DEBUG: Corrected Verb: look
-DEBUG: Processing user input: look box
-DEBUG: Matched verb: look
-DEBUG: Simplified verb: do box
-
-DEBUG: PRSA: CONFLICT, PRSO: null, PRSI: null
-DEBUG: Processing user input: look little box
-DEBUG: Matched verb: look
-DEBUG: Simplified verb: do little box
-DEBUG: Pre-processed: do item1
-DEBUG: Lemmas: [do, item]
-
-DEBUG: PRSA: LOOK, PRSO: SMALLBOX, PRSI: null
-DEBUG: Corrected Verb: look
 DEBUG: Processing user input: take small box
 DEBUG: Matched verb: take
 DEBUG: Simplified verb: do small box
@@ -215,55 +278,476 @@ DEBUG: Pre-processed: do item1
 DEBUG: Lemmas: [do, item]
 
 DEBUG: PRSA: TAKE, PRSO: SMALLBOX, PRSI: null
+DEBUG: PRSACond satisfied since TAKE contained in PRSA list
 
-DEBUG: Removed clause isLocated(smallbox,livingroom)
+DEBUG: Querying: isObject(livingroom)
 
-DEBUG: Adding clause isLocated(smallbox,player)
+DEBUG: Removed clause isLocated(smallbox,livingroom,0)
+
+DEBUG: Adding clause isLocated(smallbox,player,0)
 
 DEBUG: Removed clause flag(_boxtaken,0)
 
 DEBUG: Adding clause flag(_boxtaken,1)
-DEBUG: Processing user input: look at player
-DEBUG: Matched verb: look
-DEBUG: Simplified verb: do at player
-DEBUG: Pre-processed: do at item1
-DEBUG: Lemmas: [do, at, item]
 
-DEBUG: PRSA: LOOK, PRSO: PLAYER, PRSI: null
-DEBUG: Corrected Verb: look
-DEBUG: Processing user input: walk slowly to the north
-DEBUG: Matched verb: walk
-DEBUG: Simplified verb: do slowly to the north
-DEBUG: Pre-processed: do slowly to item1
-DEBUG: Lemmas: [do, slowly, to, item]
+Knowledge Base:
+isObject(player)
+capacity(player,2147483647)
+capacityUsed(player,0)
+':-'(inScope(A,B),(isObject(A),isLocated(A,B),isLocated(PLAYER,B),'!'))
+':-'(inScope(A,C),(isObject(A),isLocated(A,B),inScope(B,C)))
+':-'(putIn(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putOn(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putBelow(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+isRoom(livingroom)
+isLocated(player,livingroom,0)
+isRoom(diningroom)
+isObject(smallbox)
+volume(smallbox,50)
+capacity(smallbox,50)
+capacityUsed(smallbox,0)
+isObject(bigbox)
+volume(bigbox,100)
+capacity(bigbox,100)
+capacityUsed(bigbox,0)
+hasProperty(bigbox,_takeable)
+isLocated(bigbox,table,1)
+isObject(table)
+volume(table,1)
+surface(table,100)
+isLocated(table,diningroom,0)
+surfaceUsed(table,100)
+isLocated(smallbox,player,0)
+flag(_boxtaken,1)
 
-DEBUG: PRSA: WALK, PRSO: NORTH, PRSI: null
+DEBUG: Processing user input: n
+
+DEBUG: PRSA: MOVE, PRSO: NORTH, PRSI: null
 DEBUG: Corrected Verb: move
 
-DEBUG: Removed clause isLocated(player,livingroom)
+DEBUG: Removed clause isLocated(player,livingroom,0)
 
-DEBUG: Adding clause isLocated(player,diningroom)
-DEBUG: Processing user input: go east
-DEBUG: Matched verb: go
-DEBUG: Simplified verb: do east
+DEBUG: Adding clause isLocated(player,diningroom,0)
+
+Knowledge Base:
+isObject(player)
+capacity(player,2147483647)
+capacityUsed(player,0)
+':-'(inScope(A,B),(isObject(A),isLocated(A,B),isLocated(PLAYER,B),'!'))
+':-'(inScope(A,C),(isObject(A),isLocated(A,B),inScope(B,C)))
+':-'(putIn(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putOn(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putBelow(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+isRoom(livingroom)
+isRoom(diningroom)
+isObject(smallbox)
+volume(smallbox,50)
+capacity(smallbox,50)
+capacityUsed(smallbox,0)
+isObject(bigbox)
+volume(bigbox,100)
+capacity(bigbox,100)
+capacityUsed(bigbox,0)
+hasProperty(bigbox,_takeable)
+isLocated(bigbox,table,1)
+isObject(table)
+volume(table,1)
+surface(table,100)
+isLocated(table,diningroom,0)
+surfaceUsed(table,100)
+isLocated(smallbox,player,0)
+flag(_boxtaken,1)
+isLocated(player,diningroom,0)
+
+DEBUG: Processing user input: take big box
+DEBUG: Matched verb: take
+DEBUG: Simplified verb: do big box
 DEBUG: Pre-processed: do item1
 DEBUG: Lemmas: [do, item]
 
-DEBUG: PRSA: GO, PRSO: EAST, PRSI: null
-DEBUG: Corrected Verb: move
-DEBUG: Processing user input: walk to the bathroom
-DEBUG: Matched verb: walk
-DEBUG: Simplified verb: do to the bathroom
-DEBUG: Pre-processed: do to the bathroom
-DEBUG: Lemmas: [do, to, the, bathroom]
+DEBUG: PRSA: TAKE, PRSO: BIGBOX, PRSI: null
+DEBUG: Corrected Verb: take
 
-DEBUG: PRSA: WALK, PRSO: null, PRSI: null
-DEBUG: Corrected Verb: move
-DEBUG: Processing user input: qui
-DEBUG: Pre-processed: qui
-DEBUG: Lemmas: [qui]
+DEBUG: Querying: isObject(table)
+DEBUG: Solution: isObject(table) - bindings: yes.
 
-DEBUG: PRSA: null, PRSO: null, PRSI: null
+DEBUG: Querying: surfaceUsed(table,X)
+DEBUG: Solution: surfaceUsed(table,100) - bindings: yes.
+X / 100
+
+DEBUG: Removed clause surfaceUsed(table,100)
+
+DEBUG: Adding clause surfaceUsed(table,0)
+
+DEBUG: Removed clause isLocated(bigbox,table,1)
+
+DEBUG: Adding clause isLocated(bigbox,player,0)
+
+Knowledge Base:
+isObject(player)
+capacity(player,2147483647)
+capacityUsed(player,0)
+':-'(inScope(A,B),(isObject(A),isLocated(A,B),isLocated(PLAYER,B),'!'))
+':-'(inScope(A,C),(isObject(A),isLocated(A,B),inScope(B,C)))
+':-'(putIn(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putOn(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putBelow(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+isRoom(livingroom)
+isRoom(diningroom)
+isObject(smallbox)
+volume(smallbox,50)
+capacity(smallbox,50)
+capacityUsed(smallbox,0)
+isObject(bigbox)
+volume(bigbox,100)
+capacity(bigbox,100)
+capacityUsed(bigbox,0)
+hasProperty(bigbox,_takeable)
+isObject(table)
+volume(table,1)
+surface(table,100)
+isLocated(table,diningroom,0)
+isLocated(smallbox,player,0)
+flag(_boxtaken,1)
+isLocated(player,diningroom,0)
+surfaceUsed(table,0)
+isLocated(bigbox,player,0)
+
+DEBUG: Processing user input: put small box in big box
+DEBUG: Pre-processed: put item2 in item1
+DEBUG: Lemmas: [put, item, in, item]
+
+DEBUG: PRSA: PUT ITEM IN ITEM, PRSO: SMALLBOX, PRSI: BIGBOX
+DEBUG: PRSAAndCond satisfied
+
+DEBUG: Querying: isObject(bigbox)
+DEBUG: Solution: isObject(bigbox) - bindings: yes.
+
+DEBUG: Querying: capacityUsed(bigbox,X)
+DEBUG: Solution: capacityUsed(bigbox,0) - bindings: yes.
+X / 0
+
+DEBUG: Removed clause capacityUsed(bigbox,0)
+
+DEBUG: Adding clause capacityUsed(bigbox,50)
+
+DEBUG: Removed clause isLocated(smallbox,player,0)
+
+DEBUG: Adding clause isLocated(smallbox,bigbox,0)
+
+Knowledge Base:
+isObject(player)
+capacity(player,2147483647)
+capacityUsed(player,0)
+':-'(inScope(A,B),(isObject(A),isLocated(A,B),isLocated(PLAYER,B),'!'))
+':-'(inScope(A,C),(isObject(A),isLocated(A,B),inScope(B,C)))
+':-'(putIn(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putOn(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putBelow(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+isRoom(livingroom)
+isRoom(diningroom)
+isObject(smallbox)
+volume(smallbox,50)
+capacity(smallbox,50)
+capacityUsed(smallbox,0)
+isObject(bigbox)
+volume(bigbox,100)
+capacity(bigbox,100)
+hasProperty(bigbox,_takeable)
+isObject(table)
+volume(table,1)
+surface(table,100)
+isLocated(table,diningroom,0)
+flag(_boxtaken,1)
+isLocated(player,diningroom,0)
+surfaceUsed(table,0)
+isLocated(bigbox,player,0)
+capacityUsed(bigbox,50)
+isLocated(smallbox,bigbox,0)
+
+DEBUG: Processing user input: drop small box
+DEBUG: Matched verb: drop
+DEBUG: Simplified verb: do small box
+DEBUG: Pre-processed: do item1
+DEBUG: Lemmas: [do, item]
+
+DEBUG: PRSA: DROP, PRSO: SMALLBOX, PRSI: null
+DEBUG: PRSACond not satisfied since DROP not contained in PRSA list
+DEBUG: PRSACond satisfied since DROP contained in PRSA list
+DEBUG: PRSACond not satisfied since IN is not in the PRSA
+DEBUG: PRSACond not satisfied since PUT is not in the PRSA
+DEBUG: PRSACond not satisfied since IN is not in the PRSA
+DEBUG: PRSACond not satisfied since PLACE is not in the PRSA
+DEBUG: Corrected Verb: place
+
+Knowledge Base:
+isObject(player)
+capacity(player,2147483647)
+capacityUsed(player,0)
+':-'(inScope(A,B),(isObject(A),isLocated(A,B),isLocated(PLAYER,B),'!'))
+':-'(inScope(A,C),(isObject(A),isLocated(A,B),inScope(B,C)))
+':-'(putIn(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putOn(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putBelow(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+isRoom(livingroom)
+isRoom(diningroom)
+isObject(smallbox)
+volume(smallbox,50)
+capacity(smallbox,50)
+capacityUsed(smallbox,0)
+isObject(bigbox)
+volume(bigbox,100)
+capacity(bigbox,100)
+hasProperty(bigbox,_takeable)
+isObject(table)
+volume(table,1)
+surface(table,100)
+isLocated(table,diningroom,0)
+flag(_boxtaken,1)
+isLocated(player,diningroom,0)
+surfaceUsed(table,0)
+isLocated(bigbox,player,0)
+capacityUsed(bigbox,50)
+isLocated(smallbox,bigbox,0)
+
+DEBUG: Processing user input: drp big box
+DEBUG: Pre-processed: drp item1
+DEBUG: Lemmas: [drp, item]
+
+DEBUG: PRSA: null, PRSO: BIGBOX, PRSI: null
+
+Knowledge Base:
+isObject(player)
+capacity(player,2147483647)
+capacityUsed(player,0)
+':-'(inScope(A,B),(isObject(A),isLocated(A,B),isLocated(PLAYER,B),'!'))
+':-'(inScope(A,C),(isObject(A),isLocated(A,B),inScope(B,C)))
+':-'(putIn(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putOn(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putBelow(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+isRoom(livingroom)
+isRoom(diningroom)
+isObject(smallbox)
+volume(smallbox,50)
+capacity(smallbox,50)
+capacityUsed(smallbox,0)
+isObject(bigbox)
+volume(bigbox,100)
+capacity(bigbox,100)
+hasProperty(bigbox,_takeable)
+isObject(table)
+volume(table,1)
+surface(table,100)
+isLocated(table,diningroom,0)
+flag(_boxtaken,1)
+isLocated(player,diningroom,0)
+surfaceUsed(table,0)
+isLocated(bigbox,player,0)
+capacityUsed(bigbox,50)
+isLocated(smallbox,bigbox,0)
+
+DEBUG: Processing user input: drop big box
+DEBUG: Matched verb: drop
+DEBUG: Simplified verb: do big box
+DEBUG: Pre-processed: do item1
+DEBUG: Lemmas: [do, item]
+
+DEBUG: PRSA: DROP, PRSO: BIGBOX, PRSI: null
+DEBUG: Corrected Verb: place
+
+DEBUG: Removed clause isLocated(bigbox,player,0)
+
+DEBUG: Adding clause isLocated(bigbox,diningroom,0)
+
+Knowledge Base:
+isObject(player)
+capacity(player,2147483647)
+capacityUsed(player,0)
+':-'(inScope(A,B),(isObject(A),isLocated(A,B),isLocated(PLAYER,B),'!'))
+':-'(inScope(A,C),(isObject(A),isLocated(A,B),inScope(B,C)))
+':-'(putIn(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putOn(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putBelow(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+isRoom(livingroom)
+isRoom(diningroom)
+isObject(smallbox)
+volume(smallbox,50)
+capacity(smallbox,50)
+capacityUsed(smallbox,0)
+isObject(bigbox)
+volume(bigbox,100)
+capacity(bigbox,100)
+hasProperty(bigbox,_takeable)
+isObject(table)
+volume(table,1)
+surface(table,100)
+isLocated(table,diningroom,0)
+flag(_boxtaken,1)
+isLocated(player,diningroom,0)
+surfaceUsed(table,0)
+capacityUsed(bigbox,50)
+isLocated(smallbox,bigbox,0)
+isLocated(bigbox,diningroom,0)
+
+DEBUG: Processing user input: take small box
+DEBUG: Matched verb: take
+DEBUG: Simplified verb: do small box
+DEBUG: Pre-processed: do item1
+DEBUG: Lemmas: [do, item]
+
+DEBUG: PRSA: TAKE, PRSO: SMALLBOX, PRSI: null
+DEBUG: PRSACond satisfied since TAKE contained in PRSA list
+DEBUG: PRSACond not satisfied since TAKE not contained in PRSA list
+DEBUG: PRSACond not satisfied since IN is not in the PRSA
+DEBUG: PRSACond not satisfied since PUT is not in the PRSA
+DEBUG: PRSACond not satisfied since IN is not in the PRSA
+DEBUG: PRSACond not satisfied since PLACE is not in the PRSA
+DEBUG: Corrected Verb: take
+
+Knowledge Base:
+isObject(player)
+capacity(player,2147483647)
+capacityUsed(player,0)
+':-'(inScope(A,B),(isObject(A),isLocated(A,B),isLocated(PLAYER,B),'!'))
+':-'(inScope(A,C),(isObject(A),isLocated(A,B),inScope(B,C)))
+':-'(putIn(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putOn(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putBelow(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+isRoom(livingroom)
+isRoom(diningroom)
+isObject(smallbox)
+volume(smallbox,50)
+capacity(smallbox,50)
+capacityUsed(smallbox,0)
+isObject(bigbox)
+volume(bigbox,100)
+capacity(bigbox,100)
+hasProperty(bigbox,_takeable)
+isObject(table)
+volume(table,1)
+surface(table,100)
+isLocated(table,diningroom,0)
+flag(_boxtaken,1)
+isLocated(player,diningroom,0)
+surfaceUsed(table,0)
+capacityUsed(bigbox,50)
+isLocated(smallbox,bigbox,0)
+isLocated(bigbox,diningroom,0)
+
+DEBUG: Processing user input: take big box
+DEBUG: Matched verb: take
+DEBUG: Simplified verb: do big box
+DEBUG: Pre-processed: do item1
+DEBUG: Lemmas: [do, item]
+
+DEBUG: PRSA: TAKE, PRSO: BIGBOX, PRSI: null
+DEBUG: Corrected Verb: take
+
+DEBUG: Querying: isObject(diningroom)
+
+DEBUG: Removed clause isLocated(bigbox,diningroom,0)
+
+DEBUG: Adding clause isLocated(bigbox,player,0)
+
+Knowledge Base:
+isObject(player)
+capacity(player,2147483647)
+capacityUsed(player,0)
+':-'(inScope(A,B),(isObject(A),isLocated(A,B),isLocated(PLAYER,B),'!'))
+':-'(inScope(A,C),(isObject(A),isLocated(A,B),inScope(B,C)))
+':-'(putIn(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putOn(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putBelow(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+isRoom(livingroom)
+isRoom(diningroom)
+isObject(smallbox)
+volume(smallbox,50)
+capacity(smallbox,50)
+capacityUsed(smallbox,0)
+isObject(bigbox)
+volume(bigbox,100)
+capacity(bigbox,100)
+hasProperty(bigbox,_takeable)
+isObject(table)
+volume(table,1)
+surface(table,100)
+isLocated(table,diningroom,0)
+flag(_boxtaken,1)
+isLocated(player,diningroom,0)
+surfaceUsed(table,0)
+capacityUsed(bigbox,50)
+isLocated(smallbox,bigbox,0)
+isLocated(bigbox,player,0)
+
+DEBUG: Processing user input: look around
+DEBUG: Matched verb: LOOK AROUND
+DEBUG: Simplified verb: do
+DEBUG: Pre-processed: do
+DEBUG: Lemmas: [do]
+
+DEBUG: PRSA: LOOK AROUND, PRSO: null, PRSI: null
+DEBUG: Corrected Verb: look around
+
+Knowledge Base:
+isObject(player)
+capacity(player,2147483647)
+capacityUsed(player,0)
+':-'(inScope(A,B),(isObject(A),isLocated(A,B),isLocated(PLAYER,B),'!'))
+':-'(inScope(A,C),(isObject(A),isLocated(A,B),inScope(B,C)))
+':-'(putIn(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putOn(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putBelow(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+isRoom(livingroom)
+isRoom(diningroom)
+isObject(smallbox)
+volume(smallbox,50)
+capacity(smallbox,50)
+capacityUsed(smallbox,0)
+isObject(bigbox)
+volume(bigbox,100)
+capacity(bigbox,100)
+hasProperty(bigbox,_takeable)
+isObject(table)
+volume(table,1)
+surface(table,100)
+isLocated(table,diningroom,0)
+flag(_boxtaken,1)
+isLocated(player,diningroom,0)
+surfaceUsed(table,0)
+capacityUsed(bigbox,50)
+isLocated(smallbox,bigbox,0)
+isLocated(bigbox,player,0)
+
 DEBUG: Processing user input: quit
 
 DEBUG: PRSA: QUIT, PRSO: null, PRSI: null
+
+Knowledge Base:
+isObject(player)
+capacity(player,2147483647)
+capacityUsed(player,0)
+':-'(inScope(A,B),(isObject(A),isLocated(A,B),isLocated(PLAYER,B),'!'))
+':-'(inScope(A,C),(isObject(A),isLocated(A,B),inScope(B,C)))
+':-'(putIn(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putOn(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putBelow(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+isRoom(livingroom)
+isRoom(diningroom)
+isObject(smallbox)
+volume(smallbox,50)
+capacity(smallbox,50)
+capacityUsed(smallbox,0)
+isObject(bigbox)
+volume(bigbox,100)
+capacity(bigbox,100)
+hasProperty(bigbox,_takeable)
+isObject(table)
+volume(table,1)
+surface(table,100)
+isLocated(table,diningroom,0)
+flag(_boxtaken,1)
+isLocated(player,diningroom,0)
+surfaceUsed(table,0)
+capacityUsed(bigbox,50)
+isLocated(smallbox,bigbox,0)
+isLocated(bigbox,player,0)

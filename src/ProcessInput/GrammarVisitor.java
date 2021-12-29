@@ -42,6 +42,16 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
         return visitChildren(ctx);
     }
 
+    @Override
+    public T visitLoc_type_entry(EditorGrammarParser.Loc_type_entryContext ctx) {
+        try {
+            String type = ctx.num_int().getText();
+            StoryCompiler.get().locationType = Integer.parseInt(type);
+        }
+        catch (NullPointerException ignored) {}
+        return visitChildren(ctx);
+    }
+
     @Override public T visitName_entry(EditorGrammarParser.Name_entryContext ctx) {
         String name = ctx.STRING().toString();
         StoryCompiler.get().name = name.substring(1, name.length()-1);
@@ -274,7 +284,27 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
         StoryCompiler.get().compilePRSACond(objs);
         return children;
     }
-    
+
+    @Override
+    public T visitPrsa_and_cond(EditorGrammarParser.Prsa_and_condContext ctx) {
+        T children = visitChildren(ctx);
+        Set<String> objs = new HashSet<>();
+        for (int i = 0; i < ctx.ALPHA().size(); i++) {
+            objs.add(ctx.ALPHA(i).getText());
+        }
+        for (int j = 0; j < ctx.IN_TAG().size(); j++) {
+            objs.add("IN");
+        }
+        for (int j = 0; j < ctx.ON_TAG().size(); j++) {
+            objs.add("ON");
+        }
+        for (int j = 0; j < ctx.UNDER_TAG().size(); j++) {
+            objs.add("UNDER");
+        }
+        StoryCompiler.get().compilePRSAAndCond(objs);
+        return children;
+    }
+
     @Override public T visitPrso_cond(EditorGrammarParser.Prso_condContext ctx) {
         T children = visitChildren(ctx);
         Set<String> objs = new HashSet<>();
@@ -454,7 +484,19 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
         T children = visitChildren(ctx);
         String obj = ctx.ID(0).getText();
         String loc = ctx.ID(1).getText();
-        StoryCompiler.get().compilePlaceEff(obj.substring(1, obj.length()-1), loc.substring(1, loc.length()-1));
+        int type = 0;
+        try {
+            String x = ctx.ON_TAG().getText();
+            type = 1;
+        }
+        catch (Exception e) {
+            try {
+                String x = ctx.UNDER_TAG().getText();
+                type = 2;
+            }
+            catch (Exception ignored) {}
+        }
+        StoryCompiler.get().compilePlaceEff(obj.substring(1, obj.length()-1), loc.substring(1, loc.length()-1), type);
         return children;
     }
     
