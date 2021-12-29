@@ -38,7 +38,7 @@ LOC_KEY: 'LOCATION' COLON;
 NAME_KEY: 'NAME' COLON;
 DESC_KEY: 'DESC' COLON;
 SYNS_KEY: 'SYNS' COLON;
-FLAGS_KEY: 'FLAGS' COLON;
+PROPERTIES_KEY: 'PROPERTIES' COLON;
 FLAG_KEY: 'FLAG' COLON;
 VALUES_KEY: 'VALUES' COLON;
 VALUE_KEY: 'VALUE' COLON;
@@ -53,6 +53,8 @@ PRSI_COND: 'PRSI' COLON;
 HERE_COND: 'HERE' COLON;
 ANDFLAGS_COND: 'ANDFLAGS' COLON;
 ORFLAGS_COND: 'ORFLAGS' COLON;
+ANDPROPERTIES_COND: 'ANDPROPERTIES' COLON;
+ORPROPERTIES_COND: 'ORPROPERTIES' COLON;
 FLAGVALUE_COND: 'FLAGVALUE' COLON;
 HAVEITEM_COND: 'HAVEITEM' COLON;
 HAVEITEMS_COND: 'HAVEITEMS' COLON;
@@ -84,7 +86,7 @@ loc_entry: LOC_KEY ID SEMICOLON;
 name_entry: NAME_KEY STRING SEMICOLON;
 desc_entry: DESC_KEY STRING SEMICOLON | /* epsilon */;
 synonyms_entry: SYNS_KEY STRING (COMMA STRING)* SEMICOLON | /* epsilon */;
-flags_entry: FLAGS_KEY flag (COMMA flag)* SEMICOLON | /* epsilon */;
+properties_entry: PROPERTIES_KEY flag (COMMA flag)* SEMICOLON | /* epsilon */;
 values_entry: VALUES_KEY value (COMMA value)* SEMICOLON | /* epsilon */;
 north_entry: NORTH_KEY ID SEMICOLON (NORTH_COND_KEY flag EQUALS num_int (COMMA flag EQUALS num_int)* SEMICOLON|/*e*/) | /*epsilon*/;
 south_entry: SOUTH_KEY ID SEMICOLON (SOUTH_COND_KEY flag EQUALS num_int (COMMA flag EQUALS num_int)* SEMICOLON|/*e*/) | /*epsilon*/;
@@ -102,7 +104,7 @@ object: OBJECT_TAG LB_CURLY
             name_entry
             desc_entry
             synonyms_entry
-            flags_entry
+            properties_entry
             values_entry
             RB_CURLY;
 
@@ -149,6 +151,8 @@ prsi_cond: PRSI_COND ID (COMMA ID)*;
 here_cond: HERE_COND ID (COMMA ID)*;
 andflags_cond: ANDFLAGS_COND flag (COMMA flag)*;
 orflags_cond: ORFLAGS_COND flag (COMMA flag)*;
+andproperties_cond: ANDPROPERTIES_COND ID COMMA flag (COMMA flag)*;
+orproperties_cond: ORPROPERTIES_COND ID COMMA flag (COMMA flag)*;
 flagvalue_cond: FLAGVALUE_COND flag COMMA num_int;
 haveitem_cond: HAVEITEM_COND ID (COMMA ID)*;
 haveitems_cond: HAVEITEMS_COND ID (COMMA ID)*;
@@ -159,7 +163,7 @@ gt_cond: GT_COND alpha_numeric COMMA var
 lt_cond: LT_COND alpha_numeric COMMA var
          | LT_COND alpha_numeric COMMA alpha_numeric;
 
-condition: prsa_cond|prso_cond|prsi_cond|here_cond|andflags_cond|orflags_cond|flagvalue_cond|haveitem_cond|haveitems_cond|equals_cond|gt_cond|lt_cond;
+condition: prsa_cond|prso_cond|prsi_cond|here_cond|andflags_cond|orflags_cond|andproperties_cond|orproperties_cond|flagvalue_cond|haveitem_cond|haveitems_cond|equals_cond|gt_cond|lt_cond;
 
 // effect bodies
 tell_eff: TELL_EFF STRING;

@@ -1,0 +1,269 @@
+
+Compile Room:
+ID: LIVINGROOM
+N: DININGROOM
+NCONDS: [_BOXTAKEN=1]
+S: null
+SCONDS: null
+E: null
+ECONDS: null
+W: null
+WCONDS: null
+U: null
+UCONDS: null
+D: null
+DCONDS: null
+NAME: Living-Room
+DESC: A nice and cosy living-room.
+SYNS: []
+INFO: New Room: SimpleEngine.GameRoom@1df8b5b8
+
+Compile Room:
+ID: DININGROOM
+N: null
+NCONDS: null
+S: LIVINGROOM
+SCONDS: []
+E: null
+ECONDS: null
+W: null
+WCONDS: null
+U: null
+UCONDS: null
+D: null
+DCONDS: null
+NAME: Dining-Room
+DESC: A well cleaned dining-room.
+SYNS: []
+INFO: New Room: SimpleEngine.GameRoom@3e44f2a5
+
+Compile Object:
+ID: SMALLBOX
+LOCATION: LIVINGROOM
+NAME: Small Box
+DESC: It's a small box.
+SYNS: ["box", "little box", "container", "little container", "small container"]
+FLAGS: []
+VALUES: 
+	volume:50
+	capacity:50
+INFO: New Object: SimpleEngine.GameObject@52815fa3
+
+Compile Object:
+ID: BIGBOX
+LOCATION: LIVINGROOM
+NAME: Big Box
+DESC: It's a big box.
+SYNS: ["big container", "box", "container"]
+FLAGS: [_TAKEABLE]
+VALUES: 
+	volume:100
+	capacity:100
+INFO: New Object: SimpleEngine.GameObject@62833051
+
+Compiling PRSACond:
+VERBS: [TAKE, OBTAIN]
+
+Compiling Conditions:
+TEST: SimpleEngine.Actions.Conditions.PRSACond@5d99c6b5
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@3b79fd76
+
+Compiling HereCond:
+LOCATIONS: [LIVINGROOM]
+
+Compiling HaveItemCond:
+OBJS: [SMALLBOX]
+
+Compiling Conditions:
+TEST: SimpleEngine.Actions.Conditions.HaveItemCond@1f81aa00
+TES IS NOT: true
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@6b6776cb
+
+Compiling Conditions:
+TEST: SimpleEngine.Actions.Conditions.HereCond@1863d2fe
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@6b6776cb
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@1787bc24
+
+Compiling TakeEff:
+ITEM: SMALLBOX
+
+Compiling SetFlagEff:
+FLAG: _BOXTAKEN
+VALUE: 1
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@1787bc24
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@5a37d3ed, SimpleEngine.Actions.Effects.SetFlagEff@26df6e3a]
+INFO: New Conditional: SimpleEngine.Actions.Conditional@6b58b9e9
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@3b79fd76
+ACTIONS: [SimpleEngine.Actions.Conditional@6b58b9e9]
+INFO: New Conditional: SimpleEngine.Actions.Conditional@f14a7d4
+
+Compiling PRSACond:
+VERBS: [PLACE, DROP]
+
+Compiling HaveItemCond:
+OBJS: [SMALLBOX]
+
+Compiling Conditions:
+TEST: SimpleEngine.Actions.Conditions.HaveItemCond@52e7a6b2
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@29a5f4e7
+
+Compiling Conditions:
+TEST: SimpleEngine.Actions.Conditions.PRSACond@79c97cb
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@29a5f4e7
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@2d9caaeb
+
+Compiling PlaceEff:
+ITEM: SMALLBOX
+LOCATION: HERE
+
+Compiling RemFlagEff:
+FLAG: _BOXTAKEN
+
+Compiling TellEff:
+TEXT: You placed the small box down.
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@2d9caaeb
+ACTIONS: [SimpleEngine.Actions.Effects.PlaceEff@6f6745d6, SimpleEngine.Actions.Effects.RemFlagEff@27508c5d, SimpleEngine.Actions.Effects.TellEff@4f704591]
+INFO: New Conditional: SimpleEngine.Actions.Conditional@4b5189ac
+
+Compile Action:
+ID: SMALLBOX
+ACTIONS: [SimpleEngine.Actions.Conditional@f14a7d4, SimpleEngine.Actions.Conditional@4b5189ac]
+
+Compile Flag:
+FLAG: _BOXTAKEN
+VALUE: 0
+
+Knowledge Base:
+isObject(player)
+capacity(player,2147483647)
+capacityUsed(player,0)
+':-'(inScope(A,B),(isObject(A),isLocated(A,B),isLocated(PLAYER,B),'!'))
+':-'(inScope(A,C),(isObject(A),isLocated(A,B),inScope(B,C)))
+':-'(putIn(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putOn(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putBelow(A,B),(inScope(A,C),inScope(B,C),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+isRoom(livingroom)
+isLocated(player,livingroom)
+isRoom(diningroom)
+isObject(smallbox)
+volume(smallbox,50)
+capacity(smallbox,50)
+capacityUsed(smallbox,0)
+isLocated(smallbox,livingroom)
+isObject(bigbox)
+volume(bigbox,100)
+capacity(bigbox,100)
+capacityUsed(bigbox,0)
+isLocated(bigbox,livingroom)
+flag(_boxtaken,0)
+DEBUG: Processing user input: look around the room
+DEBUG: Matched verb: LOOK AROUND
+DEBUG: Simplified verb: do the room
+DEBUG: Pre-processed: do the room
+DEBUG: Lemmas: [do, the, room]
+
+DEBUG: PRSA: LOOK AROUND, PRSO: null, PRSI: null
+DEBUG: Corrected Verb: look around
+DEBUG: Processing user input: look at small box
+DEBUG: Matched verb: look
+DEBUG: Simplified verb: do at small box
+DEBUG: Pre-processed: do at item1
+DEBUG: Lemmas: [do, at, item]
+
+DEBUG: PRSA: LOOK, PRSO: SMALLBOX, PRSI: null
+DEBUG: Corrected Verb: look
+DEBUG: Processing user input: look box
+DEBUG: Matched verb: look
+DEBUG: Simplified verb: do box
+
+DEBUG: PRSA: CONFLICT, PRSO: null, PRSI: null
+DEBUG: Processing user input: look little box
+DEBUG: Matched verb: look
+DEBUG: Simplified verb: do little box
+DEBUG: Pre-processed: do item1
+DEBUG: Lemmas: [do, item]
+
+DEBUG: PRSA: LOOK, PRSO: SMALLBOX, PRSI: null
+DEBUG: Corrected Verb: look
+DEBUG: Processing user input: take small box
+DEBUG: Matched verb: take
+DEBUG: Simplified verb: do small box
+DEBUG: Pre-processed: do item1
+DEBUG: Lemmas: [do, item]
+
+DEBUG: PRSA: TAKE, PRSO: SMALLBOX, PRSI: null
+
+DEBUG: Removed clause isLocated(smallbox,livingroom)
+
+DEBUG: Adding clause isLocated(smallbox,player)
+
+DEBUG: Removed clause flag(_boxtaken,0)
+
+DEBUG: Adding clause flag(_boxtaken,1)
+DEBUG: Processing user input: look at player
+DEBUG: Matched verb: look
+DEBUG: Simplified verb: do at player
+DEBUG: Pre-processed: do at item1
+DEBUG: Lemmas: [do, at, item]
+
+DEBUG: PRSA: LOOK, PRSO: PLAYER, PRSI: null
+DEBUG: Corrected Verb: look
+DEBUG: Processing user input: walk slowly to the north
+DEBUG: Matched verb: walk
+DEBUG: Simplified verb: do slowly to the north
+DEBUG: Pre-processed: do slowly to item1
+DEBUG: Lemmas: [do, slowly, to, item]
+
+DEBUG: PRSA: WALK, PRSO: NORTH, PRSI: null
+DEBUG: Corrected Verb: move
+
+DEBUG: Removed clause isLocated(player,livingroom)
+
+DEBUG: Adding clause isLocated(player,diningroom)
+DEBUG: Processing user input: go east
+DEBUG: Matched verb: go
+DEBUG: Simplified verb: do east
+DEBUG: Pre-processed: do item1
+DEBUG: Lemmas: [do, item]
+
+DEBUG: PRSA: GO, PRSO: EAST, PRSI: null
+DEBUG: Corrected Verb: move
+DEBUG: Processing user input: walk to the bathroom
+DEBUG: Matched verb: walk
+DEBUG: Simplified verb: do to the bathroom
+DEBUG: Pre-processed: do to the bathroom
+DEBUG: Lemmas: [do, to, the, bathroom]
+
+DEBUG: PRSA: WALK, PRSO: null, PRSI: null
+DEBUG: Corrected Verb: move
+DEBUG: Processing user input: qui
+DEBUG: Pre-processed: qui
+DEBUG: Lemmas: [qui]
+
+DEBUG: PRSA: null, PRSO: null, PRSI: null
+DEBUG: Processing user input: quit
+
+DEBUG: PRSA: QUIT, PRSO: null, PRSI: null

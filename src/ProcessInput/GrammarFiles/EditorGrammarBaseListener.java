@@ -172,13 +172,13 @@ public class EditorGrammarBaseListener implements EditorGrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFlags_entry(EditorGrammarParser.Flags_entryContext ctx) { }
+	@Override public void enterProperties_entry(EditorGrammarParser.Properties_entryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFlags_entry(EditorGrammarParser.Flags_entryContext ctx) { }
+	@Override public void exitProperties_entry(EditorGrammarParser.Properties_entryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -479,6 +479,30 @@ public class EditorGrammarBaseListener implements EditorGrammarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitOrflags_cond(EditorGrammarParser.Orflags_condContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAndproperties_cond(EditorGrammarParser.Andproperties_condContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAndproperties_cond(EditorGrammarParser.Andproperties_condContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterOrproperties_cond(EditorGrammarParser.Orproperties_condContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOrproperties_cond(EditorGrammarParser.Orproperties_condContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -3,7 +3,6 @@ package Game;
 import SimpleEngine.GameObject;
 import SimpleEngine.GameRoom;
 import SimpleEngine.GameState;
-import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -183,8 +182,8 @@ public class GameController {
         while (!stack.empty()) {
             ParentChildPair pair = stack.pop();
             if (!pair.child.equals(location) && !pair.child.equals(GameController.getPlayer())) {
-                if (!pair.child.hasFlag("_HIDE")) {
-                    if (pair.child.hasFlag("_SURFACE")) {
+                if (!pair.child.hasProperty("_HIDE")) {
+                    if (pair.child.hasProperty("_SURFACE")) {
                         if (!printedGap) {
                             System.out.println();
                             printedGap = true;
@@ -295,7 +294,6 @@ public class GameController {
                     }
                 }
                 synonyms.put(key.toString().substring(1).toUpperCase(), verb);
-                //System.out.println("Key: " + key.toString().substring(1) + ", verb: " + verb);
             }
         }
     }

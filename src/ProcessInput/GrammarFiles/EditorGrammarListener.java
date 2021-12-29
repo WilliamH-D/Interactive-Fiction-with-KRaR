@@ -138,15 +138,15 @@ public interface EditorGrammarListener extends ParseTreeListener {
 	 */
 	void exitSynonyms_entry(EditorGrammarParser.Synonyms_entryContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link EditorGrammarParser#flags_entry}.
+	 * Enter a parse tree produced by {@link EditorGrammarParser#properties_entry}.
 	 * @param ctx the parse tree
 	 */
-	void enterFlags_entry(EditorGrammarParser.Flags_entryContext ctx);
+	void enterProperties_entry(EditorGrammarParser.Properties_entryContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link EditorGrammarParser#flags_entry}.
+	 * Exit a parse tree produced by {@link EditorGrammarParser#properties_entry}.
 	 * @param ctx the parse tree
 	 */
-	void exitFlags_entry(EditorGrammarParser.Flags_entryContext ctx);
+	void exitProperties_entry(EditorGrammarParser.Properties_entryContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link EditorGrammarParser#values_entry}.
 	 * @param ctx the parse tree
@@ -397,6 +397,26 @@ public interface EditorGrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitOrflags_cond(EditorGrammarParser.Orflags_condContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#andproperties_cond}.
+	 * @param ctx the parse tree
+	 */
+	void enterAndproperties_cond(EditorGrammarParser.Andproperties_condContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#andproperties_cond}.
+	 * @param ctx the parse tree
+	 */
+	void exitAndproperties_cond(EditorGrammarParser.Andproperties_condContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#orproperties_cond}.
+	 * @param ctx the parse tree
+	 */
+	void enterOrproperties_cond(EditorGrammarParser.Orproperties_condContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#orproperties_cond}.
+	 * @param ctx the parse tree
+	 */
+	void exitOrproperties_cond(EditorGrammarParser.Orproperties_condContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link EditorGrammarParser#flagvalue_cond}.
 	 * @param ctx the parse tree

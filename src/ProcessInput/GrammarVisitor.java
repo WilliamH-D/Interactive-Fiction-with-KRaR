@@ -64,9 +64,10 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
         return visitChildren(ctx);
     }
 
-    @Override public T visitFlags_entry(EditorGrammarParser.Flags_entryContext ctx) {
+    @Override
+    public T visitProperties_entry(EditorGrammarParser.Properties_entryContext ctx) {
         for (int i = 0; i < ctx.flag().size(); i++) {
-            StoryCompiler.get().flags.add("_" + ctx.flag(i).alpha_numeric().getText().toUpperCase());
+            StoryCompiler.get().properties.add("_" + ctx.flag(i).alpha_numeric().getText().toUpperCase());
         }
         return visitChildren(ctx);
     }
@@ -321,6 +322,30 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
             flags.add(ctx.flag(i).getText());
         }
         StoryCompiler.get().compileOrFlagsCond(flags);
+        return children;
+    }
+
+    @Override
+    public T visitAndproperties_cond(EditorGrammarParser.Andproperties_condContext ctx) {
+        T children = visitChildren(ctx);
+        Set<String> properties = new HashSet<>();
+        for (int i = 0; i < ctx.flag().size(); i++) {
+            properties.add(ctx.flag(i).getText());
+        }
+        String id = ctx.ID().getText().substring(1, ctx.ID().getText().length()-1);
+        StoryCompiler.get().compileAndPropertiesCond(id, properties);
+        return children;
+    }
+
+    @Override
+    public T visitOrproperties_cond(EditorGrammarParser.Orproperties_condContext ctx) {
+        T children = visitChildren(ctx);
+        Set<String> properties = new HashSet<>();
+        for (int i = 0; i < ctx.flag().size(); i++) {
+            properties.add(ctx.flag(i).getText());
+        }
+        String id = ctx.ID().getText().substring(1, ctx.ID().getText().length()-1);
+        StoryCompiler.get().compileOrPropertiesCond(id, properties);
         return children;
     }
 

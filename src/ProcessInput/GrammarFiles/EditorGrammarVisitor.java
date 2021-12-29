@@ -89,11 +89,11 @@ public interface EditorGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSynonyms_entry(EditorGrammarParser.Synonyms_entryContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link EditorGrammarParser#flags_entry}.
+	 * Visit a parse tree produced by {@link EditorGrammarParser#properties_entry}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFlags_entry(EditorGrammarParser.Flags_entryContext ctx);
+	T visitProperties_entry(EditorGrammarParser.Properties_entryContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link EditorGrammarParser#values_entry}.
 	 * @param ctx the parse tree
@@ -244,6 +244,18 @@ public interface EditorGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitOrflags_cond(EditorGrammarParser.Orflags_condContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#andproperties_cond}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAndproperties_cond(EditorGrammarParser.Andproperties_condContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#orproperties_cond}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOrproperties_cond(EditorGrammarParser.Orproperties_condContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link EditorGrammarParser#flagvalue_cond}.
 	 * @param ctx the parse tree

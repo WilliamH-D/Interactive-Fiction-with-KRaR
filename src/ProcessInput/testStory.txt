@@ -32,7 +32,7 @@
     NAME: "Big Box";
     DESC: "It's a big box.";
     SYNS: "box", "container", "big container";
-    FLAGS: _TAKEABLE;
+    PROPERTIES: _TAKEABLE;
     VALUES: (capacity: 100), (volume: 100);
 }
 

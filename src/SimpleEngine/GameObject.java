@@ -12,14 +12,14 @@ public class GameObject {
     private String name;
     private String desc;
     private Set<String> synonyms; // Generate automatically when parsing input rather than defining here (can be difference for enhanced engine)
-    private Set<String> flags; // Static flags for this object
+    private Set<String> properties; // Static flags for this object
     private HashMap<String, String> variables;
 
     public GameObject(String n) {
         this.id = n.toUpperCase();
         this.name = n.toLowerCase();
         this.children = new HashSet<>();
-        this.flags = new HashSet<>();
+        this.properties = new HashSet<>();
         this.variables = new HashMap<>();
     }
 
@@ -90,11 +90,11 @@ public class GameObject {
 
     public Set<String> getSynonyms() { return this.synonyms; }
 
-    public void setFlag(String flag) { this.flags.add(flag); }
+    public void setProperty(String property) { this.properties.add(property); }
 
-    public void removeFlag(String flag) { this.flags.remove(flag); }
+    public void removeProperty(String property) { this.properties.remove(property); }
 
-    public boolean hasFlag(String flag) { return this.flags.contains(flag); }
+    public boolean hasProperty(String property) { return this.properties.contains(property); }
 
     public void addVariable(String varName, String varValue) { this.variables.put(varName, varValue); }
 

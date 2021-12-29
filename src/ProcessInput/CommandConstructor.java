@@ -2,6 +2,7 @@ package ProcessInput;
 
 import Game.GameController;
 import Game.Main;
+import Logging.DebugLogger;
 import SimpleEngine.GameObject;
 import edu.stanford.nlp.ling.*;
 import edu.stanford.nlp.pipeline.*;
@@ -17,6 +18,8 @@ public class CommandConstructor {
 
     // List of objects that can be used for PRSO/PRSI
     private List<GameObject> allowedObjects;
+    
+    private DebugLogger logger = DebugLogger.getInstance();
 
     // Create a new command constructor
     public CommandConstructor() {}
@@ -29,6 +32,9 @@ public class CommandConstructor {
 
     // Process a user input by extracting PRSA/PRSO/PRSI
     public void processInput(String userIn) {
+        logger.logLine();
+        logger.logDebug("Processing user input: " + userIn);
+
         // Initialise command parts to null
         GameController.setPRSA(null);
         GameController.setPRSO(null);
@@ -138,7 +144,7 @@ public class CommandConstructor {
             String[] parts = verb.toLowerCase().split(" ");
             if (parts.length == 1 && lemmas.contains(verb.toLowerCase())) {
                 GameController.setPRSA(verb.toLowerCase());
-                System.out.println("Matched verb: " + verb.toLowerCase());
+                logger.logDebug("Matched verb: " + verb.toLowerCase());
                 startInd = lemmas.indexOf(verb.toLowerCase());
                 endInd = startInd;
                 found = true;
@@ -160,7 +166,7 @@ public class CommandConstructor {
                         if (match) {
                             // Verb found
                             GameController.setPRSA(verb);
-                            System.out.println("Matched verb: " + verb);
+                            logger.logDebug("Matched verb: " + verb);
                             breakLoop = true;
                             found = true;
                         }
@@ -176,7 +182,7 @@ public class CommandConstructor {
         boolean inRemoveRegion = false;
 
         if (!found) {
-            //System.out.println("Verb not found");
+            //logger.logDebug("Verb not found");
             for (String lemma : lemmas) {
                 simplifiedVerb.append(" ").append(lemma);
             }
@@ -196,19 +202,19 @@ public class CommandConstructor {
             }
         }
         simplifiedVerb.delete(0, 1);
-        System.out.println("Simplified verb: " + simplifiedVerb.toString());
+        logger.logDebug("Simplified verb: " + simplifiedVerb.toString());
         return simplifiedVerb.toString();
     }
 
     // Allow for complex commands such as "put item1 in item2"
     private void extractComplexVerb(List<String> lemmas) {
-        /*System.out.println("Synonyms:");
+        /*logger.logDebug("Synonyms:");
         for (String syn : verbSynonyms.keySet()) {
-            System.out.println(syn);
+            logger.logDebug(syn);
         }
-        System.out.println();
+        logger.logLine();
 
-        System.out.println("Unsimplified: " + lemmas);*/
+        logger.logDebug("Unsimplified: " + lemmas);*/
 
         if (lemmas.contains("item1")) {
             lemmas.set(lemmas.indexOf("item1"),"item");
@@ -216,7 +222,7 @@ public class CommandConstructor {
         if (lemmas.contains("item2")) {
             lemmas.set(lemmas.indexOf("item2"),"item");
         }
-        System.out.println("Lemmas: " + lemmas);
+        logger.logDebug("Lemmas: " + lemmas);
 
         for (String verb : verbSynonyms.keySet()) {
             String[] parts = verb.toLowerCase().split(" ");
@@ -263,7 +269,7 @@ public class CommandConstructor {
                         }
                     }
                     GameController.setPRSA(verb.toString());
-                    System.out.println("Extracted non-listed verb: " + verb.toString());
+                    logger.logDebug("Extracted non-listed verb: " + verb.toString());
                 }
                 break;
             }
@@ -302,7 +308,7 @@ public class CommandConstructor {
     private String extractObjects(List<String> lemmas, List<String> posTags, GameObject[] rets) throws ConflictException {
         // Pre-process the users input and replace direct/indirect object with item1/item2
 
-        //System.out.println("Pre-process input lemmas: " + lemmas);
+        //logger.logDebug("Pre-process input lemmas: " + lemmas);
         ArrayList<LemmaPOS> tokens = new ArrayList<>();
         for (int i = 0; i < lemmas.size(); i++) {
             tokens.add(new LemmaPOS(lemmas.get(i), posTags.get(i)));
@@ -412,7 +418,7 @@ public class CommandConstructor {
         ArrayList<Integer> removeEnd = new ArrayList<>();
         for (int i = 0; i < matchedObjects.size(); i++) {
             int idx = matchedIndxs.get(i);
-            if (idx > 0 && tokens.get(idx-1).getPos().equals("DT") || tokens.get(idx-1).getPos().equals("JJ") || tokens.get(idx-1).getPos().equals("JJR")) { removeStart.add(idx-1); }
+            if (idx > 0 && (tokens.get(idx-1).getPos().equals("DT") || tokens.get(idx-1).getPos().equals("JJ") || tokens.get(idx-1).getPos().equals("JJR"))) { removeStart.add(idx-1); }
             else { removeStart.add(idx); }
             removeEnd.add(idx + matchedObjects.get(i).length - 1);
         }
@@ -432,7 +438,7 @@ public class CommandConstructor {
             if (removeEnd.contains(i)) { inRemoveRegion = false; }
         }
         processedInput.delete(0, 1);
-        System.out.println("Pre-processed: " + processedInput.toString());
+        logger.logDebug("Pre-processed: " + processedInput.toString());
         return processedInput.toString();
     }
 
@@ -447,6 +453,7 @@ public class CommandConstructor {
             if (l.equals("WEST") || l.equals("W")) { GameController.setPRSO(GameController.westObj()); GameController.setPRSA("move"); return true; }
             if (l.equals("UP") || l.equals("U")) { GameController.setPRSO(GameController.upObj()); GameController.setPRSA("move"); return true; }
             if (l.equals("DOWN") || l.equals("D")) { GameController.setPRSO(GameController.downObj()); GameController.setPRSA("move"); return true; }
+            if (l.equals("INVENTORY")) { GameController.setPRSO(GameController.getPlayer()); GameController.setPRSA("look"); return true; }
         }
         return false;
     }

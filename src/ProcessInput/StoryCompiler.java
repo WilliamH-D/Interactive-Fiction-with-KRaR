@@ -1,5 +1,6 @@
 package ProcessInput;
 
+import Logging.DebugLogger;
 import EnhancedEngine.KnowledgeBase;
 import Game.GameController;
 import ProcessInput.GrammarFiles.EditorGrammarLexer;
@@ -45,7 +46,7 @@ public class StoryCompiler {
 
     String location; // Parent
 
-    List<String> flags;
+    List<String> properties;
     Map<String, String> values;
 
     String flagName;
@@ -53,13 +54,16 @@ public class StoryCompiler {
 
     KnowledgeBase kb;
 
+    DebugLogger logger;
+
     boolean playerStartSet = false;
 
 
     private StoryCompiler() {
-        flags = new ArrayList<>();
+        properties = new ArrayList<>();
         values = new HashMap<>();
         kb = KnowledgeBase.getInstance();
+        logger = DebugLogger.getInstance();
     }
 
     public static StoryCompiler get() {
@@ -105,7 +109,7 @@ public class StoryCompiler {
 
         location = null;
 
-        flags = new ArrayList<>();
+        properties = new ArrayList<>();
         values = new HashMap<>();
 
         flagName = null;
@@ -113,24 +117,24 @@ public class StoryCompiler {
     }
 
     void compileRoom() {
-        System.out.println();
-        System.out.println("Compile Room:");
-        System.out.println("ID: " + id);
-        System.out.println("N: " + n);
-        System.out.println("NCONDS: " + nconds);
-        System.out.println("S: " + s);
-        System.out.println("SCONDS: " + sconds);
-        System.out.println("E: " + e);
-        System.out.println("ECONDS: " + econds);
-        System.out.println("W: " + w);
-        System.out.println("WCONDS: " + wconds);
-        System.out.println("U: " + u);
-        System.out.println("UCONDS: " + uconds);
-        System.out.println("D: " + d);
-        System.out.println("DCONDS: " + dconds);
-        System.out.println("NAME: " + name);
-        System.out.println("DESC: " + desc);
-        System.out.println("SYNS: " + synonyms);
+        logger.logLine();
+        logger.logRaw("Compile Room:");
+        logger.logRaw("ID: " + id);
+        logger.logRaw("N: " + n);
+        logger.logRaw("NCONDS: " + nconds);
+        logger.logRaw("S: " + s);
+        logger.logRaw("SCONDS: " + sconds);
+        logger.logRaw("E: " + e);
+        logger.logRaw("ECONDS: " + econds);
+        logger.logRaw("W: " + w);
+        logger.logRaw("WCONDS: " + wconds);
+        logger.logRaw("U: " + u);
+        logger.logRaw("UCONDS: " + uconds);
+        logger.logRaw("D: " + d);
+        logger.logRaw("DCONDS: " + dconds);
+        logger.logRaw("NAME: " + name);
+        logger.logRaw("DESC: " + desc);
+        logger.logRaw("SYNS: " + synonyms);
 
         GameRoom room = new GameRoom(id);
         room.setParent("ROOT");
@@ -150,7 +154,7 @@ public class StoryCompiler {
         room.setDesc(desc);
         room.setSynonyms(synonyms);
 
-        System.out.println("New Room: " + room);
+        logger.logInfo("New Room: " + room);
 
         kb.addClause("isRoom(" + id.toLowerCase() + ")");
 
@@ -165,24 +169,24 @@ public class StoryCompiler {
     }
 
     void compileObject() {
-        System.out.println();
-        System.out.println("Compile Object:");
-        System.out.println("ID: " + id);
-        System.out.println("LOCATION: " + location);
-        System.out.println("NAME: " + name);
-        System.out.println("DESC: " + desc);
-        System.out.println("SYNS: " + synonyms);
-        System.out.println("FLAGS: " + Arrays.toString(flags.toArray()));
-        System.out.println("VALUES: ");
-        values.forEach((key, value) -> System.out.println("\t" + key + ":" + value));
+        logger.logLine();
+        logger.logRaw("Compile Object:");
+        logger.logRaw("ID: " + id);
+        logger.logRaw("LOCATION: " + location);
+        logger.logRaw("NAME: " + name);
+        logger.logRaw("DESC: " + desc);
+        logger.logRaw("SYNS: " + synonyms);
+        logger.logRaw("FLAGS: " + Arrays.toString(properties.toArray()));
+        logger.logRaw("VALUES: ");
+        values.forEach((key, value) -> logger.logRaw("\t" + key + ":" + value));
 
         GameObject obj = new GameObject(id);
         obj.setParent(location);
         obj.setName(name);
         obj.setDesc(desc);
         obj.setSynonyms(synonyms);
-        for (String flag : flags) {
-            obj.setFlag(flag);
+        for (String property : properties) {
+            obj.setProperty(property);
         }
         int volume = 1;
         int capacity = 0;
@@ -206,7 +210,7 @@ public class StoryCompiler {
             }
         }
 
-        System.out.println("New Object: " + obj);
+        logger.logInfo("New Object: " + obj);
 
         kb.addClause("isObject(" + id.toLowerCase() + ")");
         kb.addClause("volume(" + id.toLowerCase() + "," + volume + ")");
@@ -231,10 +235,10 @@ public class StoryCompiler {
 
     void compileAction() {
         List<ActionPart> actions = popLastActionBlock();
-        System.out.println();
-        System.out.println("Compile Action:");
-        System.out.println("ID: " + id);
-        System.out.println("ACTIONS: " + actions);
+        logger.logLine();
+        logger.logRaw("Compile Action:");
+        logger.logRaw("ID: " + id);
+        logger.logRaw("ACTIONS: " + actions);
 
         GameAction action = new GameAction(id, actions);
 
@@ -244,10 +248,10 @@ public class StoryCompiler {
     }
 
     void compileFlag() {
-        System.out.println();
-        System.out.println("Compile Flag:");
-        System.out.println("FLAG: " + flagName);
-        System.out.println("VALUE: " + flagValue);
+        logger.logLine();
+        logger.logRaw("Compile Flag:");
+        logger.logRaw("FLAG: " + flagName);
+        logger.logRaw("VALUE: " + flagValue);
 
         GameFlag flag = new GameFlag(flagName, flagValue);
 
@@ -312,14 +316,14 @@ public class StoryCompiler {
     public void compileConditional() {
         Condition cond = popLastCondition();
         List<ActionPart> actions = popLastActionBlock();
-        System.out.println();
-        System.out.println("Compiling Conditional:");
-        System.out.println("CONDITION: " + cond);
-        System.out.println("ACTIONS: " + actions);
+        logger.logLine();
+        logger.logRaw("Compiling Conditional:");
+        logger.logRaw("CONDITION: " + cond);
+        logger.logRaw("ACTIONS: " + actions);
 
         Conditional conditional = new Conditional(cond, actions);
 
-        System.out.println("New Conditional: " + conditional);
+        logger.logInfo("New Conditional: " + conditional);
 
         addToLastActionBlock(conditional);
     }
@@ -328,17 +332,17 @@ public class StoryCompiler {
         ConditionTest test = popLastTest();
         if (!isAnd && !isOr) { isAnd = true; }
 
-        System.out.println();
-        System.out.println("Compiling Conditions:");
-        System.out.println("TEST: " + test);
-        System.out.println("TES IS NOT: " + test.not());
-        System.out.println("CONTINUATION: " + currConditionPart);
-        System.out.println("IsAND: " + isAnd);
-        System.out.println("IsOR: " + isOr);
+        logger.logLine();
+        logger.logRaw("Compiling Conditions:");
+        logger.logRaw("TEST: " + test);
+        logger.logRaw("TES IS NOT: " + test.not());
+        logger.logRaw("CONTINUATION: " + currConditionPart);
+        logger.logRaw("IsAND: " + isAnd);
+        logger.logRaw("IsOR: " + isOr);
 
         Condition cond = new Condition(test, isAnd, isOr, currConditionPart);
 
-        System.out.println("New Conditions: " + cond);
+        logger.logInfo("New Conditions: " + cond);
 
         currConditionPart = cond;
     }
@@ -354,104 +358,122 @@ public class StoryCompiler {
     }
 
     public void compileAndFlagsCond(Set<String> flags) {
-        System.out.println();
-        System.out.println("Compiling AndFlagsCond:");
-        System.out.println("FLAGS: " + flags.toString());
+        logger.logLine();
+        logger.logRaw("Compiling AndFlagsCond:");
+        logger.logRaw("FLAGS: " + flags.toString());
 
         setTest(new AndFlagsCond(flags));
     }
 
     public void compileEqualsCond(String lhs, String rhs, boolean bothVars) {
-        System.out.println();
-        System.out.println("Compiling EqualsCond:");
-        System.out.println("LHS: " + lhs);
-        System.out.println("RHS: " + lhs);
-        System.out.println("BOTH VARS: " + bothVars);
+        logger.logLine();
+        logger.logRaw("Compiling EqualsCond:");
+        logger.logRaw("LHS: " + lhs);
+        logger.logRaw("RHS: " + lhs);
+        logger.logRaw("BOTH VARS: " + bothVars);
 
         setTest(new EqualsCond(id, lhs, rhs, bothVars));
     }
 
     public void compileGTCond(String lhs, String rhs, boolean bothVars) {
-        System.out.println();
-        System.out.println("Compiling GTCond:");
-        System.out.println("LHS: " + lhs);
-        System.out.println("RHS: " + lhs);
-        System.out.println("BOTH VARS: " + bothVars);
+        logger.logLine();
+        logger.logRaw("Compiling GTCond:");
+        logger.logRaw("LHS: " + lhs);
+        logger.logRaw("RHS: " + lhs);
+        logger.logRaw("BOTH VARS: " + bothVars);
 
         setTest(new GTCond(id, lhs, rhs, bothVars));
     }
 
     public void compileHaveItemCond(Set<String> objs) {
-        System.out.println();
-        System.out.println("Compiling HaveItemCond:");
-        System.out.println("OBJS: " + objs.toString());
+        logger.logLine();
+        logger.logRaw("Compiling HaveItemCond:");
+        logger.logRaw("OBJS: " + objs.toString());
 
         setTest(new HaveItemCond(objs));
     }
 
     public void compileHaveItemsCond(Set<String> objs) {
-        System.out.println();
-        System.out.println("Compiling HaveItemsCond:");
-        System.out.println("OBJS: " + objs.toString());
+        logger.logLine();
+        logger.logRaw("Compiling HaveItemsCond:");
+        logger.logRaw("OBJS: " + objs.toString());
 
         setTest(new HaveItemsCond(objs));
     }
 
     public void compileHereCond(Set<String> locs) {
-        System.out.println();
-        System.out.println("Compiling HereCond:");
-        System.out.println("LOCATIONS: " + locs.toString());
+        logger.logLine();
+        logger.logRaw("Compiling HereCond:");
+        logger.logRaw("LOCATIONS: " + locs.toString());
 
         setTest(new HereCond(locs));
     }
 
     public void compileLTCond(String lhs, String rhs, boolean bothVars) {
-        System.out.println();
-        System.out.println("Compiling LTCond:");
-        System.out.println("LHS: " + lhs);
-        System.out.println("RHS: " + lhs);
-        System.out.println("BOTH VARS: " + bothVars);
+        logger.logLine();
+        logger.logRaw("Compiling LTCond:");
+        logger.logRaw("LHS: " + lhs);
+        logger.logRaw("RHS: " + lhs);
+        logger.logRaw("BOTH VARS: " + bothVars);
 
         setTest(new LTCond(id, lhs, rhs, bothVars));
     }
 
     public void compileOrFlagsCond(Set<String> flags) {
-        System.out.println();
-        System.out.println("Compiling OrFlagsCond:");
-        System.out.println("FLAGS: " + flags.toString());
+        logger.logLine();
+        logger.logRaw("Compiling OrFlagsCond:");
+        logger.logRaw("FLAGS: " + flags.toString());
 
         setTest(new OrFlagsCond(flags));
     }
 
     public void compileFlagValue(String flag, int value) {
-        System.out.println();
-        System.out.println("Compiling FlagValueCond:");
-        System.out.println("FLAG: " + flag);
-        System.out.println("VALUE: " + value);
+        logger.logLine();
+        logger.logRaw("Compiling FlagValueCond:");
+        logger.logRaw("FLAG: " + flag);
+        logger.logRaw("VALUE: " + value);
 
         setTest(new FlagValueCond(flag, value));
     }
 
+    public void compileOrPropertiesCond(String objID, Set<String> properties) {
+        logger.logLine();
+        logger.logRaw("Compiling OrPropertiesCond:");
+        logger.logRaw("OBJECT: " + objID);
+        logger.logRaw("PROPERTIES: " + properties.toString());
+
+        setTest(new OrPropertiesCond(objID, properties));
+    }
+
+    public void compileAndPropertiesCond(String objID, Set<String> properties) {
+        logger.logLine();
+        logger.logRaw("Compiling AndPropertiesCond:");
+        logger.logRaw("OBJECT: " + objID);
+        logger.logRaw("PROPERTIES: " + properties.toString());
+
+        setTest(new AndPropertiesCond(objID, properties));
+    }
+
     public void compilePRSACond(Set<String> verbs) {
-        System.out.println();
-        System.out.println("Compiling PRSACond:");
-        System.out.println("VERBS: " + verbs.toString());
+        logger.logLine();
+        logger.logRaw("Compiling PRSACond:");
+        logger.logRaw("VERBS: " + verbs.toString());
 
         setTest(new PRSACond(verbs));
     }
 
     public void compilePRSICond(Set<String> objs) {
-        System.out.println();
-        System.out.println("Compiling PRSICond:");
-        System.out.println("OBJS: " + objs.toString());
+        logger.logLine();
+        logger.logRaw("Compiling PRSICond:");
+        logger.logRaw("OBJS: " + objs.toString());
 
         setTest(new PRSICond(objs));
     }
 
     public void compilePRSOCond(Set<String> objs) {
-        System.out.println();
-        System.out.println("Compiling PRSOCond:");
-        System.out.println("OBJS: " + objs.toString());
+        logger.logLine();
+        logger.logRaw("Compiling PRSOCond:");
+        logger.logRaw("OBJS: " + objs.toString());
 
         setTest(new PRSOCond(objs));
     }
@@ -459,60 +481,60 @@ public class StoryCompiler {
     // EFFECTS:
 
     public void compileGotoEff(String locID) {
-        System.out.println();
-        System.out.println("Compiling GotoEff:");
-        System.out.println("LOCATION: " + locID);
+        logger.logLine();
+        logger.logRaw("Compiling GotoEff:");
+        logger.logRaw("LOCATION: " + locID);
 
         addToLastActionBlock(new GotoEff(locID));
     }
 
     public void compilePlaceEff(String objID, String locID) {
-        System.out.println();
-        System.out.println("Compiling PlaceEff:");
-        System.out.println("ITEM: " + objID);
-        System.out.println("LOCATION: " + locID);
+        logger.logLine();
+        logger.logRaw("Compiling PlaceEff:");
+        logger.logRaw("ITEM: " + objID);
+        logger.logRaw("LOCATION: " + locID);
 
         addToLastActionBlock(new PlaceEff(objID, locID));
     }
 
     public void compileRemFlagEff(String flagID) {
-        System.out.println();
-        System.out.println("Compiling RemFlagEff:");
-        System.out.println("FLAG: " + flagID);
+        logger.logLine();
+        logger.logRaw("Compiling RemFlagEff:");
+        logger.logRaw("FLAG: " + flagID);
 
         addToLastActionBlock(new RemFlagEff(flagID));
     }
 
     public void compileSetEff(String var, String val) {
-        System.out.println();
-        System.out.println("Compiling SetEff:");
-        System.out.println("VARIABLE: " + var);
-        System.out.println("VALUE: " + val);
+        logger.logLine();
+        logger.logRaw("Compiling SetEff:");
+        logger.logRaw("VARIABLE: " + var);
+        logger.logRaw("VALUE: " + val);
 
         addToLastActionBlock(new SetEff(id, var, val));
     }
 
     public void compileSetFlagEff(String flagID, int val) {
-        System.out.println();
-        System.out.println("Compiling SetFlagEff:");
-        System.out.println("FLAG: " + flagID);
-        System.out.println("VALUE: " + val);
+        logger.logLine();
+        logger.logRaw("Compiling SetFlagEff:");
+        logger.logRaw("FLAG: " + flagID);
+        logger.logRaw("VALUE: " + val);
 
         addToLastActionBlock(new SetFlagEff(flagID, val));
     }
 
     public void compileTakeEff(String objID) {
-        System.out.println();
-        System.out.println("Compiling TakeEff:");
-        System.out.println("ITEM: " + objID);
+        logger.logLine();
+        logger.logRaw("Compiling TakeEff:");
+        logger.logRaw("ITEM: " + objID);
 
         addToLastActionBlock(new TakeEff(objID));
     }
 
     public void compileTellEff(String text) {
-        System.out.println();
-        System.out.println("Compiling TellEff:");
-        System.out.println("TEXT: " + text);
+        logger.logLine();
+        logger.logRaw("Compiling TellEff:");
+        logger.logRaw("TEXT: " + text);
 
         addToLastActionBlock(new TellEff(text));
     }

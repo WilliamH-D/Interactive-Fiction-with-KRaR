@@ -31,7 +31,7 @@ Create an object:
     NAME: "text-name";                                             - Display name of the object
     DESC: "text-desc";                                             - Object description for when it's inspected (optional)
     SYNS: "text-syn1", ..., "text-synn";                           - List of synonyms for the object (optional)
-    FLAGS: _flag1, ..., _flagn;                                    - Bit flags (tags) for this object (optional)
+    PROPERTIES: _property1, ..., _propertyn;                       - Bit flags (properties) for this object (optional)
     VALUES: (var1: num/string/bool), ..., (varn: num/string/bool); - Variables only accessible within this object (optional)
 }
 
@@ -83,20 +83,22 @@ ACTIONS:
  - PRE-CONDITIONS can be ORed together with 'PRE-CONDITION || PRE-CONDITIONS' (if ORing, do not AND)
  - PRE-CONDITIONS can be NOTed with '!PRE-CONDITION'
 
- PRSA: VERB1, ..., VERBn                  - True if the input's verb is listed
- PRSO: <OBJECTID1>, ..., <OBJECTIDn>      - True if the input's direct object is listed
- PRSI: <OBJECTID1>, ..., <OBJECTIDn>      - True if the input's indirect object is listed
- ANDFLAGS: _FLAG1, ..., _FLAGn            - True if all of the listed global flags are set (value > 0)
- ORFLAGS: _FLAG1, ..., _FLAGn             - True if at least one of the listed global flags is set (value > 0)
- FLAGVALUE: _FLAG, int                    - True if the given flag has the given value
- HAVEITEM: <OBJECTID1>, ..., <OBJECTIDn>  - True if player has at least one of the listed objects
- HAVEITEMS: <OBJECTID1>, ..., <OBJECTIDn> - True if player has all listed objects
- EQUALS: var, num/string/bool             - True if this objects variable var is equal to given value
- EQUALS: var1, var2                       - True if both variables have equal values
- GT: var, num/string/bool                 - True if variable var has a greater value than the given value
- GT: var1, var2                           - True if var1 is greater than var2
- LT: var, num/string/bool                 - True if variable var has a lesser value than the given value
- LT: var1, var2                           - True if var1 is less than var2
+ PRSA: VERB1, ..., VERBn                                - True if the input's verb is listed
+ PRSO: <OBJECTID1>, ..., <OBJECTIDn>                    - True if the input's direct object is listed
+ PRSI: <OBJECTID1>, ..., <OBJECTIDn>                    - True if the input's indirect object is listed
+ ANDFLAGS: _FLAG1, ..., _FLAGn                          - True if all of the listed global flags are set (value > 0)
+ ORFLAGS: _FLAG1, ..., _FLAGn                           - True if at least one of the listed global flags is set (value > 0)
+ ANDPROPERTIES: <OBJECTID>, _PROPERTY1, ..., _PROPERTYn - True if the object has all of the listed properties
+ ORFPROPERTIES: <OBJECTID>, _PROPERTY1, ..., _PROPERTYn - True if the object has at least one of the listed properties
+ FLAGVALUE: _FLAG, int                                  - True if the given flag has the given value
+ HAVEITEM: <OBJECTID1>, ..., <OBJECTIDn>                - True if player has at least one of the listed objects
+ HAVEITEMS: <OBJECTID1>, ..., <OBJECTIDn>               - True if player has all listed objects
+ EQUALS: var, num/string/bool                           - True if this objects variable var is equal to given value
+ EQUALS: var1, var2                                     - True if both variables have equal values
+ GT: var, num/string/bool                               - True if variable var has a greater value than the given value
+ GT: var1, var2                                         - True if var1 is greater than var2
+ LT: var, num/string/bool                               - True if variable var has a lesser value than the given value
+ LT: var1, var2                                         - True if var1 is less than var2
 
 
 

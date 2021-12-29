@@ -2,6 +2,7 @@ package ProcessInput;
 
 import Game.Direction;
 import Game.GameController;
+import Logging.DebugLogger;
 import SimpleEngine.GameObject;
 import SimpleEngine.GameRoom;
 import SimpleEngine.GameState;
@@ -11,9 +12,13 @@ import java.util.Set;
 
 public class ExecuteCommand {
 
+    private static DebugLogger logger;
+    static { logger = DebugLogger.getInstance(); }
+
     // Execute the command extracted from the user input
     public static void executeAction() {
-        System.out.println("PRSA: " + GameController.getPRSA() + ", PRSO: " + (GameController.getPRSO() == null ? "null" : GameController.getPRSO().getId()) + ", PRSI: " + (GameController.getPRSI() == null ? "null" : GameController.getPRSI().getId()));
+        logger.logLine();
+        logger.logDebug("PRSA: " + GameController.getPRSA() + ", PRSO: " + (GameController.getPRSO() == null ? "null" : GameController.getPRSO().getId()) + ", PRSI: " + (GameController.getPRSI() == null ? "null" : GameController.getPRSI().getId()));
 
         // Handle object conflict
         if (GameController.getPRSA() != null && GameController.getPRSA().equals("CONFLICT")) {
@@ -41,7 +46,7 @@ public class ExecuteCommand {
         }
 
         String correctedVerb = getCorrectedVerb();
-        System.out.println("Corrected Verb: " + correctedVerb);
+        logger.logDebug("Corrected Verb: " + correctedVerb);
 
         if (!getVerbs().contains(correctedVerb)) { return false; }
 
@@ -149,7 +154,7 @@ public class ExecuteCommand {
             System.out.println("You can't try and pick up nothing!");
         }
         // The target object has the takeable flag
-        else if (obj.hasFlag("_TAKEABLE")) {
+        else if (obj.hasProperty("_TAKEABLE")) {
             obj.takeItem();
         }
         // Unable to take the object

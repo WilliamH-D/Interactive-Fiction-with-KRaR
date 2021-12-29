@@ -1,6 +1,7 @@
 package EnhancedEngine;
 
 import Game.GameController;
+import Logging.DebugLogger;
 import alice.tuprolog.*;
 import alice.tuprolog.Var;
 import alice.tuprolog.exceptions.*;
@@ -14,12 +15,14 @@ public class KnowledgeBase {
     private ArrayList<Term> clauses;
     private boolean dirty;
     private boolean debug;
+    private DebugLogger logger;
 
     private KnowledgeBase() {
         this.engine = new Prolog();
         this.clauses = new ArrayList<>();
         this.dirty = false;
         this.debug = false;
+        this.logger = DebugLogger.getInstance();
         addRules();
     }
 
@@ -57,10 +60,10 @@ public class KnowledgeBase {
 
     // List all of the clauses in the knowledge base
     public void printKB() {
-        System.out.println("");
-        System.out.println("Knowledge Base:");
+        logger.logLine();
+        logger.logRaw("Knowledge Base:");
         for (Term t : this.clauses) {
-            System.out.println(t);
+            logger.logRaw(t.toString());
         }
     }
 
@@ -72,12 +75,12 @@ public class KnowledgeBase {
             q = q.replaceAll("\\s", "");
             SolveInfo info = this.engine.solve(q + ".");
             if (this.debug) {
-                System.out.println("");
-                System.out.println("DEBUG: Querying: " + q);
+                logger.logLine();
+                logger.logRaw("DEBUG: Querying: " + q);
             }
             while (info.isSuccess()) {
                 if (this.debug) {
-                    System.out.println("DEBUG: Solution: " + info.getSolution() +
+                    logger.logRaw("DEBUG: Solution: " + info.getSolution() +
                             " - bindings: " + info);
                 }
                 solutions.add((ArrayList<Var>) info.getBindingVars());
@@ -94,26 +97,26 @@ public class KnowledgeBase {
 
     // Add a new clause to the knowledge base
     public Term addClause(String clause) {
-        if (this.debug) { System.out.println(); }
+        if (this.debug) { logger.logLine(); }
         Term c = Term.createTerm(clause);
         if (!this.clauses.contains(c)) {
             this.clauses.add(c);
             this.dirty = true;
-            if (this.debug) { System.out.println("DEBUG: Adding clause " + c); }
+            if (this.debug) { logger.logRaw("DEBUG: Adding clause " + c); }
         }
-        else if (this.debug) { System.out.println("DEBUG: Clause " + c + " already exists"); }
+        else if (this.debug) { logger.logRaw("DEBUG: Clause " + c + " already exists"); }
         return c;
     }
 
     // Remove the input clause, as well as any unifying clauses if removeUni is set
     public void removeClause(Term clause, Boolean removeUni) {
-        if (this.debug) { System.out.println(); }
+        if (this.debug) { logger.logLine(); }
         boolean removedFlag = false;
         if (this.clauses.contains(clause)) {
             this.clauses.remove(clause);
             this.dirty = true;
             removedFlag = true;
-            if (this.debug) { System.out.println("DEBUG: Removed clause " + clause); }
+            if (this.debug) { logger.logRaw("DEBUG: Removed clause " + clause); }
         }
 
         ArrayList<Term> toRemove = new ArrayList<>();
@@ -128,7 +131,7 @@ public class KnowledgeBase {
             for (Term t : toRemove) {
                 this.clauses.remove(t);
                 if (this.debug) {
-                    System.out.println("DEBUG: Removed clause " + t);
+                    logger.logRaw("DEBUG: Removed clause " + t);
                 }
                 if (!removedFlag) {
                     removedFlag = true;
@@ -136,7 +139,7 @@ public class KnowledgeBase {
             }
         }
         if (toRemove.size() > 0 && !this.dirty) { this.dirty = true; }
-        else if (this.debug && !removedFlag) { System.out.println("DEBUG: Clause " + clause + " could not be removed"); }
+        else if (this.debug && !removedFlag) { logger.logRaw("DEBUG: Clause " + clause + " could not be removed"); }
     }
 
     // Remove all clauses that unify with the input from the knowledge base
