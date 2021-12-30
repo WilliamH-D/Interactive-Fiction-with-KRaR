@@ -21,4 +21,9 @@ public class RemFlagEff extends Effect {
         GameState.getFlag(flagID).unset();
         return true;
     }
+
+    @Override
+    protected boolean effectLegalUnderEnhancedConstraints() {
+        return false;
+    }
 }

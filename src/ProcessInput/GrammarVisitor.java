@@ -410,33 +410,45 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
     
     @Override public T visitEquals_cond(EditorGrammarParser.Equals_condContext ctx) {
         T children = visitChildren(ctx);
+        String lobj = ctx.ID(0).getText();
+        lobj = lobj.substring(1, lobj.length()-1).toUpperCase();
         if (ctx.children.contains(ctx.var())) {
-            StoryCompiler.get().compileEqualsCond(ctx.alpha_numeric(0).getText(), ctx.var().getText(), false);
+            StoryCompiler.get().compileEqualsCond(lobj, lobj, ctx.alpha_numeric(0).getText(), ctx.var().getText(), false);
         }
         else {
-            StoryCompiler.get().compileEqualsCond(ctx.alpha_numeric(0).getText(), ctx.alpha_numeric(1).getText(), true);
+            String robj = ctx.ID(1).getText();
+            robj = robj.substring(1, robj.length()-1).toUpperCase();
+            StoryCompiler.get().compileEqualsCond(lobj, robj, ctx.alpha_numeric(0).getText(), ctx.alpha_numeric(1).getText(), true);
         }
         return children;
     }
     
     @Override public T visitGt_cond(EditorGrammarParser.Gt_condContext ctx) {
         T children = visitChildren(ctx);
+        String lobj = ctx.ID(0).getText();
+        lobj = lobj.substring(1, lobj.length()-1).toUpperCase();
         if (ctx.children.contains(ctx.var())) {
-            StoryCompiler.get().compileGTCond(ctx.alpha_numeric(0).getText(), ctx.var().getText(), false);
+            StoryCompiler.get().compileGTCond(lobj, lobj, ctx.alpha_numeric(0).getText(), ctx.var().getText(), false);
         }
         else {
-            StoryCompiler.get().compileGTCond(ctx.alpha_numeric(0).getText(), ctx.alpha_numeric(1).getText(), true);
+            String robj = ctx.ID(1).getText();
+            robj = robj.substring(1, robj.length()-1).toUpperCase();
+            StoryCompiler.get().compileGTCond(lobj, robj, ctx.alpha_numeric(0).getText(), ctx.alpha_numeric(1).getText(), true);
         }
         return children;
     }
     
     @Override public T visitLt_cond(EditorGrammarParser.Lt_condContext ctx) {
         T children = visitChildren(ctx);
+        String lobj = ctx.ID(0).getText();
+        lobj = lobj.substring(1, lobj.length()-1).toUpperCase();
         if (ctx.children.contains(ctx.var())) {
-            StoryCompiler.get().compileLTCond(ctx.alpha_numeric(0).getText(), ctx.var().getText(), false);
+            StoryCompiler.get().compileLTCond(lobj, lobj, ctx.alpha_numeric(0).getText(), ctx.var().getText(), false);
         }
         else {
-            StoryCompiler.get().compileLTCond(ctx.alpha_numeric(0).getText(), ctx.alpha_numeric(1).getText(), true);
+            String robj = ctx.ID(1).getText();
+            robj = robj.substring(1, robj.length()-1).toUpperCase();
+            StoryCompiler.get().compileLTCond(lobj, robj, ctx.alpha_numeric(0).getText(), ctx.alpha_numeric(1).getText(), true);
         }
         return children;
     }
@@ -499,10 +511,31 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
         StoryCompiler.get().compilePlaceEff(obj.substring(1, obj.length()-1), loc.substring(1, loc.length()-1), type);
         return children;
     }
-    
-    @Override public T visitSet_eff(EditorGrammarParser.Set_effContext ctx) {
+
+    @Override
+    public T visitSet_var_eff(EditorGrammarParser.Set_var_effContext ctx) {
         T children = visitChildren(ctx);
-        StoryCompiler.get().compileSetEff(ctx.alpha_numeric().getText(), ctx.var().getText());
+        String id = ctx.ID().getText();
+        id = id.substring(1, id.length()-1).toUpperCase();
+        StoryCompiler.get().compileSetVarEff(id, ctx.alpha_numeric().getText(), ctx.var().getText());
+        return children;
+    }
+
+    @Override
+    public T visitInc_var_eff(EditorGrammarParser.Inc_var_effContext ctx) {
+        T children = visitChildren(ctx);
+        String id = ctx.ID().getText();
+        id = id.substring(1, id.length()-1).toUpperCase();
+        StoryCompiler.get().compileIncVarEff(id, ctx.alpha_numeric().getText(), Float.parseFloat(ctx.var().getText()));
+        return children;
+    }
+
+    @Override
+    public T visitDec_var_eff(EditorGrammarParser.Dec_var_effContext ctx) {
+        T children = visitChildren(ctx);
+        String id = ctx.ID().getText();
+        id = id.substring(1, id.length()-1).toUpperCase();
+        StoryCompiler.get().compileDecVarEff(id, ctx.alpha_numeric().getText(), Float.parseFloat(ctx.var().getText()));
         return children;
     }
     

@@ -3,13 +3,13 @@ package SimpleEngine.Actions.Effects;
 import SimpleEngine.Actions.Effect;
 import SimpleEngine.GameState;
 
-public class SetEff extends Effect {
+public class SetVarEff extends Effect {
 
     private String objID;
     private String variable;
     private String value;
 
-    public SetEff(String objID, String variable, String value) {
+    public SetVarEff(String objID, String variable, String value) {
         this.objID = objID;
         this.variable = variable;
         this.value = value;
@@ -24,5 +24,10 @@ public class SetEff extends Effect {
         }
         GameState.getGameObject(objID).setVariable(variable, value);
         return true;
+    }
+
+    @Override
+    protected boolean effectLegalUnderEnhancedConstraints() {
+        return false;
     }
 }

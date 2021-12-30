@@ -409,7 +409,21 @@ public class EditorGrammarBaseVisitor<T> extends AbstractParseTreeVisitor<T> imp
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSet_eff(EditorGrammarParser.Set_effContext ctx) { return visitChildren(ctx); }
+	@Override public T visitSet_var_eff(EditorGrammarParser.Set_var_effContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitInc_var_eff(EditorGrammarParser.Inc_var_effContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitDec_var_eff(EditorGrammarParser.Dec_var_effContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

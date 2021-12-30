@@ -347,11 +347,23 @@ public interface EditorGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPlace_eff(EditorGrammarParser.Place_effContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link EditorGrammarParser#set_eff}.
+	 * Visit a parse tree produced by {@link EditorGrammarParser#set_var_eff}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSet_eff(EditorGrammarParser.Set_effContext ctx);
+	T visitSet_var_eff(EditorGrammarParser.Set_var_effContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#inc_var_eff}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInc_var_eff(EditorGrammarParser.Inc_var_effContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#dec_var_eff}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDec_var_eff(EditorGrammarParser.Dec_var_effContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link EditorGrammarParser#effect}.
 	 * @param ctx the parse tree

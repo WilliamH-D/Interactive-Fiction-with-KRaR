@@ -688,13 +688,37 @@ public class EditorGrammarBaseListener implements EditorGrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSet_eff(EditorGrammarParser.Set_effContext ctx) { }
+	@Override public void enterSet_var_eff(EditorGrammarParser.Set_var_effContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSet_eff(EditorGrammarParser.Set_effContext ctx) { }
+	@Override public void exitSet_var_eff(EditorGrammarParser.Set_var_effContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterInc_var_eff(EditorGrammarParser.Inc_var_effContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitInc_var_eff(EditorGrammarParser.Inc_var_effContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDec_var_eff(EditorGrammarParser.Dec_var_effContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDec_var_eff(EditorGrammarParser.Dec_var_effContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

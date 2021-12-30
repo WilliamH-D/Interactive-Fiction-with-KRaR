@@ -61,6 +61,7 @@ public class GameController {
 
     public static void useEnhancedEngine() { GC.usingEnhanced = true; }
     public static void useTraditionalEngine() { GC.usingEnhanced = false; }
+    public static boolean usingEnhancedEngine() { return GC.usingEnhanced; }
 
     public static void setLemmas(List<String> lemmas) { GC.lemmas = lemmas; }
 

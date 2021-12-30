@@ -15,4 +15,9 @@ public class TellEff extends Effect {
         System.out.println(text);
         return true;
     }
+
+    @Override
+    protected boolean effectLegalUnderEnhancedConstraints() {
+        return false;
+    }
 }

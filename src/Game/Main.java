@@ -37,6 +37,7 @@ public class Main {
     private static void init() throws IOException {
         // Instantiate the Game Controller
         GameController.instantiateGameController();
+        GameController.useEnhancedEngine();
 
         // Compile the game file
         StoryCompiler.get().compile("D:\\Documents\\University\\Part II Project\\Interactive Fiction with KRaR\\src\\ProcessInput\\testStory.txt");

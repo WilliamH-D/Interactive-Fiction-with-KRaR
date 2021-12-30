@@ -568,15 +568,35 @@ public interface EditorGrammarListener extends ParseTreeListener {
 	 */
 	void exitPlace_eff(EditorGrammarParser.Place_effContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link EditorGrammarParser#set_eff}.
+	 * Enter a parse tree produced by {@link EditorGrammarParser#set_var_eff}.
 	 * @param ctx the parse tree
 	 */
-	void enterSet_eff(EditorGrammarParser.Set_effContext ctx);
+	void enterSet_var_eff(EditorGrammarParser.Set_var_effContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link EditorGrammarParser#set_eff}.
+	 * Exit a parse tree produced by {@link EditorGrammarParser#set_var_eff}.
 	 * @param ctx the parse tree
 	 */
-	void exitSet_eff(EditorGrammarParser.Set_effContext ctx);
+	void exitSet_var_eff(EditorGrammarParser.Set_var_effContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#inc_var_eff}.
+	 * @param ctx the parse tree
+	 */
+	void enterInc_var_eff(EditorGrammarParser.Inc_var_effContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#inc_var_eff}.
+	 * @param ctx the parse tree
+	 */
+	void exitInc_var_eff(EditorGrammarParser.Inc_var_effContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#dec_var_eff}.
+	 * @param ctx the parse tree
+	 */
+	void enterDec_var_eff(EditorGrammarParser.Dec_var_effContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#dec_var_eff}.
+	 * @param ctx the parse tree
+	 */
+	void exitDec_var_eff(EditorGrammarParser.Dec_var_effContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link EditorGrammarParser#effect}.
 	 * @param ctx the parse tree

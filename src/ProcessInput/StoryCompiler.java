@@ -375,24 +375,28 @@ public class StoryCompiler {
         setTest(new AndFlagsCond(flags));
     }
 
-    public void compileEqualsCond(String lhs, String rhs, boolean bothVars) {
+    public void compileEqualsCond(String lobj, String robj, String lhs, String rhs, boolean bothVars) {
         logger.logLine();
         logger.logRaw("Compiling EqualsCond:");
+        logger.logRaw("LEFT OBJ: " + lobj);
+        logger.logRaw("RIGHT OBJ: " + robj);
         logger.logRaw("LHS: " + lhs);
         logger.logRaw("RHS: " + lhs);
         logger.logRaw("BOTH VARS: " + bothVars);
 
-        setTest(new EqualsCond(id, lhs, rhs, bothVars));
+        setTest(new EqualsCond(lobj, robj, lhs, rhs, bothVars));
     }
 
-    public void compileGTCond(String lhs, String rhs, boolean bothVars) {
+    public void compileGTCond(String lobj, String robj, String lhs, String rhs, boolean bothVars) {
         logger.logLine();
         logger.logRaw("Compiling GTCond:");
+        logger.logRaw("LEFT OBJ: " + lobj);
+        logger.logRaw("RIGHT OBJ: " + robj);
         logger.logRaw("LHS: " + lhs);
         logger.logRaw("RHS: " + lhs);
         logger.logRaw("BOTH VARS: " + bothVars);
 
-        setTest(new GTCond(id, lhs, rhs, bothVars));
+        setTest(new GTCond(lobj, robj, lhs, rhs, bothVars));
     }
 
     public void compileHaveItemCond(Set<String> objs) {
@@ -419,14 +423,16 @@ public class StoryCompiler {
         setTest(new HereCond(locs));
     }
 
-    public void compileLTCond(String lhs, String rhs, boolean bothVars) {
+    public void compileLTCond(String lobj, String robj, String lhs, String rhs, boolean bothVars) {
         logger.logLine();
         logger.logRaw("Compiling LTCond:");
+        logger.logRaw("LEFT OBJ: " + lobj);
+        logger.logRaw("RIGHT OBJ: " + robj);
         logger.logRaw("LHS: " + lhs);
         logger.logRaw("RHS: " + lhs);
         logger.logRaw("BOTH VARS: " + bothVars);
 
-        setTest(new LTCond(id, lhs, rhs, bothVars));
+        setTest(new LTCond(lobj, robj, lhs, rhs, bothVars));
     }
 
     public void compileOrFlagsCond(Set<String> flags) {
@@ -524,13 +530,34 @@ public class StoryCompiler {
         addToLastActionBlock(new RemFlagEff(flagID));
     }
 
-    public void compileSetEff(String var, String val) {
+    public void compileSetVarEff(String id, String var, String val) {
         logger.logLine();
-        logger.logRaw("Compiling SetEff:");
+        logger.logRaw("Compiling SetVarEff:");
+        logger.logRaw("ID: " + id);
         logger.logRaw("VARIABLE: " + var);
         logger.logRaw("VALUE: " + val);
 
-        addToLastActionBlock(new SetEff(id, var, val));
+        addToLastActionBlock(new SetVarEff(id, var, val));
+    }
+
+    public void compileIncVarEff(String id, String var, float val) {
+        logger.logLine();
+        logger.logRaw("Compiling SetVarEff:");
+        logger.logRaw("ID: " + id);
+        logger.logRaw("VARIABLE: " + var);
+        logger.logRaw("VALUE: " + val);
+
+        addToLastActionBlock(new IncVarEff(id, var, val));
+    }
+
+    public void compileDecVarEff(String id, String var, float val) {
+        logger.logLine();
+        logger.logRaw("Compiling SetVarEff:");
+        logger.logRaw("ID: " + id);
+        logger.logRaw("VARIABLE: " + var);
+        logger.logRaw("VALUE: " + val);
+
+        addToLastActionBlock(new DecVarEff(id, var, val));
     }
 
     public void compileSetFlagEff(String flagID, int val) {

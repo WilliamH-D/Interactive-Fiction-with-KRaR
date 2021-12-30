@@ -418,9 +418,18 @@ public class CommandConstructor {
         ArrayList<Integer> removeEnd = new ArrayList<>();
         for (int i = 0; i < matchedObjects.size(); i++) {
             int idx = matchedIndxs.get(i);
-            if (idx > 0 && (tokens.get(idx-1).getPos().equals("DT") || tokens.get(idx-1).getPos().equals("JJ") || tokens.get(idx-1).getPos().equals("JJR"))) { removeStart.add(idx-1); }
-            else { removeStart.add(idx); }
-            removeEnd.add(idx + matchedObjects.get(i).length - 1);
+            int end = idx + matchedObjects.get(i).length - 1;
+            // Look at preceding words
+            for (int j = idx-1; j>-1; j--) {
+                if ((tokens.get(j).getPos().equals("DT") || tokens.get(j).getPos().equals("JJ") || tokens.get(j).getPos().equals("JJR"))) {
+                    idx = j;
+                }
+                else {
+                    break;
+                }
+            }
+            removeStart.add(idx);
+            removeEnd.add(end);
         }
 
         StringBuilder processedInput = new StringBuilder();

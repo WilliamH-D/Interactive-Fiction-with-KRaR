@@ -47,12 +47,15 @@ public class KnowledgeBase {
 
         // Put object in other object (put object A inside object B)
         addClause("putIn(A,B) :- inScope(A,C), inScope(B,C), A \\= B, volume(A,X), capacity(B,Y), capacityUsed(B,Z), Y2 is Y+1, X+Z<Y2");
+        addClause("putInIgnoreScope(A,B) :- A \\= B, volume(A,X), capacity(B,Y), capacityUsed(B,Z), Y2 is Y+1, X+Z<Y2");
 
         // Put object on top of other object (put object A on top of object B)
         addClause("putOn(A,B) :- inScope(A,C), inScope(B,C), A \\= B, volume(A,X), surface(B,Y), surfaceUsed(B,Z), Y2 is Y+1, X+Z<Y2");
+        addClause("putOnIgnoreScope(A,B) :- A \\= B, volume(A,X), surface(B,Y), surfaceUsed(B,Z), Y2 is Y+1, X+Z<Y2");
 
         // Put object below other object (put object A below object B)
         addClause("putBelow(A,B) :- inScope(A,C), inScope(B,C), A \\= B, volume(A,X), below(B,Y), belowUsed(B,Z), Y2 is Y+1, X+Z<Y2");
+        addClause("putBelowIgnoreScope(A,B) :- A \\= B, volume(A,X), below(B,Y), belowUsed(B,Z), Y2 is Y+1, X+Z<Y2");
     }
 
     // Used for debugging with print statements

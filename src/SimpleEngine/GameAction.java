@@ -19,6 +19,7 @@ public class GameAction {
 
     public boolean executeAction() {
         boolean actionPerformed = false;
+        boolean continueEffects = true;
 
         for (ActionPart action : actions) {
             // If conditions are satisfied, for each action in this conditional's contents:
@@ -30,9 +31,11 @@ public class GameAction {
                     break;
                 }
             }
-            else if (action.performAction()) {
-                // Effects will always be performed
+            else if (continueEffects) {
                 actionPerformed = true;
+                if (!action.performAction()) {
+                    continueEffects = false;
+                }
             }
         }
 

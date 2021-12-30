@@ -4,10 +4,7 @@ import EnhancedEngine.KnowledgeBase;
 import Game.GameController;
 import Logging.DebugLogger;
 import SimpleEngine.Actions.Effect;
-import SimpleEngine.GameObject;
 import SimpleEngine.GameState;
-
-import java.util.logging.Logger;
 
 public class TakeEff extends Effect {
 
@@ -24,7 +21,22 @@ public class TakeEff extends Effect {
             DebugLogger.getInstance().logError(itemID + " IS NOT A VALID OBJECT!");
             return false;
         }
+
+        if (!effectLegalUnderEnhancedConstraints()) {
+            return false;
+        }
+
         GameState.getGameObject(itemID).takeItem();
+        return true;
+    }
+
+    @Override
+    protected boolean effectLegalUnderEnhancedConstraints() {
+        KnowledgeBase kb = KnowledgeBase.getInstance();
+        if (kb.query("isLocated(X," + itemID.toLowerCase() + ",1)").size() > 0) {
+            System.out.println("The " + GameState.getGameObject(itemID).getName() + " has stuff on top of it, you're unable to take it without removing them first!");
+            return false;
+        }
         return true;
     }
 }

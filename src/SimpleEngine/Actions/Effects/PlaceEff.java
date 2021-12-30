@@ -2,6 +2,7 @@ package SimpleEngine.Actions.Effects;
 
 import EnhancedEngine.KnowledgeBase;
 import Game.GameController;
+import Game.Main;
 import Logging.DebugLogger;
 import SimpleEngine.Actions.Effect;
 import SimpleEngine.GameObject;
@@ -34,6 +35,8 @@ public class PlaceEff extends Effect {
                 return false;
             }
 
+           if (GameController.usingEnhancedEngine() && !effectLegalUnderEnhancedConstraints()) { return false; }
+
             GameState.getGameObject(itemID).placeItem(GameState.getGameObject(locID), parentType, true);
         }
         else {
@@ -41,5 +44,28 @@ public class PlaceEff extends Effect {
             GameState.getGameObject(itemID).placeItem(true);
         }
         return true;
+    }
+
+    @Override
+    protected boolean effectLegalUnderEnhancedConstraints() {
+        KnowledgeBase kb = KnowledgeBase.getInstance();
+        if (kb.query("isRoom(" + locID.toLowerCase() + ")").size() > 0) {
+            return true;
+        }
+        boolean legal;
+        switch (parentType) {
+            case 0: legal = kb.query("putInIgnoreScope(" + itemID.toLowerCase() + "," + locID.toLowerCase() + ")").size() > 0; break;
+            case 1: legal = kb.query("putOnIgnoreScope(" + itemID.toLowerCase() + "," + locID.toLowerCase() + ")").size() > 0; break;
+            case 2: legal = kb.query("putBelowIgnoreScope(" + itemID.toLowerCase() + "," + locID.toLowerCase() + ")").size() > 0; break;
+            default: legal = false;
+        }
+        if (!legal) {
+            switch (parentType) {
+                case 0: System.out.println("There is not enough space in the " + GameState.getGameObject(locID).getName() + "for the " + GameState.getGameObject(itemID).getName() + "."); break;
+                case 1: System.out.println("There is not enough space on the " + GameState.getGameObject(locID).getName() + "for the " + GameState.getGameObject(itemID).getName() + "."); break;
+                case 2: System.out.println("There is not enough space under the " + GameState.getGameObject(locID).getName() + "for the " + GameState.getGameObject(itemID).getName() + "."); break;
+            }
+        }
+        return legal;
     }
 }

@@ -22,6 +22,7 @@
     NAME: "Small Box";
     DESC: "It's a small box.";
     SYNS: "box", "container", "small container", "little box", "little container";
+    PROPERTIES: _TAKEABLE;
     VALUES: (capacity: 50), (volume: 50);
 }
 
@@ -32,7 +33,7 @@
     LOCATIONTYPE: 1;
     NAME: "Big Box";
     DESC: "It's a big box.";
-    SYNS: "box", "container", "big container";
+    SYNS: "box", "container", "big container", "large box", "large container";
     PROPERTIES: _TAKEABLE;
     VALUES: (capacity: 100), (volume: 100);
 }
@@ -51,6 +52,14 @@
 {
     ID: <SMALLBOX>;
     ACTION:
+        COND<PRSAAnd: PUT, IN || PRSAAnd: PUT, INSIDE || PRSAAnd: PLACE, IN || PRSAAnd: PLACE, INSIDE>
+        {
+            COND<PRSI: <BIGBOX>>
+            {
+                EFF<PLACE: <SMALLBOX>, <BIGBOX>, IN>
+                EFF<TELL: "You placed the small box inside the big box.">
+            }
+        }
         COND<PRSA: TAKE, OBTAIN>
         {
             COND<HERE: <LIVINGROOM> && !HAVEITEM: <SMALLBOX>>
@@ -63,13 +72,19 @@
         {
             EFF<PLACE: <SMALLBOX>, <HERE>, IN>
             EFF<TELL: "You placed the small box down.">
-        }
+        };
+}
+
+[action]
+{
+    ID: <BIGBOX>;
+    ACTION:
         COND<PRSAAnd: PUT, IN || PRSAAnd: PUT, INSIDE || PRSAAnd: PLACE, IN || PRSAAnd: PLACE, INSIDE>
         {
-            COND<PRSI: <BIGBOX>>
+            COND<PRSI: <SMALLBOX>>
             {
-                EFF<PLACE: <SMALLBOX>, <BIGBOX>, IN>
-                EFF<TELL: "You placed the small box inside the big box.">
+                EFF<PLACE: <BIGBOX>, <SMALLBOX>, IN>
+                EFF<TELL: "You placed the big box inside the small box.">
             }
         };
 }

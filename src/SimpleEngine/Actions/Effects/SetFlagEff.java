@@ -23,4 +23,9 @@ public class SetFlagEff extends Effect {
         GameState.getFlag(flagID).set(val);
         return true;
     }
+
+    @Override
+    protected boolean effectLegalUnderEnhancedConstraints() {
+        return false;
+    }
 }

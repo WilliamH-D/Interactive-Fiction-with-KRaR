@@ -139,10 +139,46 @@ public class GameObject {
     }
 
     public void inspectObject() {
+        // Show basic object description
         System.out.println(getDesc());
+
+        // State if anything is in/on/under the item
+        if (getChildren().size() == 0) {
+            return;
+        }
+
+        if (inside.size() > 0) {
+            System.out.println();
+            System.out.println("The " + getName() + " contains:");
+            for (String childID : inside) {
+                GameObject child = GameState.getGameObject(childID);
+                System.out.println("\t-" + child.getName());
+            }
+        }
+        if (onSurface.size() > 0) {
+            System.out.println();
+            System.out.println("On top of the " + getName() + ", you can see:");
+            for (String childID : onSurface) {
+                GameObject child = GameState.getGameObject(childID);
+                System.out.println("\t-" + child.getName());
+            }
+        }
+        if (below.size() > 0) {
+            System.out.println();
+            System.out.println("Below the " + getName() + ", you can see:");
+            for (String childID : below) {
+                GameObject child = GameState.getGameObject(childID);
+                System.out.println("\t-" + child.getName());
+            }
+        }
     }
 
     public void takeItem() {
+        // Can't take item if there's stuff on top of it
+        if (onSurface.size() > 0) {
+            System.out.println("The " + getName() + " has stuff on top of it, you're unable to take it without removing them first!");
+            return;
+        }
         KnowledgeBase kb = KnowledgeBase.getInstance();
         if (hasVariable("volume") && kb.query("isObject(" + getParent().toLowerCase() + ")").size() > 0) {
             // remove the volume from in/on/below
@@ -170,6 +206,13 @@ public class GameObject {
                     kb.addClause("belowUsed(" + parentID + "," + (belowUsed - volume) + ")");
                     parent.setVariable("belowUsed", String.valueOf(belowUsed-volume));
                     break;
+            }
+        }
+        // Expose all items below it
+        if (below.size() > 0) {
+            Set<String> copy = new HashSet<>(below);
+            for (String obj : copy) {
+                GameState.getGameObject(obj).placeItem(true);
             }
         }
         setParent(GameController.getPlayer().getId(), 0);

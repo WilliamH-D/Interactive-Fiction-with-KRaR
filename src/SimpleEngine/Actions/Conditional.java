@@ -22,6 +22,7 @@ public class Conditional extends ActionPart {
         // Multiple effects can be taken, but once a conditional's contents are entered, anything after the conditional is ignored
         boolean actionPerformed = false;
         boolean conditionalEntered = false;
+        boolean continueEffects = true;
         if (satisfied()) {
             for (ActionPart action : contents) {
                 // If conditions are satisfied, for each action in this conditional's contents:
@@ -33,9 +34,11 @@ public class Conditional extends ActionPart {
                         conditionalEntered = true;
                     }
                 }
-                else if (!conditionalEntered && action.performAction()) {
-                    // Effects will always be performed
+                else if (!conditionalEntered && continueEffects) {
                     actionPerformed = true;
+                    if (!action.performAction()) {
+                        continueEffects = false;
+                    }
                 }
             }
         }

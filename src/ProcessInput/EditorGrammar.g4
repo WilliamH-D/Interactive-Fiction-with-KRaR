@@ -74,7 +74,9 @@ SETFLAG_EFF: 'SETFLAG' COLON;
 REMFLAG_EFF: 'REMFLAG' COLON;
 TAKE_EFF: 'TAKE' COLON;
 PLACE_EFF: 'PLACE' COLON;
-SET_EFF: 'SET' COLON;
+SET_VAR_EFF: 'SETVAR' COLON;
+INC_VAR_EFF: 'INCVAR' COLON;
+DEC_VAR_EFF: 'DECVAR' COLON;
 
 // Parsing rules (Must be lower case)
 alpha_numeric: ALPHA | NUMERIC | ALPHANUMERIC;
@@ -164,12 +166,12 @@ orproperties_cond: ORPROPERTIES_COND ID COMMA flag (COMMA flag)*;
 flagvalue_cond: FLAGVALUE_COND flag COMMA num_int;
 haveitem_cond: HAVEITEM_COND ID (COMMA ID)*;
 haveitems_cond: HAVEITEMS_COND ID (COMMA ID)*;
-equals_cond: EQUALS_COND alpha_numeric COMMA var
-             | EQUALS_COND alpha_numeric COMMA alpha_numeric;
-gt_cond: GT_COND alpha_numeric COMMA var
-         | GT_COND alpha_numeric COMMA alpha_numeric;
-lt_cond: LT_COND alpha_numeric COMMA var
-         | LT_COND alpha_numeric COMMA alpha_numeric;
+equals_cond: EQUALS_COND ID SEMICOLON alpha_numeric COMMA var
+             | EQUALS_COND ID SEMICOLON alpha_numeric COMMA ID SEMICOLON alpha_numeric;
+gt_cond: GT_COND ID SEMICOLON alpha_numeric COMMA var
+         | GT_COND ID SEMICOLON alpha_numeric COMMA ID SEMICOLON alpha_numeric;
+lt_cond: LT_COND ID SEMICOLON alpha_numeric COMMA var
+         | LT_COND ID SEMICOLON alpha_numeric COMMA ID SEMICOLON alpha_numeric;
 
 condition: prsa_cond|prsa_and_cond|prso_cond|prsi_cond|here_cond|andflags_cond|orflags_cond|andproperties_cond|orproperties_cond|flagvalue_cond|haveitem_cond|haveitems_cond|equals_cond|gt_cond|lt_cond;
 
@@ -180,9 +182,11 @@ setflag_eff: SETFLAG_EFF flag | SETFLAG_EFF flag COMMA num_int;
 remflag_eff: REMFLAG_EFF flag;
 take_eff: TAKE_EFF ID;
 place_eff: PLACE_EFF ID COMMA ID COMMA (IN_TAG|ON_TAG|UNDER_TAG);
-set_eff: SET_EFF alpha_numeric COMMA var;
+set_var_eff: SET_VAR_EFF ID SEMICOLON alpha_numeric COMMA var;
+inc_var_eff: INC_VAR_EFF ID SEMICOLON alpha_numeric COMMA var;
+dec_var_eff: DEC_VAR_EFF ID SEMICOLON alpha_numeric COMMA var;
 
-effect: tell_eff|goto_eff|setflag_eff|remflag_eff|take_eff|place_eff|set_eff;
+effect: tell_eff|goto_eff|setflag_eff|remflag_eff|take_eff|place_eff|set_var_eff|inc_var_eff|dec_var_eff;
 
 // Entry point
 game_grammar: room (room | object | action | global_flag)*;

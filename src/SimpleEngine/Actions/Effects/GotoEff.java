@@ -23,4 +23,9 @@ public class GotoEff extends Effect {
         GameController.getPlayer().movePlayer((GameRoom)GameState.getGameObject(locID));
         return true;
     }
+
+    @Override
+    protected boolean effectLegalUnderEnhancedConstraints() {
+        return false;
+    }
 }
