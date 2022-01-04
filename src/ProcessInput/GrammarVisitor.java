@@ -281,6 +281,15 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
         for (int i = 0; i < ctx.ALPHA().size(); i++) {
             objs.add(ctx.ALPHA(i).getText());
         }
+        for (int j = 0; j < ctx.IN_TAG().size(); j++) {
+            objs.add("IN");
+        }
+        for (int j = 0; j < ctx.ON_TAG().size(); j++) {
+            objs.add("ON");
+        }
+        for (int j = 0; j < ctx.UNDER_TAG().size(); j++) {
+            objs.add("UNDER");
+        }
         StoryCompiler.get().compilePRSACond(objs);
         return children;
     }

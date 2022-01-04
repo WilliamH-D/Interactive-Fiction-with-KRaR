@@ -1,5 +1,6 @@
 package SimpleEngine.Actions.Conditions;
 
+import Logging.DebugLogger;
 import SimpleEngine.Actions.ConditionTest;
 import SimpleEngine.GameState;
 
@@ -17,13 +18,19 @@ public class AndFlagsCond extends ConditionTest {
 
     @Override
     public boolean satisfied() {
+        logger.logDebug("Checking AndFlagsCond: Checking to see that all flags are set: " + flags);
         for (String flagID : flags) {
             if (!GameState.getFlag(flagID).isSet()) {
-                System.out.println("ANDFLAGSCOND: Flag " + flagID + " not set - NOT SATISFIED");
+                logger.logDebug("AndFlagsCond not satisfied since flag " + flagID + " is not set");
                 return false;
             }
         }
-        System.out.println("ANDFLAGSCOND: All flags set - SATISFIED");
+        logger.logDebug("AndFlagsCond satisfied");
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "AndFlags: " + flags;
     }
 }

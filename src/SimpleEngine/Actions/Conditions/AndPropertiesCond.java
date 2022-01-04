@@ -1,5 +1,6 @@
 package SimpleEngine.Actions.Conditions;
 
+import Logging.DebugLogger;
 import SimpleEngine.Actions.ConditionTest;
 import SimpleEngine.GameState;
 
@@ -9,6 +10,7 @@ public class AndPropertiesCond extends ConditionTest {
 
     private String objID;
     private Set<String> properties;
+    private DebugLogger logger = DebugLogger.getInstance();
 
     public AndPropertiesCond(String objID, Set<String> properties) {
         this.objID = objID;
@@ -17,13 +19,19 @@ public class AndPropertiesCond extends ConditionTest {
 
     @Override
     public boolean satisfied() {
+        logger.logDebug("Checking AndPropertiesCond: Checking that object " + objID + " has properties: " + properties);
         for (String propertyID : properties) {
             if (!GameState.getGameObject(objID).hasProperty(propertyID)) {
-                System.out.println("ANDPROPERTIESCOND: Object " + objID + " does not have property " + propertyID + " - NOT SATISFIED");
+                logger.logDebug("AndPropertiesCond not satisfied since object " + objID + " does not have property " + propertyID);
                 return false;
             }
         }
-        System.out.println("ANDPROPERTIESCOND: All properties - SATISFIED");
+        logger.logDebug("AndPropertiesCond satisfied");
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "AndProperties: " + objID + ", " + properties;
     }
 }

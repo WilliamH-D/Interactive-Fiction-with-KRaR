@@ -1,58 +1,142 @@
 
-DEBUG: Processing user input: take small box
-DEBUG: Matched verb: take
-DEBUG: Simplified verb: do small box
-DEBUG: Pre-processed: do item1
-DEBUG: Lemmas: [do, item]
+======================================================================================
+Processing user input: take small box
+======================================================================================
 
-DEBUG: Processing user input: climb down the ladder
-DEBUG: Matched verb: climb
-DEBUG: Simplified verb: do down the ladder
-DEBUG: Pre-processed: do item2 item1
-DEBUG: Lemmas: [do, item, item]
+DEBUG: Pre-process input lemmas: [take, small, box]
+DEBUG: Pre-process input posTags: [VB, NNP, NNP]
+DEBUG: Adding [small, box] to matched objects
+DEBUG: Adding 1 to matched indices
+DEBUG: Pre-processed: take item1
+DEBUG: Lemmas: [take, item]
+DEBUG: Verb found: take
+DEBUG: PRSA set to: TAKE
 
-DEBUG: Processing user input: move north
-DEBUG: Matched verb: move
-DEBUG: Simplified verb: do north
-DEBUG: Pre-processed: do item1
-DEBUG: Lemmas: [do, item]
+======================================================================================
+Processing user input: climb down the ladder
+======================================================================================
 
-DEBUG: Processing user input: climb up
-DEBUG: Matched verb: climb
-DEBUG: Simplified verb: do up
-DEBUG: Pre-processed: do item1
-DEBUG: Lemmas: [do, item]
+DEBUG: Pre-process input lemmas: [climb, down, the, ladder]
+DEBUG: Pre-process input posTags: [VB, RP, DT, NN]
+DEBUG: Adding [ladder] to matched objects
+DEBUG: Adding 3 to matched indices
+DEBUG: Adding [down] to matched objects
+DEBUG: Adding 1 to matched indices
+DEBUG: Pre-processed: climb item2 item1
+DEBUG: Lemmas: [climb, item, item]
+DEBUG: Verb found: climb
+DEBUG: PRSA set to: CLIMB
 
-DEBUG: Processing user input: hit goblin with the sword
-DEBUG: Matched verb: hit
-DEBUG: Simplified verb: do goblin with the sword
-DEBUG: Pre-processed: do item2 with item1
-DEBUG: Lemmas: [do, item, with, item]
+======================================================================================
+Processing user input: move north
+======================================================================================
 
-DEBUG: Processing user input: walk south
-DEBUG: Matched verb: walk
-DEBUG: Simplified verb: do south
-DEBUG: Pre-processed: do item1
-DEBUG: Lemmas: [do, item]
+DEBUG: Pre-process input lemmas: [move, north]
+DEBUG: Pre-process input posTags: [NN, NNP]
+DEBUG: Adding [north] to matched objects
+DEBUG: Adding 1 to matched indices
+DEBUG: Pre-processed: move item1
+DEBUG: Lemmas: [move, item]
+DEBUG: Verb found: move
+DEBUG: PRSA set to: MOVE
 
-DEBUG: Processing user input: With the sword fight the goblin
-DEBUG: Matched verb: fight
-DEBUG: Simplified verb: with the sword do the goblin
-DEBUG: Pre-processed: with item1 do item2
-DEBUG: Lemmas: [with, item, do, item]
+======================================================================================
+Processing user input: climb up
+======================================================================================
 
-DEBUG: Processing user input: pick up the ladder
-DEBUG: Matched verb: pick up
-DEBUG: Simplified verb: do the ladder
-DEBUG: Pre-processed: do item1
-DEBUG: Lemmas: [do, item]
+DEBUG: Pre-process input lemmas: [climb, up]
+DEBUG: Pre-process input posTags: [VB, RP]
+DEBUG: Adding [up] to matched objects
+DEBUG: Adding 1 to matched indices
+DEBUG: Pre-processed: climb item1
+DEBUG: Lemmas: [climb, item]
+DEBUG: Verb found: climb
+DEBUG: PRSA set to: CLIMB
 
-DEBUG: Processing user input: put the small box in the big box
+======================================================================================
+Processing user input: hit goblin with the sword
+======================================================================================
+
+DEBUG: Pre-process input lemmas: [hit, goblin, with, the, sword]
+DEBUG: Pre-process input posTags: [NNP, NNP, IN, DT, NN]
+DEBUG: Adding [sword] to matched objects
+DEBUG: Adding 4 to matched indices
+DEBUG: Adding [goblin] to matched objects
+DEBUG: Adding 1 to matched indices
+DEBUG: Pre-processed: hit item2 with item1
+DEBUG: Lemmas: [hit, item, with, item]
+DEBUG: Verb found: hit
+DEBUG: PRSA set to: HIT
+
+======================================================================================
+Processing user input: walk south
+======================================================================================
+
+DEBUG: Pre-process input lemmas: [walk, south]
+DEBUG: Pre-process input posTags: [VB, JJ]
+DEBUG: Adding [south] to matched objects
+DEBUG: Adding 1 to matched indices
+DEBUG: Pre-processed: walk item1
+DEBUG: Lemmas: [walk, item]
+DEBUG: Verb found: walk
+DEBUG: PRSA set to: WALK
+
+======================================================================================
+Processing user input: With the sword fight the goblin
+======================================================================================
+
+DEBUG: Pre-process input lemmas: [with, the, sword, fight, the, goblin]
+DEBUG: Pre-process input posTags: [IN, DT, NN, VB, DT, NN]
+DEBUG: Adding [sword] to matched objects
+DEBUG: Adding 2 to matched indices
+DEBUG: Adding [goblin] to matched objects
+DEBUG: Adding 5 to matched indices
+DEBUG: Pre-processed: with item1 fight item2
+DEBUG: Lemmas: [with, item, fight, item]
+DEBUG: Verb found: fight
+DEBUG: PRSA set to: FIGHT
+
+======================================================================================
+Processing user input: pick up the ladder
+======================================================================================
+
+DEBUG: Pre-process input lemmas: [pick, up, the, ladder]
+DEBUG: Pre-process input posTags: [VB, RP, DT, NN]
+DEBUG: Adding [ladder] to matched objects
+DEBUG: Adding 3 to matched indices
+DEBUG: Verb object conflict with verb: pick up, and object: [up]
+DEBUG: up could not be extracted due to potential verb conflict
+DEBUG: Pre-processed: pick up item1
+DEBUG: Lemmas: [pick, up, item]
+DEBUG: Verb found: pick up
+DEBUG: PRSA set to: PICK UP
+
+======================================================================================
+Processing user input: put the small box in the big box
+======================================================================================
+
+DEBUG: Pre-process input lemmas: [put, the, small, box, in, the, big, box]
+DEBUG: Pre-process input posTags: [VB, DT, NNP, NNP, IN, DT, NNP, NNP]
+DEBUG: Adding [small, box] to matched objects
+DEBUG: Adding 2 to matched indices
+DEBUG: Adding [big, box] to matched objects
+DEBUG: Adding 6 to matched indices
 DEBUG: Pre-processed: put item1 in item2
 DEBUG: Lemmas: [put, item, in, item]
+DEBUG: Verb found: put item in item
+DEBUG: PRSA set to: PUT ITEM IN ITEM
 
-DEBUG: Processing user input: pick up big box
-DEBUG: Matched verb: pick up
-DEBUG: Simplified verb: do big box
-DEBUG: Pre-processed: do item1
-DEBUG: Lemmas: [do, item]
+======================================================================================
+Processing user input: pick up big box
+======================================================================================
+
+DEBUG: Pre-process input lemmas: [pick, up, big, box]
+DEBUG: Pre-process input posTags: [NNP, NNP, NNP, NNP]
+DEBUG: Adding [big, box] to matched objects
+DEBUG: Adding 2 to matched indices
+DEBUG: Verb object conflict with verb: pick up, and object: [up]
+DEBUG: up could not be extracted due to potential verb conflict
+DEBUG: Pre-processed: pick up item1
+DEBUG: Lemmas: [pick, up, item]
+DEBUG: Verb found: pick up
+DEBUG: PRSA set to: PICK UP

@@ -2,13 +2,11 @@ package Game;
 
 import EnhancedEngine.KnowledgeBase;
 import ProcessInput.CommandConstructor;
-import ProcessInput.ExecuteCommand;
+import SimpleEngine.ExecuteCommand;
 import ProcessInput.NLPPipeline;
 import ProcessInput.StoryCompiler;
-import alice.tuprolog.Var;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {

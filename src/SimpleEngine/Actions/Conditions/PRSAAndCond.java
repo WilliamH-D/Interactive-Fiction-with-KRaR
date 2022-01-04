@@ -11,7 +11,6 @@ import java.util.Set;
 public class PRSAAndCond extends ConditionTest {
 
     private Set<String> verbs;
-    private DebugLogger logger = DebugLogger.getInstance();
 
     public PRSAAndCond(Set<String> verbs) {
         this.verbs = verbs;
@@ -19,22 +18,24 @@ public class PRSAAndCond extends ConditionTest {
 
     @Override
     public boolean satisfied() {
+        logger.logDebug("Checking PRSAAndCond: Checking PRSA for all verbs: " + verbs);
         if (GameController.getPRSA() == null) {
-            logger.logDebug("PRSACond not satisfied since PRSA is null");
+            logger.logDebug("PRSAAndCond not satisfied since PRSA is null");
             return false;
         }
         String[] split = GameController.getPRSA().split(" ");
-        if (split.length == 1 && verbs.size() == 1) {
-            logger.logDebug("PRSAAndCond not satisfied since PRSA is not same size as list");
-            return false;
-        }
         for (String verb : verbs) {
             if (!Arrays.asList(split).contains(verb)) {
-                logger.logDebug("PRSACond not satisfied since " + verb + " is not in the PRSA");
+                logger.logDebug("PRSAAndCond not satisfied since " + verb + " is not in the PRSA (PRSA: " + GameController.getPRSA() + ")");
                 return false;
             }
         }
         logger.logDebug("PRSAAndCond satisfied");
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "PRSAAnd: " + verbs;
     }
 }

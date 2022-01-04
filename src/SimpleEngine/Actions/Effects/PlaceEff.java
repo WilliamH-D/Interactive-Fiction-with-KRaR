@@ -61,9 +61,9 @@ public class PlaceEff extends Effect {
         }
         if (!legal) {
             switch (parentType) {
-                case 0: System.out.println("There is not enough space in the " + GameState.getGameObject(locID).getName() + "for the " + GameState.getGameObject(itemID).getName() + "."); break;
-                case 1: System.out.println("There is not enough space on the " + GameState.getGameObject(locID).getName() + "for the " + GameState.getGameObject(itemID).getName() + "."); break;
-                case 2: System.out.println("There is not enough space under the " + GameState.getGameObject(locID).getName() + "for the " + GameState.getGameObject(itemID).getName() + "."); break;
+                case 0: System.out.println("There is not enough space in the " + GameState.getGameObject(locID).getName() + " for the " + GameState.getGameObject(itemID).getName() + "."); break;
+                case 1: System.out.println("There is not enough space on the " + GameState.getGameObject(locID).getName() + " for the " + GameState.getGameObject(itemID).getName() + "."); break;
+                case 2: System.out.println("There is not enough space under the " + GameState.getGameObject(locID).getName() + " for the " + GameState.getGameObject(itemID).getName() + "."); break;
             }
         }
         return legal;

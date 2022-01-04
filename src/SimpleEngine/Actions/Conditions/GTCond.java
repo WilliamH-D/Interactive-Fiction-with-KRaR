@@ -1,5 +1,6 @@
 package SimpleEngine.Actions.Conditions;
 
+import Logging.DebugLogger;
 import SimpleEngine.Actions.ConditionTest;
 import SimpleEngine.GameObject;
 import SimpleEngine.GameState;
@@ -22,11 +23,18 @@ public class GTCond extends ConditionTest {
 
     @Override
     public boolean satisfied() {
+        logger.logDebug("Checking GTCond: Check that " + lobjID + "::" + lhs + " > " + robjID + "::" + rhs);
         GameObject lobj = GameState.getGameObject(lobjID);
         GameObject robj = GameState.getGameObject(robjID);
-        if (!lobj.hasVariable(lhs)) { return false; }
+        if (!lobj.hasVariable(lhs)) {
+            logger.logDebug("GTCond not satisfied since " + lobjID + " does not have variable " + lhs);
+            return false;
+        }
         if (bothVars) {
-            if (!robj.hasVariable(rhs)) { return false; }
+            if (!robj.hasVariable(rhs)) {
+                logger.logDebug("GTCond not satisfied since " + robjID + " does not have variable " + rhs);
+                return false;
+            }
             rhs = robj.getVariable(rhs);
         }
 
@@ -35,17 +43,43 @@ public class GTCond extends ConditionTest {
             // Try floats
             Float ans = Float.parseFloat(result);
             Float val = Float.parseFloat(rhs);
-            return ans.compareTo(val) > 0;
+            boolean equal = ans.compareTo(val) > 0;
+            if (equal) {
+                logger.logDebug("GTCond satisfied");
+            }
+            else {
+                logger.logDebug("GTCond not satisfied since " + ans + " !> " + val);
+            }
+            return equal;
         } catch (Exception e) {
             try {
                 // Try booleans
                 Boolean ans = Boolean.parseBoolean(result);
                 Boolean val = Boolean.parseBoolean(rhs);
-                return ans.compareTo(val) > 0;
+                boolean equal = ans.compareTo(val) > 0;
+                if (equal) {
+                    logger.logDebug("GTCond satisfied");
+                }
+                else {
+                    logger.logDebug("GTCond not satisfied since " + ans + " !> " + val);
+                }
+                return equal;
             } catch (Exception e2) {
                 // Default
-                return result.compareTo(rhs) > 0;
+                boolean equal = result.compareTo(rhs) > 0;
+                if (equal) {
+                    logger.logDebug("GTCond satisfied");
+                }
+                else {
+                    logger.logDebug("GTCond not satisfied since " + result + " !> " + rhs);
+                }
+                return equal;
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return "GT: " + lobjID + ", " + lhs + ", " + robjID + ", " + rhs;
     }
 }

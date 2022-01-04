@@ -154,7 +154,7 @@ condition_aux: condition
                | NOT condition;
 
 // condition bodies
-prsa_cond: PRSA_COND ALPHA (COMMA ALPHA)*;
+prsa_cond: PRSA_COND (ALPHA|IN_TAG|ON_TAG|UNDER_TAG) (COMMA (ALPHA|IN_TAG|ON_TAG|UNDER_TAG))*;
 prsa_and_cond: PRSA_AND_COND (ALPHA|IN_TAG|ON_TAG|UNDER_TAG) (COMMA (ALPHA|IN_TAG|ON_TAG|UNDER_TAG))*;
 prso_cond: PRSO_COND ID (COMMA ID)*;
 prsi_cond: PRSI_COND ID (COMMA ID)*;

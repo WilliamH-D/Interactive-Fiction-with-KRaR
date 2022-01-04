@@ -1,11 +1,10 @@
-package ProcessInput;
+package SimpleEngine;
 
+import EnhancedEngine.EnhancedExecuteCommand;
 import Game.Direction;
 import Game.GameController;
 import Logging.DebugLogger;
-import SimpleEngine.GameObject;
-import SimpleEngine.GameRoom;
-import SimpleEngine.GameState;
+
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Set;
@@ -19,6 +18,7 @@ public class ExecuteCommand {
     public static void executeAction() {
         logger.logLine();
         logger.logDebug("PRSA: " + GameController.getPRSA() + ", PRSO: " + (GameController.getPRSO() == null ? "null" : GameController.getPRSO().getId()) + ", PRSI: " + (GameController.getPRSI() == null ? "null" : GameController.getPRSI().getId()));
+        logger.logLine();
 
         // Handle object conflict
         if (GameController.getPRSA() != null && GameController.getPRSA().equals("CONFLICT")) {
@@ -26,9 +26,25 @@ public class ExecuteCommand {
             return;
         }
 
+        logger.logDebug("ATTEMPT TO PERFORM ACTION ON PRSI");
         if (GameController.getPRSI() != null && GameController.getPRSI().action()) { return; }
+        logger.logLine();
+        logger.logDebug("FAILED TO PERFORM ACTION ON PRSI");
+        logger.logLine();
+        logger.logDebug("ATTEMPT TO PERFORM ACTION ON PRSO");
         if (GameController.getPRSO() != null && GameController.getPRSO().action()) { return; }
+        logger.logLine();
+        logger.logDebug("FAILED TO PERFORM ACTION ON PRSO");
+        logger.logLine();
+        logger.logDebug("ATTEMPT TO PERFORM GENERIC ACTION ON PRSA");
         if (GameController.getPRSA() != null && decodePRSA()) { return; }
+        logger.logLine();
+        logger.logDebug("FAILED TO PERFORM GENERIC ACTION USING PRSA");
+        logger.logLine();
+        logger.logDebug("ATTEMPT TO PERFORM ENHANCED ACTION ON PRSA");
+        if (GameController.usingEnhancedEngine() && EnhancedExecuteCommand.decodePRSAEnhanced(getCorrectedVerb())) { return; }
+        logger.logLine();
+        logger.logDebug("FAILED TO PERFORM ENHANCED ACTION USING PRSA");
         System.out.println("I didn't understand that input.");
     }
 
@@ -51,7 +67,7 @@ public class ExecuteCommand {
         if (!getVerbs().contains(correctedVerb)) { return false; }
 
         try {
-            Class c = ExecuteCommand.class;
+            Class<ExecuteCommand> c = ExecuteCommand.class;
             Method verbAction = c.getDeclaredMethod("cmd_" + correctedVerb.replace(' ', '_'));
             return (boolean)verbAction.invoke(null);
         }
@@ -235,7 +251,7 @@ public class ExecuteCommand {
     // Return a list of all of the general commands that can be executed in the case of
     private static ArrayList<String> getVerbs() {
         ArrayList<String> verbs = new ArrayList<>();
-        Class execcmd = ExecuteCommand.class;
+        Class<ExecuteCommand> execcmd = ExecuteCommand.class;
         for (Method m : execcmd.getMethods()) {
             String name = m.getName();
             if (name.length() > 4 && name.substring(0, 4).equals("cmd_")) {

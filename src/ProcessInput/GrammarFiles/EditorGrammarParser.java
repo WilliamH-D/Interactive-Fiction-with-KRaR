@@ -2763,6 +2763,18 @@ public class EditorGrammarParser extends Parser {
 		public TerminalNode ALPHA(int i) {
 			return getToken(EditorGrammarParser.ALPHA, i);
 		}
+		public List<TerminalNode> IN_TAG() { return getTokens(EditorGrammarParser.IN_TAG); }
+		public TerminalNode IN_TAG(int i) {
+			return getToken(EditorGrammarParser.IN_TAG, i);
+		}
+		public List<TerminalNode> ON_TAG() { return getTokens(EditorGrammarParser.ON_TAG); }
+		public TerminalNode ON_TAG(int i) {
+			return getToken(EditorGrammarParser.ON_TAG, i);
+		}
+		public List<TerminalNode> UNDER_TAG() { return getTokens(EditorGrammarParser.UNDER_TAG); }
+		public TerminalNode UNDER_TAG(int i) {
+			return getToken(EditorGrammarParser.UNDER_TAG, i);
+		}
 		public List<TerminalNode> COMMA() { return getTokens(EditorGrammarParser.COMMA); }
 		public TerminalNode COMMA(int i) {
 			return getToken(EditorGrammarParser.COMMA, i);
@@ -2796,7 +2808,15 @@ public class EditorGrammarParser extends Parser {
 			setState(461);
 			match(PRSA_COND);
 			setState(462);
-			match(ALPHA);
+			_la = _input.LA(1);
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << IN_TAG) | (1L << ON_TAG) | (1L << UNDER_TAG) | (1L << ALPHA))) != 0)) ) {
+			_errHandler.recoverInline(this);
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
+				consume();
+			}
 			setState(467);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -2806,7 +2826,15 @@ public class EditorGrammarParser extends Parser {
 				setState(463);
 				match(COMMA);
 				setState(464);
-				match(ALPHA);
+				_la = _input.LA(1);
+				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << IN_TAG) | (1L << ON_TAG) | (1L << UNDER_TAG) | (1L << ALPHA))) != 0)) ) {
+				_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
 				}
 				}
 				setState(469);
@@ -5017,7 +5045,7 @@ public class EditorGrammarParser extends Parser {
 		"\7\34\2\2\u01c6\u01c7\7\7\2\2\u01c7\u01c8\5x=\2\u01c8\u01c9\7\b\2\2\u01c9"+
 		"C\3\2\2\2\u01ca\u01ce\5d\63\2\u01cb\u01cc\7\32\2\2\u01cc\u01ce\5d\63\2"+
 		"\u01cd\u01ca\3\2\2\2\u01cd\u01cb\3\2\2\2\u01ceE\3\2\2\2\u01cf\u01d0\7"+
-		"A\2\2\u01d0\u01d5\7 \2\2\u01d1\u01d2\7\17\2\2\u01d2\u01d4\7 \2\2\u01d3"+
+		"A\2\2\u01d0\u01d5\t\4\2\2\u01d1\u01d2\7\17\2\2\u01d2\u01d4\t\4\2\2\u01d3"+
 		"\u01d1\3\2\2\2\u01d4\u01d7\3\2\2\2\u01d5\u01d3\3\2\2\2\u01d5\u01d6\3\2"+
 		"\2\2\u01d6G\3\2\2\2\u01d7\u01d5\3\2\2\2\u01d8\u01d9\7B\2\2\u01d9\u01de"+
 		"\t\4\2\2\u01da\u01db\7\17\2\2\u01db\u01dd\t\4\2\2\u01dc\u01da\3\2\2\2"+

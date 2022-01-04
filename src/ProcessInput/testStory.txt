@@ -52,7 +52,7 @@
 {
     ID: <SMALLBOX>;
     ACTION:
-        COND<PRSAAnd: PUT, IN || PRSAAnd: PUT, INSIDE || PRSAAnd: PLACE, IN || PRSAAnd: PLACE, INSIDE>
+        COND<PRSAAnd: PUT, IN || PRSAAnd: PUT, INSIDE>
         {
             COND<PRSI: <BIGBOX>>
             {
@@ -68,7 +68,7 @@
                 EFF<SETFLAG: _BOXTAKEN, 1>
             }
         }
-        COND<PRSA: DROP, PLACE && HAVEITEM: <SMALLBOX>>
+        COND<PRSA: DROP, PLACE && !PRSA: IN, INSIDE, ON, BELOW, UNDER && HAVEITEM: <SMALLBOX>>
         {
             EFF<PLACE: <SMALLBOX>, <HERE>, IN>
             EFF<TELL: "You placed the small box down.">

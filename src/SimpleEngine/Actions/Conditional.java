@@ -1,19 +1,34 @@
 package SimpleEngine.Actions;
 
+import Logging.DebugLogger;
+
+import java.util.ArrayDeque;
 import java.util.List;
+import java.util.Queue;
 
 public class Conditional extends ActionPart {
 
     private Condition conditions;
     private List<ActionPart> contents;
+    private DebugLogger logger;
 
     public Conditional(Condition conditions, List<ActionPart> contents) {
         this.conditions = conditions;
         this.contents = contents;
+        this.logger = DebugLogger.getInstance();
     }
 
     public boolean satisfied() {
-        return conditions.satisfied();
+        logger.logLine();
+        logger.logDebug("Checking whether conditional: " + toString() + " is satisfied");
+        boolean isSatisfied = conditions.satisfied();
+        if (isSatisfied) {
+            logger.logDebug("Condition is satisfied");
+        }
+        else {
+            logger.logDebug("Condition is not satisfied");
+        }
+        return isSatisfied;
     }
 
     @Override
@@ -43,5 +58,32 @@ public class Conditional extends ActionPart {
             }
         }
         return actionPerformed;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        Queue<Condition> conds = new ArrayDeque<>();
+        str.append("<");
+        conds.add(conditions);
+        while (conds.size() > 0) {
+            Condition currCond = conds.remove();
+            if (currCond.test.not()) {
+                str.append("!");
+            }
+            str.append(currCond.test.toString());
+            if (currCond.continuation != null) {
+                conds.add(currCond.continuation);
+                if (currCond.isAnd) {
+                    str.append(" && ");
+                }
+                else if (currCond.isOr) {
+                    str.append(" || ");
+                }
+            }
+        }
+        str.append(">");
+
+        return str.toString();
     }
 }

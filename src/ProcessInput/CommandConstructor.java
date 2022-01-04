@@ -4,6 +4,7 @@ import Game.GameController;
 import Game.Main;
 import Logging.DebugLogger;
 import SimpleEngine.GameObject;
+import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader;
 import edu.stanford.nlp.ling.*;
 import edu.stanford.nlp.pipeline.*;
 import edu.stanford.nlp.semgraph.*;
@@ -33,7 +34,10 @@ public class CommandConstructor {
     // Process a user input by extracting PRSA/PRSO/PRSI
     public void processInput(String userIn) {
         logger.logLine();
-        logger.logDebug("Processing user input: " + userIn);
+        logger.logRaw("======================================================================================");
+        logger.logRaw("Processing user input: " + userIn);
+        logger.logRaw("======================================================================================");
+        logger.logLine();
 
         // Initialise command parts to null
         GameController.setPRSA(null);
@@ -46,27 +50,16 @@ public class CommandConstructor {
         // Set up the NLP pipeline
         CoreDocument document = new CoreDocument(userIn);
         NLPPipeline.getPipeline().annotate(document);
-        CoreSentence sentence = document.sentences().get(0);
+        CoreSentence sentence = document.sentences().get(0);;
         List<String> lemmas = getTokens(userIn);
+        List<String> posTags = sentence.posTags();
 
         // Check to see if the input matches a special instruction
         if (specialCase(lemmas)) { return; }
 
-        // Extract the verb from the input
-        String newInput = extractVerb(lemmas);
-
-        // Create a new annotated pipeline for the simplified verb input
-        CoreDocument preprocessedDocument = new CoreDocument(newInput);
-        NLPPipeline.getPipeline().annotate(preprocessedDocument);
-        sentence = preprocessedDocument.sentences().get(0);
-        lemmas = getTokens(newInput);
-        List<String> posTags = sentence.posTags();
-
         // Pre-process user input to extract any direct and indirect object (replacing them with 'item1' and 'item2')
         GameObject[] rets = new GameObject[2];
-
         String preprocessed;
-
         try {
             preprocessed = extractObjects(lemmas, posTags, rets);
         } catch (ConflictException e) {
@@ -75,7 +68,7 @@ public class CommandConstructor {
         }
 
         // Create a new annotated pipeline for the pre-processed input
-        preprocessedDocument = new CoreDocument(preprocessed);
+        CoreDocument preprocessedDocument = new CoreDocument(preprocessed);
         NLPPipeline.getPipeline().annotate(preprocessedDocument);
         sentence = preprocessedDocument.sentences().get(0);
         lemmas = getTokens(preprocessed);
@@ -120,7 +113,8 @@ public class CommandConstructor {
             if (numArgs == 1) { GameController.setPRSO(rets[0]); }
         }
 
-        extractComplexVerb(lemmas);
+        // Try extracting the longest matching verb from the input
+        extractLongestVerb(lemmas);
 
         // Try non-command verbs if they exist
         if (GameController.getPRSA() == null) {
@@ -134,88 +128,9 @@ public class CommandConstructor {
         }
     }
 
-    private String extractVerb(List<String> lemmas) {
-        int startInd = -1;
-        int endInd = -1;
-        boolean found = false;
+    private void extractLongestVerb(List<String> lemmas) {
 
-        // Find the main verb of the input
-        for (String verb : verbSynonyms.keySet()) {
-            String[] parts = verb.toLowerCase().split(" ");
-            if (parts.length == 1 && lemmas.contains(verb.toLowerCase())) {
-                GameController.setPRSA(verb.toLowerCase());
-                logger.logDebug("Matched verb: " + verb.toLowerCase());
-                startInd = lemmas.indexOf(verb.toLowerCase());
-                endInd = startInd;
-                found = true;
-                break;
-            }
-            else {
-                // Verb has multiple parts
-                boolean breakLoop = false;
-                for (int i = 0; i < lemmas.size() - parts.length + 1; i++) {
-                    if (lemmas.get(i).equals(parts[0].toLowerCase())) {
-                        boolean match = true;
-                        startInd = i;
-                        for (int j = 1; j < parts.length; j++) {
-                            endInd = j;
-                            if (!lemmas.get(i+j).equals(parts[j].toLowerCase())) {
-                                match = false;
-                            }
-                        }
-                        if (match) {
-                            // Verb found
-                            GameController.setPRSA(verb);
-                            logger.logDebug("Matched verb: " + verb);
-                            breakLoop = true;
-                            found = true;
-                        }
-                    }
-                }
-                if (breakLoop) {
-                    break;
-                }
-            }
-        }
-
-        StringBuilder simplifiedVerb = new StringBuilder();
-        boolean inRemoveRegion = false;
-
-        if (!found) {
-            //logger.logDebug("Verb not found");
-            for (String lemma : lemmas) {
-                simplifiedVerb.append(" ").append(lemma);
-            }
-            simplifiedVerb.delete(0, 1);
-            return simplifiedVerb.toString();
-        }
-        for (int i = 0; i < lemmas.size(); i++) {
-            if (i == startInd) {
-                inRemoveRegion = true;
-                simplifiedVerb.append(" do");
-            }
-            if (!inRemoveRegion) {
-                simplifiedVerb.append(" ").append(lemmas.get(i));
-            }
-            if (i == endInd) {
-                inRemoveRegion = false;
-            }
-        }
-        simplifiedVerb.delete(0, 1);
-        logger.logDebug("Simplified verb: " + simplifiedVerb.toString());
-        return simplifiedVerb.toString();
-    }
-
-    // Allow for complex commands such as "put item1 in item2"
-    private void extractComplexVerb(List<String> lemmas) {
-        /*logger.logDebug("Synonyms:");
-        for (String syn : verbSynonyms.keySet()) {
-            logger.logDebug(syn);
-        }
-        logger.logLine();
-
-        logger.logDebug("Unsimplified: " + lemmas);*/
-
+        // Replace item1 and item2 with just item so that it matches the complex patterns
         if (lemmas.contains("item1")) {
             lemmas.set(lemmas.indexOf("item1"),"item");
         }
@@ -224,36 +139,29 @@ public class CommandConstructor {
         }
         logger.logDebug("Lemmas: " + lemmas);
 
+        makeLemmasLowerCase(lemmas);
+        String[] lemmaParts = lemmas.toArray(new String[0]);
+
+        String longestVerb = "";
+        int longestLength = 0;
+
+        // Find the main verb of the input
         for (String verb : verbSynonyms.keySet()) {
-            String[] parts = verb.toLowerCase().split(" ");
-            if (parts.length == 1 && lemmas.contains(verb.toLowerCase())) {
-                GameController.setPRSA(verb.toLowerCase());
-                break;
-            }
-            else {
-                // Verb has multiple parts
-                boolean breakLoop = false;
-                for (int i = 0; i < lemmas.size() - parts.length + 1; i++) {
-                    if (lemmas.get(i).equals(parts[0].toLowerCase())) {
-                        boolean match = true;
-                        for (int j = 1; j < parts.length; j++) {
-                            if (!lemmas.get(i+j).equals(parts[j].toLowerCase())) {
-                                match = false;
-                            }
-                        }
-                        if (match) {
-                            // Verb found
-                            GameController.setPRSA(verb);
-                            breakLoop = true;
-                        }
-                    }
-                }
-                if (breakLoop) {
-                    break;
+            String[] verbParts = verb.toLowerCase().split(" ");
+
+            if (arrayContainsSubArray(lemmaParts, verbParts) > -1) {
+                logger.logDebug("Verb found: " + verb);
+                if (verbParts.length > longestLength) {
+                    longestVerb = verb;
+                    longestLength = verbParts.length;
                 }
             }
         }
 
+        if (!longestVerb.equals("")) {
+            GameController.setPRSA(longestVerb.toLowerCase());
+            logger.logDebug("PRSA set to: " + GameController.getPRSA());
+        }
     }
 
     private void tryExtractNewVerb(List<String> lemmas, List<String> posTags) {
@@ -305,14 +213,38 @@ public class CommandConstructor {
         return tokens;
     }
 
+    // Given two arrays, check if the larger array contains the sub array
+    private int arrayContainsSubArray(String[] array, String[] subArray)
+    {
+        return Collections.indexOfSubList(Arrays.asList(array), Arrays.asList(subArray));
+    }
+
+    // Make sure that the object doesn't conflict with a verb (e.g. PRSA: "put down" and PRSO: DOWN)
+    private boolean potentialObjectConflictsPotentialVerb(String[] lemmas, String[] objName) {
+        for (String verb : verbSynonyms.keySet()) {
+            List<String> verbLemmas = getTokens(verb);
+            makeLemmasLowerCase(verbLemmas);
+            String[] verbParts = verbLemmas.toArray(new String[0]);
+            if (arrayContainsSubArray(lemmas, verbParts) > -1 && arrayContainsSubArray(verbParts, objName) > -1) {
+                logger.logDebug("Verb object conflict with verb: " + verb + ", and object: " + Arrays.toString(objName));
+                return true;
+            }
+        }
+        return false;
+    }
+
     private String extractObjects(List<String> lemmas, List<String> posTags, GameObject[] rets) throws ConflictException {
         // Pre-process the users input and replace direct/indirect object with item1/item2
 
-        //logger.logDebug("Pre-process input lemmas: " + lemmas);
+        logger.logDebug("Pre-process input lemmas: " + lemmas);
+        logger.logDebug("Pre-process input posTags: " + posTags);
         ArrayList<LemmaPOS> tokens = new ArrayList<>();
         for (int i = 0; i < lemmas.size(); i++) {
             tokens.add(new LemmaPOS(lemmas.get(i), posTags.get(i)));
         }
+
+        makeLemmasLowerCase(lemmas);
+        String[] lemmaParts = lemmas.toArray(new String[0]);
 
         SynonymsAndConflicts synsAndCons = getObjSynonyms(allowedObjects);
         HashMap<String, String> objSynonyms = synsAndCons.synonyms;
@@ -325,54 +257,28 @@ public class CommandConstructor {
         for (GameObject obj : allowedObjects) {
             boolean match = false;
             int startInd = -1;
-
-            // try match on name
+            int maxSize = 0;
             List<String> nameLemmas = getTokens(obj.getName());
             makeLemmasLowerCase(nameLemmas);
             String[] parts = nameLemmas.toArray(new String[0]);
 
-            for (int i = 0; i < tokens.size(); i++) {
-                if (i + parts.length <= tokens.size()) {
-                    for (int j = 0; j < parts.length; j++) {
-                        match = tokens.get(i + j).getLemma().equals(parts[j].toLowerCase());
-                        if (!match) { break; }
-                    }
-                }
-                // If we found a match, then break out of the loop
-                if (match) {
-                    startInd = i;
-                    break;
-                }
-            }
+            // Find only the synonyms for this object from the synonyms map
+            Map<String, String> synonyms = objSynonyms.entrySet()
+                    .stream()
+                    .filter(entry -> entry.getValue().equals(obj.getName().toLowerCase()))
+                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
-            // try match on synonym
-            if (!match) {
-                // Find only the synonyms for this object from the synonyms map
-                Map<String, String> synonyms = objSynonyms.entrySet()
-                        .stream()
-                        .filter(entry -> entry.getValue().equals(obj.getName().toLowerCase()))
-                        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+            for (String syn : synonyms.keySet()) {
+                List<String> synLemmas = getTokens(syn);
+                if (synLemmas.size() <= maxSize) { continue; }
+                makeLemmasLowerCase(synLemmas);
+                String[] synParts = synLemmas.toArray(new String[0]);
 
-                for (String syn : synonyms.keySet()) {
-                    List<String> synLemmas = getTokens(syn);
-                    makeLemmasLowerCase(synLemmas);
-                    String[] synParts = synLemmas.toArray(new String[0]);
-
-                    for (int i = 0; i < tokens.size(); i++) {
-                        if (i + synParts.length <= tokens.size()) {
-                            for (int j = 0; j < synParts.length; j++) {
-                                match = tokens.get(i + j).getLemma().equals(synParts[j].toLowerCase());
-                                if (!match) { break; }
-                            }
-                        }
-                        // Stop reading rest of input if match found for this synonym
-                        if (match) {
-                            startInd = i;
-                            break;
-                        }
-                    }
-                    // If we find a matching synonym for this object, ignore all other synonyms
-                    if (match) { break; }
+                int newStartInd = arrayContainsSubArray(lemmaParts, synParts);
+                if (newStartInd > -1) {
+                    startInd = newStartInd;
+                    maxSize = synLemmas.size();
+                    match = true;
                 }
             }
 
@@ -383,18 +289,10 @@ public class CommandConstructor {
                     makeLemmasLowerCase(conLemmas);
                     String[] conParts = conLemmas.toArray(new String[0]);
 
-                    for (int i = 0; i < tokens.size(); i++) {
-                        if (i + conParts.length <= tokens.size()) {
-                            for (int j = 0; j < conParts.length; j++) {
-                                conflictFound = tokens.get(i + j).getLemma().equals(conParts[j].toLowerCase());
-                                if (!conflictFound) { break; }
-                            }
-                        }
-                        // Stop reading rest of input if match found for this synonym
-                        if (conflictFound) {
-                            break;
-                        }
-                    }
+                    //logger.logDebug("Check that " + Arrays.toString(lemmaParts) + " contains " + Arrays.toString(conParts));
+                    conflictFound = arrayContainsSubArray(lemmaParts, conParts) > -1;
+                    //logger.logDebug("conflict " + (conflictFound ? "found" : "not found"));
+
                     // If we find a matching synonym for this object, ignore all other synonyms
                     if (conflictFound) { break; }
                 }
@@ -402,10 +300,18 @@ public class CommandConstructor {
 
             // A match has been found
             if (match) {
-                rets[count] = obj;
-                count++;
-                matchedObjects.add(parts);
-                matchedIndxs.add(startInd);
+                // Make sure that the object doesn't conflict with a verb (e.g. PRSA: "put down" and PRSO: DOWN)
+                if (!potentialObjectConflictsPotentialVerb(lemmaParts, parts)) {
+                    rets[count] = obj;
+                    count++;
+                    matchedObjects.add(parts);
+                    logger.logDebug("Adding " + Arrays.toString(parts) + " to matched objects");
+                    matchedIndxs.add(startInd);
+                    logger.logDebug("Adding " + startInd + " to matched indices");
+                }
+                else {
+                    logger.logDebug(obj.getName() + " could not be extracted due to potential verb conflict");
+                }
             }
         }
 
@@ -414,6 +320,7 @@ public class CommandConstructor {
             throw new ConflictException();
         }
 
+        // Remove object adjectives and descriptors such as "the"
         ArrayList<Integer> removeStart = new ArrayList<>();
         ArrayList<Integer> removeEnd = new ArrayList<>();
         for (int i = 0; i < matchedObjects.size(); i++) {
@@ -421,7 +328,7 @@ public class CommandConstructor {
             int end = idx + matchedObjects.get(i).length - 1;
             // Look at preceding words
             for (int j = idx-1; j>-1; j--) {
-                if ((tokens.get(j).getPos().equals("DT") || tokens.get(j).getPos().equals("JJ") || tokens.get(j).getPos().equals("JJR"))) {
+                if ((tokens.get(j).getPos().equals("DT") || tokens.get(j).getPos().equals("JJ") || tokens.get(j).getPos().equals("RB") || tokens.get(j).getPos().equals("JJR"))) {
                     idx = j;
                 }
                 else {
@@ -432,6 +339,7 @@ public class CommandConstructor {
             removeEnd.add(end);
         }
 
+        // Build the processed input for returning
         StringBuilder processedInput = new StringBuilder();
         boolean inRemoveRegion = false;
         boolean nextIsItem1 = removeStart.size() != 2 || removeStart.get(0) < removeStart.get(1);
@@ -467,15 +375,18 @@ public class CommandConstructor {
         return false;
     }
 
-    private static SynonymsAndConflicts getObjSynonyms(List<GameObject> allowedObjects) {
+    // Get the mapping of synonyms to object names so that objects can be extracted from the user input
+    private SynonymsAndConflicts getObjSynonyms(List<GameObject> allowedObjects) {
         SynonymsAndConflicts synsAndCons = new SynonymsAndConflicts();
         for (GameObject obj : allowedObjects) {
+            synsAndCons.synonyms.put(obj.getName().toUpperCase(), obj.getName().toLowerCase());
             Set<String> objSynonyms = obj.getSynonyms();
             if (objSynonyms == null) { continue; }
             for (String synonym : objSynonyms) {
                 String syn = synonym.toLowerCase();
                 if (synsAndCons.synonyms.containsKey(syn)) {
                     // remove conflicting synonyms from table
+                    logger.logDebug("Removing conflicting synonym: " + syn);
                     synsAndCons.synonyms.remove(syn);
                     synsAndCons.conflicts.add(syn);
                 }

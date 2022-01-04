@@ -1,5 +1,7 @@
 package SimpleEngine.Actions;
 
+import Logging.DebugLogger;
+
 public class Condition {
 
     boolean isAnd;
@@ -15,6 +17,7 @@ public class Condition {
     }
 
     public boolean satisfied() {
+        DebugLogger.getInstance().logDebug("Checking Condition list for condition: " + test.toString() + ". Properties: isAnd = " + isAnd + ", isOr = " + isOr + ", test is NOTed = " + test.not() + ", has continuation = " + (continuation != null));
         if (continuation != null) {
             if (isAnd) {
                 if (test.not()) { return !test.satisfied() && continuation.satisfied(); }
