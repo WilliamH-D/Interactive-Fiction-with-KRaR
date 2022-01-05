@@ -43,11 +43,11 @@ public class KnowledgeBase {
 
         // Object is in scope (first arg is object, second arg is the scope of the object)
         addClause("inScope(A) :- isObject(A), isLocated(A,B,_), isLocated(" + GameController.getPlayer().getId().toLowerCase() + ",B,_),!");
-        addClause("inScope(A) :- isObject(A), isLocated(A,B,_), hasProperty(B,_closablecontainer),!,isClosed(B,false), inScope(B)");
+        addClause("inScope(A) :- isObject(A), isLocated(A,B,_), hasProperty(B,closablecontainer),!,isClosed(B,false), inScope(B)");
         addClause("inScope(A) :- isObject(A), isLocated(A,B,_), inScope(B)");
 
         // Put object in other object (put object A inside object B)
-        addClause("putIn(A,B) :- inScope(A), inScope(B), A \\= B, hasProperty(B,_closablecontainer), !, isClosed(B,false), volume(A,X), capacity(B,Y), capacityUsed(B,Z), Y2 is Y+1, X+Z<Y2");
+        addClause("putIn(A,B) :- inScope(A), inScope(B), A \\= B, hasProperty(B,closablecontainer), !, isClosed(B,false), volume(A,X), capacity(B,Y), capacityUsed(B,Z), Y2 is Y+1, X+Z<Y2");
         addClause("putIn(A,B) :- inScope(A), inScope(B), A \\= B, volume(A,X), capacity(B,Y), capacityUsed(B,Z), Y2 is Y+1, X+Z<Y2");
         addClause("putInIgnoreScope(A,B) :- A \\= B, volume(A,X), capacity(B,Y), capacityUsed(B,Z), Y2 is Y+1, X+Z<Y2");
 
@@ -72,7 +72,7 @@ public class KnowledgeBase {
         addClause("tooBigBelow(A,B) :- volume(A,X), below(B,Y), X>Y");
         addClause("sameObject(A,B) :- A=B");
         addClause("notObject(A) :- not(isObject(A))");
-        addClause("targetClosed(A) :- hasProperty(A,_closablecontainer), isClosed(A,true)");
+        addClause("targetClosed(A) :- hasProperty(A,closablecontainer), isClosed(A,true)");
     }
 
     // Used for debugging with print statements

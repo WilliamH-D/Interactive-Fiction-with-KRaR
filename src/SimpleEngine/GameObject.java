@@ -2,6 +2,7 @@ package SimpleEngine;
 
 import EnhancedEngine.KnowledgeBase;
 import Game.GameController;
+import Game.Main;
 
 import java.util.*;
 
@@ -41,6 +42,7 @@ public class GameObject {
         if (newParent != null) {
             newParent.addChild(this.id, newParentType);
         }
+        this.setParentType(newParentType);
         this.parent = parent;
     }
 
@@ -129,9 +131,15 @@ public class GameObject {
 
     public Set<String> getSynonyms() { return this.synonyms; }
 
-    public void setProperty(String property) { this.properties.add(property); }
+    public void setProperty(String property) {
+        this.properties.add(property);
+        KnowledgeBase.getInstance().addClause("hasProperty(" + id.toLowerCase() + "," + property.substring(1).toLowerCase() + ")");
+    }
 
-    public void removeProperty(String property) { this.properties.remove(property); }
+    public void removeProperty(String property) {
+        this.properties.remove(property);
+        KnowledgeBase.getInstance().removeClause("hasProperty(" + id.toLowerCase() + "," + property.substring(1).toLowerCase() + ")");
+    }
 
     public boolean hasProperty(String property) { return this.properties.contains(property); }
 
@@ -154,6 +162,14 @@ public class GameObject {
         // Show basic object description
         System.out.println(getDesc());
 
+        if (GameController.usingEnhancedEngine()) {
+            for (Map.Entry<String, String> entry : variables.entrySet()) {
+                if (!entry.getKey().equals("isClosed") && !entry.getKey().equals("capacityUsed") && !entry.getKey().equals("surfaceUsed") && !entry.getKey().equals("belowUsed")) {
+                    System.out.println(" - " + entry.getKey() + " : " + entry.getValue());
+                }
+            }
+        }
+
         // State if anything is in/on/under the item
         if (getChildren().size() == 0) {
             return;
@@ -165,7 +181,7 @@ public class GameObject {
                 System.out.println("The " + getName() + " contains:");
                 for (String childID : inside) {
                     GameObject child = GameState.getGameObject(childID);
-                    System.out.println("\t-" + child.getName());
+                    System.out.println(" -" + child.getName());
                 }
             }
         }
@@ -174,7 +190,7 @@ public class GameObject {
             System.out.println("On top of the " + getName() + ", you can see:");
             for (String childID : onSurface) {
                 GameObject child = GameState.getGameObject(childID);
-                System.out.println("\t-" + child.getName());
+                System.out.println(" - " + child.getName());
             }
         }
         if (below.size() > 0) {
@@ -182,7 +198,7 @@ public class GameObject {
             System.out.println("Below the " + getName() + ", you can see:");
             for (String childID : below) {
                 GameObject child = GameState.getGameObject(childID);
-                System.out.println("\t-" + child.getName());
+                System.out.println(" - " + child.getName());
             }
         }
     }
@@ -254,16 +270,45 @@ public class GameObject {
     }
 
     public void placeItem(GameObject parent, int parentType, boolean ignoreText) {
-        setParent(parent.getId(), parentType);
+        String newParentID = parent.getId().toLowerCase();
+        String oldParentID = getParent().toLowerCase();
         KnowledgeBase kb = KnowledgeBase.getInstance();
-        if (hasVariable("volume") && kb.query("isObject(" + getParent().toLowerCase() + ")").size() > 0) {
-            // add the volume to in/on/below
+
+        // Remove volume from current parent
+        if (hasVariable("volume") && kb.query("isObject(" + oldParentID + ")").size() > 0) {
+            switch (getParentType()) {
+                case 0:
+                    int volume = Integer.parseInt(getVariable("volume"));
+                    int capacityUsed = Integer.parseInt(kb.query("capacityUsed(" + oldParentID + ",X)").get(0).get(0).getTerm().toString());
+                    kb.removeClause("capacityUsed(" + oldParentID + ",X)", true);
+                    kb.addClause("capacityUsed(" + oldParentID + "," + (capacityUsed - volume) + ")");
+                    parent.setVariable("capacityUsed", String.valueOf(capacityUsed-volume));
+                    break;
+                case 1:
+                    volume = Integer.parseInt(getVariable("volume"));
+                    int surfaceUsed = Integer.parseInt(kb.query("surfaceUsed(" + oldParentID + ",X)").get(0).get(0).getTerm().toString());
+                    kb.removeClause("surfaceUsed(" + oldParentID + ",X)", true);
+                    kb.addClause("surfaceUsed(" + oldParentID + "," + (surfaceUsed - volume) + ")");
+                    parent.setVariable("surfaceUsed", String.valueOf(surfaceUsed-volume));
+                    break;
+                case 2:
+                    volume = Integer.parseInt(getVariable("volume"));
+                    int belowUsed = Integer.parseInt(kb.query("belowUsed(" + oldParentID + ",X)").get(0).get(0).getTerm().toString());
+                    kb.removeClause("belowUsed(" + oldParentID + ",X)", true);
+                    kb.addClause("belowUsed(" + oldParentID + "," + (belowUsed - volume) + ")");
+                    parent.setVariable("belowUsed", String.valueOf(belowUsed-volume));
+                    break;
+            }
+        }
+
+        // Add the volume to in/on/below
+        if (hasVariable("volume") && kb.query("isObject(" + newParentID + ")").size() > 0) {
             switch (parentType) {
                 case 0:
                     int volume = Integer.parseInt(getVariable("volume"));
-                    int capacityUsed = Integer.parseInt(kb.query("capacityUsed(" + getParent().toLowerCase() + ",X)").get(0).get(0).getTerm().toString());
-                    kb.removeClause("capacityUsed(" + getParent().toLowerCase() + ",X)", true);
-                    kb.addClause("capacityUsed(" + getParent().toLowerCase() + "," + (capacityUsed + volume) + ")");
+                    int capacityUsed = Integer.parseInt(kb.query("capacityUsed(" + newParentID + ",X)").get(0).get(0).getTerm().toString());
+                    kb.removeClause("capacityUsed(" + newParentID + ",X)", true);
+                    kb.addClause("capacityUsed(" + newParentID + "," + (capacityUsed + volume) + ")");
                     parent.setVariable("capacityUsed", String.valueOf(capacityUsed+volume));
                     if (!ignoreText) {
                         System.out.println("You placed down the " + getName() + " inside of the " + parent.getName() + ".");
@@ -271,9 +316,9 @@ public class GameObject {
                     break;
                 case 1:
                     volume = Integer.parseInt(getVariable("volume"));
-                    int surfaceUsed = Integer.parseInt(kb.query("surfaceUsed(" + getParent().toLowerCase() + ",X)").get(0).get(0).getTerm().toString());
-                    kb.removeClause("surfaceUsed(" + getParent().toLowerCase() + ",X)", true);
-                    kb.addClause("surfaceUsed(" + getParent().toLowerCase() + "," + (surfaceUsed + volume) + ")");
+                    int surfaceUsed = Integer.parseInt(kb.query("surfaceUsed(" + newParentID + ",X)").get(0).get(0).getTerm().toString());
+                    kb.removeClause("surfaceUsed(" + newParentID + ",X)", true);
+                    kb.addClause("surfaceUsed(" + newParentID + "," + (surfaceUsed + volume) + ")");
                     parent.setVariable("surfaceUsed", String.valueOf(surfaceUsed+volume));
                     if (!ignoreText) {
                         System.out.println("You placed down the " + getName() + " on top of the " + parent.getName() + ".");
@@ -281,9 +326,9 @@ public class GameObject {
                     break;
                 case 2:
                     volume = Integer.parseInt(getVariable("volume"));
-                    int belowUsed = Integer.parseInt(kb.query("belowUsed(" + getParent().toLowerCase() + ",X)").get(0).get(0).getTerm().toString());
-                    kb.removeClause("belowUsed(" + getParent().toLowerCase() + ",X)", true);
-                    kb.addClause("belowUsed(" + getParent().toLowerCase() + "," + (belowUsed + volume) + ")");
+                    int belowUsed = Integer.parseInt(kb.query("belowUsed(" + newParentID + ",X)").get(0).get(0).getTerm().toString());
+                    kb.removeClause("belowUsed(" + newParentID + ",X)", true);
+                    kb.addClause("belowUsed(" + newParentID + "," + (belowUsed + volume) + ")");
                     parent.setVariable("belowUsed", String.valueOf(belowUsed+volume));
                     if (!ignoreText) {
                         System.out.println("You placed down the " + getName() + " underneath of the " + parent.getName() + ".");
@@ -291,7 +336,8 @@ public class GameObject {
                     break;
             }
         }
+        setParent(parent.getId(), parentType);
         kb.removeClause("isLocated(" + getId().toLowerCase() + ",X,Y)", true);
-        kb.addClause("isLocated(" + getId().toLowerCase() + "," + getParent().toLowerCase() + "," + parentType + ")");
+        kb.addClause("isLocated(" + getId().toLowerCase() + "," + newParentID + "," + parentType + ")");
     }
 }

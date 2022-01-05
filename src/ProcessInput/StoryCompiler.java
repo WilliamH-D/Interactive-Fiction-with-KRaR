@@ -263,7 +263,7 @@ public class StoryCompiler {
             kb.addClause("belowUsed(" + id.toLowerCase() + ",0)");
         }
 
-        properties.forEach(property -> kb.addClause("hasProperty(" + id.toLowerCase() + "," + property.toLowerCase() + ")"));
+        //properties.forEach(property -> kb.addClause("hasProperty(" + id.toLowerCase() + "," + property.toLowerCase() + ")"));
 
         kb.addClause("isLocated(" + id.toLowerCase() + "," + location.toLowerCase() + "," + locationType + ")");
 

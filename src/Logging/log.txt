@@ -74,7 +74,7 @@ FLAGS: [_TAKEABLE]
 VALUES: 
 	volume:25
 	capacity:25
-INFO: New Object: SimpleEngine.GameObject@6692b6c6
+INFO: New Object: SimpleEngine.GameObject@5456afaa
 
 Compile Object:
 ID: MEDIUMBOX
@@ -87,7 +87,7 @@ FLAGS: [_TAKEABLE]
 VALUES: 
 	volume:50
 	capacity:50
-INFO: New Object: SimpleEngine.GameObject@1cd629b3
+INFO: New Object: SimpleEngine.GameObject@6692b6c6
 
 Compile Object:
 ID: BIGBOX
@@ -100,7 +100,7 @@ FLAGS: [_TAKEABLE]
 VALUES: 
 	volume:75
 	capacity:75
-INFO: New Object: SimpleEngine.GameObject@589da3f3
+INFO: New Object: SimpleEngine.GameObject@1cd629b3
 
 Compile Flag:
 FLAG: _SMALLINMEDIUM
@@ -128,10 +128,18 @@ TES IS NOT: false
 CONTINUATION: null
 IsAND: true
 IsOR: false
-INFO: New Conditions: SimpleEngine.Actions.Condition@4c012563
+INFO: New Conditions: SimpleEngine.Actions.Condition@1cb346ea
 
 Compiling Conditions:
 TEST: PRSO: [SMALLBOX]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@1cb346ea
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@4c012563
+
+Compiling Conditions:
+TEST: PRSA: [IN, INSIDE]
 TES IS NOT: false
 CONTINUATION: SimpleEngine.Actions.Condition@4c012563
 IsAND: true
@@ -139,20 +147,12 @@ IsOR: false
 INFO: New Conditions: SimpleEngine.Actions.Condition@14a50707
 
 Compiling Conditions:
-TEST: PRSA: [IN, INSIDE]
+TEST: PRSA: [PLACE, PUT]
 TES IS NOT: false
 CONTINUATION: SimpleEngine.Actions.Condition@14a50707
 IsAND: true
 IsOR: false
 INFO: New Conditions: SimpleEngine.Actions.Condition@4d518b32
-
-Compiling Conditions:
-TEST: PRSA: [PLACE, PUT]
-TES IS NOT: false
-CONTINUATION: SimpleEngine.Actions.Condition@4d518b32
-IsAND: true
-IsOR: false
-INFO: New Conditions: SimpleEngine.Actions.Condition@4bd31064
 
 Compiling PlaceEff:
 ITEM: SMALLBOX
@@ -167,8 +167,8 @@ FLAG: _SMALLINMEDIUM
 VALUE: 1
 
 Compiling Conditional:
-CONDITION: SimpleEngine.Actions.Condition@4bd31064
-ACTIONS: [SimpleEngine.Actions.Effects.PlaceEff@11d8ae8b, SimpleEngine.Actions.Effects.TellEff@479cbee5, SimpleEngine.Actions.Effects.SetFlagEff@59e2d8e3]
+CONDITION: SimpleEngine.Actions.Condition@4d518b32
+ACTIONS: [SimpleEngine.Actions.Effects.PlaceEff@4ef782af, SimpleEngine.Actions.Effects.TellEff@11d8ae8b, SimpleEngine.Actions.Effects.SetFlagEff@479cbee5]
 INFO: New Conditional: <PRSA: [PLACE, PUT] && PRSA: [IN, INSIDE] && PRSO: [SMALLBOX] && PRSI: [MEDIUMBOX]>
 
 Compiling PRSACond:
@@ -183,15 +183,15 @@ TES IS NOT: false
 CONTINUATION: null
 IsAND: true
 IsOR: false
-INFO: New Conditions: SimpleEngine.Actions.Condition@7f8a9499
+INFO: New Conditions: SimpleEngine.Actions.Condition@2b72cb8a
 
 Compiling Conditions:
 TEST: PRSA: [TAKE, OBTAIN]
 TES IS NOT: false
-CONTINUATION: SimpleEngine.Actions.Condition@7f8a9499
+CONTINUATION: SimpleEngine.Actions.Condition@2b72cb8a
 IsAND: true
 IsOR: false
-INFO: New Conditions: SimpleEngine.Actions.Condition@5d43661b
+INFO: New Conditions: SimpleEngine.Actions.Condition@7f8a9499
 
 Compiling TakeEff:
 ITEM: SMALLBOX
@@ -200,8 +200,8 @@ Compiling RemFlagEff:
 FLAG: _SMALLINMEDIUM
 
 Compiling Conditional:
-CONDITION: SimpleEngine.Actions.Condition@5d43661b
-ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@4bf48f6, SimpleEngine.Actions.Effects.RemFlagEff@420a85c4]
+CONDITION: SimpleEngine.Actions.Condition@7f8a9499
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@2fba3fc4, SimpleEngine.Actions.Effects.RemFlagEff@4bf48f6]
 INFO: New Conditional: <PRSA: [TAKE, OBTAIN] && PRSO: [SMALLBOX]>
 
 Compile Action:
@@ -226,10 +226,18 @@ TES IS NOT: false
 CONTINUATION: null
 IsAND: true
 IsOR: false
-INFO: New Conditions: SimpleEngine.Actions.Condition@62833051
+INFO: New Conditions: SimpleEngine.Actions.Condition@1c39680d
 
 Compiling Conditions:
 TEST: PRSO: [MEDIUMBOX]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@1c39680d
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@62833051
+
+Compiling Conditions:
+TEST: PRSA: [IN, INSIDE]
 TES IS NOT: false
 CONTINUATION: SimpleEngine.Actions.Condition@62833051
 IsAND: true
@@ -237,20 +245,12 @@ IsOR: false
 INFO: New Conditions: SimpleEngine.Actions.Condition@1c852c0f
 
 Compiling Conditions:
-TEST: PRSA: [IN, INSIDE]
+TEST: PRSA: [PLACE, PUT]
 TES IS NOT: false
 CONTINUATION: SimpleEngine.Actions.Condition@1c852c0f
 IsAND: true
 IsOR: false
 INFO: New Conditions: SimpleEngine.Actions.Condition@a37aefe
-
-Compiling Conditions:
-TEST: PRSA: [PLACE, PUT]
-TES IS NOT: false
-CONTINUATION: SimpleEngine.Actions.Condition@a37aefe
-IsAND: true
-IsOR: false
-INFO: New Conditions: SimpleEngine.Actions.Condition@5d99c6b5
 
 Compiling PlaceEff:
 ITEM: MEDIUMBOX
@@ -265,8 +265,8 @@ FLAG: _MEDIUMINBIG
 VALUE: 1
 
 Compiling Conditional:
-CONDITION: SimpleEngine.Actions.Condition@5d99c6b5
-ACTIONS: [SimpleEngine.Actions.Effects.PlaceEff@266374ef, SimpleEngine.Actions.Effects.TellEff@13b3d178, SimpleEngine.Actions.Effects.SetFlagEff@24c4ddae]
+CONDITION: SimpleEngine.Actions.Condition@a37aefe
+ACTIONS: [SimpleEngine.Actions.Effects.PlaceEff@5d99c6b5, SimpleEngine.Actions.Effects.TellEff@266374ef, SimpleEngine.Actions.Effects.SetFlagEff@13b3d178]
 INFO: New Conditional: <PRSA: [PLACE, PUT] && PRSA: [IN, INSIDE] && PRSO: [MEDIUMBOX] && PRSI: [BIGBOX]>
 
 Compiling PRSACond:
@@ -281,15 +281,15 @@ TES IS NOT: false
 CONTINUATION: null
 IsAND: true
 IsOR: false
-INFO: New Conditions: SimpleEngine.Actions.Condition@37fb0bed
+INFO: New Conditions: SimpleEngine.Actions.Condition@24c4ddae
 
 Compiling Conditions:
 TEST: PRSA: [TAKE, OBTAIN]
 TES IS NOT: false
-CONTINUATION: SimpleEngine.Actions.Condition@37fb0bed
+CONTINUATION: SimpleEngine.Actions.Condition@24c4ddae
 IsAND: true
 IsOR: false
-INFO: New Conditions: SimpleEngine.Actions.Condition@a82c5f1
+INFO: New Conditions: SimpleEngine.Actions.Condition@37fb0bed
 
 Compiling TakeEff:
 ITEM: MEDIUMBOX
@@ -298,8 +298,8 @@ Compiling RemFlagEff:
 FLAG: _MEDIUMINBIG
 
 Compiling Conditional:
-CONDITION: SimpleEngine.Actions.Condition@a82c5f1
-ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@7b7fdc8, SimpleEngine.Actions.Effects.RemFlagEff@51c693d]
+CONDITION: SimpleEngine.Actions.Condition@37fb0bed
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@a82c5f1, SimpleEngine.Actions.Effects.RemFlagEff@7b7fdc8]
 INFO: New Conditional: <PRSA: [TAKE, OBTAIN] && PRSO: [MEDIUMBOX]>
 
 Compile Action:
@@ -311,9 +311,9 @@ isObject(player)
 capacity(player,2147483647)
 capacityUsed(player,0)
 ':-'(inScope(A),(isObject(A),isLocated(A,B,_1071),isLocated(player,B,_1072),'!'))
-':-'(inScope(A),(isObject(A),isLocated(A,B,_1075),hasProperty(B,_closablecontainer),'!',isClosed(B,false),inScope(B)))
-':-'(inScope(A),(isObject(A),isLocated(A,B,_1079),inScope(B)))
-':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),hasProperty(B,_closablecontainer),'!',isClosed(B,false),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1075),hasProperty(B,closablecontainer),'!',isClosed(B,false),inScope(B)))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1078),inScope(B)))
+':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),hasProperty(B,closablecontainer),'!',isClosed(B,false),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putInIgnoreScope(A,B),('\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putOn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
@@ -321,9 +321,9 @@ capacityUsed(player,0)
 ':-'(putBelow(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putBelowIgnoreScope(A,B),('\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(outOfScope(A),not(inScope(A)))
-':-'(noCapacity(A),not(capacity(A,_1125)))
-':-'(noSurface(A),not(surface(A,_1127)))
-':-'(noBelow(A),not(below(A,_1129)))
+':-'(noCapacity(A),not(capacity(A,_1123)))
+':-'(noSurface(A),not(surface(A,_1125)))
+':-'(noBelow(A),not(below(A,_1127)))
 ':-'(cantFitCapacity(A,B),(volume(A,X),capacity(B,Y),capacityUsed(B,Z),'>'('+'(X,Z),Y)))
 ':-'(cantFitSurface(A,B),(volume(A,X),surface(B,Y),surfaceUsed(B,Z),'>'('+'(X,Z),Y)))
 ':-'(cantFitBelow(A,B),(volume(A,X),below(B,Y),belowUsed(B,Z),'>'('+'(X,Z),Y)))
@@ -332,39 +332,254 @@ capacityUsed(player,0)
 ':-'(tooBigBelow(A,B),(volume(A,X),below(B,Y),'>'(X,Y)))
 ':-'(sameObject(A,B),'='(A,B))
 ':-'(notObject(A),not(isObject(A)))
-':-'(targetClosed(A),(hasProperty(A,_closablecontainer),isClosed(A,true)))
+':-'(targetClosed(A),(hasProperty(A,closablecontainer),isClosed(A,true)))
 isRoom(storageroom)
 isLocated(player,storageroom,0)
 isRoom(exit)
+hasProperty(cupboard,closablecontainer)
 isClosed(cupboard,true)
 isObject(cupboard)
 volume(cupboard,50)
 capacity(cupboard,50)
 surface(cupboard,50)
 surfaceUsed(cupboard,0)
-hasProperty(cupboard,_closablecontainer)
 isLocated(cupboard,storageroom,0)
+hasProperty(smallbox,takeable)
 isObject(smallbox)
 volume(smallbox,25)
 capacity(smallbox,25)
 capacityUsed(smallbox,0)
-hasProperty(smallbox,_takeable)
 isLocated(smallbox,cupboard,0)
+hasProperty(mediumbox,takeable)
 isObject(mediumbox)
 volume(mediumbox,50)
 capacity(mediumbox,50)
 capacityUsed(mediumbox,0)
-hasProperty(mediumbox,_takeable)
 isLocated(mediumbox,storageroom,0)
+hasProperty(bigbox,takeable)
 isObject(bigbox)
 volume(bigbox,75)
 capacity(bigbox,75)
 capacityUsed(bigbox,0)
-hasProperty(bigbox,_takeable)
 isLocated(bigbox,storageroom,0)
 flag(_smallinmedium,0)
 flag(_mediuminbig,0)
 capacityUsed(cupboard,25)
+
+======================================================================================
+Processing user input: put medium box on top of the old cupboard
+======================================================================================
+
+DEBUG: Pre-process input lemmas: [put, medium, box, on, top, of, the, old, cupboard]
+DEBUG: Pre-process input posTags: [VB, NNP, NNP, NNP, NN, IN, DT, JJ, NN]
+DEBUG: Removing conflicting synonym: box
+DEBUG: Adding [medium, box] to matched objects
+DEBUG: Adding 1 to matched indices
+DEBUG: Adding [cupboard] to matched objects
+DEBUG: Adding 8 to matched indices
+DEBUG: Pre-processed: put item1 on top of item2
+DEBUG: Lemmas: [put, item, on, top, of, item]
+DEBUG: Verb found: PUT ITEM ON TOP OF ITEM
+DEBUG: PRSA set to: PUT ITEM ON TOP OF ITEM
+
+DEBUG: PRSA: PUT ITEM ON TOP OF ITEM, PRSO: MEDIUMBOX, PRSI: CUPBOARD
+
+DEBUG: ATTEMPT TO PERFORM ACTION ON PRSI
+
+DEBUG: FAILED TO PERFORM ACTION ON PRSI
+
+DEBUG: ATTEMPT TO PERFORM ACTION ON PRSO
+
+DEBUG: Checking whether conditional: <PRSA: [PLACE, PUT] && PRSA: [IN, INSIDE] && PRSO: [MEDIUMBOX] && PRSI: [BIGBOX]> is satisfied
+DEBUG: Checking Condition list for condition: PRSA: [PLACE, PUT]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = true
+DEBUG: Checking PRSACond: Checking PRSA for verb(s) out of: [PLACE, PUT]
+DEBUG: PRSACond satisfied since PUT contained in PRSA list (PRSA: PUT ITEM ON TOP OF ITEM)
+DEBUG: Checking Condition list for condition: PRSA: [IN, INSIDE]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = true
+DEBUG: Checking PRSACond: Checking PRSA for verb(s) out of: [IN, INSIDE]
+DEBUG: PRSACond not satisfied since no expected verbs are in the PRSA (PRSA: PUT ITEM ON TOP OF ITEM)
+DEBUG: Condition is not satisfied
+
+DEBUG: Checking whether conditional: <PRSA: [TAKE, OBTAIN] && PRSO: [MEDIUMBOX]> is satisfied
+DEBUG: Checking Condition list for condition: PRSA: [TAKE, OBTAIN]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = true
+DEBUG: Checking PRSACond: Checking PRSA for verb(s) out of: [TAKE, OBTAIN]
+DEBUG: PRSACond not satisfied since no expected verbs are in the PRSA (PRSA: PUT ITEM ON TOP OF ITEM)
+DEBUG: Condition is not satisfied
+
+DEBUG: FAILED TO PERFORM ACTION ON PRSO
+
+DEBUG: ATTEMPT TO PERFORM GENERIC ACTION ON PRSA
+DEBUG: Corrected Verb: place on
+
+DEBUG: FAILED TO PERFORM GENERIC ACTION USING PRSA
+
+DEBUG: ATTEMPT TO PERFORM ENHANCED ACTION ON PRSA
+DEBUG: Trying to place on
+
+DEBUG: Querying: putOn(mediumbox,cupboard)
+DEBUG: Solution: putOn(mediumbox,cupboard) - bindings: yes.
+
+DEBUG: Querying: isObject(storageroom)
+
+DEBUG: Querying: isObject(cupboard)
+DEBUG: Solution: isObject(cupboard) - bindings: yes.
+
+DEBUG: Querying: surfaceUsed(cupboard,X)
+DEBUG: Solution: surfaceUsed(cupboard,0) - bindings: yes.
+X / 0
+
+DEBUG: Removed clause surfaceUsed(cupboard,0)
+
+DEBUG: Adding clause surfaceUsed(cupboard,50)
+
+DEBUG: Removed clause isLocated(mediumbox,storageroom,0)
+
+DEBUG: Adding clause isLocated(mediumbox,cupboard,1)
+
+Knowledge Base:
+isObject(player)
+capacity(player,2147483647)
+capacityUsed(player,0)
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1071),isLocated(player,B,_1072),'!'))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1075),hasProperty(B,closablecontainer),'!',isClosed(B,false),inScope(B)))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1078),inScope(B)))
+':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),hasProperty(B,closablecontainer),'!',isClosed(B,false),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putInIgnoreScope(A,B),('\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putOn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putOnIgnoreScope(A,B),('\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putBelow(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putBelowIgnoreScope(A,B),('\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(outOfScope(A),not(inScope(A)))
+':-'(noCapacity(A),not(capacity(A,_1123)))
+':-'(noSurface(A),not(surface(A,_1125)))
+':-'(noBelow(A),not(below(A,_1127)))
+':-'(cantFitCapacity(A,B),(volume(A,X),capacity(B,Y),capacityUsed(B,Z),'>'('+'(X,Z),Y)))
+':-'(cantFitSurface(A,B),(volume(A,X),surface(B,Y),surfaceUsed(B,Z),'>'('+'(X,Z),Y)))
+':-'(cantFitBelow(A,B),(volume(A,X),below(B,Y),belowUsed(B,Z),'>'('+'(X,Z),Y)))
+':-'(tooBigCapacity(A,B),(volume(A,X),capacity(B,Y),'>'(X,Y)))
+':-'(tooBigSurface(A,B),(volume(A,X),surface(B,Y),'>'(X,Y)))
+':-'(tooBigBelow(A,B),(volume(A,X),below(B,Y),'>'(X,Y)))
+':-'(sameObject(A,B),'='(A,B))
+':-'(notObject(A),not(isObject(A)))
+':-'(targetClosed(A),(hasProperty(A,closablecontainer),isClosed(A,true)))
+isRoom(storageroom)
+isLocated(player,storageroom,0)
+isRoom(exit)
+hasProperty(cupboard,closablecontainer)
+isClosed(cupboard,true)
+isObject(cupboard)
+volume(cupboard,50)
+capacity(cupboard,50)
+surface(cupboard,50)
+isLocated(cupboard,storageroom,0)
+hasProperty(smallbox,takeable)
+isObject(smallbox)
+volume(smallbox,25)
+capacity(smallbox,25)
+capacityUsed(smallbox,0)
+isLocated(smallbox,cupboard,0)
+hasProperty(mediumbox,takeable)
+isObject(mediumbox)
+volume(mediumbox,50)
+capacity(mediumbox,50)
+capacityUsed(mediumbox,0)
+hasProperty(bigbox,takeable)
+isObject(bigbox)
+volume(bigbox,75)
+capacity(bigbox,75)
+capacityUsed(bigbox,0)
+isLocated(bigbox,storageroom,0)
+flag(_smallinmedium,0)
+flag(_mediuminbig,0)
+capacityUsed(cupboard,25)
+surfaceUsed(cupboard,50)
+isLocated(mediumbox,cupboard,1)
+
+======================================================================================
+Processing user input: look around
+======================================================================================
+
+DEBUG: Pre-process input lemmas: [look, around]
+DEBUG: Pre-process input posTags: [VB, RB]
+DEBUG: Removing conflicting synonym: box
+DEBUG: Pre-processed: look around
+DEBUG: Lemmas: [look, around]
+DEBUG: Verb found: LOOK AROUND
+DEBUG: Verb found: LOOK
+DEBUG: PRSA set to: LOOK AROUND
+
+DEBUG: PRSA: LOOK AROUND, PRSO: null, PRSI: null
+
+DEBUG: ATTEMPT TO PERFORM ACTION ON PRSI
+
+DEBUG: FAILED TO PERFORM ACTION ON PRSI
+
+DEBUG: ATTEMPT TO PERFORM ACTION ON PRSO
+
+DEBUG: FAILED TO PERFORM ACTION ON PRSO
+
+DEBUG: ATTEMPT TO PERFORM GENERIC ACTION ON PRSA
+DEBUG: Corrected Verb: look around
+
+Knowledge Base:
+isObject(player)
+capacity(player,2147483647)
+capacityUsed(player,0)
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1071),isLocated(player,B,_1072),'!'))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1075),hasProperty(B,closablecontainer),'!',isClosed(B,false),inScope(B)))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1078),inScope(B)))
+':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),hasProperty(B,closablecontainer),'!',isClosed(B,false),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putInIgnoreScope(A,B),('\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putOn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putOnIgnoreScope(A,B),('\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putBelow(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putBelowIgnoreScope(A,B),('\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(outOfScope(A),not(inScope(A)))
+':-'(noCapacity(A),not(capacity(A,_1123)))
+':-'(noSurface(A),not(surface(A,_1125)))
+':-'(noBelow(A),not(below(A,_1127)))
+':-'(cantFitCapacity(A,B),(volume(A,X),capacity(B,Y),capacityUsed(B,Z),'>'('+'(X,Z),Y)))
+':-'(cantFitSurface(A,B),(volume(A,X),surface(B,Y),surfaceUsed(B,Z),'>'('+'(X,Z),Y)))
+':-'(cantFitBelow(A,B),(volume(A,X),below(B,Y),belowUsed(B,Z),'>'('+'(X,Z),Y)))
+':-'(tooBigCapacity(A,B),(volume(A,X),capacity(B,Y),'>'(X,Y)))
+':-'(tooBigSurface(A,B),(volume(A,X),surface(B,Y),'>'(X,Y)))
+':-'(tooBigBelow(A,B),(volume(A,X),below(B,Y),'>'(X,Y)))
+':-'(sameObject(A,B),'='(A,B))
+':-'(notObject(A),not(isObject(A)))
+':-'(targetClosed(A),(hasProperty(A,closablecontainer),isClosed(A,true)))
+isRoom(storageroom)
+isLocated(player,storageroom,0)
+isRoom(exit)
+hasProperty(cupboard,closablecontainer)
+isClosed(cupboard,true)
+isObject(cupboard)
+volume(cupboard,50)
+capacity(cupboard,50)
+surface(cupboard,50)
+isLocated(cupboard,storageroom,0)
+hasProperty(smallbox,takeable)
+isObject(smallbox)
+volume(smallbox,25)
+capacity(smallbox,25)
+capacityUsed(smallbox,0)
+isLocated(smallbox,cupboard,0)
+hasProperty(mediumbox,takeable)
+isObject(mediumbox)
+volume(mediumbox,50)
+capacity(mediumbox,50)
+capacityUsed(mediumbox,0)
+hasProperty(bigbox,takeable)
+isObject(bigbox)
+volume(bigbox,75)
+capacity(bigbox,75)
+capacityUsed(bigbox,0)
+isLocated(bigbox,storageroom,0)
+flag(_smallinmedium,0)
+flag(_mediuminbig,0)
+capacityUsed(cupboard,25)
+surfaceUsed(cupboard,50)
+isLocated(mediumbox,cupboard,1)
 
 ======================================================================================
 Processing user input: open closet
@@ -402,9 +617,9 @@ isObject(player)
 capacity(player,2147483647)
 capacityUsed(player,0)
 ':-'(inScope(A),(isObject(A),isLocated(A,B,_1071),isLocated(player,B,_1072),'!'))
-':-'(inScope(A),(isObject(A),isLocated(A,B,_1075),hasProperty(B,_closablecontainer),'!',isClosed(B,false),inScope(B)))
-':-'(inScope(A),(isObject(A),isLocated(A,B,_1079),inScope(B)))
-':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),hasProperty(B,_closablecontainer),'!',isClosed(B,false),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1075),hasProperty(B,closablecontainer),'!',isClosed(B,false),inScope(B)))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1078),inScope(B)))
+':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),hasProperty(B,closablecontainer),'!',isClosed(B,false),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putInIgnoreScope(A,B),('\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putOn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
@@ -412,9 +627,9 @@ capacityUsed(player,0)
 ':-'(putBelow(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putBelowIgnoreScope(A,B),('\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(outOfScope(A),not(inScope(A)))
-':-'(noCapacity(A),not(capacity(A,_1125)))
-':-'(noSurface(A),not(surface(A,_1127)))
-':-'(noBelow(A),not(below(A,_1129)))
+':-'(noCapacity(A),not(capacity(A,_1123)))
+':-'(noSurface(A),not(surface(A,_1125)))
+':-'(noBelow(A),not(below(A,_1127)))
 ':-'(cantFitCapacity(A,B),(volume(A,X),capacity(B,Y),capacityUsed(B,Z),'>'('+'(X,Z),Y)))
 ':-'(cantFitSurface(A,B),(volume(A,X),surface(B,Y),surfaceUsed(B,Z),'>'('+'(X,Z),Y)))
 ':-'(cantFitBelow(A,B),(volume(A,X),below(B,Y),belowUsed(B,Z),'>'('+'(X,Z),Y)))
@@ -423,38 +638,38 @@ capacityUsed(player,0)
 ':-'(tooBigBelow(A,B),(volume(A,X),below(B,Y),'>'(X,Y)))
 ':-'(sameObject(A,B),'='(A,B))
 ':-'(notObject(A),not(isObject(A)))
-':-'(targetClosed(A),(hasProperty(A,_closablecontainer),isClosed(A,true)))
+':-'(targetClosed(A),(hasProperty(A,closablecontainer),isClosed(A,true)))
 isRoom(storageroom)
 isLocated(player,storageroom,0)
 isRoom(exit)
+hasProperty(cupboard,closablecontainer)
 isObject(cupboard)
 volume(cupboard,50)
 capacity(cupboard,50)
 surface(cupboard,50)
-surfaceUsed(cupboard,0)
-hasProperty(cupboard,_closablecontainer)
 isLocated(cupboard,storageroom,0)
+hasProperty(smallbox,takeable)
 isObject(smallbox)
 volume(smallbox,25)
 capacity(smallbox,25)
 capacityUsed(smallbox,0)
-hasProperty(smallbox,_takeable)
 isLocated(smallbox,cupboard,0)
+hasProperty(mediumbox,takeable)
 isObject(mediumbox)
 volume(mediumbox,50)
 capacity(mediumbox,50)
 capacityUsed(mediumbox,0)
-hasProperty(mediumbox,_takeable)
-isLocated(mediumbox,storageroom,0)
+hasProperty(bigbox,takeable)
 isObject(bigbox)
 volume(bigbox,75)
 capacity(bigbox,75)
 capacityUsed(bigbox,0)
-hasProperty(bigbox,_takeable)
 isLocated(bigbox,storageroom,0)
 flag(_smallinmedium,0)
 flag(_mediuminbig,0)
 capacityUsed(cupboard,25)
+surfaceUsed(cupboard,50)
+isLocated(mediumbox,cupboard,1)
 isClosed(cupboard,false)
 
 ======================================================================================
@@ -523,9 +738,9 @@ isObject(player)
 capacity(player,2147483647)
 capacityUsed(player,0)
 ':-'(inScope(A),(isObject(A),isLocated(A,B,_1071),isLocated(player,B,_1072),'!'))
-':-'(inScope(A),(isObject(A),isLocated(A,B,_1075),hasProperty(B,_closablecontainer),'!',isClosed(B,false),inScope(B)))
-':-'(inScope(A),(isObject(A),isLocated(A,B,_1079),inScope(B)))
-':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),hasProperty(B,_closablecontainer),'!',isClosed(B,false),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1075),hasProperty(B,closablecontainer),'!',isClosed(B,false),inScope(B)))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1078),inScope(B)))
+':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),hasProperty(B,closablecontainer),'!',isClosed(B,false),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putInIgnoreScope(A,B),('\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putOn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
@@ -533,9 +748,9 @@ capacityUsed(player,0)
 ':-'(putBelow(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putBelowIgnoreScope(A,B),('\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(outOfScope(A),not(inScope(A)))
-':-'(noCapacity(A),not(capacity(A,_1125)))
-':-'(noSurface(A),not(surface(A,_1127)))
-':-'(noBelow(A),not(below(A,_1129)))
+':-'(noCapacity(A),not(capacity(A,_1123)))
+':-'(noSurface(A),not(surface(A,_1125)))
+':-'(noBelow(A),not(below(A,_1127)))
 ':-'(cantFitCapacity(A,B),(volume(A,X),capacity(B,Y),capacityUsed(B,Z),'>'('+'(X,Z),Y)))
 ':-'(cantFitSurface(A,B),(volume(A,X),surface(B,Y),surfaceUsed(B,Z),'>'('+'(X,Z),Y)))
 ':-'(cantFitBelow(A,B),(volume(A,X),below(B,Y),belowUsed(B,Z),'>'('+'(X,Z),Y)))
@@ -544,54 +759,54 @@ capacityUsed(player,0)
 ':-'(tooBigBelow(A,B),(volume(A,X),below(B,Y),'>'(X,Y)))
 ':-'(sameObject(A,B),'='(A,B))
 ':-'(notObject(A),not(isObject(A)))
-':-'(targetClosed(A),(hasProperty(A,_closablecontainer),isClosed(A,true)))
+':-'(targetClosed(A),(hasProperty(A,closablecontainer),isClosed(A,true)))
 isRoom(storageroom)
 isLocated(player,storageroom,0)
 isRoom(exit)
+hasProperty(cupboard,closablecontainer)
 isObject(cupboard)
 volume(cupboard,50)
 capacity(cupboard,50)
 surface(cupboard,50)
-surfaceUsed(cupboard,0)
-hasProperty(cupboard,_closablecontainer)
 isLocated(cupboard,storageroom,0)
+hasProperty(smallbox,takeable)
 isObject(smallbox)
 volume(smallbox,25)
 capacity(smallbox,25)
 capacityUsed(smallbox,0)
-hasProperty(smallbox,_takeable)
+hasProperty(mediumbox,takeable)
 isObject(mediumbox)
 volume(mediumbox,50)
 capacity(mediumbox,50)
 capacityUsed(mediumbox,0)
-hasProperty(mediumbox,_takeable)
-isLocated(mediumbox,storageroom,0)
+hasProperty(bigbox,takeable)
 isObject(bigbox)
 volume(bigbox,75)
 capacity(bigbox,75)
 capacityUsed(bigbox,0)
-hasProperty(bigbox,_takeable)
 isLocated(bigbox,storageroom,0)
+surfaceUsed(cupboard,50)
+isLocated(mediumbox,cupboard,1)
 isClosed(cupboard,false)
 capacityUsed(cupboard,0)
 isLocated(smallbox,player,0)
 flag(_smallinmedium,0)
 
 ======================================================================================
-Processing user input: close closet
+Processing user input: slam the cupboard shut
 ======================================================================================
 
-DEBUG: Pre-process input lemmas: [close, closet]
-DEBUG: Pre-process input posTags: [JJ, NN]
+DEBUG: Pre-process input lemmas: [slam, the, cupboard, shut]
+DEBUG: Pre-process input posTags: [NN, DT, NN, NN]
 DEBUG: Removing conflicting synonym: box
 DEBUG: Adding [cupboard] to matched objects
-DEBUG: Adding 1 to matched indices
-DEBUG: Pre-processed: close item1
-DEBUG: Lemmas: [close, item]
-DEBUG: Verb found: CLOSE ITEM
-DEBUG: PRSA set to: CLOSE ITEM
+DEBUG: Adding 2 to matched indices
+DEBUG: Pre-processed: slam item1 shut
+DEBUG: Lemmas: [slam, item, shut]
+DEBUG: Verb found: SLAM ITEM
+DEBUG: PRSA set to: SLAM ITEM
 
-DEBUG: PRSA: CLOSE ITEM, PRSO: CUPBOARD, PRSI: null
+DEBUG: PRSA: SLAM ITEM, PRSO: CUPBOARD, PRSI: null
 
 DEBUG: ATTEMPT TO PERFORM ACTION ON PRSI
 
@@ -613,9 +828,9 @@ isObject(player)
 capacity(player,2147483647)
 capacityUsed(player,0)
 ':-'(inScope(A),(isObject(A),isLocated(A,B,_1071),isLocated(player,B,_1072),'!'))
-':-'(inScope(A),(isObject(A),isLocated(A,B,_1075),hasProperty(B,_closablecontainer),'!',isClosed(B,false),inScope(B)))
-':-'(inScope(A),(isObject(A),isLocated(A,B,_1079),inScope(B)))
-':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),hasProperty(B,_closablecontainer),'!',isClosed(B,false),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1075),hasProperty(B,closablecontainer),'!',isClosed(B,false),inScope(B)))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1078),inScope(B)))
+':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),hasProperty(B,closablecontainer),'!',isClosed(B,false),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putInIgnoreScope(A,B),('\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putOn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
@@ -623,9 +838,9 @@ capacityUsed(player,0)
 ':-'(putBelow(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putBelowIgnoreScope(A,B),('\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(outOfScope(A),not(inScope(A)))
-':-'(noCapacity(A),not(capacity(A,_1125)))
-':-'(noSurface(A),not(surface(A,_1127)))
-':-'(noBelow(A),not(below(A,_1129)))
+':-'(noCapacity(A),not(capacity(A,_1123)))
+':-'(noSurface(A),not(surface(A,_1125)))
+':-'(noBelow(A),not(below(A,_1127)))
 ':-'(cantFitCapacity(A,B),(volume(A,X),capacity(B,Y),capacityUsed(B,Z),'>'('+'(X,Z),Y)))
 ':-'(cantFitSurface(A,B),(volume(A,X),surface(B,Y),surfaceUsed(B,Z),'>'('+'(X,Z),Y)))
 ':-'(cantFitBelow(A,B),(volume(A,X),below(B,Y),belowUsed(B,Z),'>'('+'(X,Z),Y)))
@@ -634,58 +849,76 @@ capacityUsed(player,0)
 ':-'(tooBigBelow(A,B),(volume(A,X),below(B,Y),'>'(X,Y)))
 ':-'(sameObject(A,B),'='(A,B))
 ':-'(notObject(A),not(isObject(A)))
-':-'(targetClosed(A),(hasProperty(A,_closablecontainer),isClosed(A,true)))
+':-'(targetClosed(A),(hasProperty(A,closablecontainer),isClosed(A,true)))
 isRoom(storageroom)
 isLocated(player,storageroom,0)
 isRoom(exit)
+hasProperty(cupboard,closablecontainer)
 isObject(cupboard)
 volume(cupboard,50)
 capacity(cupboard,50)
 surface(cupboard,50)
-surfaceUsed(cupboard,0)
-hasProperty(cupboard,_closablecontainer)
 isLocated(cupboard,storageroom,0)
+hasProperty(smallbox,takeable)
 isObject(smallbox)
 volume(smallbox,25)
 capacity(smallbox,25)
 capacityUsed(smallbox,0)
-hasProperty(smallbox,_takeable)
+hasProperty(mediumbox,takeable)
 isObject(mediumbox)
 volume(mediumbox,50)
 capacity(mediumbox,50)
 capacityUsed(mediumbox,0)
-hasProperty(mediumbox,_takeable)
-isLocated(mediumbox,storageroom,0)
+hasProperty(bigbox,takeable)
 isObject(bigbox)
 volume(bigbox,75)
 capacity(bigbox,75)
 capacityUsed(bigbox,0)
-hasProperty(bigbox,_takeable)
 isLocated(bigbox,storageroom,0)
+surfaceUsed(cupboard,50)
+isLocated(mediumbox,cupboard,1)
 capacityUsed(cupboard,0)
 isLocated(smallbox,player,0)
 flag(_smallinmedium,0)
 isClosed(cupboard,true)
 
 ======================================================================================
-Processing user input: put small box in closet
+Processing user input: put the small box inside the medium box
 ======================================================================================
 
-DEBUG: Pre-process input lemmas: [put, small, box, in, closet]
-DEBUG: Pre-process input posTags: [VB, NNP, NNP, IN, NNP]
+DEBUG: Pre-process input lemmas: [put, the, small, box, inside, the, medium, box]
+DEBUG: Pre-process input posTags: [VB, DT, NNP, NNP, IN, DT, NNP, NNP]
 DEBUG: Removing conflicting synonym: box
-DEBUG: Adding [cupboard] to matched objects
-DEBUG: Adding 4 to matched indices
+DEBUG: Adding [medium, box] to matched objects
+DEBUG: Adding 6 to matched indices
 DEBUG: Adding [small, box] to matched objects
-DEBUG: Adding 1 to matched indices
-DEBUG: Pre-processed: put item2 in item1
-DEBUG: Lemmas: [put, item, in, item]
-DEBUG: Verb found: PUT ITEM IN ITEM
-DEBUG: PRSA set to: PUT ITEM IN ITEM
+DEBUG: Adding 2 to matched indices
+DEBUG: Pre-processed: put item2 inside item1
+DEBUG: Lemmas: [put, item, inside, item]
+DEBUG: Verb found: PUT ITEM INSIDE ITEM
+DEBUG: PRSA set to: PUT ITEM INSIDE ITEM
 
-DEBUG: PRSA: PUT ITEM IN ITEM, PRSO: SMALLBOX, PRSI: CUPBOARD
+DEBUG: PRSA: PUT ITEM INSIDE ITEM, PRSO: SMALLBOX, PRSI: MEDIUMBOX
 
 DEBUG: ATTEMPT TO PERFORM ACTION ON PRSI
+
+DEBUG: Checking whether conditional: <PRSA: [PLACE, PUT] && PRSA: [IN, INSIDE] && PRSO: [MEDIUMBOX] && PRSI: [BIGBOX]> is satisfied
+DEBUG: Checking Condition list for condition: PRSA: [PLACE, PUT]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = true
+DEBUG: Checking PRSACond: Checking PRSA for verb(s) out of: [PLACE, PUT]
+DEBUG: PRSACond satisfied since PUT contained in PRSA list (PRSA: PUT ITEM INSIDE ITEM)
+DEBUG: Checking Condition list for condition: PRSA: [IN, INSIDE]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = true
+DEBUG: Checking PRSACond: Checking PRSA for verb(s) out of: [IN, INSIDE]
+DEBUG: PRSACond satisfied since INSIDE contained in PRSA list (PRSA: PUT ITEM INSIDE ITEM)
+DEBUG: Checking Condition list for condition: PRSO: [MEDIUMBOX]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = true
+DEBUG: Checking PRSOCond: Checking PRSO is one of: [MEDIUMBOX]
+DEBUG: PRSICond not satisfied since PRSO = SMALLBOX
+DEBUG: Condition is not satisfied
+
+DEBUG: Checking whether conditional: <PRSA: [TAKE, OBTAIN] && PRSO: [MEDIUMBOX]> is satisfied
+DEBUG: Checking Condition list for condition: PRSA: [TAKE, OBTAIN]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = true
+DEBUG: Checking PRSACond: Checking PRSA for verb(s) out of: [TAKE, OBTAIN]
+DEBUG: PRSACond not satisfied since no expected verbs are in the PRSA (PRSA: PUT ITEM INSIDE ITEM)
+DEBUG: Condition is not satisfied
 
 DEBUG: FAILED TO PERFORM ACTION ON PRSI
 
@@ -694,282 +927,60 @@ DEBUG: ATTEMPT TO PERFORM ACTION ON PRSO
 DEBUG: Checking whether conditional: <PRSA: [PLACE, PUT] && PRSA: [IN, INSIDE] && PRSO: [SMALLBOX] && PRSI: [MEDIUMBOX]> is satisfied
 DEBUG: Checking Condition list for condition: PRSA: [PLACE, PUT]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = true
 DEBUG: Checking PRSACond: Checking PRSA for verb(s) out of: [PLACE, PUT]
-DEBUG: PRSACond satisfied since PUT contained in PRSA list (PRSA: PUT ITEM IN ITEM)
+DEBUG: PRSACond satisfied since PUT contained in PRSA list (PRSA: PUT ITEM INSIDE ITEM)
 DEBUG: Checking Condition list for condition: PRSA: [IN, INSIDE]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = true
 DEBUG: Checking PRSACond: Checking PRSA for verb(s) out of: [IN, INSIDE]
-DEBUG: PRSACond satisfied since IN contained in PRSA list (PRSA: PUT ITEM IN ITEM)
+DEBUG: PRSACond satisfied since INSIDE contained in PRSA list (PRSA: PUT ITEM INSIDE ITEM)
 DEBUG: Checking Condition list for condition: PRSO: [SMALLBOX]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = true
 DEBUG: Checking PRSOCond: Checking PRSO is one of: [SMALLBOX]
 DEBUG: PRSICond satisfied since PRSO = SMALLBOX
 DEBUG: Checking Condition list for condition: PRSI: [MEDIUMBOX]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
 DEBUG: Checking PRSICond: Checking PRSI is one of: [MEDIUMBOX]
-DEBUG: PRSICond not satisfied since PRSI = CUPBOARD
-DEBUG: Condition is not satisfied
+DEBUG: PRSICond satisfied since PRSI = MEDIUMBOX
+DEBUG: Condition is satisfied
 
-DEBUG: Checking whether conditional: <PRSA: [TAKE, OBTAIN] && PRSO: [SMALLBOX]> is satisfied
-DEBUG: Checking Condition list for condition: PRSA: [TAKE, OBTAIN]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = true
-DEBUG: Checking PRSACond: Checking PRSA for verb(s) out of: [TAKE, OBTAIN]
-DEBUG: PRSACond not satisfied since no expected verbs are in the PRSA (PRSA: PUT ITEM IN ITEM)
-DEBUG: Condition is not satisfied
+DEBUG: Querying: isRoom(mediumbox)
 
-DEBUG: FAILED TO PERFORM ACTION ON PRSO
+DEBUG: Querying: putInIgnoreScope(smallbox,mediumbox)
+DEBUG: Solution: putInIgnoreScope(smallbox,mediumbox) - bindings: yes.
 
-DEBUG: ATTEMPT TO PERFORM GENERIC ACTION ON PRSA
-DEBUG: Corrected Verb: place in
+DEBUG: Querying: isObject(player)
+DEBUG: Solution: isObject(player) - bindings: yes.
 
-DEBUG: FAILED TO PERFORM GENERIC ACTION USING PRSA
-
-DEBUG: ATTEMPT TO PERFORM ENHANCED ACTION ON PRSA
-DEBUG: Trying to place in
-
-DEBUG: Querying: putIn(smallbox,cupboard)
-
-DEBUG: Querying: outOfScope(smallbox)
-
-DEBUG: Querying: outOfScope(cupboard)
-
-DEBUG: Querying: sameObject(smallbox,cupboard)
-
-DEBUG: Querying: capacity(cupboard,_)
-DEBUG: Solution: capacity(cupboard,50) - bindings: yes.
-
-DEBUG: Querying: tooBigCapacity(smallbox,cupboard)
-
-DEBUG: Querying: cantFitCapacity(smallbox,cupboard)
-
-DEBUG: Querying: targetClosed(cupboard)
-DEBUG: Solution: targetClosed(cupboard) - bindings: yes.
-
-Knowledge Base:
-isObject(player)
-capacity(player,2147483647)
-capacityUsed(player,0)
-':-'(inScope(A),(isObject(A),isLocated(A,B,_1071),isLocated(player,B,_1072),'!'))
-':-'(inScope(A),(isObject(A),isLocated(A,B,_1075),hasProperty(B,_closablecontainer),'!',isClosed(B,false),inScope(B)))
-':-'(inScope(A),(isObject(A),isLocated(A,B,_1079),inScope(B)))
-':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),hasProperty(B,_closablecontainer),'!',isClosed(B,false),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
-':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
-':-'(putInIgnoreScope(A,B),('\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
-':-'(putOn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
-':-'(putOnIgnoreScope(A,B),('\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
-':-'(putBelow(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
-':-'(putBelowIgnoreScope(A,B),('\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
-':-'(outOfScope(A),not(inScope(A)))
-':-'(noCapacity(A),not(capacity(A,_1125)))
-':-'(noSurface(A),not(surface(A,_1127)))
-':-'(noBelow(A),not(below(A,_1129)))
-':-'(cantFitCapacity(A,B),(volume(A,X),capacity(B,Y),capacityUsed(B,Z),'>'('+'(X,Z),Y)))
-':-'(cantFitSurface(A,B),(volume(A,X),surface(B,Y),surfaceUsed(B,Z),'>'('+'(X,Z),Y)))
-':-'(cantFitBelow(A,B),(volume(A,X),below(B,Y),belowUsed(B,Z),'>'('+'(X,Z),Y)))
-':-'(tooBigCapacity(A,B),(volume(A,X),capacity(B,Y),'>'(X,Y)))
-':-'(tooBigSurface(A,B),(volume(A,X),surface(B,Y),'>'(X,Y)))
-':-'(tooBigBelow(A,B),(volume(A,X),below(B,Y),'>'(X,Y)))
-':-'(sameObject(A,B),'='(A,B))
-':-'(notObject(A),not(isObject(A)))
-':-'(targetClosed(A),(hasProperty(A,_closablecontainer),isClosed(A,true)))
-isRoom(storageroom)
-isLocated(player,storageroom,0)
-isRoom(exit)
-isObject(cupboard)
-volume(cupboard,50)
-capacity(cupboard,50)
-surface(cupboard,50)
-surfaceUsed(cupboard,0)
-hasProperty(cupboard,_closablecontainer)
-isLocated(cupboard,storageroom,0)
-isObject(smallbox)
-volume(smallbox,25)
-capacity(smallbox,25)
-capacityUsed(smallbox,0)
-hasProperty(smallbox,_takeable)
-isObject(mediumbox)
-volume(mediumbox,50)
-capacity(mediumbox,50)
-capacityUsed(mediumbox,0)
-hasProperty(mediumbox,_takeable)
-isLocated(mediumbox,storageroom,0)
-isObject(bigbox)
-volume(bigbox,75)
-capacity(bigbox,75)
-capacityUsed(bigbox,0)
-hasProperty(bigbox,_takeable)
-isLocated(bigbox,storageroom,0)
-capacityUsed(cupboard,0)
-isLocated(smallbox,player,0)
-flag(_smallinmedium,0)
-isClosed(cupboard,true)
-
-======================================================================================
-Processing user input: open closet
-======================================================================================
-
-DEBUG: Pre-process input lemmas: [open, closet]
-DEBUG: Pre-process input posTags: [NNP, NNP]
-DEBUG: Removing conflicting synonym: box
-DEBUG: Adding [cupboard] to matched objects
-DEBUG: Adding 1 to matched indices
-DEBUG: Pre-processed: open item1
-DEBUG: Lemmas: [open, item]
-DEBUG: Verb found: OPEN ITEM
-DEBUG: PRSA set to: OPEN ITEM
-
-DEBUG: PRSA: OPEN ITEM, PRSO: CUPBOARD, PRSI: null
-
-DEBUG: ATTEMPT TO PERFORM ACTION ON PRSI
-
-DEBUG: FAILED TO PERFORM ACTION ON PRSI
-
-DEBUG: ATTEMPT TO PERFORM ACTION ON PRSO
-
-DEBUG: FAILED TO PERFORM ACTION ON PRSO
-
-DEBUG: ATTEMPT TO PERFORM GENERIC ACTION ON PRSA
-DEBUG: Corrected Verb: open
-
-DEBUG: Removed clause isClosed(cupboard,true)
-
-DEBUG: Adding clause isClosed(cupboard,false)
-
-Knowledge Base:
-isObject(player)
-capacity(player,2147483647)
-capacityUsed(player,0)
-':-'(inScope(A),(isObject(A),isLocated(A,B,_1071),isLocated(player,B,_1072),'!'))
-':-'(inScope(A),(isObject(A),isLocated(A,B,_1075),hasProperty(B,_closablecontainer),'!',isClosed(B,false),inScope(B)))
-':-'(inScope(A),(isObject(A),isLocated(A,B,_1079),inScope(B)))
-':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),hasProperty(B,_closablecontainer),'!',isClosed(B,false),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
-':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
-':-'(putInIgnoreScope(A,B),('\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
-':-'(putOn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
-':-'(putOnIgnoreScope(A,B),('\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
-':-'(putBelow(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
-':-'(putBelowIgnoreScope(A,B),('\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
-':-'(outOfScope(A),not(inScope(A)))
-':-'(noCapacity(A),not(capacity(A,_1125)))
-':-'(noSurface(A),not(surface(A,_1127)))
-':-'(noBelow(A),not(below(A,_1129)))
-':-'(cantFitCapacity(A,B),(volume(A,X),capacity(B,Y),capacityUsed(B,Z),'>'('+'(X,Z),Y)))
-':-'(cantFitSurface(A,B),(volume(A,X),surface(B,Y),surfaceUsed(B,Z),'>'('+'(X,Z),Y)))
-':-'(cantFitBelow(A,B),(volume(A,X),below(B,Y),belowUsed(B,Z),'>'('+'(X,Z),Y)))
-':-'(tooBigCapacity(A,B),(volume(A,X),capacity(B,Y),'>'(X,Y)))
-':-'(tooBigSurface(A,B),(volume(A,X),surface(B,Y),'>'(X,Y)))
-':-'(tooBigBelow(A,B),(volume(A,X),below(B,Y),'>'(X,Y)))
-':-'(sameObject(A,B),'='(A,B))
-':-'(notObject(A),not(isObject(A)))
-':-'(targetClosed(A),(hasProperty(A,_closablecontainer),isClosed(A,true)))
-isRoom(storageroom)
-isLocated(player,storageroom,0)
-isRoom(exit)
-isObject(cupboard)
-volume(cupboard,50)
-capacity(cupboard,50)
-surface(cupboard,50)
-surfaceUsed(cupboard,0)
-hasProperty(cupboard,_closablecontainer)
-isLocated(cupboard,storageroom,0)
-isObject(smallbox)
-volume(smallbox,25)
-capacity(smallbox,25)
-capacityUsed(smallbox,0)
-hasProperty(smallbox,_takeable)
-isObject(mediumbox)
-volume(mediumbox,50)
-capacity(mediumbox,50)
-capacityUsed(mediumbox,0)
-hasProperty(mediumbox,_takeable)
-isLocated(mediumbox,storageroom,0)
-isObject(bigbox)
-volume(bigbox,75)
-capacity(bigbox,75)
-capacityUsed(bigbox,0)
-hasProperty(bigbox,_takeable)
-isLocated(bigbox,storageroom,0)
-capacityUsed(cupboard,0)
-isLocated(smallbox,player,0)
-flag(_smallinmedium,0)
-isClosed(cupboard,false)
-
-======================================================================================
-Processing user input: put small box in closet
-======================================================================================
-
-DEBUG: Pre-process input lemmas: [put, small, box, in, closet]
-DEBUG: Pre-process input posTags: [VB, NNP, NNP, IN, NNP]
-DEBUG: Removing conflicting synonym: box
-DEBUG: Adding [cupboard] to matched objects
-DEBUG: Adding 4 to matched indices
-DEBUG: Adding [small, box] to matched objects
-DEBUG: Adding 1 to matched indices
-DEBUG: Pre-processed: put item2 in item1
-DEBUG: Lemmas: [put, item, in, item]
-DEBUG: Verb found: PUT ITEM IN ITEM
-DEBUG: PRSA set to: PUT ITEM IN ITEM
-
-DEBUG: PRSA: PUT ITEM IN ITEM, PRSO: SMALLBOX, PRSI: CUPBOARD
-
-DEBUG: ATTEMPT TO PERFORM ACTION ON PRSI
-
-DEBUG: FAILED TO PERFORM ACTION ON PRSI
-
-DEBUG: ATTEMPT TO PERFORM ACTION ON PRSO
-
-DEBUG: Checking whether conditional: <PRSA: [PLACE, PUT] && PRSA: [IN, INSIDE] && PRSO: [SMALLBOX] && PRSI: [MEDIUMBOX]> is satisfied
-DEBUG: Checking Condition list for condition: PRSA: [PLACE, PUT]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = true
-DEBUG: Checking PRSACond: Checking PRSA for verb(s) out of: [PLACE, PUT]
-DEBUG: PRSACond satisfied since PUT contained in PRSA list (PRSA: PUT ITEM IN ITEM)
-DEBUG: Checking Condition list for condition: PRSA: [IN, INSIDE]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = true
-DEBUG: Checking PRSACond: Checking PRSA for verb(s) out of: [IN, INSIDE]
-DEBUG: PRSACond satisfied since IN contained in PRSA list (PRSA: PUT ITEM IN ITEM)
-DEBUG: Checking Condition list for condition: PRSO: [SMALLBOX]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = true
-DEBUG: Checking PRSOCond: Checking PRSO is one of: [SMALLBOX]
-DEBUG: PRSICond satisfied since PRSO = SMALLBOX
-DEBUG: Checking Condition list for condition: PRSI: [MEDIUMBOX]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
-DEBUG: Checking PRSICond: Checking PRSI is one of: [MEDIUMBOX]
-DEBUG: PRSICond not satisfied since PRSI = CUPBOARD
-DEBUG: Condition is not satisfied
-
-DEBUG: Checking whether conditional: <PRSA: [TAKE, OBTAIN] && PRSO: [SMALLBOX]> is satisfied
-DEBUG: Checking Condition list for condition: PRSA: [TAKE, OBTAIN]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = true
-DEBUG: Checking PRSACond: Checking PRSA for verb(s) out of: [TAKE, OBTAIN]
-DEBUG: PRSACond not satisfied since no expected verbs are in the PRSA (PRSA: PUT ITEM IN ITEM)
-DEBUG: Condition is not satisfied
-
-DEBUG: FAILED TO PERFORM ACTION ON PRSO
-
-DEBUG: ATTEMPT TO PERFORM GENERIC ACTION ON PRSA
-DEBUG: Corrected Verb: place in
-
-DEBUG: FAILED TO PERFORM GENERIC ACTION USING PRSA
-
-DEBUG: ATTEMPT TO PERFORM ENHANCED ACTION ON PRSA
-DEBUG: Trying to place in
-
-DEBUG: Querying: putIn(smallbox,cupboard)
-DEBUG: Solution: putIn(smallbox,cupboard) - bindings: yes.
-
-DEBUG: Querying: isObject(cupboard)
-DEBUG: Solution: isObject(cupboard) - bindings: yes.
-
-DEBUG: Querying: capacityUsed(cupboard,X)
-DEBUG: Solution: capacityUsed(cupboard,0) - bindings: yes.
+DEBUG: Querying: capacityUsed(player,X)
+DEBUG: Solution: capacityUsed(player,0) - bindings: yes.
 X / 0
 
-DEBUG: Removed clause capacityUsed(cupboard,0)
+DEBUG: Removed clause capacityUsed(player,0)
 
-DEBUG: Adding clause capacityUsed(cupboard,25)
+DEBUG: Adding clause capacityUsed(player,-25)
+
+DEBUG: Querying: isObject(mediumbox)
+DEBUG: Solution: isObject(mediumbox) - bindings: yes.
+
+DEBUG: Querying: capacityUsed(mediumbox,X)
+DEBUG: Solution: capacityUsed(mediumbox,0) - bindings: yes.
+X / 0
+
+DEBUG: Removed clause capacityUsed(mediumbox,0)
+
+DEBUG: Adding clause capacityUsed(mediumbox,25)
 
 DEBUG: Removed clause isLocated(smallbox,player,0)
 
-DEBUG: Adding clause isLocated(smallbox,cupboard,0)
+DEBUG: Adding clause isLocated(smallbox,mediumbox,0)
+
+DEBUG: Removed clause flag(_smallinmedium,0)
+
+DEBUG: Adding clause flag(_smallinmedium,1)
 
 Knowledge Base:
 isObject(player)
 capacity(player,2147483647)
-capacityUsed(player,0)
 ':-'(inScope(A),(isObject(A),isLocated(A,B,_1071),isLocated(player,B,_1072),'!'))
-':-'(inScope(A),(isObject(A),isLocated(A,B,_1075),hasProperty(B,_closablecontainer),'!',isClosed(B,false),inScope(B)))
-':-'(inScope(A),(isObject(A),isLocated(A,B,_1079),inScope(B)))
-':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),hasProperty(B,_closablecontainer),'!',isClosed(B,false),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1075),hasProperty(B,closablecontainer),'!',isClosed(B,false),inScope(B)))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1078),inScope(B)))
+':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),hasProperty(B,closablecontainer),'!',isClosed(B,false),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putInIgnoreScope(A,B),('\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putOn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
@@ -977,9 +988,9 @@ capacityUsed(player,0)
 ':-'(putBelow(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putBelowIgnoreScope(A,B),('\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(outOfScope(A),not(inScope(A)))
-':-'(noCapacity(A),not(capacity(A,_1125)))
-':-'(noSurface(A),not(surface(A,_1127)))
-':-'(noBelow(A),not(below(A,_1129)))
+':-'(noCapacity(A),not(capacity(A,_1123)))
+':-'(noSurface(A),not(surface(A,_1125)))
+':-'(noBelow(A),not(below(A,_1127)))
 ':-'(cantFitCapacity(A,B),(volume(A,X),capacity(B,Y),capacityUsed(B,Z),'>'('+'(X,Z),Y)))
 ':-'(cantFitSurface(A,B),(volume(A,X),surface(B,Y),surfaceUsed(B,Z),'>'('+'(X,Z),Y)))
 ':-'(cantFitBelow(A,B),(volume(A,X),below(B,Y),belowUsed(B,Z),'>'('+'(X,Z),Y)))
@@ -988,60 +999,158 @@ capacityUsed(player,0)
 ':-'(tooBigBelow(A,B),(volume(A,X),below(B,Y),'>'(X,Y)))
 ':-'(sameObject(A,B),'='(A,B))
 ':-'(notObject(A),not(isObject(A)))
-':-'(targetClosed(A),(hasProperty(A,_closablecontainer),isClosed(A,true)))
+':-'(targetClosed(A),(hasProperty(A,closablecontainer),isClosed(A,true)))
 isRoom(storageroom)
 isLocated(player,storageroom,0)
 isRoom(exit)
+hasProperty(cupboard,closablecontainer)
 isObject(cupboard)
 volume(cupboard,50)
 capacity(cupboard,50)
 surface(cupboard,50)
-surfaceUsed(cupboard,0)
-hasProperty(cupboard,_closablecontainer)
 isLocated(cupboard,storageroom,0)
+hasProperty(smallbox,takeable)
 isObject(smallbox)
 volume(smallbox,25)
 capacity(smallbox,25)
 capacityUsed(smallbox,0)
-hasProperty(smallbox,_takeable)
+hasProperty(mediumbox,takeable)
 isObject(mediumbox)
 volume(mediumbox,50)
 capacity(mediumbox,50)
-capacityUsed(mediumbox,0)
-hasProperty(mediumbox,_takeable)
-isLocated(mediumbox,storageroom,0)
+hasProperty(bigbox,takeable)
 isObject(bigbox)
 volume(bigbox,75)
 capacity(bigbox,75)
 capacityUsed(bigbox,0)
-hasProperty(bigbox,_takeable)
 isLocated(bigbox,storageroom,0)
-flag(_smallinmedium,0)
-isClosed(cupboard,false)
-capacityUsed(cupboard,25)
-isLocated(smallbox,cupboard,0)
+surfaceUsed(cupboard,50)
+isLocated(mediumbox,cupboard,1)
+capacityUsed(cupboard,0)
+isClosed(cupboard,true)
+capacityUsed(player,-25)
+capacityUsed(mediumbox,25)
+isLocated(smallbox,mediumbox,0)
+flag(_smallinmedium,1)
 
 ======================================================================================
-Processing user input: look at closet
+Processing user input: look around
 ======================================================================================
 
-DEBUG: Pre-process input lemmas: [look, at, closet]
-DEBUG: Pre-process input posTags: [VB, NN, NN]
+DEBUG: Pre-process input lemmas: [look, around]
+DEBUG: Pre-process input posTags: [VB, RB]
 DEBUG: Removing conflicting synonym: box
-DEBUG: Adding [cupboard] to matched objects
-DEBUG: Adding 2 to matched indices
-DEBUG: Pre-processed: look at item1
-DEBUG: Lemmas: [look, at, item]
+DEBUG: Pre-processed: look around
+DEBUG: Lemmas: [look, around]
+DEBUG: Verb found: LOOK AROUND
 DEBUG: Verb found: LOOK
-DEBUG: PRSA set to: LOOK
+DEBUG: PRSA set to: LOOK AROUND
 
-DEBUG: PRSA: LOOK, PRSO: CUPBOARD, PRSI: null
+DEBUG: PRSA: LOOK AROUND, PRSO: null, PRSI: null
 
 DEBUG: ATTEMPT TO PERFORM ACTION ON PRSI
 
 DEBUG: FAILED TO PERFORM ACTION ON PRSI
 
 DEBUG: ATTEMPT TO PERFORM ACTION ON PRSO
+
+DEBUG: FAILED TO PERFORM ACTION ON PRSO
+
+DEBUG: ATTEMPT TO PERFORM GENERIC ACTION ON PRSA
+DEBUG: Corrected Verb: look around
+
+Knowledge Base:
+isObject(player)
+capacity(player,2147483647)
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1071),isLocated(player,B,_1072),'!'))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1075),hasProperty(B,closablecontainer),'!',isClosed(B,false),inScope(B)))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1078),inScope(B)))
+':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),hasProperty(B,closablecontainer),'!',isClosed(B,false),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putInIgnoreScope(A,B),('\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putOn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putOnIgnoreScope(A,B),('\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putBelow(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putBelowIgnoreScope(A,B),('\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(outOfScope(A),not(inScope(A)))
+':-'(noCapacity(A),not(capacity(A,_1123)))
+':-'(noSurface(A),not(surface(A,_1125)))
+':-'(noBelow(A),not(below(A,_1127)))
+':-'(cantFitCapacity(A,B),(volume(A,X),capacity(B,Y),capacityUsed(B,Z),'>'('+'(X,Z),Y)))
+':-'(cantFitSurface(A,B),(volume(A,X),surface(B,Y),surfaceUsed(B,Z),'>'('+'(X,Z),Y)))
+':-'(cantFitBelow(A,B),(volume(A,X),below(B,Y),belowUsed(B,Z),'>'('+'(X,Z),Y)))
+':-'(tooBigCapacity(A,B),(volume(A,X),capacity(B,Y),'>'(X,Y)))
+':-'(tooBigSurface(A,B),(volume(A,X),surface(B,Y),'>'(X,Y)))
+':-'(tooBigBelow(A,B),(volume(A,X),below(B,Y),'>'(X,Y)))
+':-'(sameObject(A,B),'='(A,B))
+':-'(notObject(A),not(isObject(A)))
+':-'(targetClosed(A),(hasProperty(A,closablecontainer),isClosed(A,true)))
+isRoom(storageroom)
+isLocated(player,storageroom,0)
+isRoom(exit)
+hasProperty(cupboard,closablecontainer)
+isObject(cupboard)
+volume(cupboard,50)
+capacity(cupboard,50)
+surface(cupboard,50)
+isLocated(cupboard,storageroom,0)
+hasProperty(smallbox,takeable)
+isObject(smallbox)
+volume(smallbox,25)
+capacity(smallbox,25)
+capacityUsed(smallbox,0)
+hasProperty(mediumbox,takeable)
+isObject(mediumbox)
+volume(mediumbox,50)
+capacity(mediumbox,50)
+hasProperty(bigbox,takeable)
+isObject(bigbox)
+volume(bigbox,75)
+capacity(bigbox,75)
+capacityUsed(bigbox,0)
+isLocated(bigbox,storageroom,0)
+surfaceUsed(cupboard,50)
+isLocated(mediumbox,cupboard,1)
+capacityUsed(cupboard,0)
+isClosed(cupboard,true)
+capacityUsed(player,-25)
+capacityUsed(mediumbox,25)
+isLocated(smallbox,mediumbox,0)
+flag(_smallinmedium,1)
+
+======================================================================================
+Processing user input: inspect medium box
+======================================================================================
+
+DEBUG: Pre-process input lemmas: [inspect, medium, box]
+DEBUG: Pre-process input posTags: [VB, NNP, NNP]
+DEBUG: Removing conflicting synonym: box
+DEBUG: Adding [medium, box] to matched objects
+DEBUG: Adding 1 to matched indices
+DEBUG: Pre-processed: inspect item1
+DEBUG: Lemmas: [inspect, item]
+DEBUG: Verb found: INSPECT
+DEBUG: PRSA set to: INSPECT
+
+DEBUG: PRSA: INSPECT, PRSO: MEDIUMBOX, PRSI: null
+
+DEBUG: ATTEMPT TO PERFORM ACTION ON PRSI
+
+DEBUG: FAILED TO PERFORM ACTION ON PRSI
+
+DEBUG: ATTEMPT TO PERFORM ACTION ON PRSO
+
+DEBUG: Checking whether conditional: <PRSA: [PLACE, PUT] && PRSA: [IN, INSIDE] && PRSO: [MEDIUMBOX] && PRSI: [BIGBOX]> is satisfied
+DEBUG: Checking Condition list for condition: PRSA: [PLACE, PUT]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = true
+DEBUG: Checking PRSACond: Checking PRSA for verb(s) out of: [PLACE, PUT]
+DEBUG: PRSACond not satisfied since no expected verbs are in the PRSA (PRSA: INSPECT)
+DEBUG: Condition is not satisfied
+
+DEBUG: Checking whether conditional: <PRSA: [TAKE, OBTAIN] && PRSO: [MEDIUMBOX]> is satisfied
+DEBUG: Checking Condition list for condition: PRSA: [TAKE, OBTAIN]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = true
+DEBUG: Checking PRSACond: Checking PRSA for verb(s) out of: [TAKE, OBTAIN]
+DEBUG: PRSACond not satisfied since no expected verbs are in the PRSA (PRSA: INSPECT)
+DEBUG: Condition is not satisfied
 
 DEBUG: FAILED TO PERFORM ACTION ON PRSO
 
@@ -1051,11 +1160,10 @@ DEBUG: Corrected Verb: look
 Knowledge Base:
 isObject(player)
 capacity(player,2147483647)
-capacityUsed(player,0)
 ':-'(inScope(A),(isObject(A),isLocated(A,B,_1071),isLocated(player,B,_1072),'!'))
-':-'(inScope(A),(isObject(A),isLocated(A,B,_1075),hasProperty(B,_closablecontainer),'!',isClosed(B,false),inScope(B)))
-':-'(inScope(A),(isObject(A),isLocated(A,B,_1079),inScope(B)))
-':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),hasProperty(B,_closablecontainer),'!',isClosed(B,false),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1075),hasProperty(B,closablecontainer),'!',isClosed(B,false),inScope(B)))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1078),inScope(B)))
+':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),hasProperty(B,closablecontainer),'!',isClosed(B,false),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putInIgnoreScope(A,B),('\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putOn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
@@ -1063,9 +1171,9 @@ capacityUsed(player,0)
 ':-'(putBelow(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putBelowIgnoreScope(A,B),('\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(outOfScope(A),not(inScope(A)))
-':-'(noCapacity(A),not(capacity(A,_1125)))
-':-'(noSurface(A),not(surface(A,_1127)))
-':-'(noBelow(A),not(below(A,_1129)))
+':-'(noCapacity(A),not(capacity(A,_1123)))
+':-'(noSurface(A),not(surface(A,_1125)))
+':-'(noBelow(A),not(below(A,_1127)))
 ':-'(cantFitCapacity(A,B),(volume(A,X),capacity(B,Y),capacityUsed(B,Z),'>'('+'(X,Z),Y)))
 ':-'(cantFitSurface(A,B),(volume(A,X),surface(B,Y),surfaceUsed(B,Z),'>'('+'(X,Z),Y)))
 ':-'(cantFitBelow(A,B),(volume(A,X),below(B,Y),belowUsed(B,Z),'>'('+'(X,Z),Y)))
@@ -1074,54 +1182,57 @@ capacityUsed(player,0)
 ':-'(tooBigBelow(A,B),(volume(A,X),below(B,Y),'>'(X,Y)))
 ':-'(sameObject(A,B),'='(A,B))
 ':-'(notObject(A),not(isObject(A)))
-':-'(targetClosed(A),(hasProperty(A,_closablecontainer),isClosed(A,true)))
+':-'(targetClosed(A),(hasProperty(A,closablecontainer),isClosed(A,true)))
 isRoom(storageroom)
 isLocated(player,storageroom,0)
 isRoom(exit)
+hasProperty(cupboard,closablecontainer)
 isObject(cupboard)
 volume(cupboard,50)
 capacity(cupboard,50)
 surface(cupboard,50)
-surfaceUsed(cupboard,0)
-hasProperty(cupboard,_closablecontainer)
 isLocated(cupboard,storageroom,0)
+hasProperty(smallbox,takeable)
 isObject(smallbox)
 volume(smallbox,25)
 capacity(smallbox,25)
 capacityUsed(smallbox,0)
-hasProperty(smallbox,_takeable)
+hasProperty(mediumbox,takeable)
 isObject(mediumbox)
 volume(mediumbox,50)
 capacity(mediumbox,50)
-capacityUsed(mediumbox,0)
-hasProperty(mediumbox,_takeable)
-isLocated(mediumbox,storageroom,0)
+hasProperty(bigbox,takeable)
 isObject(bigbox)
 volume(bigbox,75)
 capacity(bigbox,75)
 capacityUsed(bigbox,0)
-hasProperty(bigbox,_takeable)
 isLocated(bigbox,storageroom,0)
-flag(_smallinmedium,0)
-isClosed(cupboard,false)
-capacityUsed(cupboard,25)
-isLocated(smallbox,cupboard,0)
+surfaceUsed(cupboard,50)
+isLocated(mediumbox,cupboard,1)
+capacityUsed(cupboard,0)
+isClosed(cupboard,true)
+capacityUsed(player,-25)
+capacityUsed(mediumbox,25)
+isLocated(smallbox,mediumbox,0)
+flag(_smallinmedium,1)
 
 ======================================================================================
-Processing user input: close closet
+Processing user input: put medium box in big box
 ======================================================================================
 
-DEBUG: Pre-process input lemmas: [close, closet]
-DEBUG: Pre-process input posTags: [JJ, NN]
+DEBUG: Pre-process input lemmas: [put, medium, box, in, big, box]
+DEBUG: Pre-process input posTags: [VB, NNP, NNP, IN, NNP, NNP]
 DEBUG: Removing conflicting synonym: box
-DEBUG: Adding [cupboard] to matched objects
+DEBUG: Adding [big, box] to matched objects
+DEBUG: Adding 4 to matched indices
+DEBUG: Adding [medium, box] to matched objects
 DEBUG: Adding 1 to matched indices
-DEBUG: Pre-processed: close item1
-DEBUG: Lemmas: [close, item]
-DEBUG: Verb found: CLOSE ITEM
-DEBUG: PRSA set to: CLOSE ITEM
+DEBUG: Pre-processed: put item2 in item1
+DEBUG: Lemmas: [put, item, in, item]
+DEBUG: Verb found: PUT ITEM IN ITEM
+DEBUG: PRSA set to: PUT ITEM IN ITEM
 
-DEBUG: PRSA: CLOSE ITEM, PRSO: CUPBOARD, PRSI: null
+DEBUG: PRSA: PUT ITEM IN ITEM, PRSO: MEDIUMBOX, PRSI: BIGBOX
 
 DEBUG: ATTEMPT TO PERFORM ACTION ON PRSI
 
@@ -1129,23 +1240,63 @@ DEBUG: FAILED TO PERFORM ACTION ON PRSI
 
 DEBUG: ATTEMPT TO PERFORM ACTION ON PRSO
 
-DEBUG: FAILED TO PERFORM ACTION ON PRSO
+DEBUG: Checking whether conditional: <PRSA: [PLACE, PUT] && PRSA: [IN, INSIDE] && PRSO: [MEDIUMBOX] && PRSI: [BIGBOX]> is satisfied
+DEBUG: Checking Condition list for condition: PRSA: [PLACE, PUT]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = true
+DEBUG: Checking PRSACond: Checking PRSA for verb(s) out of: [PLACE, PUT]
+DEBUG: PRSACond satisfied since PUT contained in PRSA list (PRSA: PUT ITEM IN ITEM)
+DEBUG: Checking Condition list for condition: PRSA: [IN, INSIDE]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = true
+DEBUG: Checking PRSACond: Checking PRSA for verb(s) out of: [IN, INSIDE]
+DEBUG: PRSACond satisfied since IN contained in PRSA list (PRSA: PUT ITEM IN ITEM)
+DEBUG: Checking Condition list for condition: PRSO: [MEDIUMBOX]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = true
+DEBUG: Checking PRSOCond: Checking PRSO is one of: [MEDIUMBOX]
+DEBUG: PRSICond satisfied since PRSO = MEDIUMBOX
+DEBUG: Checking Condition list for condition: PRSI: [BIGBOX]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking PRSICond: Checking PRSI is one of: [BIGBOX]
+DEBUG: PRSICond satisfied since PRSI = BIGBOX
+DEBUG: Condition is satisfied
 
-DEBUG: ATTEMPT TO PERFORM GENERIC ACTION ON PRSA
-DEBUG: Corrected Verb: close
+DEBUG: Querying: isRoom(bigbox)
 
-DEBUG: Removed clause isClosed(cupboard,false)
+DEBUG: Querying: putInIgnoreScope(mediumbox,bigbox)
+DEBUG: Solution: putInIgnoreScope(mediumbox,bigbox) - bindings: yes.
 
-DEBUG: Adding clause isClosed(cupboard,true)
+DEBUG: Querying: isObject(cupboard)
+DEBUG: Solution: isObject(cupboard) - bindings: yes.
+
+DEBUG: Querying: surfaceUsed(cupboard,X)
+DEBUG: Solution: surfaceUsed(cupboard,50) - bindings: yes.
+X / 50
+
+DEBUG: Removed clause surfaceUsed(cupboard,50)
+
+DEBUG: Adding clause surfaceUsed(cupboard,0)
+
+DEBUG: Querying: isObject(bigbox)
+DEBUG: Solution: isObject(bigbox) - bindings: yes.
+
+DEBUG: Querying: capacityUsed(bigbox,X)
+DEBUG: Solution: capacityUsed(bigbox,0) - bindings: yes.
+X / 0
+
+DEBUG: Removed clause capacityUsed(bigbox,0)
+
+DEBUG: Adding clause capacityUsed(bigbox,50)
+
+DEBUG: Removed clause isLocated(mediumbox,cupboard,1)
+
+DEBUG: Adding clause isLocated(mediumbox,bigbox,0)
+
+DEBUG: Removed clause flag(_smallinmedium,1)
+
+DEBUG: Adding clause flag(_mediuminbig,1)
 
 Knowledge Base:
 isObject(player)
 capacity(player,2147483647)
-capacityUsed(player,0)
 ':-'(inScope(A),(isObject(A),isLocated(A,B,_1071),isLocated(player,B,_1072),'!'))
-':-'(inScope(A),(isObject(A),isLocated(A,B,_1075),hasProperty(B,_closablecontainer),'!',isClosed(B,false),inScope(B)))
-':-'(inScope(A),(isObject(A),isLocated(A,B,_1079),inScope(B)))
-':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),hasProperty(B,_closablecontainer),'!',isClosed(B,false),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1075),hasProperty(B,closablecontainer),'!',isClosed(B,false),inScope(B)))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1078),inScope(B)))
+':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),hasProperty(B,closablecontainer),'!',isClosed(B,false),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putInIgnoreScope(A,B),('\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putOn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
@@ -1153,9 +1304,9 @@ capacityUsed(player,0)
 ':-'(putBelow(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putBelowIgnoreScope(A,B),('\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(outOfScope(A),not(inScope(A)))
-':-'(noCapacity(A),not(capacity(A,_1125)))
-':-'(noSurface(A),not(surface(A,_1127)))
-':-'(noBelow(A),not(below(A,_1129)))
+':-'(noCapacity(A),not(capacity(A,_1123)))
+':-'(noSurface(A),not(surface(A,_1125)))
+':-'(noBelow(A),not(below(A,_1127)))
 ':-'(cantFitCapacity(A,B),(volume(A,X),capacity(B,Y),capacityUsed(B,Z),'>'('+'(X,Z),Y)))
 ':-'(cantFitSurface(A,B),(volume(A,X),surface(B,Y),surfaceUsed(B,Z),'>'('+'(X,Z),Y)))
 ':-'(cantFitBelow(A,B),(volume(A,X),below(B,Y),belowUsed(B,Z),'>'('+'(X,Z),Y)))
@@ -1164,38 +1315,182 @@ capacityUsed(player,0)
 ':-'(tooBigBelow(A,B),(volume(A,X),below(B,Y),'>'(X,Y)))
 ':-'(sameObject(A,B),'='(A,B))
 ':-'(notObject(A),not(isObject(A)))
-':-'(targetClosed(A),(hasProperty(A,_closablecontainer),isClosed(A,true)))
+':-'(targetClosed(A),(hasProperty(A,closablecontainer),isClosed(A,true)))
 isRoom(storageroom)
 isLocated(player,storageroom,0)
 isRoom(exit)
+hasProperty(cupboard,closablecontainer)
 isObject(cupboard)
 volume(cupboard,50)
 capacity(cupboard,50)
 surface(cupboard,50)
-surfaceUsed(cupboard,0)
-hasProperty(cupboard,_closablecontainer)
 isLocated(cupboard,storageroom,0)
+hasProperty(smallbox,takeable)
 isObject(smallbox)
 volume(smallbox,25)
 capacity(smallbox,25)
 capacityUsed(smallbox,0)
-hasProperty(smallbox,_takeable)
+hasProperty(mediumbox,takeable)
 isObject(mediumbox)
 volume(mediumbox,50)
 capacity(mediumbox,50)
-capacityUsed(mediumbox,0)
-hasProperty(mediumbox,_takeable)
-isLocated(mediumbox,storageroom,0)
+hasProperty(bigbox,takeable)
 isObject(bigbox)
 volume(bigbox,75)
 capacity(bigbox,75)
-capacityUsed(bigbox,0)
-hasProperty(bigbox,_takeable)
 isLocated(bigbox,storageroom,0)
-flag(_smallinmedium,0)
-capacityUsed(cupboard,25)
-isLocated(smallbox,cupboard,0)
+capacityUsed(cupboard,0)
 isClosed(cupboard,true)
+capacityUsed(player,-25)
+capacityUsed(mediumbox,25)
+isLocated(smallbox,mediumbox,0)
+surfaceUsed(cupboard,0)
+capacityUsed(bigbox,50)
+isLocated(mediumbox,bigbox,0)
+flag(_mediuminbig,1)
+
+======================================================================================
+Processing user input: put small box in big box
+======================================================================================
+
+DEBUG: Pre-process input lemmas: [put, small, box, in, big, box]
+DEBUG: Pre-process input posTags: [VB, NNP, NNP, IN, NNP, NNP]
+DEBUG: Removing conflicting synonym: box
+DEBUG: Adding [big, box] to matched objects
+DEBUG: Adding 4 to matched indices
+DEBUG: Adding [small, box] to matched objects
+DEBUG: Adding 1 to matched indices
+DEBUG: Pre-processed: put item2 in item1
+DEBUG: Lemmas: [put, item, in, item]
+DEBUG: Verb found: PUT ITEM IN ITEM
+DEBUG: PRSA set to: PUT ITEM IN ITEM
+
+DEBUG: PRSA: PUT ITEM IN ITEM, PRSO: SMALLBOX, PRSI: BIGBOX
+
+DEBUG: ATTEMPT TO PERFORM ACTION ON PRSI
+
+DEBUG: FAILED TO PERFORM ACTION ON PRSI
+
+DEBUG: ATTEMPT TO PERFORM ACTION ON PRSO
+
+DEBUG: Checking whether conditional: <PRSA: [PLACE, PUT] && PRSA: [IN, INSIDE] && PRSO: [SMALLBOX] && PRSI: [MEDIUMBOX]> is satisfied
+DEBUG: Checking Condition list for condition: PRSA: [PLACE, PUT]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = true
+DEBUG: Checking PRSACond: Checking PRSA for verb(s) out of: [PLACE, PUT]
+DEBUG: PRSACond satisfied since PUT contained in PRSA list (PRSA: PUT ITEM IN ITEM)
+DEBUG: Checking Condition list for condition: PRSA: [IN, INSIDE]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = true
+DEBUG: Checking PRSACond: Checking PRSA for verb(s) out of: [IN, INSIDE]
+DEBUG: PRSACond satisfied since IN contained in PRSA list (PRSA: PUT ITEM IN ITEM)
+DEBUG: Checking Condition list for condition: PRSO: [SMALLBOX]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = true
+DEBUG: Checking PRSOCond: Checking PRSO is one of: [SMALLBOX]
+DEBUG: PRSICond satisfied since PRSO = SMALLBOX
+DEBUG: Checking Condition list for condition: PRSI: [MEDIUMBOX]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking PRSICond: Checking PRSI is one of: [MEDIUMBOX]
+DEBUG: PRSICond not satisfied since PRSI = BIGBOX
+DEBUG: Condition is not satisfied
+
+DEBUG: Checking whether conditional: <PRSA: [TAKE, OBTAIN] && PRSO: [SMALLBOX]> is satisfied
+DEBUG: Checking Condition list for condition: PRSA: [TAKE, OBTAIN]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = true
+DEBUG: Checking PRSACond: Checking PRSA for verb(s) out of: [TAKE, OBTAIN]
+DEBUG: PRSACond not satisfied since no expected verbs are in the PRSA (PRSA: PUT ITEM IN ITEM)
+DEBUG: Condition is not satisfied
+
+DEBUG: FAILED TO PERFORM ACTION ON PRSO
+
+DEBUG: ATTEMPT TO PERFORM GENERIC ACTION ON PRSA
+DEBUG: Corrected Verb: place in
+
+DEBUG: FAILED TO PERFORM GENERIC ACTION USING PRSA
+
+DEBUG: ATTEMPT TO PERFORM ENHANCED ACTION ON PRSA
+DEBUG: Trying to place in
+
+DEBUG: Querying: putIn(smallbox,bigbox)
+DEBUG: Solution: putIn(smallbox,bigbox) - bindings: yes.
+
+DEBUG: Querying: isObject(mediumbox)
+DEBUG: Solution: isObject(mediumbox) - bindings: yes.
+
+DEBUG: Querying: capacityUsed(mediumbox,X)
+DEBUG: Solution: capacityUsed(mediumbox,25) - bindings: yes.
+X / 25
+
+DEBUG: Removed clause capacityUsed(mediumbox,25)
+
+DEBUG: Adding clause capacityUsed(mediumbox,0)
+
+DEBUG: Querying: isObject(bigbox)
+DEBUG: Solution: isObject(bigbox) - bindings: yes.
+
+DEBUG: Querying: capacityUsed(bigbox,X)
+DEBUG: Solution: capacityUsed(bigbox,50) - bindings: yes.
+X / 50
+
+DEBUG: Removed clause capacityUsed(bigbox,50)
+
+DEBUG: Adding clause capacityUsed(bigbox,75)
+
+DEBUG: Removed clause isLocated(smallbox,mediumbox,0)
+
+DEBUG: Adding clause isLocated(smallbox,bigbox,0)
+
+Knowledge Base:
+isObject(player)
+capacity(player,2147483647)
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1071),isLocated(player,B,_1072),'!'))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1075),hasProperty(B,closablecontainer),'!',isClosed(B,false),inScope(B)))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1078),inScope(B)))
+':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),hasProperty(B,closablecontainer),'!',isClosed(B,false),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putInIgnoreScope(A,B),('\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putOn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putOnIgnoreScope(A,B),('\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putBelow(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putBelowIgnoreScope(A,B),('\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(outOfScope(A),not(inScope(A)))
+':-'(noCapacity(A),not(capacity(A,_1123)))
+':-'(noSurface(A),not(surface(A,_1125)))
+':-'(noBelow(A),not(below(A,_1127)))
+':-'(cantFitCapacity(A,B),(volume(A,X),capacity(B,Y),capacityUsed(B,Z),'>'('+'(X,Z),Y)))
+':-'(cantFitSurface(A,B),(volume(A,X),surface(B,Y),surfaceUsed(B,Z),'>'('+'(X,Z),Y)))
+':-'(cantFitBelow(A,B),(volume(A,X),below(B,Y),belowUsed(B,Z),'>'('+'(X,Z),Y)))
+':-'(tooBigCapacity(A,B),(volume(A,X),capacity(B,Y),'>'(X,Y)))
+':-'(tooBigSurface(A,B),(volume(A,X),surface(B,Y),'>'(X,Y)))
+':-'(tooBigBelow(A,B),(volume(A,X),below(B,Y),'>'(X,Y)))
+':-'(sameObject(A,B),'='(A,B))
+':-'(notObject(A),not(isObject(A)))
+':-'(targetClosed(A),(hasProperty(A,closablecontainer),isClosed(A,true)))
+isRoom(storageroom)
+isLocated(player,storageroom,0)
+isRoom(exit)
+hasProperty(cupboard,closablecontainer)
+isObject(cupboard)
+volume(cupboard,50)
+capacity(cupboard,50)
+surface(cupboard,50)
+isLocated(cupboard,storageroom,0)
+hasProperty(smallbox,takeable)
+isObject(smallbox)
+volume(smallbox,25)
+capacity(smallbox,25)
+capacityUsed(smallbox,0)
+hasProperty(mediumbox,takeable)
+isObject(mediumbox)
+volume(mediumbox,50)
+capacity(mediumbox,50)
+hasProperty(bigbox,takeable)
+isObject(bigbox)
+volume(bigbox,75)
+capacity(bigbox,75)
+isLocated(bigbox,storageroom,0)
+capacityUsed(cupboard,0)
+isClosed(cupboard,true)
+capacityUsed(player,-25)
+surfaceUsed(cupboard,0)
+isLocated(mediumbox,bigbox,0)
+flag(_mediuminbig,1)
+capacityUsed(mediumbox,0)
+capacityUsed(bigbox,75)
+isLocated(smallbox,bigbox,0)
 
 ======================================================================================
 Processing user input: take small box
@@ -1204,84 +1499,14 @@ Processing user input: take small box
 DEBUG: Pre-process input lemmas: [take, small, box]
 DEBUG: Pre-process input posTags: [VB, NNP, NNP]
 DEBUG: Removing conflicting synonym: box
-
-DEBUG: PRSA: CONFLICT, PRSO: null, PRSI: null
-
-
-Knowledge Base:
-isObject(player)
-capacity(player,2147483647)
-capacityUsed(player,0)
-':-'(inScope(A),(isObject(A),isLocated(A,B,_1071),isLocated(player,B,_1072),'!'))
-':-'(inScope(A),(isObject(A),isLocated(A,B,_1075),hasProperty(B,_closablecontainer),'!',isClosed(B,false),inScope(B)))
-':-'(inScope(A),(isObject(A),isLocated(A,B,_1079),inScope(B)))
-':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),hasProperty(B,_closablecontainer),'!',isClosed(B,false),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
-':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
-':-'(putInIgnoreScope(A,B),('\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
-':-'(putOn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
-':-'(putOnIgnoreScope(A,B),('\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
-':-'(putBelow(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
-':-'(putBelowIgnoreScope(A,B),('\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
-':-'(outOfScope(A),not(inScope(A)))
-':-'(noCapacity(A),not(capacity(A,_1125)))
-':-'(noSurface(A),not(surface(A,_1127)))
-':-'(noBelow(A),not(below(A,_1129)))
-':-'(cantFitCapacity(A,B),(volume(A,X),capacity(B,Y),capacityUsed(B,Z),'>'('+'(X,Z),Y)))
-':-'(cantFitSurface(A,B),(volume(A,X),surface(B,Y),surfaceUsed(B,Z),'>'('+'(X,Z),Y)))
-':-'(cantFitBelow(A,B),(volume(A,X),below(B,Y),belowUsed(B,Z),'>'('+'(X,Z),Y)))
-':-'(tooBigCapacity(A,B),(volume(A,X),capacity(B,Y),'>'(X,Y)))
-':-'(tooBigSurface(A,B),(volume(A,X),surface(B,Y),'>'(X,Y)))
-':-'(tooBigBelow(A,B),(volume(A,X),below(B,Y),'>'(X,Y)))
-':-'(sameObject(A,B),'='(A,B))
-':-'(notObject(A),not(isObject(A)))
-':-'(targetClosed(A),(hasProperty(A,_closablecontainer),isClosed(A,true)))
-isRoom(storageroom)
-isLocated(player,storageroom,0)
-isRoom(exit)
-isObject(cupboard)
-volume(cupboard,50)
-capacity(cupboard,50)
-surface(cupboard,50)
-surfaceUsed(cupboard,0)
-hasProperty(cupboard,_closablecontainer)
-isLocated(cupboard,storageroom,0)
-isObject(smallbox)
-volume(smallbox,25)
-capacity(smallbox,25)
-capacityUsed(smallbox,0)
-hasProperty(smallbox,_takeable)
-isObject(mediumbox)
-volume(mediumbox,50)
-capacity(mediumbox,50)
-capacityUsed(mediumbox,0)
-hasProperty(mediumbox,_takeable)
-isLocated(mediumbox,storageroom,0)
-isObject(bigbox)
-volume(bigbox,75)
-capacity(bigbox,75)
-capacityUsed(bigbox,0)
-hasProperty(bigbox,_takeable)
-isLocated(bigbox,storageroom,0)
-flag(_smallinmedium,0)
-capacityUsed(cupboard,25)
-isLocated(smallbox,cupboard,0)
-isClosed(cupboard,true)
-
-======================================================================================
-Processing user input: open closet
-======================================================================================
-
-DEBUG: Pre-process input lemmas: [open, closet]
-DEBUG: Pre-process input posTags: [NNP, NNP]
-DEBUG: Removing conflicting synonym: box
-DEBUG: Adding [cupboard] to matched objects
+DEBUG: Adding [small, box] to matched objects
 DEBUG: Adding 1 to matched indices
-DEBUG: Pre-processed: open item1
-DEBUG: Lemmas: [open, item]
-DEBUG: Verb found: OPEN ITEM
-DEBUG: PRSA set to: OPEN ITEM
+DEBUG: Pre-processed: take item1
+DEBUG: Lemmas: [take, item]
+DEBUG: Verb found: TAKE
+DEBUG: PRSA set to: TAKE
 
-DEBUG: PRSA: OPEN ITEM, PRSO: CUPBOARD, PRSI: null
+DEBUG: PRSA: TAKE, PRSO: SMALLBOX, PRSI: null
 
 DEBUG: ATTEMPT TO PERFORM ACTION ON PRSI
 
@@ -1289,23 +1514,51 @@ DEBUG: FAILED TO PERFORM ACTION ON PRSI
 
 DEBUG: ATTEMPT TO PERFORM ACTION ON PRSO
 
-DEBUG: FAILED TO PERFORM ACTION ON PRSO
+DEBUG: Checking whether conditional: <PRSA: [PLACE, PUT] && PRSA: [IN, INSIDE] && PRSO: [SMALLBOX] && PRSI: [MEDIUMBOX]> is satisfied
+DEBUG: Checking Condition list for condition: PRSA: [PLACE, PUT]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = true
+DEBUG: Checking PRSACond: Checking PRSA for verb(s) out of: [PLACE, PUT]
+DEBUG: PRSACond not satisfied since no expected verbs are in the PRSA (PRSA: TAKE)
+DEBUG: Condition is not satisfied
 
-DEBUG: ATTEMPT TO PERFORM GENERIC ACTION ON PRSA
-DEBUG: Corrected Verb: open
+DEBUG: Checking whether conditional: <PRSA: [TAKE, OBTAIN] && PRSO: [SMALLBOX]> is satisfied
+DEBUG: Checking Condition list for condition: PRSA: [TAKE, OBTAIN]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = true
+DEBUG: Checking PRSACond: Checking PRSA for verb(s) out of: [TAKE, OBTAIN]
+DEBUG: PRSACond satisfied since TAKE contained in PRSA list (PRSA: TAKE)
+DEBUG: Checking Condition list for condition: PRSO: [SMALLBOX]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking PRSOCond: Checking PRSO is one of: [SMALLBOX]
+DEBUG: PRSICond satisfied since PRSO = SMALLBOX
+DEBUG: Condition is satisfied
 
-DEBUG: Removed clause isClosed(cupboard,true)
+DEBUG: Querying: isLocated(X,smallbox,1)
 
-DEBUG: Adding clause isClosed(cupboard,false)
+DEBUG: Querying: notInScope(smallbox)
+
+DEBUG: Querying: isObject(bigbox)
+DEBUG: Solution: isObject(bigbox) - bindings: yes.
+
+DEBUG: Querying: capacityUsed(bigbox,X)
+DEBUG: Solution: capacityUsed(bigbox,75) - bindings: yes.
+X / 75
+
+DEBUG: Removed clause capacityUsed(bigbox,75)
+
+DEBUG: Adding clause capacityUsed(bigbox,50)
+
+DEBUG: Removed clause isLocated(smallbox,bigbox,0)
+
+DEBUG: Adding clause isLocated(smallbox,player,0)
+
+DEBUG: Removed clause flag(_mediuminbig,1)
+
+DEBUG: Adding clause flag(_smallinmedium,0)
 
 Knowledge Base:
 isObject(player)
 capacity(player,2147483647)
-capacityUsed(player,0)
 ':-'(inScope(A),(isObject(A),isLocated(A,B,_1071),isLocated(player,B,_1072),'!'))
-':-'(inScope(A),(isObject(A),isLocated(A,B,_1075),hasProperty(B,_closablecontainer),'!',isClosed(B,false),inScope(B)))
-':-'(inScope(A),(isObject(A),isLocated(A,B,_1079),inScope(B)))
-':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),hasProperty(B,_closablecontainer),'!',isClosed(B,false),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1075),hasProperty(B,closablecontainer),'!',isClosed(B,false),inScope(B)))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1078),inScope(B)))
+':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),hasProperty(B,closablecontainer),'!',isClosed(B,false),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putInIgnoreScope(A,B),('\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putOn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
@@ -1313,9 +1566,9 @@ capacityUsed(player,0)
 ':-'(putBelow(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putBelowIgnoreScope(A,B),('\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(outOfScope(A),not(inScope(A)))
-':-'(noCapacity(A),not(capacity(A,_1125)))
-':-'(noSurface(A),not(surface(A,_1127)))
-':-'(noBelow(A),not(below(A,_1129)))
+':-'(noCapacity(A),not(capacity(A,_1123)))
+':-'(noSurface(A),not(surface(A,_1125)))
+':-'(noBelow(A),not(below(A,_1127)))
 ':-'(cantFitCapacity(A,B),(volume(A,X),capacity(B,Y),capacityUsed(B,Z),'>'('+'(X,Z),Y)))
 ':-'(cantFitSurface(A,B),(volume(A,X),surface(B,Y),surfaceUsed(B,Z),'>'('+'(X,Z),Y)))
 ':-'(cantFitBelow(A,B),(volume(A,X),below(B,Y),belowUsed(B,Z),'>'('+'(X,Z),Y)))
@@ -1324,38 +1577,182 @@ capacityUsed(player,0)
 ':-'(tooBigBelow(A,B),(volume(A,X),below(B,Y),'>'(X,Y)))
 ':-'(sameObject(A,B),'='(A,B))
 ':-'(notObject(A),not(isObject(A)))
-':-'(targetClosed(A),(hasProperty(A,_closablecontainer),isClosed(A,true)))
+':-'(targetClosed(A),(hasProperty(A,closablecontainer),isClosed(A,true)))
 isRoom(storageroom)
 isLocated(player,storageroom,0)
 isRoom(exit)
+hasProperty(cupboard,closablecontainer)
 isObject(cupboard)
 volume(cupboard,50)
 capacity(cupboard,50)
 surface(cupboard,50)
-surfaceUsed(cupboard,0)
-hasProperty(cupboard,_closablecontainer)
 isLocated(cupboard,storageroom,0)
+hasProperty(smallbox,takeable)
 isObject(smallbox)
 volume(smallbox,25)
 capacity(smallbox,25)
 capacityUsed(smallbox,0)
-hasProperty(smallbox,_takeable)
+hasProperty(mediumbox,takeable)
 isObject(mediumbox)
 volume(mediumbox,50)
 capacity(mediumbox,50)
-capacityUsed(mediumbox,0)
-hasProperty(mediumbox,_takeable)
-isLocated(mediumbox,storageroom,0)
+hasProperty(bigbox,takeable)
 isObject(bigbox)
 volume(bigbox,75)
 capacity(bigbox,75)
-capacityUsed(bigbox,0)
-hasProperty(bigbox,_takeable)
 isLocated(bigbox,storageroom,0)
+capacityUsed(cupboard,0)
+isClosed(cupboard,true)
+capacityUsed(player,-25)
+surfaceUsed(cupboard,0)
+isLocated(mediumbox,bigbox,0)
+capacityUsed(mediumbox,0)
+capacityUsed(bigbox,50)
+isLocated(smallbox,player,0)
 flag(_smallinmedium,0)
-capacityUsed(cupboard,25)
-isLocated(smallbox,cupboard,0)
-isClosed(cupboard,false)
+
+======================================================================================
+Processing user input: put small box in big box
+======================================================================================
+
+DEBUG: Pre-process input lemmas: [put, small, box, in, big, box]
+DEBUG: Pre-process input posTags: [VB, NNP, NNP, IN, NNP, NNP]
+DEBUG: Removing conflicting synonym: box
+DEBUG: Adding [big, box] to matched objects
+DEBUG: Adding 4 to matched indices
+DEBUG: Adding [small, box] to matched objects
+DEBUG: Adding 1 to matched indices
+DEBUG: Pre-processed: put item2 in item1
+DEBUG: Lemmas: [put, item, in, item]
+DEBUG: Verb found: PUT ITEM IN ITEM
+DEBUG: PRSA set to: PUT ITEM IN ITEM
+
+DEBUG: PRSA: PUT ITEM IN ITEM, PRSO: SMALLBOX, PRSI: BIGBOX
+
+DEBUG: ATTEMPT TO PERFORM ACTION ON PRSI
+
+DEBUG: FAILED TO PERFORM ACTION ON PRSI
+
+DEBUG: ATTEMPT TO PERFORM ACTION ON PRSO
+
+DEBUG: Checking whether conditional: <PRSA: [PLACE, PUT] && PRSA: [IN, INSIDE] && PRSO: [SMALLBOX] && PRSI: [MEDIUMBOX]> is satisfied
+DEBUG: Checking Condition list for condition: PRSA: [PLACE, PUT]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = true
+DEBUG: Checking PRSACond: Checking PRSA for verb(s) out of: [PLACE, PUT]
+DEBUG: PRSACond satisfied since PUT contained in PRSA list (PRSA: PUT ITEM IN ITEM)
+DEBUG: Checking Condition list for condition: PRSA: [IN, INSIDE]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = true
+DEBUG: Checking PRSACond: Checking PRSA for verb(s) out of: [IN, INSIDE]
+DEBUG: PRSACond satisfied since IN contained in PRSA list (PRSA: PUT ITEM IN ITEM)
+DEBUG: Checking Condition list for condition: PRSO: [SMALLBOX]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = true
+DEBUG: Checking PRSOCond: Checking PRSO is one of: [SMALLBOX]
+DEBUG: PRSICond satisfied since PRSO = SMALLBOX
+DEBUG: Checking Condition list for condition: PRSI: [MEDIUMBOX]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking PRSICond: Checking PRSI is one of: [MEDIUMBOX]
+DEBUG: PRSICond not satisfied since PRSI = BIGBOX
+DEBUG: Condition is not satisfied
+
+DEBUG: Checking whether conditional: <PRSA: [TAKE, OBTAIN] && PRSO: [SMALLBOX]> is satisfied
+DEBUG: Checking Condition list for condition: PRSA: [TAKE, OBTAIN]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = true
+DEBUG: Checking PRSACond: Checking PRSA for verb(s) out of: [TAKE, OBTAIN]
+DEBUG: PRSACond not satisfied since no expected verbs are in the PRSA (PRSA: PUT ITEM IN ITEM)
+DEBUG: Condition is not satisfied
+
+DEBUG: FAILED TO PERFORM ACTION ON PRSO
+
+DEBUG: ATTEMPT TO PERFORM GENERIC ACTION ON PRSA
+DEBUG: Corrected Verb: place in
+
+DEBUG: FAILED TO PERFORM GENERIC ACTION USING PRSA
+
+DEBUG: ATTEMPT TO PERFORM ENHANCED ACTION ON PRSA
+DEBUG: Trying to place in
+
+DEBUG: Querying: putIn(smallbox,bigbox)
+DEBUG: Solution: putIn(smallbox,bigbox) - bindings: yes.
+
+DEBUG: Querying: isObject(player)
+DEBUG: Solution: isObject(player) - bindings: yes.
+
+DEBUG: Querying: capacityUsed(player,X)
+DEBUG: Solution: capacityUsed(player,-25) - bindings: yes.
+X / -25
+
+DEBUG: Removed clause capacityUsed(player,-25)
+
+DEBUG: Adding clause capacityUsed(player,-50)
+
+DEBUG: Querying: isObject(bigbox)
+DEBUG: Solution: isObject(bigbox) - bindings: yes.
+
+DEBUG: Querying: capacityUsed(bigbox,X)
+DEBUG: Solution: capacityUsed(bigbox,50) - bindings: yes.
+X / 50
+
+DEBUG: Removed clause capacityUsed(bigbox,50)
+
+DEBUG: Adding clause capacityUsed(bigbox,75)
+
+DEBUG: Removed clause isLocated(smallbox,player,0)
+
+DEBUG: Adding clause isLocated(smallbox,bigbox,0)
+
+Knowledge Base:
+isObject(player)
+capacity(player,2147483647)
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1071),isLocated(player,B,_1072),'!'))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1075),hasProperty(B,closablecontainer),'!',isClosed(B,false),inScope(B)))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1078),inScope(B)))
+':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),hasProperty(B,closablecontainer),'!',isClosed(B,false),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putInIgnoreScope(A,B),('\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putOn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putOnIgnoreScope(A,B),('\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putBelow(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putBelowIgnoreScope(A,B),('\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(outOfScope(A),not(inScope(A)))
+':-'(noCapacity(A),not(capacity(A,_1123)))
+':-'(noSurface(A),not(surface(A,_1125)))
+':-'(noBelow(A),not(below(A,_1127)))
+':-'(cantFitCapacity(A,B),(volume(A,X),capacity(B,Y),capacityUsed(B,Z),'>'('+'(X,Z),Y)))
+':-'(cantFitSurface(A,B),(volume(A,X),surface(B,Y),surfaceUsed(B,Z),'>'('+'(X,Z),Y)))
+':-'(cantFitBelow(A,B),(volume(A,X),below(B,Y),belowUsed(B,Z),'>'('+'(X,Z),Y)))
+':-'(tooBigCapacity(A,B),(volume(A,X),capacity(B,Y),'>'(X,Y)))
+':-'(tooBigSurface(A,B),(volume(A,X),surface(B,Y),'>'(X,Y)))
+':-'(tooBigBelow(A,B),(volume(A,X),below(B,Y),'>'(X,Y)))
+':-'(sameObject(A,B),'='(A,B))
+':-'(notObject(A),not(isObject(A)))
+':-'(targetClosed(A),(hasProperty(A,closablecontainer),isClosed(A,true)))
+isRoom(storageroom)
+isLocated(player,storageroom,0)
+isRoom(exit)
+hasProperty(cupboard,closablecontainer)
+isObject(cupboard)
+volume(cupboard,50)
+capacity(cupboard,50)
+surface(cupboard,50)
+isLocated(cupboard,storageroom,0)
+hasProperty(smallbox,takeable)
+isObject(smallbox)
+volume(smallbox,25)
+capacity(smallbox,25)
+capacityUsed(smallbox,0)
+hasProperty(mediumbox,takeable)
+isObject(mediumbox)
+volume(mediumbox,50)
+capacity(mediumbox,50)
+hasProperty(bigbox,takeable)
+isObject(bigbox)
+volume(bigbox,75)
+capacity(bigbox,75)
+isLocated(bigbox,storageroom,0)
+capacityUsed(cupboard,0)
+isClosed(cupboard,true)
+surfaceUsed(cupboard,0)
+isLocated(mediumbox,bigbox,0)
+capacityUsed(mediumbox,0)
+flag(_smallinmedium,0)
+capacityUsed(player,-50)
+capacityUsed(bigbox,75)
+isLocated(smallbox,bigbox,0)
 
 ======================================================================================
 Processing user input: put small box in medium box
@@ -1364,11 +1761,11 @@ Processing user input: put small box in medium box
 DEBUG: Pre-process input lemmas: [put, small, box, in, medium, box]
 DEBUG: Pre-process input posTags: [VB, NNP, NNP, IN, NNP, NNP]
 DEBUG: Removing conflicting synonym: box
-DEBUG: Adding [medium, box] to matched objects
-DEBUG: Adding 4 to matched indices
 DEBUG: Adding [small, box] to matched objects
 DEBUG: Adding 1 to matched indices
-DEBUG: Pre-processed: put item2 in item1
+DEBUG: Adding [medium, box] to matched objects
+DEBUG: Adding 4 to matched indices
+DEBUG: Pre-processed: put item1 in item2
 DEBUG: Lemmas: [put, item, in, item]
 DEBUG: Verb found: PUT ITEM IN ITEM
 DEBUG: PRSA set to: PUT ITEM IN ITEM
@@ -1419,6 +1816,17 @@ DEBUG: Querying: isRoom(mediumbox)
 DEBUG: Querying: putInIgnoreScope(smallbox,mediumbox)
 DEBUG: Solution: putInIgnoreScope(smallbox,mediumbox) - bindings: yes.
 
+DEBUG: Querying: isObject(bigbox)
+DEBUG: Solution: isObject(bigbox) - bindings: yes.
+
+DEBUG: Querying: capacityUsed(bigbox,X)
+DEBUG: Solution: capacityUsed(bigbox,75) - bindings: yes.
+X / 75
+
+DEBUG: Removed clause capacityUsed(bigbox,75)
+
+DEBUG: Adding clause capacityUsed(bigbox,50)
+
 DEBUG: Querying: isObject(mediumbox)
 DEBUG: Solution: isObject(mediumbox) - bindings: yes.
 
@@ -1430,7 +1838,7 @@ DEBUG: Removed clause capacityUsed(mediumbox,0)
 
 DEBUG: Adding clause capacityUsed(mediumbox,25)
 
-DEBUG: Removed clause isLocated(smallbox,cupboard,0)
+DEBUG: Removed clause isLocated(smallbox,bigbox,0)
 
 DEBUG: Adding clause isLocated(smallbox,mediumbox,0)
 
@@ -1441,11 +1849,10 @@ DEBUG: Adding clause flag(_smallinmedium,1)
 Knowledge Base:
 isObject(player)
 capacity(player,2147483647)
-capacityUsed(player,0)
 ':-'(inScope(A),(isObject(A),isLocated(A,B,_1071),isLocated(player,B,_1072),'!'))
-':-'(inScope(A),(isObject(A),isLocated(A,B,_1075),hasProperty(B,_closablecontainer),'!',isClosed(B,false),inScope(B)))
-':-'(inScope(A),(isObject(A),isLocated(A,B,_1079),inScope(B)))
-':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),hasProperty(B,_closablecontainer),'!',isClosed(B,false),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1075),hasProperty(B,closablecontainer),'!',isClosed(B,false),inScope(B)))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1078),inScope(B)))
+':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),hasProperty(B,closablecontainer),'!',isClosed(B,false),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putInIgnoreScope(A,B),('\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putOn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
@@ -1453,9 +1860,9 @@ capacityUsed(player,0)
 ':-'(putBelow(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putBelowIgnoreScope(A,B),('\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(outOfScope(A),not(inScope(A)))
-':-'(noCapacity(A),not(capacity(A,_1125)))
-':-'(noSurface(A),not(surface(A,_1127)))
-':-'(noBelow(A),not(below(A,_1129)))
+':-'(noCapacity(A),not(capacity(A,_1123)))
+':-'(noSurface(A),not(surface(A,_1125)))
+':-'(noBelow(A),not(below(A,_1127)))
 ':-'(cantFitCapacity(A,B),(volume(A,X),capacity(B,Y),capacityUsed(B,Z),'>'('+'(X,Z),Y)))
 ':-'(cantFitSurface(A,B),(volume(A,X),surface(B,Y),surfaceUsed(B,Z),'>'('+'(X,Z),Y)))
 ':-'(cantFitBelow(A,B),(volume(A,X),below(B,Y),belowUsed(B,Z),'>'('+'(X,Z),Y)))
@@ -1464,35 +1871,36 @@ capacityUsed(player,0)
 ':-'(tooBigBelow(A,B),(volume(A,X),below(B,Y),'>'(X,Y)))
 ':-'(sameObject(A,B),'='(A,B))
 ':-'(notObject(A),not(isObject(A)))
-':-'(targetClosed(A),(hasProperty(A,_closablecontainer),isClosed(A,true)))
+':-'(targetClosed(A),(hasProperty(A,closablecontainer),isClosed(A,true)))
 isRoom(storageroom)
 isLocated(player,storageroom,0)
 isRoom(exit)
+hasProperty(cupboard,closablecontainer)
 isObject(cupboard)
 volume(cupboard,50)
 capacity(cupboard,50)
 surface(cupboard,50)
-surfaceUsed(cupboard,0)
-hasProperty(cupboard,_closablecontainer)
 isLocated(cupboard,storageroom,0)
+hasProperty(smallbox,takeable)
 isObject(smallbox)
 volume(smallbox,25)
 capacity(smallbox,25)
 capacityUsed(smallbox,0)
-hasProperty(smallbox,_takeable)
+hasProperty(mediumbox,takeable)
 isObject(mediumbox)
 volume(mediumbox,50)
 capacity(mediumbox,50)
-hasProperty(mediumbox,_takeable)
-isLocated(mediumbox,storageroom,0)
+hasProperty(bigbox,takeable)
 isObject(bigbox)
 volume(bigbox,75)
 capacity(bigbox,75)
-capacityUsed(bigbox,0)
-hasProperty(bigbox,_takeable)
 isLocated(bigbox,storageroom,0)
-capacityUsed(cupboard,25)
-isClosed(cupboard,false)
+capacityUsed(cupboard,0)
+isClosed(cupboard,true)
+surfaceUsed(cupboard,0)
+isLocated(mediumbox,bigbox,0)
+capacityUsed(player,-50)
+capacityUsed(bigbox,50)
 capacityUsed(mediumbox,25)
 isLocated(smallbox,mediumbox,0)
 flag(_smallinmedium,1)
@@ -1539,35 +1947,14 @@ DEBUG: Condition is satisfied
 DEBUG: Querying: isRoom(bigbox)
 
 DEBUG: Querying: putInIgnoreScope(mediumbox,bigbox)
-DEBUG: Solution: putInIgnoreScope(mediumbox,bigbox) - bindings: yes.
-
-DEBUG: Querying: isObject(bigbox)
-DEBUG: Solution: isObject(bigbox) - bindings: yes.
-
-DEBUG: Querying: capacityUsed(bigbox,X)
-DEBUG: Solution: capacityUsed(bigbox,0) - bindings: yes.
-X / 0
-
-DEBUG: Removed clause capacityUsed(bigbox,0)
-
-DEBUG: Adding clause capacityUsed(bigbox,50)
-
-DEBUG: Removed clause isLocated(mediumbox,storageroom,0)
-
-DEBUG: Adding clause isLocated(mediumbox,bigbox,0)
-
-DEBUG: Removed clause flag(_smallinmedium,1)
-
-DEBUG: Adding clause flag(_mediuminbig,1)
 
 Knowledge Base:
 isObject(player)
 capacity(player,2147483647)
-capacityUsed(player,0)
 ':-'(inScope(A),(isObject(A),isLocated(A,B,_1071),isLocated(player,B,_1072),'!'))
-':-'(inScope(A),(isObject(A),isLocated(A,B,_1075),hasProperty(B,_closablecontainer),'!',isClosed(B,false),inScope(B)))
-':-'(inScope(A),(isObject(A),isLocated(A,B,_1079),inScope(B)))
-':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),hasProperty(B,_closablecontainer),'!',isClosed(B,false),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1075),hasProperty(B,closablecontainer),'!',isClosed(B,false),inScope(B)))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1078),inScope(B)))
+':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),hasProperty(B,closablecontainer),'!',isClosed(B,false),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putInIgnoreScope(A,B),('\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putOn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
@@ -1575,9 +1962,9 @@ capacityUsed(player,0)
 ':-'(putBelow(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putBelowIgnoreScope(A,B),('\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(outOfScope(A),not(inScope(A)))
-':-'(noCapacity(A),not(capacity(A,_1125)))
-':-'(noSurface(A),not(surface(A,_1127)))
-':-'(noBelow(A),not(below(A,_1129)))
+':-'(noCapacity(A),not(capacity(A,_1123)))
+':-'(noSurface(A),not(surface(A,_1125)))
+':-'(noBelow(A),not(below(A,_1127)))
 ':-'(cantFitCapacity(A,B),(volume(A,X),capacity(B,Y),capacityUsed(B,Z),'>'('+'(X,Z),Y)))
 ':-'(cantFitSurface(A,B),(volume(A,X),surface(B,Y),surfaceUsed(B,Z),'>'('+'(X,Z),Y)))
 ':-'(cantFitBelow(A,B),(volume(A,X),below(B,Y),belowUsed(B,Z),'>'('+'(X,Z),Y)))
@@ -1586,54 +1973,226 @@ capacityUsed(player,0)
 ':-'(tooBigBelow(A,B),(volume(A,X),below(B,Y),'>'(X,Y)))
 ':-'(sameObject(A,B),'='(A,B))
 ':-'(notObject(A),not(isObject(A)))
-':-'(targetClosed(A),(hasProperty(A,_closablecontainer),isClosed(A,true)))
+':-'(targetClosed(A),(hasProperty(A,closablecontainer),isClosed(A,true)))
 isRoom(storageroom)
 isLocated(player,storageroom,0)
 isRoom(exit)
+hasProperty(cupboard,closablecontainer)
 isObject(cupboard)
 volume(cupboard,50)
 capacity(cupboard,50)
 surface(cupboard,50)
-surfaceUsed(cupboard,0)
-hasProperty(cupboard,_closablecontainer)
 isLocated(cupboard,storageroom,0)
+hasProperty(smallbox,takeable)
 isObject(smallbox)
 volume(smallbox,25)
 capacity(smallbox,25)
 capacityUsed(smallbox,0)
-hasProperty(smallbox,_takeable)
+hasProperty(mediumbox,takeable)
 isObject(mediumbox)
 volume(mediumbox,50)
 capacity(mediumbox,50)
-hasProperty(mediumbox,_takeable)
+hasProperty(bigbox,takeable)
 isObject(bigbox)
 volume(bigbox,75)
 capacity(bigbox,75)
-hasProperty(bigbox,_takeable)
 isLocated(bigbox,storageroom,0)
-capacityUsed(cupboard,25)
-isClosed(cupboard,false)
+capacityUsed(cupboard,0)
+isClosed(cupboard,true)
+surfaceUsed(cupboard,0)
+isLocated(mediumbox,bigbox,0)
+capacityUsed(player,-50)
+capacityUsed(bigbox,50)
 capacityUsed(mediumbox,25)
 isLocated(smallbox,mediumbox,0)
-capacityUsed(bigbox,50)
-isLocated(mediumbox,bigbox,0)
-flag(_mediuminbig,1)
+flag(_smallinmedium,1)
 
 ======================================================================================
-Processing user input: go to the exit
+Processing user input: look at big box
 ======================================================================================
 
-DEBUG: Pre-process input lemmas: [go, to, the, exit]
-DEBUG: Pre-process input posTags: [VB, IN, DT, NN]
+DEBUG: Pre-process input lemmas: [look, at, big, box]
+DEBUG: Pre-process input posTags: [VB, IN, NNP, NNP]
 DEBUG: Removing conflicting synonym: box
-DEBUG: Adding [exit] to matched objects
-DEBUG: Adding 3 to matched indices
-DEBUG: Pre-processed: go to item1
-DEBUG: Lemmas: [go, to, item]
+DEBUG: Adding [big, box] to matched objects
+DEBUG: Adding 2 to matched indices
+DEBUG: Pre-processed: look at item1
+DEBUG: Lemmas: [look, at, item]
+DEBUG: Verb found: LOOK
+DEBUG: PRSA set to: LOOK
+
+DEBUG: PRSA: LOOK, PRSO: BIGBOX, PRSI: null
+
+DEBUG: ATTEMPT TO PERFORM ACTION ON PRSI
+
+DEBUG: FAILED TO PERFORM ACTION ON PRSI
+
+DEBUG: ATTEMPT TO PERFORM ACTION ON PRSO
+
+DEBUG: FAILED TO PERFORM ACTION ON PRSO
+
+DEBUG: ATTEMPT TO PERFORM GENERIC ACTION ON PRSA
+DEBUG: Corrected Verb: look
+
+Knowledge Base:
+isObject(player)
+capacity(player,2147483647)
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1071),isLocated(player,B,_1072),'!'))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1075),hasProperty(B,closablecontainer),'!',isClosed(B,false),inScope(B)))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1078),inScope(B)))
+':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),hasProperty(B,closablecontainer),'!',isClosed(B,false),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putInIgnoreScope(A,B),('\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putOn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putOnIgnoreScope(A,B),('\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putBelow(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putBelowIgnoreScope(A,B),('\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(outOfScope(A),not(inScope(A)))
+':-'(noCapacity(A),not(capacity(A,_1123)))
+':-'(noSurface(A),not(surface(A,_1125)))
+':-'(noBelow(A),not(below(A,_1127)))
+':-'(cantFitCapacity(A,B),(volume(A,X),capacity(B,Y),capacityUsed(B,Z),'>'('+'(X,Z),Y)))
+':-'(cantFitSurface(A,B),(volume(A,X),surface(B,Y),surfaceUsed(B,Z),'>'('+'(X,Z),Y)))
+':-'(cantFitBelow(A,B),(volume(A,X),below(B,Y),belowUsed(B,Z),'>'('+'(X,Z),Y)))
+':-'(tooBigCapacity(A,B),(volume(A,X),capacity(B,Y),'>'(X,Y)))
+':-'(tooBigSurface(A,B),(volume(A,X),surface(B,Y),'>'(X,Y)))
+':-'(tooBigBelow(A,B),(volume(A,X),below(B,Y),'>'(X,Y)))
+':-'(sameObject(A,B),'='(A,B))
+':-'(notObject(A),not(isObject(A)))
+':-'(targetClosed(A),(hasProperty(A,closablecontainer),isClosed(A,true)))
+isRoom(storageroom)
+isLocated(player,storageroom,0)
+isRoom(exit)
+hasProperty(cupboard,closablecontainer)
+isObject(cupboard)
+volume(cupboard,50)
+capacity(cupboard,50)
+surface(cupboard,50)
+isLocated(cupboard,storageroom,0)
+hasProperty(smallbox,takeable)
+isObject(smallbox)
+volume(smallbox,25)
+capacity(smallbox,25)
+capacityUsed(smallbox,0)
+hasProperty(mediumbox,takeable)
+isObject(mediumbox)
+volume(mediumbox,50)
+capacity(mediumbox,50)
+hasProperty(bigbox,takeable)
+isObject(bigbox)
+volume(bigbox,75)
+capacity(bigbox,75)
+isLocated(bigbox,storageroom,0)
+capacityUsed(cupboard,0)
+isClosed(cupboard,true)
+surfaceUsed(cupboard,0)
+isLocated(mediumbox,bigbox,0)
+capacityUsed(player,-50)
+capacityUsed(bigbox,50)
+capacityUsed(mediumbox,25)
+isLocated(smallbox,mediumbox,0)
+flag(_smallinmedium,1)
+
+======================================================================================
+Processing user input: look around
+======================================================================================
+
+DEBUG: Pre-process input lemmas: [look, around]
+DEBUG: Pre-process input posTags: [VB, RB]
+DEBUG: Removing conflicting synonym: box
+DEBUG: Pre-processed: look around
+DEBUG: Lemmas: [look, around]
+DEBUG: Verb found: LOOK AROUND
+DEBUG: Verb found: LOOK
+DEBUG: PRSA set to: LOOK AROUND
+
+DEBUG: PRSA: LOOK AROUND, PRSO: null, PRSI: null
+
+DEBUG: ATTEMPT TO PERFORM ACTION ON PRSI
+
+DEBUG: FAILED TO PERFORM ACTION ON PRSI
+
+DEBUG: ATTEMPT TO PERFORM ACTION ON PRSO
+
+DEBUG: FAILED TO PERFORM ACTION ON PRSO
+
+DEBUG: ATTEMPT TO PERFORM GENERIC ACTION ON PRSA
+DEBUG: Corrected Verb: look around
+
+Knowledge Base:
+isObject(player)
+capacity(player,2147483647)
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1071),isLocated(player,B,_1072),'!'))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1075),hasProperty(B,closablecontainer),'!',isClosed(B,false),inScope(B)))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1078),inScope(B)))
+':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),hasProperty(B,closablecontainer),'!',isClosed(B,false),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putInIgnoreScope(A,B),('\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putOn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putOnIgnoreScope(A,B),('\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putBelow(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putBelowIgnoreScope(A,B),('\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(outOfScope(A),not(inScope(A)))
+':-'(noCapacity(A),not(capacity(A,_1123)))
+':-'(noSurface(A),not(surface(A,_1125)))
+':-'(noBelow(A),not(below(A,_1127)))
+':-'(cantFitCapacity(A,B),(volume(A,X),capacity(B,Y),capacityUsed(B,Z),'>'('+'(X,Z),Y)))
+':-'(cantFitSurface(A,B),(volume(A,X),surface(B,Y),surfaceUsed(B,Z),'>'('+'(X,Z),Y)))
+':-'(cantFitBelow(A,B),(volume(A,X),below(B,Y),belowUsed(B,Z),'>'('+'(X,Z),Y)))
+':-'(tooBigCapacity(A,B),(volume(A,X),capacity(B,Y),'>'(X,Y)))
+':-'(tooBigSurface(A,B),(volume(A,X),surface(B,Y),'>'(X,Y)))
+':-'(tooBigBelow(A,B),(volume(A,X),below(B,Y),'>'(X,Y)))
+':-'(sameObject(A,B),'='(A,B))
+':-'(notObject(A),not(isObject(A)))
+':-'(targetClosed(A),(hasProperty(A,closablecontainer),isClosed(A,true)))
+isRoom(storageroom)
+isLocated(player,storageroom,0)
+isRoom(exit)
+hasProperty(cupboard,closablecontainer)
+isObject(cupboard)
+volume(cupboard,50)
+capacity(cupboard,50)
+surface(cupboard,50)
+isLocated(cupboard,storageroom,0)
+hasProperty(smallbox,takeable)
+isObject(smallbox)
+volume(smallbox,25)
+capacity(smallbox,25)
+capacityUsed(smallbox,0)
+hasProperty(mediumbox,takeable)
+isObject(mediumbox)
+volume(mediumbox,50)
+capacity(mediumbox,50)
+hasProperty(bigbox,takeable)
+isObject(bigbox)
+volume(bigbox,75)
+capacity(bigbox,75)
+isLocated(bigbox,storageroom,0)
+capacityUsed(cupboard,0)
+isClosed(cupboard,true)
+surfaceUsed(cupboard,0)
+isLocated(mediumbox,bigbox,0)
+capacityUsed(player,-50)
+capacityUsed(bigbox,50)
+capacityUsed(mediumbox,25)
+isLocated(smallbox,mediumbox,0)
+flag(_smallinmedium,1)
+
+======================================================================================
+Processing user input: go south
+======================================================================================
+
+DEBUG: Pre-process input lemmas: [go, south]
+DEBUG: Pre-process input posTags: [VB, JJ]
+DEBUG: Removing conflicting synonym: box
+DEBUG: Adding [south] to matched objects
+DEBUG: Adding 1 to matched indices
+DEBUG: Pre-processed: go item1
+DEBUG: Lemmas: [go, item]
 DEBUG: Verb found: GO
 DEBUG: PRSA set to: GO
 
-DEBUG: PRSA: GO, PRSO: EXIT, PRSI: null
+DEBUG: PRSA: GO, PRSO: SOUTH, PRSI: null
 
 DEBUG: ATTEMPT TO PERFORM ACTION ON PRSI
 
@@ -1653,11 +2212,10 @@ DEBUG: Adding clause isLocated(player,exit,0)
 Knowledge Base:
 isObject(player)
 capacity(player,2147483647)
-capacityUsed(player,0)
 ':-'(inScope(A),(isObject(A),isLocated(A,B,_1071),isLocated(player,B,_1072),'!'))
-':-'(inScope(A),(isObject(A),isLocated(A,B,_1075),hasProperty(B,_closablecontainer),'!',isClosed(B,false),inScope(B)))
-':-'(inScope(A),(isObject(A),isLocated(A,B,_1079),inScope(B)))
-':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),hasProperty(B,_closablecontainer),'!',isClosed(B,false),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1075),hasProperty(B,closablecontainer),'!',isClosed(B,false),inScope(B)))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1078),inScope(B)))
+':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),hasProperty(B,closablecontainer),'!',isClosed(B,false),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putInIgnoreScope(A,B),('\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putOn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
@@ -1665,9 +2223,9 @@ capacityUsed(player,0)
 ':-'(putBelow(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(putBelowIgnoreScope(A,B),('\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
 ':-'(outOfScope(A),not(inScope(A)))
-':-'(noCapacity(A),not(capacity(A,_1125)))
-':-'(noSurface(A),not(surface(A,_1127)))
-':-'(noBelow(A),not(below(A,_1129)))
+':-'(noCapacity(A),not(capacity(A,_1123)))
+':-'(noSurface(A),not(surface(A,_1125)))
+':-'(noBelow(A),not(below(A,_1127)))
 ':-'(cantFitCapacity(A,B),(volume(A,X),capacity(B,Y),capacityUsed(B,Z),'>'('+'(X,Z),Y)))
 ':-'(cantFitSurface(A,B),(volume(A,X),surface(B,Y),surfaceUsed(B,Z),'>'('+'(X,Z),Y)))
 ':-'(cantFitBelow(A,B),(volume(A,X),below(B,Y),belowUsed(B,Z),'>'('+'(X,Z),Y)))
@@ -1676,111 +2234,36 @@ capacityUsed(player,0)
 ':-'(tooBigBelow(A,B),(volume(A,X),below(B,Y),'>'(X,Y)))
 ':-'(sameObject(A,B),'='(A,B))
 ':-'(notObject(A),not(isObject(A)))
-':-'(targetClosed(A),(hasProperty(A,_closablecontainer),isClosed(A,true)))
+':-'(targetClosed(A),(hasProperty(A,closablecontainer),isClosed(A,true)))
 isRoom(storageroom)
 isRoom(exit)
+hasProperty(cupboard,closablecontainer)
 isObject(cupboard)
 volume(cupboard,50)
 capacity(cupboard,50)
 surface(cupboard,50)
-surfaceUsed(cupboard,0)
-hasProperty(cupboard,_closablecontainer)
 isLocated(cupboard,storageroom,0)
+hasProperty(smallbox,takeable)
 isObject(smallbox)
 volume(smallbox,25)
 capacity(smallbox,25)
 capacityUsed(smallbox,0)
-hasProperty(smallbox,_takeable)
+hasProperty(mediumbox,takeable)
 isObject(mediumbox)
 volume(mediumbox,50)
 capacity(mediumbox,50)
-hasProperty(mediumbox,_takeable)
+hasProperty(bigbox,takeable)
 isObject(bigbox)
 volume(bigbox,75)
 capacity(bigbox,75)
-hasProperty(bigbox,_takeable)
 isLocated(bigbox,storageroom,0)
-capacityUsed(cupboard,25)
-isClosed(cupboard,false)
-capacityUsed(mediumbox,25)
-isLocated(smallbox,mediumbox,0)
-capacityUsed(bigbox,50)
-isLocated(mediumbox,bigbox,0)
-flag(_mediuminbig,1)
-isLocated(player,exit,0)
-
-======================================================================================
-Processing user input: quit
-======================================================================================
-
-
-DEBUG: PRSA: QUIT, PRSO: null, PRSI: null
-
-DEBUG: ATTEMPT TO PERFORM ACTION ON PRSI
-
-DEBUG: FAILED TO PERFORM ACTION ON PRSI
-
-DEBUG: ATTEMPT TO PERFORM ACTION ON PRSO
-
-DEBUG: FAILED TO PERFORM ACTION ON PRSO
-
-DEBUG: ATTEMPT TO PERFORM GENERIC ACTION ON PRSA
-
-Knowledge Base:
-isObject(player)
-capacity(player,2147483647)
-capacityUsed(player,0)
-':-'(inScope(A),(isObject(A),isLocated(A,B,_1071),isLocated(player,B,_1072),'!'))
-':-'(inScope(A),(isObject(A),isLocated(A,B,_1075),hasProperty(B,_closablecontainer),'!',isClosed(B,false),inScope(B)))
-':-'(inScope(A),(isObject(A),isLocated(A,B,_1079),inScope(B)))
-':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),hasProperty(B,_closablecontainer),'!',isClosed(B,false),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
-':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
-':-'(putInIgnoreScope(A,B),('\='(A,B),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
-':-'(putOn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
-':-'(putOnIgnoreScope(A,B),('\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
-':-'(putBelow(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
-':-'(putBelowIgnoreScope(A,B),('\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
-':-'(outOfScope(A),not(inScope(A)))
-':-'(noCapacity(A),not(capacity(A,_1125)))
-':-'(noSurface(A),not(surface(A,_1127)))
-':-'(noBelow(A),not(below(A,_1129)))
-':-'(cantFitCapacity(A,B),(volume(A,X),capacity(B,Y),capacityUsed(B,Z),'>'('+'(X,Z),Y)))
-':-'(cantFitSurface(A,B),(volume(A,X),surface(B,Y),surfaceUsed(B,Z),'>'('+'(X,Z),Y)))
-':-'(cantFitBelow(A,B),(volume(A,X),below(B,Y),belowUsed(B,Z),'>'('+'(X,Z),Y)))
-':-'(tooBigCapacity(A,B),(volume(A,X),capacity(B,Y),'>'(X,Y)))
-':-'(tooBigSurface(A,B),(volume(A,X),surface(B,Y),'>'(X,Y)))
-':-'(tooBigBelow(A,B),(volume(A,X),below(B,Y),'>'(X,Y)))
-':-'(sameObject(A,B),'='(A,B))
-':-'(notObject(A),not(isObject(A)))
-':-'(targetClosed(A),(hasProperty(A,_closablecontainer),isClosed(A,true)))
-isRoom(storageroom)
-isRoom(exit)
-isObject(cupboard)
-volume(cupboard,50)
-capacity(cupboard,50)
-surface(cupboard,50)
+capacityUsed(cupboard,0)
+isClosed(cupboard,true)
 surfaceUsed(cupboard,0)
-hasProperty(cupboard,_closablecontainer)
-isLocated(cupboard,storageroom,0)
-isObject(smallbox)
-volume(smallbox,25)
-capacity(smallbox,25)
-capacityUsed(smallbox,0)
-hasProperty(smallbox,_takeable)
-isObject(mediumbox)
-volume(mediumbox,50)
-capacity(mediumbox,50)
-hasProperty(mediumbox,_takeable)
-isObject(bigbox)
-volume(bigbox,75)
-capacity(bigbox,75)
-hasProperty(bigbox,_takeable)
-isLocated(bigbox,storageroom,0)
-capacityUsed(cupboard,25)
-isClosed(cupboard,false)
+isLocated(mediumbox,bigbox,0)
+capacityUsed(player,-50)
+capacityUsed(bigbox,50)
 capacityUsed(mediumbox,25)
 isLocated(smallbox,mediumbox,0)
-capacityUsed(bigbox,50)
-isLocated(mediumbox,bigbox,0)
-flag(_mediuminbig,1)
+flag(_smallinmedium,1)
 isLocated(player,exit,0)

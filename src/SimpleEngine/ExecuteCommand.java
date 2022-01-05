@@ -266,22 +266,36 @@ public class ExecuteCommand {
             return true;
         }
         if (!Boolean.parseBoolean(obj.getVariable("isClosed"))) {
+            if (GameController.getPRSA().contains("LOOK")) {
+                lookInsideOnOpen(obj, false);
+                return true;
+            }
             System.out.println("The " + obj.getName() + " is already open.");
             return true;
         }
         // Open the object
         obj.setVariable("isClosed", "false");
         EnhancedExecuteCommand.enhanced_cmd_open();
-        System.out.println("You opened the " + obj.getName() + " and peered inside...");
+        lookInsideOnOpen(obj, true);
+        return true;
+    }
+
+    // Auxiliary method for looking inside the newly opened object
+    private static void lookInsideOnOpen(GameObject obj, boolean wasOpened) {
+        if (wasOpened) {
+            System.out.println("You opened the " + obj.getName() + " and peered inside...");
+        }
+        else {
+            System.out.println("You peer inside...");
+        }
         if (obj.getInside().size() == 0) {
             System.out.println("... There is nothing inside, except for a spot of dust...");
-            return true;
+            return;
         }
         System.out.println("Inside you find:");
         for (String childID : obj.getInside()) {
             System.out.println(" - A " + GameState.getGameObject(childID).getName());
         }
-        return true;
     }
 
     // General action for closing something (closable container)

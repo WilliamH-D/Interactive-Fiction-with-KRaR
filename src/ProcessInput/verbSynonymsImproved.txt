@@ -93,5 +93,5 @@ verb: open
 
 verb: close
 0 ITEM
-0=close,shut
+0=close,shut,slam
 

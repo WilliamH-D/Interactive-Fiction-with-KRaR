@@ -184,8 +184,12 @@ public class GameController {
 
         while (!stack.empty()) {
             ParentChildPair pair = stack.pop();
+
+            // Make sure child isn't a location or the player
             if (!pair.child.equals(location) && !pair.child.equals(GameController.getPlayer())) {
+                // Make sure child is meant to be visible to the player
                 if (!pair.child.hasProperty("_HIDE")) {
+                    // Child is inside of its parent
                     if (pair.child.getParentType() == 0) {
                         if (!printedGap) {
                             System.out.println();
@@ -193,6 +197,7 @@ public class GameController {
                         }
                         System.out.println("A " + pair.child.getName() + " is in the " + pair.parent.getName() + ".");
                     }
+                    // Child is on top of its parent
                     else if (pair.child.getParentType() == 1) {
                         if (!printedGap) {
                             System.out.println();
@@ -200,6 +205,7 @@ public class GameController {
                         }
                         System.out.println("A " + pair.child.getName() + " is on the " + pair.parent.getName() + ".");
                     }
+                    // Child is underneath of its parent
                     else if (pair.child.getParentType() == 2) {
                         if (!printedGap) {
                             System.out.println();
@@ -207,12 +213,20 @@ public class GameController {
                         }
                         System.out.println("A " + pair.child.getName() + " is below the " + pair.parent.getName() + ".");
                     }
+                    if (pair.child.hasProperty("_CLOSABLECONTAINER")) {
+                        if (Boolean.parseBoolean(pair.child.getVariable("isClosed"))) {
+                            System.out.println("The " + pair.child.getName() + " is currently closed.");
+                        }
+                        else {
+                            System.out.println("The " + pair.child.getName() + " is currently open.");
+                        }
+                    }
                 }
             }
             if (!pair.child.equals(GameController.getPlayer())) {
-                if (pair.child.hasProperty("_CLOSABLECONTAINER") && Boolean.parseBoolean(pair.child.getVariable("isClosed"))) { continue; }
                 for (String childID : pair.child.getChildren()) {
                     GameObject child = GameState.getGameObject(childID);
+                    if (child.getParentType() == 0 && pair.child.hasProperty("_CLOSABLECONTAINER") && Boolean.parseBoolean(pair.child.getVariable("isClosed"))) { continue; }
                     stack.push(new ParentChildPair(pair.child, child, child.getParentType()));
                 }
             }
