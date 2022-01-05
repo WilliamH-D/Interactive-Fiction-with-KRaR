@@ -143,6 +143,78 @@ public interface EditorGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDown_entry(EditorGrammarParser.Down_entryContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#north_cond}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNorth_cond(EditorGrammarParser.North_condContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#south_cond}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSouth_cond(EditorGrammarParser.South_condContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#east_cond}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEast_cond(EditorGrammarParser.East_condContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#west_cond}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWest_cond(EditorGrammarParser.West_condContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#up_cond}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUp_cond(EditorGrammarParser.Up_condContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#down_cond}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDown_cond(EditorGrammarParser.Down_condContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#north_block_message}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNorth_block_message(EditorGrammarParser.North_block_messageContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#south_block_message}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSouth_block_message(EditorGrammarParser.South_block_messageContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#east_block_message}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEast_block_message(EditorGrammarParser.East_block_messageContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#west_block_message}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWest_block_message(EditorGrammarParser.West_block_messageContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#up_block_message}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUp_block_message(EditorGrammarParser.Up_block_messageContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#down_block_message}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDown_block_message(EditorGrammarParser.Down_block_messageContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link EditorGrammarParser#action_entry}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -244,6 +316,12 @@ public interface EditorGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitHere_cond(EditorGrammarParser.Here_condContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#inscope_cond}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInscope_cond(EditorGrammarParser.Inscope_condContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link EditorGrammarParser#andflags_cond}.
 	 * @param ctx the parse tree

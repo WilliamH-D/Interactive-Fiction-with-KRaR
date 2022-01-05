@@ -1,0 +1,107 @@
+[room]
+{
+    ID: <STORAGEROOM>;
+    S: <EXIT>;
+    SCOND: _SMALLINMEDIUM=1, _MEDIUMINBIG=1;
+    SBLOCKMESSAGE: "You can't leave without stacking the boxes inside of each other.";
+    NAME: "Storage Room";
+    DESC: "It's a storage room filled with boxes.";
+}
+
+[room]
+{
+    ID: <EXIT>;
+    N: <STORAGEROOM>;
+    NAME: "Exit";
+    DESC: "The outside of the building with an entrance to the storage room.";
+}
+
+[object]
+{
+    ID: <CUPBOARD>;
+    LOCATION: <STORAGEROOM>;
+    NAME: "Cupboard";
+    DESC: "A small wooden cupboard.";
+    SYNS: "closet", "unit", "storage unit";
+    PROPERTIES: _CLOSABLECONTAINER;
+    VALUES: (capacity: 50), (volume: 50), (surface: 50);
+}
+
+[object]
+{
+    ID: <SMALLBOX>;
+    LOCATION: <CUPBOARD>;
+    NAME: "small box";
+    DESC: "A small cardboard box.";
+    SYNS: "little box", "tiny box", "box";
+    PROPERTIES: _TAKEABLE;
+    VALUES: (capacity: 25), (volume: 25);
+}
+
+[object]
+{
+    ID: <MEDIUMBOX>;
+    LOCATION: <STORAGEROOM>;
+    NAME: "Medium Box";
+    DESC: "A medium cardboard box.";
+    SYNS: "middle box", "average box", "box";
+    PROPERTIES: _TAKEABLE;
+    VALUES: (capacity: 50), (volume: 50);
+}
+
+[object]
+{
+    ID: <BIGBOX>;
+    LOCATION: <STORAGEROOM>;
+    NAME: "Big Box";
+    DESC: "A big cardboard box.";
+    SYNS: "large box", "huge box", "box";
+    PROPERTIES: _TAKEABLE;
+    VALUES: (capacity: 75), (volume: 75);
+}
+
+[flag]
+{
+    FLAG: _SMALLINMEDIUM;
+    VALUE: 0;
+}
+
+[flag]
+{
+    FLAG: _MEDIUMINBIG;
+    VALUE: 0;
+}
+
+[action]
+{
+    ID: <SMALLBOX>;
+    ACTION:
+        COND<PRSA: PUT, PLACE && PRSA: IN, INSIDE && PRSO: <SMALLBOX> && PRSI: <MEDIUMBOX>>
+        {
+            EFF<PLACE: <SMALLBOX>, <MEDIUMBOX>, IN>
+            EFF<TELL: "You placed the small box inside the medium box.">
+            EFF<SETFLAG: _SMALLINMEDIUM, 1>
+        }
+        COND<PRSA: TAKE, OBTAIN && PRSO: <SMALLBOX>>
+        {
+            EFF<TAKE: <SMALLBOX>>
+            EFF<REMFLAG: _SMALLINMEDIUM>
+        };
+}
+
+[action]
+{
+    ID: <MEDIUMBOX>;
+    ACTION:
+        COND<PRSA: PUT, PLACE && PRSA: IN, INSIDE && PRSO: <MEDIUMBOX> && PRSI: <BIGBOX>>
+        {
+            EFF<PLACE: <MEDIUMBOX>, <BIGBOX>, IN>
+            EFF<TELL: "You placed the medium box inside the big box.">
+            EFF<SETFLAG: _MEDIUMINBIG, 1>
+        }
+        COND<PRSA: TAKE, OBTAIN && PRSO: <MEDIUMBOX>>
+        {
+            EFF<TAKE: <MEDIUMBOX>>
+            EFF<REMFLAG: _MEDIUMINBIG>
+        };
+}

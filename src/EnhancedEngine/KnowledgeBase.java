@@ -42,34 +42,37 @@ public class KnowledgeBase {
         addClause("capacityUsed(" + GameController.getPlayer().getId().toLowerCase() + ",0)");
 
         // Object is in scope (first arg is object, second arg is the scope of the object)
-        addClause("inScope(A,B) :- isObject(A), isLocated(A,B,_), isLocated(" + GameController.getPlayer().getId().toLowerCase() + ",B,_),!");
-        addClause("inScope(A,C) :- isObject(A), isLocated(A,B,_), inScope(B,C)");
+        addClause("inScope(A) :- isObject(A), isLocated(A,B,_), isLocated(" + GameController.getPlayer().getId().toLowerCase() + ",B,_),!");
+        addClause("inScope(A) :- isObject(A), isLocated(A,B,_), hasProperty(B,_closablecontainer),!,isClosed(B,false), inScope(B)");
+        addClause("inScope(A) :- isObject(A), isLocated(A,B,_), inScope(B)");
 
         // Put object in other object (put object A inside object B)
-        addClause("putIn(A,B) :- inScope(A,C), inScope(B,C), A \\= B, volume(A,X), capacity(B,Y), capacityUsed(B,Z), Y2 is Y+1, X+Z<Y2");
+        addClause("putIn(A,B) :- inScope(A), inScope(B), A \\= B, hasProperty(B,_closablecontainer), !, isClosed(B,false), volume(A,X), capacity(B,Y), capacityUsed(B,Z), Y2 is Y+1, X+Z<Y2");
+        addClause("putIn(A,B) :- inScope(A), inScope(B), A \\= B, volume(A,X), capacity(B,Y), capacityUsed(B,Z), Y2 is Y+1, X+Z<Y2");
         addClause("putInIgnoreScope(A,B) :- A \\= B, volume(A,X), capacity(B,Y), capacityUsed(B,Z), Y2 is Y+1, X+Z<Y2");
 
         // Put object on top of other object (put object A on top of object B)
-        addClause("putOn(A,B) :- inScope(A,C), inScope(B,C), A \\= B, volume(A,X), surface(B,Y), surfaceUsed(B,Z), Y2 is Y+1, X+Z<Y2");
+        addClause("putOn(A,B) :- inScope(A), inScope(B), A \\= B, volume(A,X), surface(B,Y), surfaceUsed(B,Z), Y2 is Y+1, X+Z<Y2");
         addClause("putOnIgnoreScope(A,B) :- A \\= B, volume(A,X), surface(B,Y), surfaceUsed(B,Z), Y2 is Y+1, X+Z<Y2");
 
         // Put object below other object (put object A below object B)
-        addClause("putBelow(A,B) :- inScope(A,C), inScope(B,C), A \\= B, volume(A,X), below(B,Y), belowUsed(B,Z), Y2 is Y+1, X+Z<Y2");
+        addClause("putBelow(A,B) :- inScope(A), inScope(B), A \\= B, volume(A,X), below(B,Y), belowUsed(B,Z), Y2 is Y+1, X+Z<Y2");
         addClause("putBelowIgnoreScope(A,B) :- A \\= B, volume(A,X), below(B,Y), belowUsed(B,Z), Y2 is Y+1, X+Z<Y2");
 
         // Failure reasons
-        addClause("outOfScope(A) :- not(inScope(A,_))");
+        addClause("outOfScope(A) :- not(inScope(A))");
         addClause("noCapacity(A) :- not(capacity(A,_))");
         addClause("noSurface(A) :- not(surface(A,_))");
         addClause("noBelow(A) :- not(below(A,_))");
         addClause("cantFitCapacity(A,B) :- volume(A,X), capacity(B,Y), capacityUsed(B,Z), X+Z>Y");
         addClause("cantFitSurface(A,B) :- volume(A,X), surface(B,Y), surfaceUsed(B,Z), X+Z>Y");
         addClause("cantFitBelow(A,B) :- volume(A,X), below(B,Y), belowUsed(B,Z), X+Z>Y");
-        addClause("tooBigCapacity(A,B) :- volume(A,X), capacity(B,Y), A>Y");
-        addClause("tooBigSurface(A,B) :- volume(A,X), surface(B,Y), A>Y");
-        addClause("tooBigBelow(A,B) :- volume(A,X), below(B,Y), A>Y");
+        addClause("tooBigCapacity(A,B) :- volume(A,X), capacity(B,Y), X>Y");
+        addClause("tooBigSurface(A,B) :- volume(A,X), surface(B,Y), X>Y");
+        addClause("tooBigBelow(A,B) :- volume(A,X), below(B,Y), X>Y");
         addClause("sameObject(A,B) :- A=B");
         addClause("notObject(A) :- not(isObject(A))");
+        addClause("targetClosed(A) :- hasProperty(A,_closablecontainer), isClosed(A,true)");
     }
 
     // Used for debugging with print statements

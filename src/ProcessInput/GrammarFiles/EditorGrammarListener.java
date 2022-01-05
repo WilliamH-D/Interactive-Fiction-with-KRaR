@@ -228,6 +228,126 @@ public interface EditorGrammarListener extends ParseTreeListener {
 	 */
 	void exitDown_entry(EditorGrammarParser.Down_entryContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#north_cond}.
+	 * @param ctx the parse tree
+	 */
+	void enterNorth_cond(EditorGrammarParser.North_condContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#north_cond}.
+	 * @param ctx the parse tree
+	 */
+	void exitNorth_cond(EditorGrammarParser.North_condContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#south_cond}.
+	 * @param ctx the parse tree
+	 */
+	void enterSouth_cond(EditorGrammarParser.South_condContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#south_cond}.
+	 * @param ctx the parse tree
+	 */
+	void exitSouth_cond(EditorGrammarParser.South_condContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#east_cond}.
+	 * @param ctx the parse tree
+	 */
+	void enterEast_cond(EditorGrammarParser.East_condContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#east_cond}.
+	 * @param ctx the parse tree
+	 */
+	void exitEast_cond(EditorGrammarParser.East_condContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#west_cond}.
+	 * @param ctx the parse tree
+	 */
+	void enterWest_cond(EditorGrammarParser.West_condContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#west_cond}.
+	 * @param ctx the parse tree
+	 */
+	void exitWest_cond(EditorGrammarParser.West_condContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#up_cond}.
+	 * @param ctx the parse tree
+	 */
+	void enterUp_cond(EditorGrammarParser.Up_condContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#up_cond}.
+	 * @param ctx the parse tree
+	 */
+	void exitUp_cond(EditorGrammarParser.Up_condContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#down_cond}.
+	 * @param ctx the parse tree
+	 */
+	void enterDown_cond(EditorGrammarParser.Down_condContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#down_cond}.
+	 * @param ctx the parse tree
+	 */
+	void exitDown_cond(EditorGrammarParser.Down_condContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#north_block_message}.
+	 * @param ctx the parse tree
+	 */
+	void enterNorth_block_message(EditorGrammarParser.North_block_messageContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#north_block_message}.
+	 * @param ctx the parse tree
+	 */
+	void exitNorth_block_message(EditorGrammarParser.North_block_messageContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#south_block_message}.
+	 * @param ctx the parse tree
+	 */
+	void enterSouth_block_message(EditorGrammarParser.South_block_messageContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#south_block_message}.
+	 * @param ctx the parse tree
+	 */
+	void exitSouth_block_message(EditorGrammarParser.South_block_messageContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#east_block_message}.
+	 * @param ctx the parse tree
+	 */
+	void enterEast_block_message(EditorGrammarParser.East_block_messageContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#east_block_message}.
+	 * @param ctx the parse tree
+	 */
+	void exitEast_block_message(EditorGrammarParser.East_block_messageContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#west_block_message}.
+	 * @param ctx the parse tree
+	 */
+	void enterWest_block_message(EditorGrammarParser.West_block_messageContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#west_block_message}.
+	 * @param ctx the parse tree
+	 */
+	void exitWest_block_message(EditorGrammarParser.West_block_messageContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#up_block_message}.
+	 * @param ctx the parse tree
+	 */
+	void enterUp_block_message(EditorGrammarParser.Up_block_messageContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#up_block_message}.
+	 * @param ctx the parse tree
+	 */
+	void exitUp_block_message(EditorGrammarParser.Up_block_messageContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#down_block_message}.
+	 * @param ctx the parse tree
+	 */
+	void enterDown_block_message(EditorGrammarParser.Down_block_messageContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#down_block_message}.
+	 * @param ctx the parse tree
+	 */
+	void exitDown_block_message(EditorGrammarParser.Down_block_messageContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link EditorGrammarParser#action_entry}.
 	 * @param ctx the parse tree
 	 */
@@ -397,6 +517,16 @@ public interface EditorGrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitHere_cond(EditorGrammarParser.Here_condContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#inscope_cond}.
+	 * @param ctx the parse tree
+	 */
+	void enterInscope_cond(EditorGrammarParser.Inscope_condContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#inscope_cond}.
+	 * @param ctx the parse tree
+	 */
+	void exitInscope_cond(EditorGrammarParser.Inscope_condContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link EditorGrammarParser#andflags_cond}.
 	 * @param ctx the parse tree

@@ -80,3 +80,18 @@ verb: attack
 0
 0=attack,fight,assault,hit,punch,kick
 
+verb: open
+0 ITEM
+0=open
+0 1 ITEM
+0=look,peek
+1=in,inside
+0 1 2 ITEM
+0=look,peek
+1=in,inside
+2=of
+
+verb: close
+0 ITEM
+0=close,shut
+

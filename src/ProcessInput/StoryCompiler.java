@@ -28,16 +28,23 @@ public class StoryCompiler {
     // Directions
     String n;
     Set<String> nconds;
+    String nblockMessage;
     String s;
     Set<String> sconds;
+    String sblockMessage;
     String e;
     Set<String> econds;
+    String eblockMessage;
     String w;
     Set<String> wconds;
+    String wblockMessage;
     String u;
     Set<String> uconds;
+    String ublockMessage;
     String d;
     Set<String> dconds;
+    String dblockMessage;
+
 
     String name;
     String desc;
@@ -93,16 +100,22 @@ public class StoryCompiler {
 
         n = null;
         nconds = null;
+        nblockMessage = null;
         s = null;
         sconds = null;
+        sblockMessage = null;
         e = null;
         econds = null;
+        eblockMessage = null;
         w = null;
         wconds = null;
+        wblockMessage = null;
         u = null;
         uconds = null;
+        ublockMessage = null;
         d = null;
         dconds = null;
+        dblockMessage = null;
 
         name = null;
         desc = null;
@@ -125,16 +138,22 @@ public class StoryCompiler {
         logger.logRaw("ID: " + id);
         logger.logRaw("N: " + n);
         logger.logRaw("NCONDS: " + nconds);
+        logger.logRaw("NBLOCKMESSAGE: " + nblockMessage);
         logger.logRaw("S: " + s);
         logger.logRaw("SCONDS: " + sconds);
+        logger.logRaw("SBLOCKMESSAGE: " + sblockMessage);
         logger.logRaw("E: " + e);
         logger.logRaw("ECONDS: " + econds);
+        logger.logRaw("EBLOCKMESSAGE: " + eblockMessage);
         logger.logRaw("W: " + w);
         logger.logRaw("WCONDS: " + wconds);
+        logger.logRaw("WBLOCKMESSAGE: " + wblockMessage);
         logger.logRaw("U: " + u);
         logger.logRaw("UCONDS: " + uconds);
+        logger.logRaw("UBLOCKMESSAGE: " + ublockMessage);
         logger.logRaw("D: " + d);
         logger.logRaw("DCONDS: " + dconds);
+        logger.logRaw("DBLOCKMESSAGE: " + dblockMessage);
         logger.logRaw("NAME: " + name);
         logger.logRaw("DESC: " + desc);
         logger.logRaw("SYNS: " + synonyms);
@@ -143,16 +162,22 @@ public class StoryCompiler {
         room.setParent("ROOT", 0);
         room.setNorth(n);
         room.setNConds(nconds);
+        room.setNorthBlockMessage(nblockMessage);
         room.setSouth(s);
         room.setSConds(sconds);
+        room.setSouthBlockMessage(sblockMessage);
         room.setEast(e);
         room.setEConds(econds);
+        room.setEastBlockMessage(eblockMessage);
         room.setWest(w);
         room.setWConds(wconds);
+        room.setWestBlockMessage(wblockMessage);
         room.setUp(u);
         room.setUConds(uconds);
+        room.setUpBlockMessage(ublockMessage);
         room.setDown(d);
         room.setDConds(dconds);
+        room.setDownBlockMessage(dblockMessage);
         room.setName(name);
         room.setDesc(desc);
         room.setSynonyms(synonyms);
@@ -215,6 +240,10 @@ public class StoryCompiler {
                     obj.addVariable("belowUsed", "0");
                     break;
             }
+        }
+        if (obj.hasProperty("_CLOSABLECONTAINER")) {
+            obj.addVariable("isClosed", "true");
+            kb.addClause("isClosed(" + id.toLowerCase() + ",true)");
         }
 
         logger.logInfo("New Object: " + obj);
@@ -421,6 +450,15 @@ public class StoryCompiler {
         logger.logRaw("LOCATIONS: " + locs.toString());
 
         setTest(new HereCond(locs));
+    }
+
+    public void compileInScopeCond(String obj, Set<String> locs) {
+        logger.logLine();
+        logger.logRaw("Compiling InScopeCond:");
+        logger.logRaw("OBJ: " + obj);
+        logger.logRaw("LOCATIONS: " + locs.toString());
+
+        setTest(new InScopeCond(obj, locs));
     }
 
     public void compileLTCond(String lobj, String robj, String lhs, String rhs, boolean bothVars) {

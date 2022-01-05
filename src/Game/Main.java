@@ -1,5 +1,6 @@
 package Game;
 
+import EnhancedEngine.EnhancedExecuteCommand;
 import EnhancedEngine.KnowledgeBase;
 import ProcessInput.CommandConstructor;
 import SimpleEngine.ExecuteCommand;
@@ -38,11 +39,12 @@ public class Main {
         GameController.useEnhancedEngine();
 
         // Compile the game file
-        StoryCompiler.get().compile("D:\\Documents\\University\\Part II Project\\Interactive Fiction with KRaR\\src\\ProcessInput\\testStory.txt");
+        StoryCompiler.get().compile("D:\\Documents\\University\\Part II Project\\Interactive Fiction with KRaR\\src\\ProcessInput\\boxesStory.txt");
 
         // Print knowledge base -- FOR DEBUGGING PURPOSES
         KnowledgeBase.getInstance().printKB();
         KnowledgeBase.getInstance().setDebug(true);
+        EnhancedExecuteCommand.initKB();
 
         // Initialise the NLP pipeline
         NLPPipeline.init();

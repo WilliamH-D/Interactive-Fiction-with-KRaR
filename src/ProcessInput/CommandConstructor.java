@@ -329,7 +329,9 @@ public class CommandConstructor {
             // Look at preceding words
             for (int j = idx-1; j>-1; j--) {
                 if ((tokens.get(j).getPos().equals("DT") || tokens.get(j).getPos().equals("JJ") || tokens.get(j).getPos().equals("RB") || tokens.get(j).getPos().equals("JJR"))) {
-                    idx = j;
+                    if (!GameController.getVerbSynonyms().containsValue(tokens.get(j).getLemma())) {
+                        idx = j;
+                    }
                 }
                 else {
                     break;

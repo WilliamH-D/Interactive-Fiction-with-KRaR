@@ -37,6 +37,10 @@ public class TakeEff extends Effect {
             System.out.println("The " + GameState.getGameObject(itemID).getName() + " has stuff on top of it, you're unable to take it without removing them first!");
             return false;
         }
+        if (kb.query("notInScope(" + itemID.toLowerCase() + ")").size() > 0) {
+            System.out.println("You are unable to get the " + GameState.getGameObject(itemID).getName() + " from where you are.");
+            return false;
+        }
         return true;
     }
 }

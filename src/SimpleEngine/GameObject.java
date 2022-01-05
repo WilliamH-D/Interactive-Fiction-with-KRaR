@@ -70,6 +70,18 @@ public class GameObject {
         return children;
     }
 
+    public Set<String> getInside() {
+        return inside;
+    }
+
+    public Set<String> getOnSurface() {
+        return onSurface;
+    }
+
+    public Set<String> getBelow() {
+        return below;
+    }
+
     public ArrayList<String> hasDescendant(String objID) {
         ArrayList<String> path = new ArrayList<>();
 
@@ -148,11 +160,13 @@ public class GameObject {
         }
 
         if (inside.size() > 0) {
-            System.out.println();
-            System.out.println("The " + getName() + " contains:");
-            for (String childID : inside) {
-                GameObject child = GameState.getGameObject(childID);
-                System.out.println("\t-" + child.getName());
+            if (!hasProperty("_CLOSABLECONTAINER") || (hasProperty("_CLOSABLECONTAINER") && !Boolean.parseBoolean(getVariable("isClosed")))) {
+                System.out.println();
+                System.out.println("The " + getName() + " contains:");
+                for (String childID : inside) {
+                    GameObject child = GameState.getGameObject(childID);
+                    System.out.println("\t-" + child.getName());
+                }
             }
         }
         if (onSurface.size() > 0) {
@@ -251,6 +265,9 @@ public class GameObject {
                     kb.removeClause("capacityUsed(" + getParent().toLowerCase() + ",X)", true);
                     kb.addClause("capacityUsed(" + getParent().toLowerCase() + "," + (capacityUsed + volume) + ")");
                     parent.setVariable("capacityUsed", String.valueOf(capacityUsed+volume));
+                    if (!ignoreText) {
+                        System.out.println("You placed down the " + getName() + " inside of the " + parent.getName() + ".");
+                    }
                     break;
                 case 1:
                     volume = Integer.parseInt(getVariable("volume"));
@@ -258,6 +275,9 @@ public class GameObject {
                     kb.removeClause("surfaceUsed(" + getParent().toLowerCase() + ",X)", true);
                     kb.addClause("surfaceUsed(" + getParent().toLowerCase() + "," + (surfaceUsed + volume) + ")");
                     parent.setVariable("surfaceUsed", String.valueOf(surfaceUsed+volume));
+                    if (!ignoreText) {
+                        System.out.println("You placed down the " + getName() + " on top of the " + parent.getName() + ".");
+                    }
                     break;
                 case 2:
                     volume = Integer.parseInt(getVariable("volume"));
@@ -265,13 +285,13 @@ public class GameObject {
                     kb.removeClause("belowUsed(" + getParent().toLowerCase() + ",X)", true);
                     kb.addClause("belowUsed(" + getParent().toLowerCase() + "," + (belowUsed + volume) + ")");
                     parent.setVariable("belowUsed", String.valueOf(belowUsed+volume));
+                    if (!ignoreText) {
+                        System.out.println("You placed down the " + getName() + " underneath of the " + parent.getName() + ".");
+                    }
                     break;
             }
         }
         kb.removeClause("isLocated(" + getId().toLowerCase() + ",X,Y)", true);
         kb.addClause("isLocated(" + getId().toLowerCase() + "," + getParent().toLowerCase() + "," + parentType + ")");
-        if (!ignoreText) {
-            System.out.println("You placed down the " + getName() + ".");
-        }
     }
 }

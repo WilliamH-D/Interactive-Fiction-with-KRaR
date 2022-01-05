@@ -14,12 +14,15 @@ public class EnhancedExecuteCommand {
     private static KnowledgeBase kb;
     private static DebugLogger logger;
 
-    public static boolean decodePRSAEnhanced(String correctedVerb) {
-
+    public static void initKB() {
         // Make sure the knowledge base is referenced
         if (kb == null) {
             kb = KnowledgeBase.getInstance();
         }
+    }
+
+    public static boolean decodePRSAEnhanced(String correctedVerb) {
+
         if (logger == null) {
             logger = DebugLogger.getInstance();
         }
@@ -66,7 +69,7 @@ public class EnhancedExecuteCommand {
         }
 
         // Find out why query failed and present info to player
-        boolean[] failure = new boolean[]{false, false, false, false, false, false}; // [outOfScope(A), outOfScope(B), sameObject(A,B), capacity(B,_), tooBig(A,B), cantFit(A,B)]
+        boolean[] failure = new boolean[]{false, false, false, false, false, false, false}; // [outOfScope(A), outOfScope(B), sameObject(A,B), capacity(B,_), tooBig(A,B), cantFit(A,B), targetClosed(B)]
         boolean atLeastOneFailure = false;
 
         if (kb.query("outOfScope(" + prsoID + ")").size() > 0) { failure[0] = true; atLeastOneFailure = true; }
@@ -75,6 +78,7 @@ public class EnhancedExecuteCommand {
         if (kb.query(ContainerType.toLowerCase() + "(" + prsiID + ",_)").size() == 0) { failure[3] = true; atLeastOneFailure = true; }
         if (kb.query("tooBig" + ContainerType + "(" + prsoID + "," + prsiID + ")").size() > 0) { failure[4] = true; atLeastOneFailure = true; }
         if (kb.query("cantFit" + ContainerType + "(" + prsoID + "," + prsiID + ")").size() > 0) { failure[5] = true; atLeastOneFailure = true; }
+        if (parentType == 0 && kb.query("targetClosed(" + prsiID + ")").size() > 0) { failure[6] = true; atLeastOneFailure = true; }
 
         if (failure[0]) { System.out.println("You do not have access to the " + prso.getName() + "."); }
         if (failure[1] && !failure[2]) { System.out.println("You do not have access to the " + prsi.getName() + "."); }
@@ -82,7 +86,20 @@ public class EnhancedExecuteCommand {
         if (failure[3]) { System.out.println("The " + prsi.getName() + " doesn't have anywhere to put the " + prso.getName() + " " + failDescSubstitute + " it."); }
         if (failure[4]) { System.out.println("The " + prso.getName() + " is too big to fit " + failDescSubstitute + " the" + prsi.getName() + "."); }
         if (failure[5] && !failure[4]) { System.out.println("There's not enough space " + failDescSubstitute + " the " + prsi.getName() + ", perhaps try making some space first."); }
+        if (failure[6]) { System.out.println("You can't put anything in the " + prsi.getName() + " when it's closed."); }
         return atLeastOneFailure;
+    }
+
+    public static void enhanced_cmd_open() {
+        String objID = GameController.getPRSO().getId().toLowerCase();
+        kb.removeClause("isClosed(" + objID + ",true)");
+        kb.addClause("isClosed(" + objID + ",false)");
+    }
+
+    public static void enhanced_cmd_close() {
+        String objID = GameController.getPRSO().getId().toLowerCase();
+        kb.removeClause("isClosed(" + objID + ",false)");
+        kb.addClause("isClosed(" + objID + ",true)");
     }
 
     // Return a list of all of the general commands that can be executed in the case of

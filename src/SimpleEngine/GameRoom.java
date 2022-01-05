@@ -11,16 +11,22 @@ public class GameRoom extends GameObject {
 
     private String north;
     private Set<String> nconds;
+    private String nblockmessage;
     private String south;
     private Set<String> sconds;
+    private String sblockmessage;
     private String east;
     private Set<String> econds;
+    private String eblockmessage;
     private String west;
     private Set<String> wconds;
+    private String wblockmessage;
     private String up;
     private Set<String> uconds;
+    private String ublockmessage;
     private String down;
     private Set<String> dconds;
+    private String dblockmessage;
 
     public GameRoom(String n) {
         super(n);
@@ -58,6 +64,30 @@ public class GameRoom extends GameObject {
             case WEST: return getWest();
             case UP: return getUp();
             case DOWN: return getDown();
+        }
+        return null;
+    }
+
+    public String getNorthBlockMessage() { return this.nblockmessage;  }
+
+    public String getSouthBlockMessage() { return this.sblockmessage; }
+
+    public String getEastBlockMessage() { return this.eblockmessage; }
+
+    public String getWestBlockMessage() { return this.wblockmessage; }
+
+    public String getUpBlockMessage() { return this.ublockmessage; }
+
+    public String getDownBlockMessage() { return this.dblockmessage; }
+
+    public String getDirBlockMessage(Direction dir) {
+        switch (dir) {
+            case NORTH: return getNorthBlockMessage();
+            case SOUTH: return getSouthBlockMessage();
+            case EAST: return getEastBlockMessage();
+            case WEST: return getWestBlockMessage();
+            case UP: return getUpBlockMessage();
+            case DOWN: return getDownBlockMessage();
         }
         return null;
     }
@@ -109,6 +139,18 @@ public class GameRoom extends GameObject {
             this.dconds = new HashSet<>(conds);
         }
     }
+
+    public void setNorthBlockMessage(String message) { this.nblockmessage = message; }
+
+    public void setSouthBlockMessage(String message) { this.sblockmessage = message; }
+
+    public void setEastBlockMessage(String message) { this.eblockmessage = message; }
+
+    public void setWestBlockMessage(String message) { this.wblockmessage = message; }
+
+    public void setUpBlockMessage(String message) { this.ublockmessage = message; }
+
+    public void setDownBlockMessage(String message) { this.dblockmessage = message; }
 
     public void setDir(Direction dir, String room) {
         switch (dir) {

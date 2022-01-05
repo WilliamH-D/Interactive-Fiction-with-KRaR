@@ -7,6 +7,7 @@ import Logging.DebugLogger;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Set;
 
 public class ExecuteCommand {
@@ -19,9 +20,13 @@ public class ExecuteCommand {
         logger.logLine();
         logger.logDebug("PRSA: " + GameController.getPRSA() + ", PRSO: " + (GameController.getPRSO() == null ? "null" : GameController.getPRSO().getId()) + ", PRSI: " + (GameController.getPRSI() == null ? "null" : GameController.getPRSI().getId()));
         logger.logLine();
+        if (GameController.getPRSA() == null) {
+            System.out.println("I didn't understand that input.");
+            return;
+        }
 
         // Handle object conflict
-        if (GameController.getPRSA() != null && GameController.getPRSA().equals("CONFLICT")) {
+        if (GameController.getPRSA().equals("CONFLICT")) {
             System.out.println("I cannot determine which object you are referencing, please be more specific.");
             return;
         }
@@ -120,7 +125,8 @@ public class ExecuteCommand {
                         for (String cond : conditions) {
                             String[] flagValuePair = cond.split("=");
                             if (GameState.getFlag(flagValuePair[0]).getValue() != Integer.parseInt(flagValuePair[1])) {
-                                System.out.println("Something is preventing you from moving " + d.name().toLowerCase() + ".");
+                                String blockMessage = currLoc.getDirBlockMessage(d);
+                                System.out.println(Objects.requireNonNullElseGet(blockMessage, () -> "Something is preventing you from moving " + d.name().toLowerCase() + "."));
                                 return true;
                             }
                         }
@@ -136,22 +142,23 @@ public class ExecuteCommand {
         if (!(GameController.getPRSO() instanceof GameRoom)) { return false; }
         GameRoom nextLoc = (GameRoom)GameController.getPRSO();
 
-        if (tryMovingToNamedRoom(nextLoc, currLoc.getNorth(), currLoc.getNConds(), "north")) { return true; }
-        if (tryMovingToNamedRoom(nextLoc, currLoc.getSouth(), currLoc.getSConds(), "south")) { return true; }
-        if (tryMovingToNamedRoom(nextLoc, currLoc.getEast(), currLoc.getEConds(), "east")) { return true; }
-        if (tryMovingToNamedRoom(nextLoc, currLoc.getWest(), currLoc.getWConds(), "west")) { return true; }
-        if (tryMovingToNamedRoom(nextLoc, currLoc.getUp(), currLoc.getUConds(), "up")) { return true; }
-        return tryMovingToNamedRoom(nextLoc, currLoc.getDown(), currLoc.getDConds(), "down");
+        if (tryMovingToNamedRoom(currLoc, nextLoc, currLoc.getNorth(), currLoc.getNConds(), "north")) { return true; }
+        if (tryMovingToNamedRoom(currLoc, nextLoc, currLoc.getSouth(), currLoc.getSConds(), "south")) { return true; }
+        if (tryMovingToNamedRoom(currLoc, nextLoc, currLoc.getEast(), currLoc.getEConds(), "east")) { return true; }
+        if (tryMovingToNamedRoom(currLoc, nextLoc, currLoc.getWest(), currLoc.getWConds(), "west")) { return true; }
+        if (tryMovingToNamedRoom(currLoc, nextLoc, currLoc.getUp(), currLoc.getUConds(), "up")) { return true; }
+        return tryMovingToNamedRoom(currLoc, nextLoc, currLoc.getDown(), currLoc.getDConds(), "down");
     }
 
     // Auxiliary function for moving to a named room (Auxiliary for cmd_move())
-    private static boolean tryMovingToNamedRoom(GameRoom nextLoc, String roomInDir, Set<String> conditions, String dir) {
+    private static boolean tryMovingToNamedRoom(GameRoom currLoc, GameRoom nextLoc, String roomInDir, Set<String> conditions, String dir) {
         if (roomInDir != null && GameState.getGameObject(roomInDir).equals(nextLoc)) {
             if (conditions != null && conditions.size() > 0) {
                 for (String cond : conditions) {
                     String[] flagValuePair = cond.split("=");
                     if (GameState.getFlag(flagValuePair[0]).getValue() != Integer.parseInt(flagValuePair[1])) {
-                        System.out.println("Something is preventing you from moving " + dir + ".");
+                        String blockMessage = currLoc.getDirBlockMessage(Direction.valueOf(dir.toUpperCase()));
+                        System.out.println(Objects.requireNonNullElseGet(blockMessage, () -> "Something is preventing you from moving " + dir + "."));
                         return true;
                     }
                 }
@@ -245,6 +252,56 @@ public class ExecuteCommand {
         else {
             GameController.getPRSO().inspectObject();
         }
+        return true;
+    }
+
+    // General action for opening something (closable container)
+    public static boolean cmd_open() {
+        if (GameController.getPRSO() == null) {
+            return false;
+        }
+        GameObject obj = GameController.getPRSO();
+        if (!obj.hasProperty("_CLOSABLECONTAINER")) {
+            System.out.println("The " + obj.getName() + " has no doors or lid, what on earth are you trying to open?!");
+            return true;
+        }
+        if (!Boolean.parseBoolean(obj.getVariable("isClosed"))) {
+            System.out.println("The " + obj.getName() + " is already open.");
+            return true;
+        }
+        // Open the object
+        obj.setVariable("isClosed", "false");
+        EnhancedExecuteCommand.enhanced_cmd_open();
+        System.out.println("You opened the " + obj.getName() + " and peered inside...");
+        if (obj.getInside().size() == 0) {
+            System.out.println("... There is nothing inside, except for a spot of dust...");
+            return true;
+        }
+        System.out.println("Inside you find:");
+        for (String childID : obj.getInside()) {
+            System.out.println(" - A " + GameState.getGameObject(childID).getName());
+        }
+        return true;
+    }
+
+    // General action for closing something (closable container)
+    public static boolean cmd_close() {
+        if (GameController.getPRSO() == null) {
+            return false;
+        }
+        GameObject obj = GameController.getPRSO();
+        if (!obj.hasProperty("_CLOSABLECONTAINER")) {
+            System.out.println("The " + obj.getName() + " has no doors or lid, what on earth are you trying to close?!");
+            return true;
+        }
+        if (Boolean.parseBoolean(obj.getVariable("isClosed"))) {
+            System.out.println("The " + obj.getName() + " is already closed.");
+            return true;
+        }
+        // Close the object
+        obj.setVariable("isClosed", "true");
+        EnhancedExecuteCommand.enhanced_cmd_close();
+        System.out.println("You closed the " + obj.getName() + ".");
         return true;
     }
 

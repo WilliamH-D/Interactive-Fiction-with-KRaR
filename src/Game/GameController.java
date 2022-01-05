@@ -210,6 +210,7 @@ public class GameController {
                 }
             }
             if (!pair.child.equals(GameController.getPlayer())) {
+                if (pair.child.hasProperty("_CLOSABLECONTAINER") && Boolean.parseBoolean(pair.child.getVariable("isClosed"))) { continue; }
                 for (String childID : pair.child.getChildren()) {
                     GameObject child = GameState.getGameObject(childID);
                     stack.push(new ParentChildPair(pair.child, child, child.getParentType()));
@@ -341,7 +342,11 @@ public class GameController {
                 objects.add(obj);
             }
             for (String child : obj.getChildren()) {
-                stack.push(GameState.getGameObject(child));
+                GameObject c = GameState.getGameObject(child);
+                if (c.getParentType() == 0 && obj.hasVariable("isClosed") && Boolean.parseBoolean(obj.getVariable("isClosed"))) {
+                    continue;
+                }
+                stack.push(c);
             }
         }
 

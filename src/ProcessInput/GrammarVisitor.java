@@ -100,11 +100,6 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
         room = room.substring(1, room.length()-1);
         StoryCompiler.get().n = room;
 
-        Set<String> flagValuePairs = new HashSet<>();
-        for (int i = 0; i < ctx.flag().size(); i++) {
-            flagValuePairs.add(ctx.flag(i).getText() + "=" + ctx.num_int(i).getText());
-        }
-        StoryCompiler.get().nconds = flagValuePairs;
         return visitChildren(ctx);
     }
 
@@ -118,11 +113,6 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
         room = room.substring(1, room.length()-1);
         StoryCompiler.get().s = room;
 
-        Set<String> flagValuePairs = new HashSet<>();
-        for (int i = 0; i < ctx.flag().size(); i++) {
-            flagValuePairs.add(ctx.flag(i).getText() + "=" + ctx.num_int(i).getText());
-        }
-        StoryCompiler.get().sconds = flagValuePairs;
         return visitChildren(ctx);
     }
 
@@ -136,11 +126,6 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
         room = room.substring(1, room.length()-1);
         StoryCompiler.get().e = room;
 
-        Set<String> flagValuePairs = new HashSet<>();
-        for (int i = 0; i < ctx.flag().size(); i++) {
-            flagValuePairs.add(ctx.flag(i).getText() + "=" + ctx.num_int(i).getText());
-        }
-        StoryCompiler.get().econds = flagValuePairs;
         return visitChildren(ctx);
     }
 
@@ -154,11 +139,6 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
         room = room.substring(1, room.length()-1);
         StoryCompiler.get().w = room;
 
-        Set<String> flagValuePairs = new HashSet<>();
-        for (int i = 0; i < ctx.flag().size(); i++) {
-            flagValuePairs.add(ctx.flag(i).getText() + "=" + ctx.num_int(i).getText());
-        }
-        StoryCompiler.get().wconds = flagValuePairs;
         return visitChildren(ctx);
     }
 
@@ -172,11 +152,6 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
         room = room.substring(1, room.length()-1);
         StoryCompiler.get().u = room;
 
-        Set<String> flagValuePairs = new HashSet<>();
-        for (int i = 0; i < ctx.flag().size(); i++) {
-            flagValuePairs.add(ctx.flag(i).getText() + "=" + ctx.num_int(i).getText());
-        }
-        StoryCompiler.get().uconds = flagValuePairs;
         return visitChildren(ctx);
     }
 
@@ -190,11 +165,108 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
         room = room.substring(1, room.length()-1);
         StoryCompiler.get().d = room;
 
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public T visitNorth_cond(EditorGrammarParser.North_condContext ctx) {
+        Set<String> flagValuePairs = new HashSet<>();
+        for (int i = 0; i < ctx.flag().size(); i++) {
+            flagValuePairs.add(ctx.flag(i).getText() + "=" + ctx.num_int(i).getText());
+        }
+        StoryCompiler.get().nconds = flagValuePairs;
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public T visitSouth_cond(EditorGrammarParser.South_condContext ctx) {
+        Set<String> flagValuePairs = new HashSet<>();
+        for (int i = 0; i < ctx.flag().size(); i++) {
+            flagValuePairs.add(ctx.flag(i).getText() + "=" + ctx.num_int(i).getText());
+        }
+        StoryCompiler.get().sconds = flagValuePairs;
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public T visitEast_cond(EditorGrammarParser.East_condContext ctx) {
+        Set<String> flagValuePairs = new HashSet<>();
+        for (int i = 0; i < ctx.flag().size(); i++) {
+            flagValuePairs.add(ctx.flag(i).getText() + "=" + ctx.num_int(i).getText());
+        }
+        StoryCompiler.get().econds = flagValuePairs;
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public T visitWest_cond(EditorGrammarParser.West_condContext ctx) {
+        Set<String> flagValuePairs = new HashSet<>();
+        for (int i = 0; i < ctx.flag().size(); i++) {
+            flagValuePairs.add(ctx.flag(i).getText() + "=" + ctx.num_int(i).getText());
+        }
+        StoryCompiler.get().wconds = flagValuePairs;
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public T visitUp_cond(EditorGrammarParser.Up_condContext ctx) {
+        Set<String> flagValuePairs = new HashSet<>();
+        for (int i = 0; i < ctx.flag().size(); i++) {
+            flagValuePairs.add(ctx.flag(i).getText() + "=" + ctx.num_int(i).getText());
+        }
+        StoryCompiler.get().uconds = flagValuePairs;
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public T visitDown_cond(EditorGrammarParser.Down_condContext ctx) {
         Set<String> flagValuePairs = new HashSet<>();
         for (int i = 0; i < ctx.flag().size(); i++) {
             flagValuePairs.add(ctx.flag(i).getText() + "=" + ctx.num_int(i).getText());
         }
         StoryCompiler.get().dconds = flagValuePairs;
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public T visitNorth_block_message(EditorGrammarParser.North_block_messageContext ctx) {
+        String message = ctx.STRING().getText();
+        StoryCompiler.get().nblockMessage = message.substring(1, message.length()-1);
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public T visitSouth_block_message(EditorGrammarParser.South_block_messageContext ctx) {
+        String message = ctx.STRING().getText();
+        StoryCompiler.get().sblockMessage = message.substring(1, message.length()-1);
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public T visitEast_block_message(EditorGrammarParser.East_block_messageContext ctx) {
+        String message = ctx.STRING().getText();
+        StoryCompiler.get().eblockMessage = message.substring(1, message.length()-1);
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public T visitWest_block_message(EditorGrammarParser.West_block_messageContext ctx) {
+        String message = ctx.STRING().getText();
+        StoryCompiler.get().wblockMessage = message.substring(1, message.length()-1);
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public T visitUp_block_message(EditorGrammarParser.Up_block_messageContext ctx) {
+        String message = ctx.STRING().getText();
+        StoryCompiler.get().ublockMessage = message.substring(1, message.length()-1);
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public T visitDown_block_message(EditorGrammarParser.Down_block_messageContext ctx) {
+        String message = ctx.STRING().getText();
+        StoryCompiler.get().dblockMessage = message.substring(1, message.length()-1);
         return visitChildren(ctx);
     }
 
@@ -343,7 +415,19 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
         StoryCompiler.get().compileHereCond(locs);
         return children;
     }
-    
+
+    @Override
+    public T visitInscope_cond(EditorGrammarParser.Inscope_condContext ctx) {
+        T children = visitChildren(ctx);
+        String obj = ctx.ID(0).getText().substring(1, ctx.ID(0).getText().length()-1);
+        Set<String> locs = new HashSet<>();
+        for (int i = 1; i < ctx.ID().size(); i++) {
+            locs.add(ctx.ID(i).getText().substring(1, ctx.ID(i).getText().length()-1));
+        }
+        StoryCompiler.get().compileInScopeCond(obj, locs);
+        return children;
+    }
+
     @Override public T visitAndflags_cond(EditorGrammarParser.Andflags_condContext ctx) {
         T children = visitChildren(ctx);
         Set<String> flags = new HashSet<>();
