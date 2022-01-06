@@ -52,6 +52,14 @@ public class PlaceEff extends Effect {
         if (kb.query("isRoom(" + locID.toLowerCase() + ")").size() > 0) {
             return true;
         }
+        if (kb.query("isLocated(" + itemID.toLowerCase() + "," + locID.toLowerCase() + ",_)").size() > 0) {
+            switch (parentType) {
+                case 0: System.out.println("The " + GameState.getGameObject(locID).getName() + " is already inside of the " + GameState.getGameObject(itemID).getName() + "."); break;
+                case 1: System.out.println("The " + GameState.getGameObject(locID).getName() + " is already on top of the " + GameState.getGameObject(itemID).getName() + "."); break;
+                case 2: System.out.println("The " + GameState.getGameObject(locID).getName() + " is already under the " + GameState.getGameObject(itemID).getName() + "."); break;
+            }
+            return false;
+        }
         boolean legal;
         switch (parentType) {
             case 0: legal = kb.query("putInIgnoreScope(" + itemID.toLowerCase() + "," + locID.toLowerCase() + ")").size() > 0; break;

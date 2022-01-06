@@ -47,9 +47,9 @@ public class KnowledgeBase {
         addClause("inScope(A) :- isObject(A), isLocated(A,B,_), inScope(B)");
 
         // Put object in other object (put object A inside object B)
-        addClause("putIn(A,B) :- inScope(A), inScope(B), A \\= B, hasProperty(B,closablecontainer), !, isClosed(B,false), volume(A,X), capacity(B,Y), capacityUsed(B,Z), Y2 is Y+1, X+Z<Y2");
-        addClause("putIn(A,B) :- inScope(A), inScope(B), A \\= B, volume(A,X), capacity(B,Y), capacityUsed(B,Z), Y2 is Y+1, X+Z<Y2");
-        addClause("putInIgnoreScope(A,B) :- A \\= B, volume(A,X), capacity(B,Y), capacityUsed(B,Z), Y2 is Y+1, X+Z<Y2");
+        addClause("putIn(A,B) :- inScope(A), inScope(B), A \\= B, isLocated(A,C,_), A \\= C, hasProperty(B,closablecontainer), !, isClosed(B,false), volume(A,X), capacity(B,Y), capacityUsed(B,Z), Y2 is Y+1, X+Z<Y2");
+        addClause("putIn(A,B) :- inScope(A), inScope(B), A \\= B, isLocated(A,C,_), A \\= C, volume(A,X), capacity(B,Y), capacityUsed(B,Z), Y2 is Y+1, X+Z<Y2");
+        addClause("putInIgnoreScope(A,B) :- A \\= B, isLocated(A,C,_), A \\= C, volume(A,X), capacity(B,Y), capacityUsed(B,Z), Y2 is Y+1, X+Z<Y2");
 
         // Put object on top of other object (put object A on top of object B)
         addClause("putOn(A,B) :- inScope(A), inScope(B), A \\= B, volume(A,X), surface(B,Y), surfaceUsed(B,Z), Y2 is Y+1, X+Z<Y2");

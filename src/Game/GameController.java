@@ -167,18 +167,18 @@ public class GameController {
         class ParentChildPair {
             private GameObject parent;
             private GameObject child;
-            private int childType; // 0 = inside, 1 = on surface, 2 = below
+            private int indent; // 0 = inside, 1 = on surface, 2 = below
 
-            public ParentChildPair(GameObject parent, GameObject child, int childType) {
+            public ParentChildPair(GameObject parent, GameObject child, int indent) {
                 this.parent = parent;
                 this.child = child;
-                this.childType = childType;
+                this.indent = indent;
             }
         }
 
         // Depth first search on objects in the scene
         Stack<ParentChildPair> stack = new Stack<>();
-        stack.push(new ParentChildPair(null, location, 0));
+        stack.push(new ParentChildPair(null, location, -1));
 
         boolean printedGap = false;
 
@@ -195,7 +195,8 @@ public class GameController {
                             System.out.println();
                             printedGap = true;
                         }
-                        System.out.println("A " + pair.child.getName() + " is in the " + pair.parent.getName() + ".");
+                        for (int i = 0; i < 2*pair.indent; i++) { System.out.print(" "); }
+                        System.out.println(" - A " + pair.child.getName() + " is in the " + pair.parent.getName() + ".");
                     }
                     // Child is on top of its parent
                     else if (pair.child.getParentType() == 1) {
@@ -203,7 +204,8 @@ public class GameController {
                             System.out.println();
                             printedGap = true;
                         }
-                        System.out.println("A " + pair.child.getName() + " is on the " + pair.parent.getName() + ".");
+                        for (int i = 0; i < 2*pair.indent; i++) { System.out.print(" "); }
+                        System.out.println(" - A " + pair.child.getName() + " is on the " + pair.parent.getName() + ".");
                     }
                     // Child is underneath of its parent
                     else if (pair.child.getParentType() == 2) {
@@ -211,14 +213,17 @@ public class GameController {
                             System.out.println();
                             printedGap = true;
                         }
-                        System.out.println("A " + pair.child.getName() + " is below the " + pair.parent.getName() + ".");
+                        for (int i = 0; i < 2*pair.indent; i++) { System.out.print(" "); }
+                        System.out.println(" - A " + pair.child.getName() + " is below the " + pair.parent.getName() + ".");
                     }
                     if (pair.child.hasProperty("_CLOSABLECONTAINER")) {
                         if (Boolean.parseBoolean(pair.child.getVariable("isClosed"))) {
-                            System.out.println("The " + pair.child.getName() + " is currently closed.");
+                            for (int i = 0; i < 2*pair.indent; i++) { System.out.print(" "); }
+                            System.out.println("   The " + pair.child.getName() + " is currently closed.");
                         }
                         else {
-                            System.out.println("The " + pair.child.getName() + " is currently open.");
+                            for (int i = 0; i < 2*pair.indent; i++) { System.out.print(" "); }
+                            System.out.println("   The " + pair.child.getName() + " is currently open.");
                         }
                     }
                 }
@@ -227,7 +232,7 @@ public class GameController {
                 for (String childID : pair.child.getChildren()) {
                     GameObject child = GameState.getGameObject(childID);
                     if (child.getParentType() == 0 && pair.child.hasProperty("_CLOSABLECONTAINER") && Boolean.parseBoolean(pair.child.getVariable("isClosed"))) { continue; }
-                    stack.push(new ParentChildPair(pair.child, child, child.getParentType()));
+                    stack.push(new ParentChildPair(pair.child, child, pair.indent+1));
                 }
             }
         }

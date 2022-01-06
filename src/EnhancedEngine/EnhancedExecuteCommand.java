@@ -69,7 +69,7 @@ public class EnhancedExecuteCommand {
         }
 
         // Find out why query failed and present info to player
-        boolean[] failure = new boolean[]{false, false, false, false, false, false, false}; // [outOfScope(A), outOfScope(B), sameObject(A,B), capacity(B,_), tooBig(A,B), cantFit(A,B), targetClosed(B)]
+        boolean[] failure = new boolean[]{false, false, false, false, false, false, false, false}; // [outOfScope(A), outOfScope(B), sameObject(A,B), capacity(B,_), tooBig(A,B), cantFit(A,B), targetClosed(B), already in]
         boolean atLeastOneFailure = false;
 
         if (kb.query("outOfScope(" + prsoID + ")").size() > 0) { failure[0] = true; atLeastOneFailure = true; }
@@ -79,12 +79,14 @@ public class EnhancedExecuteCommand {
         if (kb.query("tooBig" + ContainerType + "(" + prsoID + "," + prsiID + ")").size() > 0) { failure[4] = true; atLeastOneFailure = true; }
         if (kb.query("cantFit" + ContainerType + "(" + prsoID + "," + prsiID + ")").size() > 0) { failure[5] = true; atLeastOneFailure = true; }
         if (parentType == 0 && kb.query("targetClosed(" + prsiID + ")").size() > 0) { failure[6] = true; atLeastOneFailure = true; }
+        if (kb.query("isLocated(" + prsoID + "," + prsiID + ",_)").size() > 0) { failure[7] = true; atLeastOneFailure = true; }
 
         if (failure[0]) { System.out.println("You do not have access to the " + prso.getName() + "."); }
         if (failure[1] && !failure[2]) { System.out.println("You do not have access to the " + prsi.getName() + "."); }
         if (failure[2]) { System.out.println("Why are you trying to put something " + failDescSubstitute + " itself?!"); }
+        if (failure[7]) { System.out.print("The " + prso.getName() + " is already " + failDescSubstitute + " the " + prsi.getName() + "."); }
         if (failure[3]) { System.out.println("The " + prsi.getName() + " doesn't have anywhere to put the " + prso.getName() + " " + failDescSubstitute + " it."); }
-        if (failure[4]) { System.out.println("The " + prso.getName() + " is too big to fit " + failDescSubstitute + " the" + prsi.getName() + "."); }
+        if (failure[4]) { System.out.println("The " + prso.getName() + " is too big to fit " + failDescSubstitute + " the " + prsi.getName() + "."); }
         if (failure[5] && !failure[4]) { System.out.println("There's not enough space " + failDescSubstitute + " the " + prsi.getName() + ", perhaps try making some space first."); }
         if (failure[6]) { System.out.println("You can't put anything in the " + prsi.getName() + " when it's closed."); }
         return atLeastOneFailure;
