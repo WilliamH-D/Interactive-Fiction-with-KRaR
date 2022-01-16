@@ -32,6 +32,7 @@ public class GameObject {
     public String getId() { return this.id; }
 
     public void setParent(String parent, int newParentType) {
+        // If this object already has a parent set, remove object as child of old parent
         if (this.parent != null) {
             GameObject oldParent = GameState.getGameObject(this.parent);
             if (oldParent != null) {
@@ -93,6 +94,7 @@ public class GameObject {
 
         while (queue.size() > 0) {
             GameObject curr = GameState.getGameObject(queue.remove());
+            //System.out.println("Curr: " + curr.getId() + ", Children: " + Arrays.toString(curr.getChildren().toArray()));
             if (curr.id.equals(objID)) {
                 // We have found the object
                 path.add(0, objID);
@@ -103,7 +105,7 @@ public class GameObject {
 
                 return path;
             }
-            queue.addAll(getChildren());
+            queue.addAll(curr.getChildren());
         }
         return path;
     }

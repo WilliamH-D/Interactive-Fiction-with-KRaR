@@ -13,13 +13,18 @@ import java.util.Scanner;
 public class Main {
 
     static boolean continueLooping = false;
-    private static CommandConstructor commandConstructor;
+    public static CommandConstructor commandConstructor;
 
     // Initialise the game ready for running
     // If initialisation fails, print the stack trace and safely exit
     public static void main(String[] args) {
+        if (args.length == 0 || !args[0].substring(args[0].length() - 4).equals(".txt")) {
+            System.err.println("No story file argument.");
+            return;
+        }
         try {
-            init();
+            boolean useEnhanced = args.length > 1 && args[1].equals("enhanced");
+            init(args[0], useEnhanced);
         } catch (IOException e) {
             e.printStackTrace(System.err);
             return;
@@ -33,13 +38,18 @@ public class Main {
         System.out.println("Exiting game.");
     }
 
-    private static void init() throws IOException {
+    public static void init(String storyFile, boolean useEnhanced) throws IOException {
         // Instantiate the Game Controller
         GameController.instantiateGameController();
-        GameController.useEnhancedEngine();
+        if (useEnhanced) {
+            GameController.useEnhancedEngine();
+        }
+        else {
+            GameController.useTraditionalEngine();
+        }
 
         // Compile the game file
-        StoryCompiler.get().compile("D:\\Documents\\University\\Part II Project\\Interactive Fiction with KRaR\\src\\ProcessInput\\boxesStory.txt");
+        StoryCompiler.get().compile("src\\StoryFiles\\" + storyFile);
 
         // Print knowledge base -- FOR DEBUGGING PURPOSES
         KnowledgeBase.getInstance().printKB();

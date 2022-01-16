@@ -230,6 +230,9 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
 
     @Override
     public T visitNorth_block_message(EditorGrammarParser.North_block_messageContext ctx) {
+        if (ctx.STRING() == null) {
+            return visitChildren(ctx);
+        }
         String message = ctx.STRING().getText();
         StoryCompiler.get().nblockMessage = message.substring(1, message.length()-1);
         return visitChildren(ctx);
@@ -237,6 +240,9 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
 
     @Override
     public T visitSouth_block_message(EditorGrammarParser.South_block_messageContext ctx) {
+        if (ctx.STRING() == null) {
+            return visitChildren(ctx);
+        }
         String message = ctx.STRING().getText();
         StoryCompiler.get().sblockMessage = message.substring(1, message.length()-1);
         return visitChildren(ctx);
@@ -244,6 +250,9 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
 
     @Override
     public T visitEast_block_message(EditorGrammarParser.East_block_messageContext ctx) {
+        if (ctx.STRING() == null) {
+            return visitChildren(ctx);
+        }
         String message = ctx.STRING().getText();
         StoryCompiler.get().eblockMessage = message.substring(1, message.length()-1);
         return visitChildren(ctx);
@@ -251,6 +260,9 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
 
     @Override
     public T visitWest_block_message(EditorGrammarParser.West_block_messageContext ctx) {
+        if (ctx.STRING() == null) {
+            return visitChildren(ctx);
+        }
         String message = ctx.STRING().getText();
         StoryCompiler.get().wblockMessage = message.substring(1, message.length()-1);
         return visitChildren(ctx);
@@ -258,6 +270,9 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
 
     @Override
     public T visitUp_block_message(EditorGrammarParser.Up_block_messageContext ctx) {
+        if (ctx.STRING() == null) {
+            return visitChildren(ctx);
+        }
         String message = ctx.STRING().getText();
         StoryCompiler.get().ublockMessage = message.substring(1, message.length()-1);
         return visitChildren(ctx);
@@ -265,6 +280,9 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
 
     @Override
     public T visitDown_block_message(EditorGrammarParser.Down_block_messageContext ctx) {
+        if (ctx.STRING() == null) {
+            return visitChildren(ctx);
+        }
         String message = ctx.STRING().getText();
         StoryCompiler.get().dblockMessage = message.substring(1, message.length()-1);
         return visitChildren(ctx);

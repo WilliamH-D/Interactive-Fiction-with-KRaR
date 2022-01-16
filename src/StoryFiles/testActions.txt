@@ -1,0 +1,269 @@
+[room]
+{
+    ID: <CENTREROOM>;
+    N: <NORTHROOM>;
+    S: <SOUTHROOM>;
+    SCOND: _SOUTHACCESS=1;
+    SBLOCKMESSAGE: "South access denied.";
+    E: <EASTROOM>;
+    W: <WESTROOM>;
+    WCOND: _WESTACCESS1=1, _WESTACCESS2=1;
+    U: <UPROOM>;
+    D: <DOWNROOM>;
+    NAME: "Centre room";
+    DESC: "The room in the centre.";
+}
+
+[room]
+{
+    ID: <NORTHROOM>;
+    S: <CENTREROOM>;
+    NAME: "North room";
+    DESC: "The room to the north.";
+}
+
+[room]
+{
+    ID: <SOUTHROOM>;
+    N: <CENTREROOM>;
+    NAME: "South room";
+    DESC: "The room to the south.";
+}
+
+[room]
+{
+    ID: <EASTROOM>;
+    W: <CENTREROOM>;
+    NAME: "East room";
+    DESC: "The room to the east.";
+}
+
+[room]
+{
+    ID: <WESTROOM>;
+    E: <CENTREROOM>;
+    NAME: "West room";
+    DESC: "The room to the west.";
+}
+
+[room]
+{
+    ID: <UPROOM>;
+    D: <CENTREROOM>;
+    NAME: "Up room";
+    DESC: "The room above.";
+}
+
+[room]
+{
+    ID: <DOWNROOM>;
+    U: <CENTREROOM>;
+    NAME: "Down room";
+    DESC: "The room below.";
+}
+
+[object]
+ {
+     ID: <TESTITEM>;
+     LOCATION: <CENTREROOM>;
+     NAME: "Test item";
+     DESC: "Item to test conditions and effects.";
+     SYNS: "item", "object", "test object";
+     PROPERTIES: _PROP1, _PROP2;
+     VALUES: (value1:0), (value2:0);
+ }
+
+ [object]
+ {
+     ID: <DUMMYITEM1>;
+     LOCATION: <CENTREROOM>;
+     NAME: "Dummy item 1";
+     DESC: "Item to test conditions and effects.";
+ }
+
+ [object]
+ {
+      ID: <DUMMYITEM2>;
+      LOCATION: <CENTREROOM>;
+      NAME: "Dummy item 2";
+      DESC: "Item to test conditions and effects.";
+ }
+
+[action]
+{
+    ID: <TESTITEM>;
+    ACTION:
+        COND<FLAGVALUE: _COUNTER, 1>
+        {
+            EFF<SETFLAG: _CONDTAKEN, 1>
+            EFF<TAKE: <TESTITEM>>
+        }
+        COND<FLAGVALUE: _COUNTER, 2>
+        {
+            EFF<SETFLAG: _CONDTAKEN, 1>
+            EFF<SETFLAG: _TESTFLAG1, 1>
+            EFF<SETFLAG: _TESTFLAG2, 0>
+            COND<ANDFLAGS: _TESTFLAG1, _TESTFLAG2>
+            {
+                EFF<TAKE: <TESTITEM>>
+            }
+        }
+        COND<FLAGVALUE: _COUNTER, 3>
+        {
+            EFF<SETFLAG: _CONDTAKEN, 1>
+            EFF<SETFLAG: _TESTFLAG1, 1>
+            EFF<SETFLAG: _TESTFLAG2, 1>
+            COND<ANDFLAGS: _TESTFLAG1, _TESTFLAG2>
+            {
+                EFF<TAKE: <TESTITEM>>
+            }
+        }
+        COND<FLAGVALUE: _COUNTER, 4>
+        {
+            EFF<SETFLAG: _CONDTAKEN, 1>
+            EFF<SETFLAG: _TESTFLAG1, 0>
+            EFF<SETFLAG: _TESTFLAG2, 0>
+            COND<ORFLAGS: _TESTFLAG1, _TESTFLAG2>
+            {
+                EFF<TAKE: <TESTITEM>>
+            }
+        }
+        COND<FLAGVALUE: _COUNTER, 5>
+        {
+            EFF<SETFLAG: _CONDTAKEN, 1>
+            EFF<SETFLAG: _TESTFLAG1, 1>
+            EFF<SETFLAG: _TESTFLAG2, 0>
+            COND<ORFLAGS: _TESTFLAG1, _TESTFLAG2>
+            {
+                EFF<TAKE: <TESTITEM>>
+            }
+        }
+        COND<FLAGVALUE: _COUNTER, 6>
+        {
+            EFF<SETFLAG: _CONDTAKEN, 1>
+            COND<ANDPROPERTIES: <TESTITEM>, _PROP1, _NOTPROP>
+            {
+                EFF<TAKE: <TESTITEM>>
+            }
+        }
+        COND<FLAGVALUE: _COUNTER, 7>
+        {
+            EFF<SETFLAG: _CONDTAKEN, 1>
+            COND<ANDPROPERTIES: <TESTITEM>, _PROP1, _PROP2>
+            {
+                EFF<TAKE: <TESTITEM>>
+            }
+        }
+        COND<FLAGVALUE: _COUNTER, 8>
+        {
+            EFF<SETFLAG: _CONDTAKEN, 1>
+            COND<ORPROPERTIES: <TESTITEM>, _NOTPROP1, _NOTPROP2>
+            {
+                EFF<TAKE: <TESTITEM>>
+            }
+        }
+        COND<FLAGVALUE: _COUNTER, 9>
+        {
+            EFF<SETFLAG: _CONDTAKEN, 1>
+            COND<ORPROPERTIES: <TESTITEM>, _PROP1, _NOTPROP>
+            {
+                EFF<TAKE: <TESTITEM>>
+            }
+        }
+        COND<FLAGVALUE: _COUNTER, 10>
+        {
+            EFF<SETFLAG: _CONDTAKEN, 1>
+            COND<HERE: <NORTHROOM>>
+            {
+                EFF<TAKE: <TESTITEM>>
+            }
+        }
+        COND<FLAGVALUE: _COUNTER, 11>
+        {
+            EFF<SETFLAG: _CONDTAKEN, 1>
+            COND<HERE: <CENTREROOM>>
+            {
+                EFF<TAKE: <TESTITEM>>
+            }
+        }
+        COND<FLAGVALUE: _COUNTER, 12>
+        {
+            EFF<SETFLAG: _CONDTAKEN, 1>
+            EFF<PLACE: <DUMMYITEM1>, <CENTREROOM>, IN>
+            COND<HAVEITEM: <DUMMYITEM1>>
+            {
+                EFF<TAKE: <TESTITEM>>
+            }
+        }
+        COND<FLAGVALUE: _COUNTER, 13>
+        {
+            EFF<SETFLAG: _CONDTAKEN, 1>
+            EFF<TAKE: <DUMMYITEM1>>
+            COND<HAVEITEM: <DUMMYITEM1>>
+            {
+                EFF<TAKE: <TESTITEM>>
+            }
+        }
+        COND<FLAGVALUE: _COUNTER, 14>
+        {
+            EFF<SETFLAG: _CONDTAKEN, 1>
+            EFF<TAKE: <DUMMYITEM1>>
+            EFF<PLACE: <DUMMYITEM2>, <CENTREROOM>, IN>
+            COND<HAVEITEMS: <DUMMYITEM1>, <DUMMYITEM2>>
+            {
+                EFF<TAKE: <TESTITEM>>
+            }
+        }
+        COND<FLAGVALUE: _COUNTER, 15>
+        {
+            EFF<SETFLAG: _CONDTAKEN, 1>
+            EFF<TAKE: <DUMMYITEM1>>
+            EFF<TAKE: <DUMMYITEM2>>
+            COND<HAVEITEMS: <DUMMYITEM1>, <DUMMYITEM2>>
+            {
+                EFF<TAKE: <TESTITEM>>
+            }
+        };
+}
+
+[flag]
+{
+    FLAG: _SOUTHACCESS;
+    VALUE: 0;
+}
+
+[flag]
+{
+    FLAG: _WESTACCESS1;
+    VALUE: 0;
+}
+
+[flag]
+{
+    FLAG: _WESTACCESS2;
+    VALUE: 0;
+}
+
+[flag]
+{
+    FLAG: _TESTFLAG1;
+    VALUE: 0;
+}
+
+[flag]
+{
+    FLAG: _TESTFLAG2;
+    VALUE: 0;
+}
+
+[flag]
+{
+    FLAG: _COUNTER;
+    VALUE: 0;
+}
+
+[flag]
+{
+    FLAG: _CONDTAKEN;
+    VALUE: 0;
+}

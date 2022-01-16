@@ -23,6 +23,9 @@ public class Player extends GameObject {
     }
 
     public void movePlayer(GameRoom loc) {
+        if (loc.equals(GameController.getPlayer().getLocation())) {
+            return;
+        }
         this.setParent(loc.getId(), 0);
         KnowledgeBase.getInstance().removeClause("isLocated(" + getId().toLowerCase() + ",X,0)", true);
         KnowledgeBase.getInstance().addClause("isLocated(" + getId().toLowerCase() + "," + loc.getId().toLowerCase() + ",0)");

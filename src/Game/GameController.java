@@ -255,7 +255,7 @@ public class GameController {
             }
         );
         try {
-            File myObj = new File("D:\\Documents\\University\\Part II Project\\Interactive Fiction with KRaR\\src\\ProcessInput\\verbSynonymsImproved.txt");
+            File myObj = new File("src\\ProcessInput\\verbSynonymsImproved.txt");
             Scanner myReader = new Scanner(myObj);
 
             String verb = "";

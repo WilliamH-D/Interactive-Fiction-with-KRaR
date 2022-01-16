@@ -60,21 +60,7 @@ verb: place
 
 verb: move
 0
-0=move,walk,run,go,traverse
-
-verb: climb
-0
-0=climb,ascend
-0 1
-0=climb,go
-1=up
-
-verb: descend
-0
-0=descend
-0 1
-0=descend,go,climb
-1=down
+0=move,walk,run,go,traverse,climb,descend
 
 verb: attack
 0

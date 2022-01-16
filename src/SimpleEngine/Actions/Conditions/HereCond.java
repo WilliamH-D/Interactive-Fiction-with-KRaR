@@ -17,13 +17,13 @@ public class HereCond extends ConditionTest {
 
     @Override
     public boolean satisfied() {
-        logger.logDebug("Checking HaveItemsCond: Check that player is located at one of: " + locIds);
+        logger.logDebug("Checking HereCond: Check that player is located at one of: " + locIds);
         boolean result = locIds.contains(GameController.getPlayer().getLocation().getId());
         if (result) {
-            logger.logDebug("HaveItemsCond satisfied since player is located at " + GameController.getPlayer().getLocation().getId());
+            logger.logDebug("HereCond satisfied since player is located at " + GameController.getPlayer().getLocation().getId());
         }
         else {
-            logger.logDebug("HaveItemsCond not satisfied");
+            logger.logDebug("HereCond not satisfied");
         }
         return result;
     }
