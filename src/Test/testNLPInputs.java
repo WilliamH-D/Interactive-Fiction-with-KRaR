@@ -285,4 +285,29 @@ public class testNLPInputs {
         Assert.assertEquals(GameController.getPRSO().getId(), "SMALLBOX");
         Assert.assertEquals(GameController.getPRSI().getId(), "BIGBOX");
     }
+
+    @Test
+    public void testLookAround() {
+        // Create synonyms map
+        Map<String, String> synonyms = new TreeMap<>();
+        synonyms.put("look around", "look around");
+        synonyms.put("look at", "look around");
+        synonyms.put("observe around", "look around");
+        synonyms.put("look", "look");
+        synonyms.put("observe", "look");
+
+        // Create interactable objects list
+        ArrayList<GameObject> objects = new ArrayList<>();
+        GameObject smallbox = new GameObject("SMALLBOX");
+        smallbox.setName("small box");
+        objects.add(smallbox);
+
+        testNLPInputs.commandConstructor.setVerbSynonyms(synonyms);
+        testNLPInputs.commandConstructor.setAllowedObjects(objects);
+        testNLPInputs.commandConstructor.processInput("look around the small box");
+
+        Assert.assertEquals(getCorrectedVerb(synonyms), "LOOK AROUND");
+        Assert.assertEquals(GameController.getPRSO().getId(), "SMALLBOX");
+        Assert.assertNull(GameController.getPRSI());
+    }
 }

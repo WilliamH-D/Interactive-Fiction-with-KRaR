@@ -23,9 +23,15 @@ public class GTCond extends ConditionTest {
 
     @Override
     public boolean satisfied() {
-        logger.logDebug("Checking GTCond: Check that " + lobjID + "::" + lhs + " > " + robjID + "::" + rhs);
         GameObject lobj = GameState.getGameObject(lobjID);
         GameObject robj = GameState.getGameObject(robjID);
+        if (bothVars) {
+            logger.logDebug("Checking GTCond: Check that " + lobjID + "::" + lhs + " (" + lobj.getVariable(lhs) + ") > " + robjID + "::" + rhs + " (" + robj.getVariable(rhs) + ")");
+        }
+        else {
+            logger.logDebug("Checking GTCond: Check that " + lobjID + "::" + lhs + " (" + lobj.getVariable(lhs) + ") > " + rhs);
+        }
+
         if (!lobj.hasVariable(lhs)) {
             logger.logDebug("GTCond not satisfied since " + lobjID + " does not have variable " + lhs);
             return false;

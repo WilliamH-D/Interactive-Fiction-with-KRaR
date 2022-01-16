@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class Main {
 
     static boolean continueLooping = false;
-    public static CommandConstructor commandConstructor;
+    private static CommandConstructor commandConstructor;
 
     // Initialise the game ready for running
     // If initialisation fails, print the stack trace and safely exit

@@ -17,10 +17,10 @@ public class PRSOCond extends ConditionTest {
         logger.logDebug("Checking PRSOCond: Checking PRSO is one of: " + ids);
         boolean result = ids.contains(GameController.getPRSO().getId());
         if (result) {
-            logger.logDebug("PRSICond satisfied since PRSO = " + GameController.getPRSO().getId());
+            logger.logDebug("PRSOCond satisfied since PRSO = " + GameController.getPRSO().getId());
         }
         else {
-            logger.logDebug("PRSICond not satisfied since PRSO = " + GameController.getPRSO().getId());
+            logger.logDebug("PRSOCond not satisfied since PRSO = " + GameController.getPRSO().getId());
         }
         return result;
     }

@@ -1,12 +1,37 @@
 
 Compile Room:
-ID: STORAGEROOM
+ID: CENTREROOM
+N: NORTHROOM
+NCONDS: []
+NBLOCKMESSAGE: null
+S: SOUTHROOM
+SCONDS: [_SOUTHACCESS=1]
+SBLOCKMESSAGE: South access denied.
+E: EASTROOM
+ECONDS: []
+EBLOCKMESSAGE: null
+W: WESTROOM
+WCONDS: [_WESTACCESS2=1, _WESTACCESS1=1]
+WBLOCKMESSAGE: null
+U: UPROOM
+UCONDS: []
+UBLOCKMESSAGE: null
+D: DOWNROOM
+DCONDS: []
+DBLOCKMESSAGE: null
+NAME: Centre room
+DESC: The room in the centre.
+SYNS: []
+INFO: New Room: SimpleEngine.GameRoom@7642df8f
+
+Compile Room:
+ID: NORTHROOM
 N: null
 NCONDS: null
 NBLOCKMESSAGE: null
-S: EXIT
-SCONDS: [_MEDIUMINBIG=1, _SMALLINMEDIUM=1]
-SBLOCKMESSAGE: You can't leave without stacking the boxes inside of each other.
+S: CENTREROOM
+SCONDS: []
+SBLOCKMESSAGE: null
 E: null
 ECONDS: null
 EBLOCKMESSAGE: null
@@ -19,14 +44,14 @@ UBLOCKMESSAGE: null
 D: null
 DCONDS: null
 DBLOCKMESSAGE: null
-NAME: Storage Room
-DESC: It's a storage room filled with boxes.
+NAME: North room
+DESC: The room to the north.
 SYNS: []
-INFO: New Room: SimpleEngine.GameRoom@7905a0b8
+INFO: New Room: SimpleEngine.GameRoom@66fdec9
 
 Compile Room:
-ID: EXIT
-N: STORAGEROOM
+ID: SOUTHROOM
+N: CENTREROOM
 NCONDS: []
 NBLOCKMESSAGE: null
 S: null
@@ -44,267 +69,1963 @@ UBLOCKMESSAGE: null
 D: null
 DCONDS: null
 DBLOCKMESSAGE: null
-NAME: Exit
-DESC: The outside of the building with an entrance to the storage room.
+NAME: South room
+DESC: The room to the south.
 SYNS: []
-INFO: New Room: SimpleEngine.GameRoom@2f666ebb
+INFO: New Room: SimpleEngine.GameRoom@57abad67
+
+Compile Room:
+ID: EASTROOM
+N: null
+NCONDS: null
+NBLOCKMESSAGE: null
+S: null
+SCONDS: null
+SBLOCKMESSAGE: null
+E: null
+ECONDS: null
+EBLOCKMESSAGE: null
+W: CENTREROOM
+WCONDS: []
+WBLOCKMESSAGE: null
+U: null
+UCONDS: null
+UBLOCKMESSAGE: null
+D: null
+DCONDS: null
+DBLOCKMESSAGE: null
+NAME: East room
+DESC: The room to the east.
+SYNS: []
+INFO: New Room: SimpleEngine.GameRoom@550a1967
+
+Compile Room:
+ID: WESTROOM
+N: null
+NCONDS: null
+NBLOCKMESSAGE: null
+S: null
+SCONDS: null
+SBLOCKMESSAGE: null
+E: CENTREROOM
+ECONDS: []
+EBLOCKMESSAGE: null
+W: null
+WCONDS: null
+WBLOCKMESSAGE: null
+U: null
+UCONDS: null
+UBLOCKMESSAGE: null
+D: null
+DCONDS: null
+DBLOCKMESSAGE: null
+NAME: West room
+DESC: The room to the west.
+SYNS: []
+INFO: New Room: SimpleEngine.GameRoom@2a640157
+
+Compile Room:
+ID: UPROOM
+N: null
+NCONDS: null
+NBLOCKMESSAGE: null
+S: null
+SCONDS: null
+SBLOCKMESSAGE: null
+E: null
+ECONDS: null
+EBLOCKMESSAGE: null
+W: null
+WCONDS: null
+WBLOCKMESSAGE: null
+U: null
+UCONDS: null
+UBLOCKMESSAGE: null
+D: CENTREROOM
+DCONDS: []
+DBLOCKMESSAGE: null
+NAME: Up room
+DESC: The room above.
+SYNS: []
+INFO: New Room: SimpleEngine.GameRoom@52851b44
+
+Compile Room:
+ID: DOWNROOM
+N: null
+NCONDS: null
+NBLOCKMESSAGE: null
+S: null
+SCONDS: null
+SBLOCKMESSAGE: null
+E: null
+ECONDS: null
+EBLOCKMESSAGE: null
+W: null
+WCONDS: null
+WBLOCKMESSAGE: null
+U: CENTREROOM
+UCONDS: []
+UBLOCKMESSAGE: null
+D: null
+DCONDS: null
+DBLOCKMESSAGE: null
+NAME: Down room
+DESC: The room below.
+SYNS: []
+INFO: New Room: SimpleEngine.GameRoom@584f54e6
 
 Compile Object:
-ID: CUPBOARD
-LOCATION: STORAGEROOM
+ID: TESTITEM
+LOCATION: CENTREROOM
 LOCATION TYPE: 0
-NAME: Cupboard
-DESC: A small wooden cupboard.
-SYNS: ["unit", "closet", "storage unit"]
-FLAGS: [_CLOSABLECONTAINER]
+NAME: Test item
+DESC: Item to test conditions and effects.
+SYNS: ["object", "test object", "item"]
+FLAGS: [_PROP1, _PROP2]
 VALUES: 
-	volume:50
-	surface:50
-	capacity:50
-INFO: New Object: SimpleEngine.GameObject@16c069df
+INFO: New Object: SimpleEngine.GameObject@604f2bd2
 
 Compile Object:
-ID: SMALLBOX
-LOCATION: CUPBOARD
+ID: DUMMYITEM1
+LOCATION: CENTREROOM
 LOCATION TYPE: 0
-NAME: small box
-DESC: A small cardboard box.
-SYNS: ["tiny box", "box", "little box"]
-FLAGS: [_TAKEABLE]
+NAME: Dummy item 1
+DESC: Item to test conditions and effects.
+SYNS: []
+FLAGS: []
 VALUES: 
-	volume:25
-	capacity:25
-INFO: New Object: SimpleEngine.GameObject@5456afaa
+	value2:20
+	value1:10
+INFO: New Object: SimpleEngine.GameObject@fade1fc
 
 Compile Object:
-ID: MEDIUMBOX
-LOCATION: STORAGEROOM
+ID: DUMMYITEM2
+LOCATION: CENTREROOM
 LOCATION TYPE: 0
-NAME: Medium Box
-DESC: A medium cardboard box.
-SYNS: ["middle box", "box", "average box"]
-FLAGS: [_TAKEABLE]
+NAME: Dummy item 2
+DESC: Item to test conditions and effects.
+SYNS: []
+FLAGS: []
 VALUES: 
-	volume:50
-	capacity:50
-INFO: New Object: SimpleEngine.GameObject@6692b6c6
+	value2:20
+	value1:10
+INFO: New Object: SimpleEngine.GameObject@67c2e933
 
-Compile Object:
-ID: BIGBOX
-LOCATION: STORAGEROOM
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 1
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 1
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@5f6722d3
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@5f6722d3
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@2002348, SimpleEngine.Actions.Effects.TakeEff@5911e990]
+INFO: New Conditional: <FlagValue: _COUNTER, 1>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 2
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 2
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@1d470d0
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling SetFlagEff:
+FLAG: _TESTFLAG1
+VALUE: 1
+
+Compiling SetFlagEff:
+FLAG: _TESTFLAG2
+VALUE: 0
+
+Compiling AndFlagsCond:
+FLAGS: [_TESTFLAG1, _TESTFLAG2]
+
+Compiling Conditions:
+TEST: AndFlags: [_TESTFLAG1, _TESTFLAG2]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@54c62d71
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@54c62d71
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@65045a87]
+INFO: New Conditional: <AndFlags: [_TESTFLAG1, _TESTFLAG2]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@1d470d0
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@47f4e407, SimpleEngine.Actions.Effects.SetFlagEff@2d1dee39, SimpleEngine.Actions.Effects.SetFlagEff@48d5f34e, <AndFlags: [_TESTFLAG1, _TESTFLAG2]>]
+INFO: New Conditional: <FlagValue: _COUNTER, 2>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 3
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 3
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@fc258b1
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling SetFlagEff:
+FLAG: _TESTFLAG1
+VALUE: 1
+
+Compiling SetFlagEff:
+FLAG: _TESTFLAG2
+VALUE: 1
+
+Compiling AndFlagsCond:
+FLAGS: [_TESTFLAG1, _TESTFLAG2]
+
+Compiling Conditions:
+TEST: AndFlags: [_TESTFLAG1, _TESTFLAG2]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@6ff65192
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@6ff65192
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@2dd80673]
+INFO: New Conditional: <AndFlags: [_TESTFLAG1, _TESTFLAG2]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@fc258b1
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@4af0df05, SimpleEngine.Actions.Effects.SetFlagEff@57ea113a, SimpleEngine.Actions.Effects.SetFlagEff@acdb094, <AndFlags: [_TESTFLAG1, _TESTFLAG2]>]
+INFO: New Conditional: <FlagValue: _COUNTER, 3>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 4
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 4
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@674bd420
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling SetFlagEff:
+FLAG: _TESTFLAG1
+VALUE: 0
+
+Compiling SetFlagEff:
+FLAG: _TESTFLAG2
+VALUE: 0
+
+Compiling OrFlagsCond:
+FLAGS: [_TESTFLAG1, _TESTFLAG2]
+
+Compiling Conditions:
+TEST: OrFlags: [_TESTFLAG1, _TESTFLAG2]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@2ceb80a1
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@2ceb80a1
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@4b45dcb8]
+INFO: New Conditional: <OrFlags: [_TESTFLAG1, _TESTFLAG2]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@674bd420
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@7216fb24, SimpleEngine.Actions.Effects.SetFlagEff@2072acb2, SimpleEngine.Actions.Effects.SetFlagEff@50ecde95, <OrFlags: [_TESTFLAG1, _TESTFLAG2]>]
+INFO: New Conditional: <FlagValue: _COUNTER, 4>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 5
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 5
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@35a9782c
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling SetFlagEff:
+FLAG: _TESTFLAG1
+VALUE: 1
+
+Compiling SetFlagEff:
+FLAG: _TESTFLAG2
+VALUE: 0
+
+Compiling OrFlagsCond:
+FLAGS: [_TESTFLAG1, _TESTFLAG2]
+
+Compiling Conditions:
+TEST: OrFlags: [_TESTFLAG1, _TESTFLAG2]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@70a36a66
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@70a36a66
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@45815ffc]
+INFO: New Conditional: <OrFlags: [_TESTFLAG1, _TESTFLAG2]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@35a9782c
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@732f29af, SimpleEngine.Actions.Effects.SetFlagEff@d3957fe, SimpleEngine.Actions.Effects.SetFlagEff@6622fc65, <OrFlags: [_TESTFLAG1, _TESTFLAG2]>]
+INFO: New Conditional: <FlagValue: _COUNTER, 5>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 6
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 6
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@299321e2
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling AndPropertiesCond:
+OBJECT: TESTITEM
+PROPERTIES: [_PROP1, _NOTPROP]
+
+Compiling Conditions:
+TEST: AndProperties: TESTITEM, [_PROP1, _NOTPROP]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@64ba3208
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@64ba3208
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@158a3b2e]
+INFO: New Conditional: <AndProperties: TESTITEM, [_PROP1, _NOTPROP]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@299321e2
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@25a6944c, <AndProperties: TESTITEM, [_PROP1, _NOTPROP]>]
+INFO: New Conditional: <FlagValue: _COUNTER, 6>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 7
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 7
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@5e1fa5b1
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling AndPropertiesCond:
+OBJECT: TESTITEM
+PROPERTIES: [_PROP1, _PROP2]
+
+Compiling Conditions:
+TEST: AndProperties: TESTITEM, [_PROP1, _PROP2]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@6b00f608
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@6b00f608
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@2f17e30d]
+INFO: New Conditional: <AndProperties: TESTITEM, [_PROP1, _PROP2]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@5e1fa5b1
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@3e821657, <AndProperties: TESTITEM, [_PROP1, _PROP2]>]
+INFO: New Conditional: <FlagValue: _COUNTER, 7>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 8
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 8
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@1d131e1b
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling OrPropertiesCond:
+OBJECT: TESTITEM
+PROPERTIES: [_NOTPROP1, _NOTPROP2]
+
+Compiling Conditions:
+TEST: OrProperties: TESTITEM, [_NOTPROP1, _NOTPROP2]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@615091b8
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@615091b8
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@4fce136b]
+INFO: New Conditional: <OrProperties: TESTITEM, [_NOTPROP1, _NOTPROP2]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@1d131e1b
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@4aa83f4f, <OrProperties: TESTITEM, [_NOTPROP1, _NOTPROP2]>]
+INFO: New Conditional: <FlagValue: _COUNTER, 8>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 9
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 9
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@43b6123e
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling OrPropertiesCond:
+OBJECT: TESTITEM
+PROPERTIES: [_PROP1, _NOTPROP]
+
+Compiling Conditions:
+TEST: OrProperties: TESTITEM, [_PROP1, _NOTPROP]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@260e86a1
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@260e86a1
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@19648c40]
+INFO: New Conditional: <OrProperties: TESTITEM, [_PROP1, _NOTPROP]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@43b6123e
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@12bd8a64, <OrProperties: TESTITEM, [_PROP1, _NOTPROP]>]
+INFO: New Conditional: <FlagValue: _COUNTER, 9>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 10
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 10
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@61e94def
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling HereCond:
+LOCATIONS: [NORTHROOM]
+
+Compiling Conditions:
+TEST: Here: [NORTHROOM]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@ebb6851
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@ebb6851
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@70ab2d48]
+INFO: New Conditional: <Here: [NORTHROOM]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@61e94def
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@5b068087, <Here: [NORTHROOM]>]
+INFO: New Conditional: <FlagValue: _COUNTER, 10>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 11
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 11
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@6f152006
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling HereCond:
+LOCATIONS: [CENTREROOM]
+
+Compiling Conditions:
+TEST: Here: [CENTREROOM]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@3a393455
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@3a393455
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@13518f37]
+INFO: New Conditional: <Here: [CENTREROOM]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@6f152006
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@7cbc3762, <Here: [CENTREROOM]>]
+INFO: New Conditional: <FlagValue: _COUNTER, 11>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 12
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 12
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@3a6f2de3
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling PlaceEff:
+ITEM: DUMMYITEM1
+LOCATION: CENTREROOM
 LOCATION TYPE: 0
-NAME: Big Box
-DESC: A big cardboard box.
-SYNS: ["box", "large box", "huge box"]
-FLAGS: [_TAKEABLE]
-VALUES: 
-	volume:75
-	capacity:75
-INFO: New Object: SimpleEngine.GameObject@1cd629b3
+
+Compiling HaveItemCond:
+OBJS: [DUMMYITEM1]
+
+Compiling Conditions:
+TEST: HaveItem: [DUMMYITEM1]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@4b2a01d4
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@4b2a01d4
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@8692d67]
+INFO: New Conditional: <HaveItem: [DUMMYITEM1]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@3a6f2de3
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@78f5c518, SimpleEngine.Actions.Effects.PlaceEff@2f48b3d2, <HaveItem: [DUMMYITEM1]>]
+INFO: New Conditional: <FlagValue: _COUNTER, 12>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 13
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 13
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@34f7234e
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling TakeEff:
+ITEM: DUMMYITEM1
+
+Compiling HaveItemCond:
+OBJS: [DUMMYITEM1]
+
+Compiling Conditions:
+TEST: HaveItem: [DUMMYITEM1]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@753432a2
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@753432a2
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@23bff419]
+INFO: New Conditional: <HaveItem: [DUMMYITEM1]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@34f7234e
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@4983159f, SimpleEngine.Actions.Effects.TakeEff@44e3a2b2, <HaveItem: [DUMMYITEM1]>]
+INFO: New Conditional: <FlagValue: _COUNTER, 13>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 14
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 14
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@101639ae
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling TakeEff:
+ITEM: DUMMYITEM1
+
+Compiling PlaceEff:
+ITEM: DUMMYITEM2
+LOCATION: CENTREROOM
+LOCATION TYPE: 0
+
+Compiling HaveItemsCond:
+OBJS: [DUMMYITEM1, DUMMYITEM2]
+
+Compiling Conditions:
+TEST: HaveItems: [DUMMYITEM1, DUMMYITEM2]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@1d2bd371
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@1d2bd371
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@44040454]
+INFO: New Conditional: <HaveItems: [DUMMYITEM1, DUMMYITEM2]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@101639ae
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@65fe9e33, SimpleEngine.Actions.Effects.TakeEff@18bc345, SimpleEngine.Actions.Effects.PlaceEff@42f8285e, <HaveItems: [DUMMYITEM1, DUMMYITEM2]>]
+INFO: New Conditional: <FlagValue: _COUNTER, 14>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 15
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 15
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@26bab2f1
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling TakeEff:
+ITEM: DUMMYITEM1
+
+Compiling TakeEff:
+ITEM: DUMMYITEM2
+
+Compiling HaveItemsCond:
+OBJS: [DUMMYITEM1, DUMMYITEM2]
+
+Compiling Conditions:
+TEST: HaveItems: [DUMMYITEM1, DUMMYITEM2]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@3724af13
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@3724af13
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@68ead359]
+INFO: New Conditional: <HaveItems: [DUMMYITEM1, DUMMYITEM2]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@26bab2f1
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@6b53bcc2, SimpleEngine.Actions.Effects.TakeEff@180da663, SimpleEngine.Actions.Effects.TakeEff@a43ce46, <HaveItems: [DUMMYITEM1, DUMMYITEM2]>]
+INFO: New Conditional: <FlagValue: _COUNTER, 15>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 16
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 16
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@340da44c
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling EqualsCond:
+LEFT OBJ: DUMMYITEM1
+RIGHT OBJ: DUMMYITEM1
+LHS: value1
+RHS: value1
+BOTH VARS: false
+
+Compiling Conditions:
+TEST: Equals: DUMMYITEM1, value1, DUMMYITEM1, 11
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@4566d049
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@4566d049
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@61ce23ac]
+INFO: New Conditional: <Equals: DUMMYITEM1, value1, DUMMYITEM1, 11>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@340da44c
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@3668d4, <Equals: DUMMYITEM1, value1, DUMMYITEM1, 11>]
+INFO: New Conditional: <FlagValue: _COUNTER, 16>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 17
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 17
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@1c3b9394
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling EqualsCond:
+LEFT OBJ: DUMMYITEM1
+RIGHT OBJ: DUMMYITEM1
+LHS: value1
+RHS: value1
+BOTH VARS: false
+
+Compiling Conditions:
+TEST: Equals: DUMMYITEM1, value1, DUMMYITEM1, 10
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@6f2cfcc2
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@6f2cfcc2
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@7f6f61c8]
+INFO: New Conditional: <Equals: DUMMYITEM1, value1, DUMMYITEM1, 10>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@1c3b9394
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@4c2cc639, <Equals: DUMMYITEM1, value1, DUMMYITEM1, 10>]
+INFO: New Conditional: <FlagValue: _COUNTER, 17>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 18
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 18
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@ccb4b1b
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling EqualsCond:
+LEFT OBJ: DUMMYITEM1
+RIGHT OBJ: DUMMYITEM2
+LHS: value1
+RHS: value1
+BOTH VARS: true
+
+Compiling Conditions:
+TEST: Equals: DUMMYITEM1, value1, DUMMYITEM2, value2
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@4097cac
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@4097cac
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@ec2cc4]
+INFO: New Conditional: <Equals: DUMMYITEM1, value1, DUMMYITEM2, value2>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@ccb4b1b
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@2a5b3fee, <Equals: DUMMYITEM1, value1, DUMMYITEM2, value2>]
+INFO: New Conditional: <FlagValue: _COUNTER, 18>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 19
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 19
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@7c1e2a2d
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling EqualsCond:
+LEFT OBJ: DUMMYITEM1
+RIGHT OBJ: DUMMYITEM2
+LHS: value1
+RHS: value1
+BOTH VARS: true
+
+Compiling Conditions:
+TEST: Equals: DUMMYITEM1, value1, DUMMYITEM2, value1
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@333dd51e
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@333dd51e
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@52d645b1]
+INFO: New Conditional: <Equals: DUMMYITEM1, value1, DUMMYITEM2, value1>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@7c1e2a2d
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@2101b44a, <Equals: DUMMYITEM1, value1, DUMMYITEM2, value1>]
+INFO: New Conditional: <FlagValue: _COUNTER, 19>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 20
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 20
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@2cc3ad05
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling GTCond:
+LEFT OBJ: DUMMYITEM1
+RIGHT OBJ: DUMMYITEM1
+LHS: value1
+RHS: value1
+BOTH VARS: false
+
+Compiling Conditions:
+TEST: GT: DUMMYITEM1, value1, DUMMYITEM1, 11
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@119020fb
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@119020fb
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@3d9f6567]
+INFO: New Conditional: <GT: DUMMYITEM1, value1, DUMMYITEM1, 11>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@2cc3ad05
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@c055c54, <GT: DUMMYITEM1, value1, DUMMYITEM1, 11>]
+INFO: New Conditional: <FlagValue: _COUNTER, 20>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 21
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 21
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@25e2ab5a
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling GTCond:
+LEFT OBJ: DUMMYITEM1
+RIGHT OBJ: DUMMYITEM1
+LHS: value1
+RHS: value1
+BOTH VARS: false
+
+Compiling Conditions:
+TEST: GT: DUMMYITEM1, value1, DUMMYITEM1, 9
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@35e5d0e5
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@35e5d0e5
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@73173f63]
+INFO: New Conditional: <GT: DUMMYITEM1, value1, DUMMYITEM1, 9>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@25e2ab5a
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@55562aa9, <GT: DUMMYITEM1, value1, DUMMYITEM1, 9>]
+INFO: New Conditional: <FlagValue: _COUNTER, 21>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 22
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 22
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@655ef322
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling GTCond:
+LEFT OBJ: DUMMYITEM1
+RIGHT OBJ: DUMMYITEM2
+LHS: value1
+RHS: value1
+BOTH VARS: true
+
+Compiling Conditions:
+TEST: GT: DUMMYITEM1, value1, DUMMYITEM2, value2
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@7e276594
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@7e276594
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@3401a114]
+INFO: New Conditional: <GT: DUMMYITEM1, value1, DUMMYITEM2, value2>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@655ef322
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@5066d65f, <GT: DUMMYITEM1, value1, DUMMYITEM2, value2>]
+INFO: New Conditional: <FlagValue: _COUNTER, 22>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 23
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 23
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@4233e892
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling GTCond:
+LEFT OBJ: DUMMYITEM1
+RIGHT OBJ: DUMMYITEM2
+LHS: value2
+RHS: value2
+BOTH VARS: true
+
+Compiling Conditions:
+TEST: GT: DUMMYITEM1, value2, DUMMYITEM2, value1
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@77d2e85
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@77d2e85
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@3ecd267f]
+INFO: New Conditional: <GT: DUMMYITEM1, value2, DUMMYITEM2, value1>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@4233e892
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@58ffcbd7, <GT: DUMMYITEM1, value2, DUMMYITEM2, value1>]
+INFO: New Conditional: <FlagValue: _COUNTER, 23>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 24
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 24
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@555cf22
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling LTCond:
+LEFT OBJ: DUMMYITEM1
+RIGHT OBJ: DUMMYITEM1
+LHS: value1
+RHS: value1
+BOTH VARS: false
+
+Compiling Conditions:
+TEST: LT: DUMMYITEM1, value1, DUMMYITEM1, 9
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@1a9c38eb
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@1a9c38eb
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@319bc845]
+INFO: New Conditional: <LT: DUMMYITEM1, value1, DUMMYITEM1, 9>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@555cf22
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@4c5474f5, <LT: DUMMYITEM1, value1, DUMMYITEM1, 9>]
+INFO: New Conditional: <FlagValue: _COUNTER, 24>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 25
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 25
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@2f4205be
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling LTCond:
+LEFT OBJ: DUMMYITEM1
+RIGHT OBJ: DUMMYITEM1
+LHS: value1
+RHS: value1
+BOTH VARS: false
+
+Compiling Conditions:
+TEST: LT: DUMMYITEM1, value1, DUMMYITEM1, 11
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@54e22bdd
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@54e22bdd
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@3bd418e4]
+INFO: New Conditional: <LT: DUMMYITEM1, value1, DUMMYITEM1, 11>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@2f4205be
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@544820b7, <LT: DUMMYITEM1, value1, DUMMYITEM1, 11>]
+INFO: New Conditional: <FlagValue: _COUNTER, 25>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 26
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 26
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@6b98a075
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling LTCond:
+LEFT OBJ: DUMMYITEM1
+RIGHT OBJ: DUMMYITEM2
+LHS: value2
+RHS: value2
+BOTH VARS: true
+
+Compiling Conditions:
+TEST: LT: DUMMYITEM1, value2, DUMMYITEM2, value1
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@2e61d218
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@2e61d218
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@3569fc08]
+INFO: New Conditional: <LT: DUMMYITEM1, value2, DUMMYITEM2, value1>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@6b98a075
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@20b12f8a, <LT: DUMMYITEM1, value2, DUMMYITEM2, value1>]
+INFO: New Conditional: <FlagValue: _COUNTER, 26>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 27
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 27
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@e84a8e1
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling LTCond:
+LEFT OBJ: DUMMYITEM1
+RIGHT OBJ: DUMMYITEM2
+LHS: value1
+RHS: value1
+BOTH VARS: true
+
+Compiling Conditions:
+TEST: LT: DUMMYITEM1, value1, DUMMYITEM2, value2
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@2e554a3b
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@2e554a3b
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@54a67a45]
+INFO: New Conditional: <LT: DUMMYITEM1, value1, DUMMYITEM2, value2>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@e84a8e1
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@7d42c224, <LT: DUMMYITEM1, value1, DUMMYITEM2, value2>]
+INFO: New Conditional: <FlagValue: _COUNTER, 27>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 28
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 28
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@56aaaecd
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling PRSICond:
+OBJS: [DUMMYITEM2]
+
+Compiling Conditions:
+TEST: PRSI: [DUMMYITEM2]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@35390ee3
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@35390ee3
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@5e01a982]
+INFO: New Conditional: <PRSI: [DUMMYITEM2]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@56aaaecd
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@5ddea849, <PRSI: [DUMMYITEM2]>]
+INFO: New Conditional: <FlagValue: _COUNTER, 28>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 29
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 29
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@5ee2b6f9
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling PRSICond:
+OBJS: [DUMMYITEM1]
+
+Compiling Conditions:
+TEST: PRSI: [DUMMYITEM1]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@23d1e5d0
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@23d1e5d0
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@704f1591]
+INFO: New Conditional: <PRSI: [DUMMYITEM1]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@5ee2b6f9
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@58fb7731, <PRSI: [DUMMYITEM1]>]
+INFO: New Conditional: <FlagValue: _COUNTER, 29>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 30
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 30
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@13e547a9
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling PRSOCond:
+OBJS: [DUMMYITEM1]
+
+Compiling Conditions:
+TEST: PRSO: [DUMMYITEM1]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@37ddb69a
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@37ddb69a
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@349c1daf]
+INFO: New Conditional: <PRSO: [DUMMYITEM1]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@13e547a9
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@dfddc9a, <PRSO: [DUMMYITEM1]>]
+INFO: New Conditional: <FlagValue: _COUNTER, 30>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 31
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 31
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@4b9df8a
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling PRSOCond:
+OBJS: [TESTITEM]
+
+Compiling Conditions:
+TEST: PRSO: [TESTITEM]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@5e8ac0e1
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@5e8ac0e1
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@aafcffa]
+INFO: New Conditional: <PRSO: [TESTITEM]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@4b9df8a
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@6955cb39, <PRSO: [TESTITEM]>]
+INFO: New Conditional: <FlagValue: _COUNTER, 31>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 32
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 32
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@235a0c16
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling PRSACond:
+VERBS: [TEST, TRY]
+
+Compiling Conditions:
+TEST: PRSA: [TEST, TRY]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@5f7b97da
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@5f7b97da
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@18b0930f]
+INFO: New Conditional: <PRSA: [TEST, TRY]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@235a0c16
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@6b7906b3, <PRSA: [TEST, TRY]>]
+INFO: New Conditional: <FlagValue: _COUNTER, 32>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 33
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 33
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@3a1dd365
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling PRSACond:
+VERBS: [TRY, DO]
+
+Compiling Conditions:
+TEST: PRSA: [TRY, DO]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@395b56bb
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@395b56bb
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@256f8274]
+INFO: New Conditional: <PRSA: [TRY, DO]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@3a1dd365
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@68044f4, <PRSA: [TRY, DO]>]
+INFO: New Conditional: <FlagValue: _COUNTER, 33>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 34
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 34
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@52d239ba
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling PRSAAndCond:
+VERBS: [AT, LOOK]
+
+Compiling Conditions:
+TEST: PRSAAnd: [AT, LOOK]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@68fa0ba8
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@68fa0ba8
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@6c5945a7]
+INFO: New Conditional: <PRSAAnd: [AT, LOOK]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@52d239ba
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@2f05be7f, <PRSAAnd: [AT, LOOK]>]
+INFO: New Conditional: <FlagValue: _COUNTER, 34>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 35
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 35
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@640f11a1
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling PRSAAndCond:
+VERBS: [LOOK, AROUND]
+
+Compiling Conditions:
+TEST: PRSAAnd: [LOOK, AROUND]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@5c10f1c3
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@5c10f1c3
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@7ac2e39b]
+INFO: New Conditional: <PRSAAnd: [LOOK, AROUND]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@640f11a1
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@78365cfa, <PRSAAnd: [LOOK, AROUND]>]
+INFO: New Conditional: <FlagValue: _COUNTER, 35>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 36
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 36
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@64a8c844
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling FlagValueCond:
+FLAG: _TESTFLAG1
+VALUE: 1
+
+Compiling FlagValueCond:
+FLAG: _TESTFLAG2
+VALUE: 0
+
+Compiling Conditions:
+TEST: FlagValue: _TESTFLAG2, 0
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@3f6db3fb
+
+Compiling Conditions:
+TEST: FlagValue: _TESTFLAG1, 1
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@3f6db3fb
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@52de51b6
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@52de51b6
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@18c5069b]
+INFO: New Conditional: <FlagValue: _TESTFLAG1, 1 && FlagValue: _TESTFLAG2, 0>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@64a8c844
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@3a0d172f, <FlagValue: _TESTFLAG1, 1 && FlagValue: _TESTFLAG2, 0>]
+INFO: New Conditional: <FlagValue: _COUNTER, 36>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 37
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 37
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@68ad99fe
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling FlagValueCond:
+FLAG: _TESTFLAG1
+VALUE: 1
+
+Compiling FlagValueCond:
+FLAG: _TESTFLAG2
+VALUE: 1
+
+Compiling Conditions:
+TEST: FlagValue: _TESTFLAG2, 1
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@485e36bc
+
+Compiling Conditions:
+TEST: FlagValue: _TESTFLAG1, 1
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@485e36bc
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@781f10f2
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@781f10f2
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@2a79d4b1]
+INFO: New Conditional: <FlagValue: _TESTFLAG1, 1 && FlagValue: _TESTFLAG2, 1>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@68ad99fe
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@2e9fda69, <FlagValue: _TESTFLAG1, 1 && FlagValue: _TESTFLAG2, 1>]
+INFO: New Conditional: <FlagValue: _COUNTER, 37>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 38
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 38
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@17cdf2d0
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling FlagValueCond:
+FLAG: _TESTFLAG1
+VALUE: 2
+
+Compiling FlagValueCond:
+FLAG: _TESTFLAG1
+VALUE: 3
+
+Compiling Conditions:
+TEST: FlagValue: _TESTFLAG1, 3
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@1755e85b
+
+Compiling Conditions:
+TEST: FlagValue: _TESTFLAG1, 2
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@1755e85b
+IsAND: false
+IsOR: true
+INFO: New Conditions: SimpleEngine.Actions.Condition@736d6a5c
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@736d6a5c
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@2371aaca]
+INFO: New Conditional: <FlagValue: _TESTFLAG1, 2 || FlagValue: _TESTFLAG1, 3>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@17cdf2d0
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@5b529706, <FlagValue: _TESTFLAG1, 2 || FlagValue: _TESTFLAG1, 3>]
+INFO: New Conditional: <FlagValue: _COUNTER, 38>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 39
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 39
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@63fdab07
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling FlagValueCond:
+FLAG: _TESTFLAG1
+VALUE: 2
+
+Compiling FlagValueCond:
+FLAG: _TESTFLAG1
+VALUE: 1
+
+Compiling Conditions:
+TEST: FlagValue: _TESTFLAG1, 1
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@7b5a12ae
+
+Compiling Conditions:
+TEST: FlagValue: _TESTFLAG1, 2
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@7b5a12ae
+IsAND: false
+IsOR: true
+INFO: New Conditions: SimpleEngine.Actions.Condition@5553d0f5
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@5553d0f5
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@1af687fe]
+INFO: New Conditional: <FlagValue: _TESTFLAG1, 2 || FlagValue: _TESTFLAG1, 1>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@63fdab07
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@14dda234, <FlagValue: _TESTFLAG1, 2 || FlagValue: _TESTFLAG1, 1>]
+INFO: New Conditional: <FlagValue: _COUNTER, 39>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 40
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 40
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@3f390d63
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling FlagValueCond:
+FLAG: _TESTFLAG1
+VALUE: 0
+
+Compiling Conditions:
+TEST: FlagValue: _TESTFLAG1, 0
+TES IS NOT: true
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@74a6a609
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@74a6a609
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@5a411614]
+INFO: New Conditional: <!FlagValue: _TESTFLAG1, 0>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@3f390d63
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@2374d36a, <!FlagValue: _TESTFLAG1, 0>]
+INFO: New Conditional: <FlagValue: _COUNTER, 40>
+
+Compiling FlagValueCond:
+FLAG: _COUNTER
+VALUE: 41
+
+Compiling Conditions:
+TEST: FlagValue: _COUNTER, 41
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@54d18072
+
+Compiling SetFlagEff:
+FLAG: _CONDTAKEN
+VALUE: 1
+
+Compiling FlagValueCond:
+FLAG: _TESTFLAG1
+VALUE: 1
+
+Compiling Conditions:
+TEST: FlagValue: _TESTFLAG1, 1
+TES IS NOT: true
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@1506f20f
+
+Compiling TakeEff:
+ITEM: TESTITEM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@1506f20f
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@47a5b70d]
+INFO: New Conditional: <!FlagValue: _TESTFLAG1, 1>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@54d18072
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@424fd310, <!FlagValue: _TESTFLAG1, 1>]
+INFO: New Conditional: <FlagValue: _COUNTER, 41>
+
+Compile Action:
+ID: TESTITEM
+ACTIONS: [<FlagValue: _COUNTER, 1>, <FlagValue: _COUNTER, 2>, <FlagValue: _COUNTER, 3>, <FlagValue: _COUNTER, 4>, <FlagValue: _COUNTER, 5>, <FlagValue: _COUNTER, 6>, <FlagValue: _COUNTER, 7>, <FlagValue: _COUNTER, 8>, <FlagValue: _COUNTER, 9>, <FlagValue: _COUNTER, 10>, <FlagValue: _COUNTER, 11>, <FlagValue: _COUNTER, 12>, <FlagValue: _COUNTER, 13>, <FlagValue: _COUNTER, 14>, <FlagValue: _COUNTER, 15>, <FlagValue: _COUNTER, 16>, <FlagValue: _COUNTER, 17>, <FlagValue: _COUNTER, 18>, <FlagValue: _COUNTER, 19>, <FlagValue: _COUNTER, 20>, <FlagValue: _COUNTER, 21>, <FlagValue: _COUNTER, 22>, <FlagValue: _COUNTER, 23>, <FlagValue: _COUNTER, 24>, <FlagValue: _COUNTER, 25>, <FlagValue: _COUNTER, 26>, <FlagValue: _COUNTER, 27>, <FlagValue: _COUNTER, 28>, <FlagValue: _COUNTER, 29>, <FlagValue: _COUNTER, 30>, <FlagValue: _COUNTER, 31>, <FlagValue: _COUNTER, 32>, <FlagValue: _COUNTER, 33>, <FlagValue: _COUNTER, 34>, <FlagValue: _COUNTER, 35>, <FlagValue: _COUNTER, 36>, <FlagValue: _COUNTER, 37>, <FlagValue: _COUNTER, 38>, <FlagValue: _COUNTER, 39>, <FlagValue: _COUNTER, 40>, <FlagValue: _COUNTER, 41>]
 
 Compile Flag:
-FLAG: _SMALLINMEDIUM
+FLAG: _SOUTHACCESS
 VALUE: 0
 
 Compile Flag:
-FLAG: _MEDIUMINBIG
+FLAG: _WESTACCESS1
 VALUE: 0
 
-Compiling PRSACond:
-VERBS: [PLACE, PUT]
+Compile Flag:
+FLAG: _WESTACCESS2
+VALUE: 0
 
-Compiling PRSACond:
-VERBS: [IN, INSIDE]
+Compile Flag:
+FLAG: _TESTFLAG1
+VALUE: 0
 
-Compiling PRSOCond:
-OBJS: [SMALLBOX]
+Compile Flag:
+FLAG: _TESTFLAG2
+VALUE: 0
 
-Compiling PRSICond:
-OBJS: [MEDIUMBOX]
+Compile Flag:
+FLAG: _COUNTER
+VALUE: 0
 
-Compiling Conditions:
-TEST: PRSI: [MEDIUMBOX]
-TES IS NOT: false
-CONTINUATION: null
-IsAND: true
-IsOR: false
-INFO: New Conditions: SimpleEngine.Actions.Condition@1cb346ea
-
-Compiling Conditions:
-TEST: PRSO: [SMALLBOX]
-TES IS NOT: false
-CONTINUATION: SimpleEngine.Actions.Condition@1cb346ea
-IsAND: true
-IsOR: false
-INFO: New Conditions: SimpleEngine.Actions.Condition@4c012563
-
-Compiling Conditions:
-TEST: PRSA: [IN, INSIDE]
-TES IS NOT: false
-CONTINUATION: SimpleEngine.Actions.Condition@4c012563
-IsAND: true
-IsOR: false
-INFO: New Conditions: SimpleEngine.Actions.Condition@14a50707
-
-Compiling Conditions:
-TEST: PRSA: [PLACE, PUT]
-TES IS NOT: false
-CONTINUATION: SimpleEngine.Actions.Condition@14a50707
-IsAND: true
-IsOR: false
-INFO: New Conditions: SimpleEngine.Actions.Condition@4d518b32
-
-Compiling PlaceEff:
-ITEM: SMALLBOX
-LOCATION: MEDIUMBOX
-LOCATION TYPE: 0
-
-Compiling TellEff:
-TEXT: You placed the small box inside the medium box.
-
-Compiling SetFlagEff:
-FLAG: _SMALLINMEDIUM
-VALUE: 1
-
-Compiling Conditional:
-CONDITION: SimpleEngine.Actions.Condition@4d518b32
-ACTIONS: [SimpleEngine.Actions.Effects.PlaceEff@4ef782af, SimpleEngine.Actions.Effects.TellEff@11d8ae8b, SimpleEngine.Actions.Effects.SetFlagEff@479cbee5]
-INFO: New Conditional: <PRSA: [PLACE, PUT] && PRSA: [IN, INSIDE] && PRSO: [SMALLBOX] && PRSI: [MEDIUMBOX]>
-
-Compiling PRSACond:
-VERBS: [TAKE, OBTAIN]
-
-Compiling PRSOCond:
-OBJS: [SMALLBOX]
-
-Compiling Conditions:
-TEST: PRSO: [SMALLBOX]
-TES IS NOT: false
-CONTINUATION: null
-IsAND: true
-IsOR: false
-INFO: New Conditions: SimpleEngine.Actions.Condition@2b72cb8a
-
-Compiling Conditions:
-TEST: PRSA: [TAKE, OBTAIN]
-TES IS NOT: false
-CONTINUATION: SimpleEngine.Actions.Condition@2b72cb8a
-IsAND: true
-IsOR: false
-INFO: New Conditions: SimpleEngine.Actions.Condition@7f8a9499
-
-Compiling TakeEff:
-ITEM: SMALLBOX
-
-Compiling RemFlagEff:
-FLAG: _SMALLINMEDIUM
-
-Compiling Conditional:
-CONDITION: SimpleEngine.Actions.Condition@7f8a9499
-ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@2fba3fc4, SimpleEngine.Actions.Effects.RemFlagEff@4bf48f6]
-INFO: New Conditional: <PRSA: [TAKE, OBTAIN] && PRSO: [SMALLBOX]>
-
-Compile Action:
-ID: SMALLBOX
-ACTIONS: [<PRSA: [PLACE, PUT] && PRSA: [IN, INSIDE] && PRSO: [SMALLBOX] && PRSI: [MEDIUMBOX]>, <PRSA: [TAKE, OBTAIN] && PRSO: [SMALLBOX]>]
-
-Compiling PRSACond:
-VERBS: [PLACE, PUT]
-
-Compiling PRSACond:
-VERBS: [IN, INSIDE]
-
-Compiling PRSOCond:
-OBJS: [MEDIUMBOX]
-
-Compiling PRSICond:
-OBJS: [BIGBOX]
-
-Compiling Conditions:
-TEST: PRSI: [BIGBOX]
-TES IS NOT: false
-CONTINUATION: null
-IsAND: true
-IsOR: false
-INFO: New Conditions: SimpleEngine.Actions.Condition@1c39680d
-
-Compiling Conditions:
-TEST: PRSO: [MEDIUMBOX]
-TES IS NOT: false
-CONTINUATION: SimpleEngine.Actions.Condition@1c39680d
-IsAND: true
-IsOR: false
-INFO: New Conditions: SimpleEngine.Actions.Condition@62833051
-
-Compiling Conditions:
-TEST: PRSA: [IN, INSIDE]
-TES IS NOT: false
-CONTINUATION: SimpleEngine.Actions.Condition@62833051
-IsAND: true
-IsOR: false
-INFO: New Conditions: SimpleEngine.Actions.Condition@1c852c0f
-
-Compiling Conditions:
-TEST: PRSA: [PLACE, PUT]
-TES IS NOT: false
-CONTINUATION: SimpleEngine.Actions.Condition@1c852c0f
-IsAND: true
-IsOR: false
-INFO: New Conditions: SimpleEngine.Actions.Condition@a37aefe
-
-Compiling PlaceEff:
-ITEM: MEDIUMBOX
-LOCATION: BIGBOX
-LOCATION TYPE: 0
-
-Compiling TellEff:
-TEXT: You placed the medium box inside the big box.
-
-Compiling SetFlagEff:
-FLAG: _MEDIUMINBIG
-VALUE: 1
-
-Compiling Conditional:
-CONDITION: SimpleEngine.Actions.Condition@a37aefe
-ACTIONS: [SimpleEngine.Actions.Effects.PlaceEff@5d99c6b5, SimpleEngine.Actions.Effects.TellEff@266374ef, SimpleEngine.Actions.Effects.SetFlagEff@13b3d178]
-INFO: New Conditional: <PRSA: [PLACE, PUT] && PRSA: [IN, INSIDE] && PRSO: [MEDIUMBOX] && PRSI: [BIGBOX]>
-
-Compiling PRSACond:
-VERBS: [TAKE, OBTAIN]
-
-Compiling PRSOCond:
-OBJS: [MEDIUMBOX]
-
-Compiling Conditions:
-TEST: PRSO: [MEDIUMBOX]
-TES IS NOT: false
-CONTINUATION: null
-IsAND: true
-IsOR: false
-INFO: New Conditions: SimpleEngine.Actions.Condition@24c4ddae
-
-Compiling Conditions:
-TEST: PRSA: [TAKE, OBTAIN]
-TES IS NOT: false
-CONTINUATION: SimpleEngine.Actions.Condition@24c4ddae
-IsAND: true
-IsOR: false
-INFO: New Conditions: SimpleEngine.Actions.Condition@37fb0bed
-
-Compiling TakeEff:
-ITEM: MEDIUMBOX
-
-Compiling RemFlagEff:
-FLAG: _MEDIUMINBIG
-
-Compiling Conditional:
-CONDITION: SimpleEngine.Actions.Condition@37fb0bed
-ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@a82c5f1, SimpleEngine.Actions.Effects.RemFlagEff@7b7fdc8]
-INFO: New Conditional: <PRSA: [TAKE, OBTAIN] && PRSO: [MEDIUMBOX]>
-
-Compile Action:
-ID: MEDIUMBOX
-ACTIONS: [<PRSA: [PLACE, PUT] && PRSA: [IN, INSIDE] && PRSO: [MEDIUMBOX] && PRSI: [BIGBOX]>, <PRSA: [TAKE, OBTAIN] && PRSO: [MEDIUMBOX]>]
+Compile Flag:
+FLAG: _CONDTAKEN
+VALUE: 0
 
 Knowledge Base:
 isObject(player)
@@ -333,168 +2054,315 @@ capacityUsed(player,0)
 ':-'(sameObject(A,B),'='(A,B))
 ':-'(notObject(A),not(isObject(A)))
 ':-'(targetClosed(A),(hasProperty(A,closablecontainer),isClosed(A,true)))
-isRoom(storageroom)
-isLocated(player,storageroom,0)
-isRoom(exit)
-hasProperty(cupboard,closablecontainer)
-isClosed(cupboard,true)
-isObject(cupboard)
-volume(cupboard,50)
-capacity(cupboard,50)
-surface(cupboard,50)
-surfaceUsed(cupboard,0)
-isLocated(cupboard,storageroom,0)
-hasProperty(smallbox,takeable)
-isObject(smallbox)
-volume(smallbox,25)
-capacity(smallbox,25)
-capacityUsed(smallbox,0)
-isLocated(smallbox,cupboard,0)
-hasProperty(mediumbox,takeable)
-isObject(mediumbox)
-volume(mediumbox,50)
-capacity(mediumbox,50)
-capacityUsed(mediumbox,0)
-isLocated(mediumbox,storageroom,0)
-hasProperty(bigbox,takeable)
-isObject(bigbox)
-volume(bigbox,75)
-capacity(bigbox,75)
-capacityUsed(bigbox,0)
-isLocated(bigbox,storageroom,0)
-flag(_smallinmedium,0)
-flag(_mediuminbig,0)
-capacityUsed(cupboard,25)
+isRoom(centreroom)
+isLocated(player,centreroom,0)
+isRoom(northroom)
+isRoom(southroom)
+isRoom(eastroom)
+isRoom(westroom)
+isRoom(uproom)
+isRoom(downroom)
+hasProperty(testitem,prop1)
+hasProperty(testitem,prop2)
+isObject(testitem)
+volume(testitem,1)
+isLocated(testitem,centreroom,0)
+isObject(dummyitem1)
+volume(dummyitem1,1)
+isLocated(dummyitem1,centreroom,0)
+isObject(dummyitem2)
+volume(dummyitem2,1)
+isLocated(dummyitem2,centreroom,0)
+flag(_southaccess,0)
+flag(_westaccess1,0)
+flag(_westaccess2,0)
+flag(_testflag1,0)
+flag(_testflag2,0)
+flag(_counter,0)
+flag(_condtaken,0)
+
+DEBUG: Removed clause flag(_southaccess,0)
+DEBUG: Removed clause flag(_westaccess1,0)
+DEBUG: Removed clause flag(_westaccess2,0)
+DEBUG: Removed clause flag(_testflag1,0)
+DEBUG: Removed clause flag(_testflag2,0)
+DEBUG: Removed clause flag(_counter,0)
+DEBUG: Removed clause flag(_condtaken,0)
+
+DEBUG: Adding clause flag(_counter,40)
+
+DEBUG: Removed clause flag(_counter,40)
+
+DEBUG: Adding clause flag(_condtaken,0)
 
 ======================================================================================
-Processing user input: put the big box in the medium box
+Processing user input: Look around the test item - testNotingCondsFail
 ======================================================================================
 
-DEBUG: Pre-process input lemmas: [put, the, big, box, in, the, medium, box]
-DEBUG: Pre-process input posTags: [VB, DT, NNP, NNP, IN, DT, NNP, NNP]
-DEBUG: Removing conflicting synonym: box
-DEBUG: Adding [big, box] to matched objects
-DEBUG: Adding 2 to matched indices
-DEBUG: Adding [medium, box] to matched objects
-DEBUG: Adding 6 to matched indices
-DEBUG: Pre-processed: put item1 in item2
-DEBUG: Lemmas: [put, item, in, item]
-DEBUG: Verb found: PUT ITEM IN ITEM
-DEBUG: PRSA set to: PUT ITEM IN ITEM
+DEBUG: Pre-process input lemmas: [look, around, the, test, item, -, testnotingcondsfail]
+DEBUG: Pre-process input posTags: [VB, RB, DT, NN, NN, HYPH, NN]
+DEBUG: Adding [test, item] to matched objects
+DEBUG: Adding 3 to matched indices
+DEBUG: Pre-processed: look around item1 - testnotingcondsfail
+DEBUG: Lemmas: [look, around, item, -, testnotingcondsfail]
+DEBUG: Verb found: LOOK AROUND
+DEBUG: Verb found: LOOK
+DEBUG: PRSA set to: LOOK AROUND
 
-DEBUG: PRSA: PUT ITEM IN ITEM, PRSO: BIGBOX, PRSI: MEDIUMBOX
+DEBUG: PRSA: LOOK AROUND, PRSO: TESTITEM, PRSI: null
 
 DEBUG: ATTEMPT TO PERFORM ACTION ON PRSI
-
-DEBUG: Checking whether conditional: <PRSA: [PLACE, PUT] && PRSA: [IN, INSIDE] && PRSO: [MEDIUMBOX] && PRSI: [BIGBOX]> is satisfied
-DEBUG: Checking Condition list for condition: PRSA: [PLACE, PUT]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = true
-DEBUG: Checking PRSACond: Checking PRSA for verb(s) out of: [PLACE, PUT]
-DEBUG: PRSACond satisfied since PUT contained in PRSA list (PRSA: PUT ITEM IN ITEM)
-DEBUG: Checking Condition list for condition: PRSA: [IN, INSIDE]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = true
-DEBUG: Checking PRSACond: Checking PRSA for verb(s) out of: [IN, INSIDE]
-DEBUG: PRSACond satisfied since IN contained in PRSA list (PRSA: PUT ITEM IN ITEM)
-DEBUG: Checking Condition list for condition: PRSO: [MEDIUMBOX]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = true
-DEBUG: Checking PRSOCond: Checking PRSO is one of: [MEDIUMBOX]
-DEBUG: PRSICond not satisfied since PRSO = BIGBOX
-DEBUG: Condition is not satisfied
-
-DEBUG: Checking whether conditional: <PRSA: [TAKE, OBTAIN] && PRSO: [MEDIUMBOX]> is satisfied
-DEBUG: Checking Condition list for condition: PRSA: [TAKE, OBTAIN]. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = true
-DEBUG: Checking PRSACond: Checking PRSA for verb(s) out of: [TAKE, OBTAIN]
-DEBUG: PRSACond not satisfied since no expected verbs are in the PRSA (PRSA: PUT ITEM IN ITEM)
-DEBUG: Condition is not satisfied
 
 DEBUG: FAILED TO PERFORM ACTION ON PRSI
 
 DEBUG: ATTEMPT TO PERFORM ACTION ON PRSO
 
-DEBUG: FAILED TO PERFORM ACTION ON PRSO
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 1> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 1. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 1
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
 
-DEBUG: ATTEMPT TO PERFORM GENERIC ACTION ON PRSA
-DEBUG: Corrected Verb: place in
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 2> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 2. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 2
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
 
-DEBUG: FAILED TO PERFORM GENERIC ACTION USING PRSA
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 3> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 3. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 3
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
 
-DEBUG: ATTEMPT TO PERFORM ENHANCED ACTION ON PRSA
-DEBUG: Trying to place in
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 4> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 4. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 4
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
 
-DEBUG: Querying: putIn(bigbox,mediumbox)
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 5> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 5. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 5
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
 
-DEBUG: Querying: outOfScope(bigbox)
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 6> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 6. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 6
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
 
-DEBUG: Querying: outOfScope(mediumbox)
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 7> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 7. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 7
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
 
-DEBUG: Querying: sameObject(bigbox,mediumbox)
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 8> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 8. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 8
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
 
-DEBUG: Querying: capacity(mediumbox,_)
-DEBUG: Solution: capacity(mediumbox,50) - bindings: yes.
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 9> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 9. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 9
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
 
-DEBUG: Querying: tooBigCapacity(bigbox,mediumbox)
-DEBUG: Solution: tooBigCapacity(bigbox,mediumbox) - bindings: yes.
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 10> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 10. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 10
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
 
-DEBUG: Querying: cantFitCapacity(bigbox,mediumbox)
-DEBUG: Solution: cantFitCapacity(bigbox,mediumbox) - bindings: yes.
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 11> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 11. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 11
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
 
-DEBUG: Querying: targetClosed(mediumbox)
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 12> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 12. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 12
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
 
-DEBUG: Querying: isLocated(bigbox,mediumbox,_)
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 13> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 13. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 13
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
 
-Knowledge Base:
-isObject(player)
-capacity(player,2147483647)
-capacityUsed(player,0)
-':-'(inScope(A),(isObject(A),isLocated(A,B,_1071),isLocated(player,B,_1072),'!'))
-':-'(inScope(A),(isObject(A),isLocated(A,B,_1075),hasProperty(B,closablecontainer),'!',isClosed(B,false),inScope(B)))
-':-'(inScope(A),(isObject(A),isLocated(A,B,_1078),inScope(B)))
-':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),isLocated(A,C,_1082),'\='(A,C),hasProperty(B,closablecontainer),'!',isClosed(B,false),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
-':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),isLocated(A,C,_1090),'\='(A,C),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
-':-'(putInIgnoreScope(A,B),('\='(A,B),isLocated(A,C,_1098),'\='(A,C),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
-':-'(putOn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
-':-'(putOnIgnoreScope(A,B),('\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
-':-'(putBelow(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
-':-'(putBelowIgnoreScope(A,B),('\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
-':-'(outOfScope(A),not(inScope(A)))
-':-'(noCapacity(A),not(capacity(A,_1129)))
-':-'(noSurface(A),not(surface(A,_1131)))
-':-'(noBelow(A),not(below(A,_1133)))
-':-'(cantFitCapacity(A,B),(volume(A,X),capacity(B,Y),capacityUsed(B,Z),'>'('+'(X,Z),Y)))
-':-'(cantFitSurface(A,B),(volume(A,X),surface(B,Y),surfaceUsed(B,Z),'>'('+'(X,Z),Y)))
-':-'(cantFitBelow(A,B),(volume(A,X),below(B,Y),belowUsed(B,Z),'>'('+'(X,Z),Y)))
-':-'(tooBigCapacity(A,B),(volume(A,X),capacity(B,Y),'>'(X,Y)))
-':-'(tooBigSurface(A,B),(volume(A,X),surface(B,Y),'>'(X,Y)))
-':-'(tooBigBelow(A,B),(volume(A,X),below(B,Y),'>'(X,Y)))
-':-'(sameObject(A,B),'='(A,B))
-':-'(notObject(A),not(isObject(A)))
-':-'(targetClosed(A),(hasProperty(A,closablecontainer),isClosed(A,true)))
-isRoom(storageroom)
-isLocated(player,storageroom,0)
-isRoom(exit)
-hasProperty(cupboard,closablecontainer)
-isClosed(cupboard,true)
-isObject(cupboard)
-volume(cupboard,50)
-capacity(cupboard,50)
-surface(cupboard,50)
-surfaceUsed(cupboard,0)
-isLocated(cupboard,storageroom,0)
-hasProperty(smallbox,takeable)
-isObject(smallbox)
-volume(smallbox,25)
-capacity(smallbox,25)
-capacityUsed(smallbox,0)
-isLocated(smallbox,cupboard,0)
-hasProperty(mediumbox,takeable)
-isObject(mediumbox)
-volume(mediumbox,50)
-capacity(mediumbox,50)
-capacityUsed(mediumbox,0)
-isLocated(mediumbox,storageroom,0)
-hasProperty(bigbox,takeable)
-isObject(bigbox)
-volume(bigbox,75)
-capacity(bigbox,75)
-capacityUsed(bigbox,0)
-isLocated(bigbox,storageroom,0)
-flag(_smallinmedium,0)
-flag(_mediuminbig,0)
-capacityUsed(cupboard,25)
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 14> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 14. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 14
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
+
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 15> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 15. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 15
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
+
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 16> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 16. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 16
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
+
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 17> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 17. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 17
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
+
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 18> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 18. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 18
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
+
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 19> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 19. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 19
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
+
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 20> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 20. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 20
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
+
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 21> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 21. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 21
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
+
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 22> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 22. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 22
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
+
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 23> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 23. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 23
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
+
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 24> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 24. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 24
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
+
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 25> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 25. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 25
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
+
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 26> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 26. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 26
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
+
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 27> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 27. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 27
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
+
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 28> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 28. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 28
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
+
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 29> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 29. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 29
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
+
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 30> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 30. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 30
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
+
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 31> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 31. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 31
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
+
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 32> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 32. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 32
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
+
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 33> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 33. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 33
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
+
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 34> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 34. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 34
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
+
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 35> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 35. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 35
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
+
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 36> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 36. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 36
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
+
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 37> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 37. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 37
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
+
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 38> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 38. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 38
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
+
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 39> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 39. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 39
+DEBUG: FlagValueCond not satisfied since _COUNTER = 40
+DEBUG: Condition is not satisfied
+
+DEBUG: Checking whether conditional: <FlagValue: _COUNTER, 40> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _COUNTER, 40. Properties: isAnd = true, isOr = false, test is NOTed = false, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _COUNTER = 40
+DEBUG: FlagValueCond satisfied
+DEBUG: Condition is satisfied
+
+DEBUG: Removed clause flag(_condtaken,0)
+
+DEBUG: Adding clause flag(_condtaken,1)
+
+DEBUG: Checking whether conditional: <!FlagValue: _TESTFLAG1, 0> is satisfied
+DEBUG: Checking Condition list for condition: FlagValue: _TESTFLAG1, 0. Properties: isAnd = true, isOr = false, test is NOTed = true, has continuation = false
+DEBUG: Checking FlagValueCond: Check that _TESTFLAG1 = 0
+DEBUG: FlagValueCond satisfied
+DEBUG: Condition is not satisfied

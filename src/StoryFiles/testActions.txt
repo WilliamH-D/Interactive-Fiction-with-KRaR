@@ -70,7 +70,6 @@
      DESC: "Item to test conditions and effects.";
      SYNS: "item", "object", "test object";
      PROPERTIES: _PROP1, _PROP2;
-     VALUES: (value1:0), (value2:0);
  }
 
  [object]
@@ -79,6 +78,7 @@
      LOCATION: <CENTREROOM>;
      NAME: "Dummy item 1";
      DESC: "Item to test conditions and effects.";
+     VALUES: (value1:10), (value2:20);
  }
 
  [object]
@@ -87,6 +87,7 @@
       LOCATION: <CENTREROOM>;
       NAME: "Dummy item 2";
       DESC: "Item to test conditions and effects.";
+      VALUES: (value1:10), (value2:20);
  }
 
 [action]
@@ -220,6 +221,214 @@
             EFF<TAKE: <DUMMYITEM1>>
             EFF<TAKE: <DUMMYITEM2>>
             COND<HAVEITEMS: <DUMMYITEM1>, <DUMMYITEM2>>
+            {
+                EFF<TAKE: <TESTITEM>>
+            }
+        }
+        COND<FLAGVALUE: _COUNTER, 16>
+        {
+            EFF<SETFLAG: _CONDTAKEN, 1>
+            COND<EQUALS: <DUMMYITEM1>: value1, 11>
+            {
+                EFF<TAKE: <TESTITEM>>
+            }
+        }
+        COND<FLAGVALUE: _COUNTER, 17>
+        {
+            EFF<SETFLAG: _CONDTAKEN, 1>
+            COND<EQUALS: <DUMMYITEM1>: value1, 10>
+            {
+                EFF<TAKE: <TESTITEM>>
+            }
+        }
+        COND<FLAGVALUE: _COUNTER, 18>
+        {
+            EFF<SETFLAG: _CONDTAKEN, 1>
+            COND<EQUALS: <DUMMYITEM1>: value1, <DUMMYITEM2>: value2>
+            {
+                EFF<TAKE: <TESTITEM>>
+            }
+        }
+        COND<FLAGVALUE: _COUNTER, 19>
+        {
+            EFF<SETFLAG: _CONDTAKEN, 1>
+            COND<EQUALS: <DUMMYITEM1>: value1, <DUMMYITEM2>: value1>
+            {
+                EFF<TAKE: <TESTITEM>>
+            }
+        }
+        COND<FLAGVALUE: _COUNTER, 20>
+        {
+            EFF<SETFLAG: _CONDTAKEN, 1>
+            COND<GT: <DUMMYITEM1>: value1, 11>
+            {
+                EFF<TAKE: <TESTITEM>>
+            }
+        }
+        COND<FLAGVALUE: _COUNTER, 21>
+        {
+            EFF<SETFLAG: _CONDTAKEN, 1>
+            COND<GT: <DUMMYITEM1>: value1, 9>
+            {
+                EFF<TAKE: <TESTITEM>>
+            }
+        }
+        COND<FLAGVALUE: _COUNTER, 22>
+        {
+            EFF<SETFLAG: _CONDTAKEN, 1>
+            COND<GT: <DUMMYITEM1>: value1, <DUMMYITEM2>: value2>
+            {
+                EFF<TAKE: <TESTITEM>>
+            }
+        }
+        COND<FLAGVALUE: _COUNTER, 23>
+        {
+            EFF<SETFLAG: _CONDTAKEN, 1>
+            COND<GT: <DUMMYITEM1>: value2, <DUMMYITEM2>: value1>
+            {
+                EFF<TAKE: <TESTITEM>>
+            }
+        }
+        COND<FLAGVALUE: _COUNTER, 24>
+        {
+            EFF<SETFLAG: _CONDTAKEN, 1>
+            COND<LT: <DUMMYITEM1>: value1, 9>
+            {
+                EFF<TAKE: <TESTITEM>>
+            }
+        }
+        COND<FLAGVALUE: _COUNTER, 25>
+        {
+            EFF<SETFLAG: _CONDTAKEN, 1>
+            COND<LT: <DUMMYITEM1>: value1, 11>
+            {
+                EFF<TAKE: <TESTITEM>>
+            }
+        }
+        COND<FLAGVALUE: _COUNTER, 26>
+        {
+            EFF<SETFLAG: _CONDTAKEN, 1>
+            COND<LT: <DUMMYITEM1>: value2, <DUMMYITEM2>: value1>
+            {
+                EFF<TAKE: <TESTITEM>>
+            }
+        }
+        COND<FLAGVALUE: _COUNTER, 27>
+        {
+            EFF<SETFLAG: _CONDTAKEN, 1>
+            COND<LT: <DUMMYITEM1>: value1, <DUMMYITEM2>: value2>
+            {
+                EFF<TAKE: <TESTITEM>>
+            }
+        }
+        COND<FLAGVALUE: _COUNTER, 28>
+         {
+             EFF<SETFLAG: _CONDTAKEN, 1>
+             COND<PRSI: <DUMMYITEM2>>
+             {
+                 EFF<TAKE: <TESTITEM>>
+             }
+         }
+         COND<FLAGVALUE: _COUNTER, 29>
+         {
+             EFF<SETFLAG: _CONDTAKEN, 1>
+             COND<PRSI: <DUMMYITEM1>>
+             {
+                 EFF<TAKE: <TESTITEM>>
+             }
+         }
+         COND<FLAGVALUE: _COUNTER, 30>
+          {
+              EFF<SETFLAG: _CONDTAKEN, 1>
+              COND<PRSO: <DUMMYITEM1>>
+              {
+                  EFF<TAKE: <TESTITEM>>
+              }
+          }
+          COND<FLAGVALUE: _COUNTER, 31>
+          {
+              EFF<SETFLAG: _CONDTAKEN, 1>
+              COND<PRSO: <TESTITEM>>
+              {
+                  EFF<TAKE: <TESTITEM>>
+              }
+          }
+          COND<FLAGVALUE: _COUNTER, 32>
+          {
+              EFF<SETFLAG: _CONDTAKEN, 1>
+              COND<PRSA: TRY, TEST>
+              {
+                  EFF<TAKE: <TESTITEM>>
+              }
+          }
+          COND<FLAGVALUE: _COUNTER, 33>
+          {
+              EFF<SETFLAG: _CONDTAKEN, 1>
+              COND<PRSA: TRY, DO>
+              {
+                  EFF<TAKE: <TESTITEM>>
+              }
+          }
+          COND<FLAGVALUE: _COUNTER, 34>
+          {
+            EFF<SETFLAG: _CONDTAKEN, 1>
+            COND<PRSAAnd: LOOK, AT>
+            {
+                EFF<TAKE: <TESTITEM>>
+            }
+          }
+          COND<FLAGVALUE: _COUNTER, 35>
+          {
+            EFF<SETFLAG: _CONDTAKEN, 1>
+            COND<PRSAAnd: LOOK, AROUND>
+            {
+                EFF<TAKE: <TESTITEM>>
+            }
+          }
+        COND<FLAGVALUE: _COUNTER, 36>
+        {
+            EFF<SETFLAG: _CONDTAKEN, 1>
+            COND<FLAGVALUE: _TESTFLAG1, 1 && FLAGVALUE: _TESTFLAG2, 0>
+            {
+                EFF<TAKE: <TESTITEM>>
+            }
+        }
+        COND<FLAGVALUE: _COUNTER, 37>
+        {
+            EFF<SETFLAG: _CONDTAKEN, 1>
+            COND<FLAGVALUE: _TESTFLAG1, 1 && FLAGVALUE: _TESTFLAG2, 1>
+            {
+                EFF<TAKE: <TESTITEM>>
+            }
+        }
+        COND<FLAGVALUE: _COUNTER, 38>
+        {
+            EFF<SETFLAG: _CONDTAKEN, 1>
+            COND<FLAGVALUE: _TESTFLAG1, 2 || FLAGVALUE: _TESTFLAG1, 3>
+            {
+                EFF<TAKE: <TESTITEM>>
+            }
+        }
+        COND<FLAGVALUE: _COUNTER, 39>
+        {
+            EFF<SETFLAG: _CONDTAKEN, 1>
+            COND<FLAGVALUE: _TESTFLAG1, 2 || FLAGVALUE: _TESTFLAG1, 1>
+            {
+                EFF<TAKE: <TESTITEM>>
+            }
+        }
+        COND<FLAGVALUE: _COUNTER, 40>
+        {
+            EFF<SETFLAG: _CONDTAKEN, 1>
+            COND<!FLAGVALUE: _TESTFLAG1, 0>
+            {
+                EFF<TAKE: <TESTITEM>>
+            }
+        }
+        COND<FLAGVALUE: _COUNTER, 41>
+        {
+            EFF<SETFLAG: _CONDTAKEN, 1>
+            COND<!FLAGVALUE: _TESTFLAG1, 1>
             {
                 EFF<TAKE: <TESTITEM>>
             }

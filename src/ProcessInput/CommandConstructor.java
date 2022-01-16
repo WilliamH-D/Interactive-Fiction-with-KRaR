@@ -332,6 +332,9 @@ public class CommandConstructor {
                     if (!GameController.getVerbSynonyms().containsValue(tokens.get(j).getLemma())) {
                         idx = j;
                     }
+                    if (tokens.get(j).getLemma().equals("the")) {
+                        break;
+                    }
                 }
                 else {
                     break;
