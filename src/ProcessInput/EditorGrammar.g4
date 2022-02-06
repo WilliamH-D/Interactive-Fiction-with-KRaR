@@ -54,6 +54,7 @@ NORTH_BLOCK_MESSAGE_KEY: 'N' BLOCK_MESSAGE_TAG COLON; SOUTH_BLOCK_MESSAGE_KEY: '
 EAST_BLOCK_MESSAGE_KEY: 'E' BLOCK_MESSAGE_TAG COLON; WEST_BLOCK_MESSAGE_KEY: 'W' BLOCK_MESSAGE_TAG COLON;
 UP_BLOCK_MESSAGE_KEY: 'U' BLOCK_MESSAGE_TAG COLON; DOWN_BLOCK_MESSAGE_KEY: 'D' BLOCK_MESSAGE_TAG COLON;
 ACTION_KEY: 'ACTION' COLON;
+DET_KEY: 'DET' COLON;
 
 // Condition type keys
 PRSA_COND: 'PRSA' COLON;
@@ -123,6 +124,7 @@ down_block_message: DOWN_BLOCK_MESSAGE_KEY STRING SEMICOLON | /*epsilon*/;
 action_entry: ACTION_KEY action_block SEMICOLON;
 global_flag_entry: FLAG_KEY flag SEMICOLON;
 flag_val_entry: VALUE_KEY num_int SEMICOLON | /* epsilon*/;
+det_entry: DET_KEY STRING SEMICOLON | /* epsilon*/;
 
 object: OBJECT_TAG LB_CURLY
             id_entry
@@ -147,6 +149,7 @@ room: ROOM_TAG LB_CURLY
             name_entry
             desc_entry
             synonyms_entry
+            det_entry
             RB_CURLY;
 
 action: ACTION_TAG LB_CURLY

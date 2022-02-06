@@ -51,6 +51,8 @@ public class StoryCompiler {
 
     Set<String> synonyms;
 
+    String det;
+
     String location; // Parent
     int locationType = 0;
 
@@ -130,6 +132,8 @@ public class StoryCompiler {
 
         flagName = null;
         flagValue = 0;
+
+        det = null;
     }
 
     void compileRoom() {
@@ -157,6 +161,7 @@ public class StoryCompiler {
         logger.logRaw("NAME: " + name);
         logger.logRaw("DESC: " + desc);
         logger.logRaw("SYNS: " + synonyms);
+        logger.logRaw("DET: " + det);
 
         GameRoom room = new GameRoom(id);
         room.setParent("ROOT", 0);
@@ -181,6 +186,7 @@ public class StoryCompiler {
         room.setName(name);
         room.setDesc(desc);
         room.setSynonyms(synonyms);
+        room.setDet(det);
 
         logger.logInfo("New Room: " + room);
 
@@ -208,6 +214,7 @@ public class StoryCompiler {
         logger.logRaw("FLAGS: " + Arrays.toString(properties.toArray()));
         logger.logRaw("VALUES: ");
         values.forEach((key, value) -> logger.logRaw("\t" + key + ":" + value));
+        logger.logRaw("DET: " + det);
 
         GameObject obj = new GameObject(id);
         obj.setParent(location, locationType);
@@ -215,6 +222,7 @@ public class StoryCompiler {
         obj.setName(name);
         obj.setDesc(desc);
         obj.setSynonyms(synonyms);
+        obj.setDet(det);
         properties.forEach(obj::setProperty);
 
         int volume = 1;

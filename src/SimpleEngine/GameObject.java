@@ -18,6 +18,7 @@ public class GameObject {
     private Set<String> synonyms; // Generate automatically when parsing input rather than defining here (can be difference for enhanced engine)
     private Set<String> properties; // Static flags for this object
     private HashMap<String, String> variables;
+    private String det;
 
     public GameObject(String n) {
         this.id = n.toUpperCase();
@@ -113,6 +114,10 @@ public class GameObject {
     public void setName(String name) { this.name = name; }
 
     public String getName() { return this.name; }
+
+    public void setDet(String det) { this.det = det; }
+
+    public String getDet() { return this.det; }
 
     public void setDesc(String desc) { this.desc = desc; }
 

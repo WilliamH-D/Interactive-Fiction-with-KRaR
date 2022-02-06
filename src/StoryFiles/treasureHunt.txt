@@ -7,6 +7,7 @@
     WBLOCKMESSAGE: "You don't want to return to civilisation without claiming the ancient treasure!";
     NAME: "Ruin's Entrance";
     DESC: "A newly excavated entrance way to long-lost ruins. Blinding sunlight streams into the network of caverns, illuminating the crumbling stone structures inside.";
+    DET: "the";
 }
 
 [room]
@@ -15,6 +16,7 @@
     E: <RUINSENTRANCE>;
     NAME: "Civilisation";
     DESC: "The outside world as you know it.";
+    DET: "";
 }
 
 [room]
@@ -36,6 +38,7 @@
     D: <TREASUREROOM>;
     NAME: "Collapsed Columns";
     DESC: "Once a grand atrium, the pillars adorning the temple have withered away over time leaving broken columns and chunks of marble covering the place.";
+    DET: "some";
 }
 
 [room]
@@ -64,6 +67,7 @@
     E: <OLDQUARTERS>;
     NAME: "Old Kitchens";
     DESC: "The ruins of what looks to be a large food-preparation area. Some of the slate cupboards still have functioning sliding doors!";
+    DET: "the";
 }
 
 [room]
@@ -73,6 +77,7 @@
     W: <OLDKITCHENS>;
     NAME: "Old Quarters";
     DESC: "The rotting remains of old beds fill this room. Judging by the number of frames, it seems as if the quarters could have housed over a dozen people.";
+    DET: "the";
 }
 
 [room]
@@ -81,6 +86,7 @@
     U: <COLLAPSEDCOLUMNS>;
     NAME: "Treasure Room";
     DESC: "Dazzling golden walls surround the room, the faces of ancient deities etched into each one!";
+    DET: "the";
 }
 
 [room]
@@ -118,6 +124,7 @@
     W: <GREATSTONEDOORWAY>;
     NAME: "South River Cavern";
     DESC: "This large cavern is split in two by the fast-flowing river. Rotten wooden stilts extend across the river as if there used to be a bridge here in the distant past";
+    DET: "the";
 }
 
 [room]
@@ -154,6 +161,7 @@
     S: <SOUTHRIVERCAVERN>;
     NAME: "North River Cavern";
     DESC: "The north side of the river. Massive Stalactites extend down from the roof of the cavern. Hopefully they don't fall...";
+    DET: "the";
 }
 
 [room]
@@ -164,6 +172,7 @@
     W: <ANCIENTQUARRY>;
     NAME: "Midnight Tunnels";
     DESC: "These twisting tunnels are pitch black. Squinting, it looks as if there's a torch on the wall. Maybe there's a way to light it and illuminate your surroundings.";
+    DET: "the";
 }
 
 [room]
@@ -180,6 +189,7 @@
     W: <MIDNIGHTTUNNELS>;
     NAME: "Idol's Seat";
     DESC: "A very ornate room. The ruby studded golden chest in the centre of the room looks very important!";
+    DET: "the";
 }
 
 [flag]

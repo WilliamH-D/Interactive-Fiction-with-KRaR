@@ -233,6 +233,12 @@ public interface EditorGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFlag_val_entry(EditorGrammarParser.Flag_val_entryContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#det_entry}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDet_entry(EditorGrammarParser.Det_entryContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link EditorGrammarParser#object}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

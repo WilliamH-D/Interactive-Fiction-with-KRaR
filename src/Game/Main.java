@@ -8,6 +8,8 @@ import ProcessInput.NLPPipeline;
 import ProcessInput.StoryCompiler;
 
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.Scanner;
 
 public class Main {
@@ -39,6 +41,11 @@ public class Main {
     }
 
     public static void init(String storyFile, boolean useEnhanced) throws IOException {
+        System.setErr(new PrintStream(new OutputStream() {
+            public void write(int b) {
+            }
+        }));
+
         // Instantiate the Game Controller
         GameController.instantiateGameController();
         if (useEnhanced) {
@@ -61,6 +68,8 @@ public class Main {
 
         // Create the Command Constructor
         Main.commandConstructor = new CommandConstructor();
+
+        System.setErr(System.out);
 
         // Print a starting message
         System.out.println();

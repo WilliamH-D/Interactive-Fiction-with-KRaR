@@ -302,6 +302,14 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
         return visitChildren(ctx);
     }
 
+    @Override
+    public T visitDet_entry(EditorGrammarParser.Det_entryContext ctx) {
+        if (ctx.STRING() != null) {
+            StoryCompiler.get().det = ctx.STRING().toString().substring(1, ctx.STRING().toString().length()-1);
+        }
+        return visitChildren(ctx);
+    }
+
     // --------------------------------------------------------------------------------------
     //                                OBJECT / ROOM / ACTION
     // --------------------------------------------------------------------------------------

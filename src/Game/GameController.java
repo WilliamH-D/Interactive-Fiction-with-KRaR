@@ -76,10 +76,29 @@ public class GameController {
     public static GameObject upObj() { return GC.up; }
     public static GameObject downObj() { return GC.down; }
 
+    private static String getDeterminate(GameObject obj) {
+        return getDeterminate(obj, false);
+    }
+
+    private static String getDeterminate(GameObject obj, boolean capitalise) {
+        String toRet;
+        String det = obj.getDet();
+        if (det != null) {
+            toRet = det.equals("") ? det : det + " ";
+        }
+        else {
+            toRet = ("AEIOUaeiou".indexOf(obj.getName().charAt(0)) != -1) ? "an " : "a ";
+        }
+        if (capitalise) {
+            return toRet.substring(0, 1).toUpperCase() + toRet.substring(1);
+        }
+        return toRet;
+    }
+
     public static void describeNorth() {
-        GameRoom location = GameController.getPlayer().getLocation();
-        if (location.getNorth() != null) {
-            System.out.println("To the north is a " + GameState.getGameObject(location.getNorth()).getName() + ".");
+        GameRoom northLocation = (GameRoom)GameState.getGameObject(GameController.getPlayer().getLocation().getNorth());
+        if (northLocation != null) {
+            System.out.println("To the north is " + getDeterminate(northLocation) + northLocation.getName() + ".");
         }
         else {
             System.out.println("There is nothing to the north.");
@@ -87,9 +106,9 @@ public class GameController {
     }
 
     public static void describeSouth() {
-        GameRoom location = GameController.getPlayer().getLocation();
-        if (location.getSouth() != null) {
-            System.out.println("To the south is a " + GameState.getGameObject(location.getSouth()).getName() + ".");
+        GameRoom southLocation = (GameRoom)GameState.getGameObject(GameController.getPlayer().getLocation().getSouth());
+        if (southLocation != null) {
+            System.out.println("To the south is " + getDeterminate(southLocation) + southLocation.getName() + ".");
         }
         else {
             System.out.println("There is nothing to the south.");
@@ -97,9 +116,9 @@ public class GameController {
     }
 
     public static void describeEast() {
-        GameRoom location = GameController.getPlayer().getLocation();
-        if (location.getEast() != null) {
-            System.out.println("To the east is a " + GameState.getGameObject(location.getEast()).getName() + ".");
+        GameRoom eastLocation = (GameRoom)GameState.getGameObject(GameController.getPlayer().getLocation().getEast());
+        if (eastLocation != null) {
+            System.out.println("To the east is " + getDeterminate(eastLocation) + eastLocation.getName() + ".");
         }
         else {
             System.out.println("There is nothing to the east.");
@@ -107,9 +126,9 @@ public class GameController {
     }
 
     public static void describeWest() {
-        GameRoom location = GameController.getPlayer().getLocation();
-        if (location.getWest() != null) {
-            System.out.println("To the west is a " + GameState.getGameObject(location.getWest()).getName() + ".");
+        GameRoom westLocation = (GameRoom)GameState.getGameObject(GameController.getPlayer().getLocation().getWest());
+        if (westLocation != null) {
+            System.out.println("To the west is " + getDeterminate(westLocation) + westLocation.getName() + ".");
         }
         else {
             System.out.println("There is nothing to the west.");
@@ -117,9 +136,9 @@ public class GameController {
     }
 
     public static void describeUp() {
-        GameRoom location = GameController.getPlayer().getLocation();
-        if (location.getUp() != null) {
-            System.out.println("Above you is a " + GameState.getGameObject(location.getUp()).getName() + ".");
+        GameRoom upLocation = (GameRoom)GameState.getGameObject(GameController.getPlayer().getLocation().getUp());
+        if (upLocation != null) {
+            System.out.println("Above you is " + getDeterminate(upLocation) + upLocation.getName() + ".");
         }
         else {
             System.out.println("There is nothing above you.");
@@ -127,9 +146,9 @@ public class GameController {
     }
 
     public static void describeDown() {
-        GameRoom location = GameController.getPlayer().getLocation();
-        if (location.getDown() != null) {
-            System.out.println("Below you is a " + GameState.getGameObject(location.getDown()).getName() + ".");
+        GameRoom downLocation = (GameRoom)GameState.getGameObject(GameController.getPlayer().getLocation().getDown());
+        if (downLocation != null) {
+            System.out.println("Below you is " + getDeterminate(downLocation) + downLocation.getName() + ".");
         }
         else {
             System.out.println("There is nothing below you.");
@@ -196,7 +215,7 @@ public class GameController {
                             printedGap = true;
                         }
                         for (int i = 0; i < 2*pair.indent; i++) { System.out.print(" "); }
-                        System.out.println(" - A " + pair.child.getName() + " is in the " + pair.parent.getName() + ".");
+                        System.out.println(" - " + getDeterminate(pair.child, true) + pair.child.getName() + " is in the " + pair.parent.getName() + ".");
                     }
                     // Child is on top of its parent
                     else if (pair.child.getParentType() == 1) {
@@ -205,7 +224,7 @@ public class GameController {
                             printedGap = true;
                         }
                         for (int i = 0; i < 2*pair.indent; i++) { System.out.print(" "); }
-                        System.out.println(" - A " + pair.child.getName() + " is on the " + pair.parent.getName() + ".");
+                        System.out.println(" - " + getDeterminate(pair.child, true) + pair.child.getName() + " is on the " + pair.parent.getName() + ".");
                     }
                     // Child is underneath of its parent
                     else if (pair.child.getParentType() == 2) {
@@ -214,7 +233,7 @@ public class GameController {
                             printedGap = true;
                         }
                         for (int i = 0; i < 2*pair.indent; i++) { System.out.print(" "); }
-                        System.out.println(" - A " + pair.child.getName() + " is below the " + pair.parent.getName() + ".");
+                        System.out.println(" - " + getDeterminate(pair.child, true) + pair.child.getName() + " is below the " + pair.parent.getName() + ".");
                     }
                     if (pair.child.hasProperty("_CLOSABLECONTAINER")) {
                         if (Boolean.parseBoolean(pair.child.getVariable("isClosed"))) {
