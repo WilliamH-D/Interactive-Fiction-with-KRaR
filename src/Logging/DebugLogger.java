@@ -9,10 +9,13 @@ public class DebugLogger {
 
     private static DebugLogger instance;
     private String file;
+    private boolean logging;
 
     private DebugLogger() {
-        file = "D:\\Documents\\University\\Part II Project\\Interactive Fiction with KRaR\\src\\Logging\\log.txt";
+        file = "src\\Logging\\log.txt";
+        logging = true;
         try {
+            // Reset the log
             PrintWriter writer = new PrintWriter(file);
             writer.print("");
             writer.close();
@@ -31,57 +34,45 @@ public class DebugLogger {
     }
 
     public void logInfo(String info) {
-        try {
-            FileWriter myWriter = new FileWriter(file, true);
-            myWriter.write("INFO: " + info + "\n");
-            myWriter.close();
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
+        log("INFO: " + info);
     }
 
     public void logDebug(String debug) {
-        try {
-            FileWriter myWriter = new FileWriter(file, true);
-            myWriter.write("DEBUG: " + debug + "\n");
-            myWriter.close();
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
+        log("DEBUG: " + debug);
     }
 
     public void logError(String error) {
-        try {
-            FileWriter myWriter = new FileWriter(file, true);
-            myWriter.write("ERROR: " + error + "\n");
-            myWriter.close();
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
+        log("ERROR: " + error);
     }
 
     public void logLine() {
+        log("");
+    }
+
+    public void logRaw(String raw) {
+        log(raw);
+    }
+
+    private void log(String toLog) {
+        if (!logging) {
+            return;
+        }
+
         try {
             FileWriter myWriter = new FileWriter(file, true);
-            myWriter.write("\n");
+            myWriter.write(toLog + "\n");
             myWriter.close();
         } catch (IOException e) {
-            System.out.println("An error occurred.");
+            System.out.println("A logging error occurred.");
             e.printStackTrace();
         }
     }
 
-    public void logRaw(String raw) {
-        try {
-            FileWriter myWriter = new FileWriter(file, true);
-            myWriter.write(raw + "\n");
-            myWriter.close();
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
+    public void stopLogging() {
+        logging = false;
+    }
+
+    public void startLogging() {
+        logging = true;
     }
 }

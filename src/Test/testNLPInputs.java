@@ -1,6 +1,7 @@
 package Test;
 
 import Game.GameController;
+import Logging.DebugLogger;
 import ProcessInput.CommandConstructor;
 import ProcessInput.NLPPipeline;
 import SimpleEngine.GameObject;
@@ -15,6 +16,7 @@ import java.util.TreeMap;
 public class testNLPInputs {
 
     static {
+        DebugLogger.getInstance().stopLogging();
         // Instantiate the Game Controller
         GameController.instantiateGameController();
         // Initialise the NLP pipeline

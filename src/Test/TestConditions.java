@@ -2,6 +2,7 @@ package Test;
 
 import Game.GameController;
 import Game.Main;
+import Logging.DebugLogger;
 import ProcessInput.CommandConstructor;
 import SimpleEngine.ExecuteCommand;
 import SimpleEngine.GameRoom;
@@ -15,6 +16,7 @@ import java.io.IOException;
 public class TestConditions {
 
     static {
+        DebugLogger.getInstance().stopLogging();
         try {
             Main.init("testActions.txt", false);
         } catch (IOException e) {

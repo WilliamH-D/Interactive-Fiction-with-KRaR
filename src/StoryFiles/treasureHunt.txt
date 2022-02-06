@@ -1,0 +1,189 @@
+[room]
+{
+    ID: <RUINSENTRANCE>;
+    E: <OLDPLAZA>;
+    W:<CIVILISATION>;
+    WCOND: _TREASUREOBTAINED=1;
+    WBLOCKMESSAGE: "You don't want to return to civilisation without claiming the ancient treasure!";
+    NAME: "Ruin's Entrance";
+    DESC: "A newly excavated entrance way to long-lost ruins. Blinding sunlight streams into the network of caverns, illuminating the crumbling stone structures inside.";
+}
+
+[room]
+{
+    ID: <CIVILISATION>;
+    E: <RUINSENTRANCE>;
+    NAME: "Civilisation";
+    DESC: "The outside world as you know it.";
+}
+
+[room]
+{
+    ID: <OLDPLAZA>;
+    N: <GREATSTONEDOORWAY>;
+    E: <COLLAPSEDCOLUMNS>;
+    W: <RUINSENTRANCE>;
+    NAME: "Old Plaza";
+    DESC: "You find yourself in a great underground plaza. Before you leads a stairway towards the ruins of a marble temple.";
+}
+
+[room]
+{
+    ID: <COLLAPSEDCOLUMNS>;
+    S: <OLDKITCHENS>;
+    E: <MARBLEPILLARWAY>;
+    W: <OLDPLAZA>;
+    D: <TREASUREROOM>;
+    NAME: "Collapsed Columns";
+    DESC: "Once a grand atrium, the pillars adorning the temple have withered away over time leaving broken columns and chunks of marble covering the place.";
+}
+
+[room]
+{
+    ID: <MARBLEPILLARWAY>;
+    S: <OLDQUARTERS>;
+    E: <GRANDALTER>;
+    W: <COLLAPSEDCOLUMNS>;
+    NAME: "Marble Pillar-way";
+    DESC: "This side of the temple still has its great marble pillars still intact, somehow having withstood the test of time.";
+}
+
+[room]
+{
+    ID: <GRANDALTER>;
+    N: <ROCKYTUNNEL>;
+    W: <MARBLEPILLARWAY>;
+    NAME: "Grand Alter";
+    DESC: "At the very end of the temple's long pillar-way stands a grand alter. The alter looks like it's missing something...";
+}
+
+[room]
+{
+    ID: <OLDKITCHENS>;
+    N: <COLLAPSEDCOLUMNS>;
+    E: <OLDQUARTERS>;
+    NAME: "Old Kitchens";
+    DESC: "The ruins of what looks to be a large food-preparation area. Some of the slate cupboards still have functioning sliding doors!";
+}
+
+[room]
+{
+    ID: <OLDQUARTERS>;
+    N: <MARBLEPILLARWAY>;
+    W: <OLDKITCHENS>;
+    NAME: "Old Quarters";
+    DESC: "The rotting remains of old beds fill this room. Judging by the number of frames, it seems as if the quarters could have housed over a dozen people.";
+}
+
+[room]
+{
+    ID: <TREASUREROOM>;
+    U: <COLLAPSEDCOLUMNS>;
+    NAME: "Treasure Room";
+    DESC: "Dazzling golden walls surround the room, the faces of ancient deities etched into each one!";
+}
+
+[room]
+{
+    ID: <ROCKYTUNNEL>;
+    N: <WATERFALLCAVERN>;
+    S: <GRANDALTER>;
+    U: <HIDDENCHAMBER>;
+    NAME: "Rocky Tunnel";
+    DESC: "This claustrophobic tunnel is littered with rocks and boulders. A draught seems to be coming from overhead. Maybe if you stacked some blocks, you could climb up...";
+}
+
+[room]
+{
+    ID: <HIDDENCHAMBER>;
+    D: <ROCKYTUNNEL>;
+    NAME: "Hidden Chamber";
+    DESC: "You managed to access a hidden chamber above the rocky tunnel! Small air vents leading to are causing the draughts in the tunnels below.";
+}
+
+[room]
+{
+    ID: <WATERFALLCAVERN>;
+    S: <ROCKYTUNNEL>;
+    W: <SOUTHRIVERCAVERN>;
+    NAME: "Waterfall Cavern";
+    DESC: "A roaring waterfall is cascading down into this spacious cavern. A river stretches west from its base.";
+}
+
+[room]
+{
+    ID: <SOUTHRIVERCAVERN>;
+    N: <NORTHRIVERCAVERN>;
+    E: <WATERFALLCAVERN>;
+    W: <GREATSTONEDOORWAY>;
+    NAME: "South River Cavern";
+    DESC: "This large cavern is split in two by the fast-flowing river. Rotten wooden stilts extend across the river as if there used to be a bridge here in the distant past";
+}
+
+[room]
+{
+    ID: <GREATSTONEDOORWAY>;
+    S: <OLDPLAZA>;
+    E: <SOUTHRIVERCAVERN>;
+    W: <STORAGEROOM>;
+    NAME: "Great Stone-Doorway";
+    DESC: "Two pressure-plates lie before a great stone door on the west wall. Do I have anything heavy enough to trigger both plates?";
+}
+
+[room]
+{
+    ID: <STORAGEROOM>;
+    N: <BACKROOM>;
+    W: <GREATSTONEDOORWAY>;
+    NAME: "Storage Room";
+    DESC: "This room looks like it was used to store things. There is all sorts of wood and degraded items lying about.";
+}
+
+[room]
+{
+    ID: <BACKROOM>;
+    S: <STORAGEROOM>;
+    NAME: "Back Room";
+    DESC: "There are a few extra trinkets lying around, but like with the storage room, time has taken its toll on the items here.";
+}
+
+[room]
+{
+    ID: <NORTHRIVERCAVERN>;
+    N: <MIDNIGHTTUNNELS>;
+    S: <SOUTHRIVERCAVERN>;
+    NAME: "North River Cavern";
+    DESC: "The north side of the river. Massive Stalactites extend down from the roof of the cavern. Hopefully they don't fall...";
+}
+
+[room]
+{
+    ID: <MIDNIGHTTUNNELS>;
+    S: <NORTHRIVERCAVERNS>;
+    E: <IDOLSSEAT>;
+    W: <ANCIENTQUARRY>;
+    NAME: "Midnight Tunnels";
+    DESC: "These twisting tunnels are pitch black. Squinting, it looks as if there's a torch on the wall. Maybe there's a way to light it and illuminate your surroundings.";
+}
+
+[room]
+{
+    ID: <ANCIENTQUARRY>;
+    E: <MIDNIGHTTUNNELS>;
+    NAME: "Ancient Quarry";
+    DESC: "This seems to be where all of the marble and stone for the underground temple was excavated from. There is still a lot of stone lying about.";
+}
+
+[room]
+{
+    ID: <IDOLSSEAT>;
+    W: <MIDNIGHTTUNNELS>;
+    NAME: "Idol's Seat";
+    DESC: "A very ornate room. The ruby studded golden chest in the centre of the room looks very important!";
+}
+
+[flag]
+{
+    FLAG: _TREASUREOBTAINED;
+    VALUE: 0;
+}

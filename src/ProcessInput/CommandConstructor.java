@@ -240,6 +240,7 @@ public class CommandConstructor {
         logger.logDebug("Pre-process input posTags: " + posTags);
         ArrayList<LemmaPOS> tokens = new ArrayList<>();
         for (int i = 0; i < lemmas.size(); i++) {
+            if (lemmas.get(i).equals("")) { continue; }
             tokens.add(new LemmaPOS(lemmas.get(i), posTags.get(i)));
         }
 
