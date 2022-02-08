@@ -7,6 +7,10 @@
     WBLOCKMESSAGE: "You don't want to return to civilisation without claiming the ancient treasure!";
     NAME: "Ruin's Entrance";
     DESC: "A newly excavated entrance way to long-lost ruins. %nBlinding sunlight streams into the network of caverns, illuminating the crumbling stone structures inside.";
+    ALTDESC: "An alternate desc.";
+    CONDS: _TREASUREOBTAINED=3;
+    ALTDESC: "Another alternate desc.";
+    CONDS: _TREASUREOBTAINED=2;
     DET: "the";
 }
 

@@ -138,6 +138,26 @@ public interface EditorGrammarListener extends ParseTreeListener {
 	 */
 	void exitDesc_entry(EditorGrammarParser.Desc_entryContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#alt_desc_entry}.
+	 * @param ctx the parse tree
+	 */
+	void enterAlt_desc_entry(EditorGrammarParser.Alt_desc_entryContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#alt_desc_entry}.
+	 * @param ctx the parse tree
+	 */
+	void exitAlt_desc_entry(EditorGrammarParser.Alt_desc_entryContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#flag_conditions}.
+	 * @param ctx the parse tree
+	 */
+	void enterFlag_conditions(EditorGrammarParser.Flag_conditionsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#flag_conditions}.
+	 * @param ctx the parse tree
+	 */
+	void exitFlag_conditions(EditorGrammarParser.Flag_conditionsContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link EditorGrammarParser#synonyms_entry}.
 	 * @param ctx the parse tree
 	 */

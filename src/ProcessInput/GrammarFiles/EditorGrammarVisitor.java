@@ -89,6 +89,18 @@ public interface EditorGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDesc_entry(EditorGrammarParser.Desc_entryContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#alt_desc_entry}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAlt_desc_entry(EditorGrammarParser.Alt_desc_entryContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#flag_conditions}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFlag_conditions(EditorGrammarParser.Flag_conditionsContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link EditorGrammarParser#synonyms_entry}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

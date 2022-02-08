@@ -15,6 +15,8 @@ public class GameObject {
     private int parentType; // 0 = inside parent, 1 = on top of parent, 2 = below parent
     private String name;
     private String desc;
+    private List<String> altDescs;
+    private List<Set<String>> altDescConds;
     private Set<String> synonyms; // Generate automatically when parsing input rather than defining here (can be difference for enhanced engine)
     private Set<String> properties; // Static flags for this object
     private HashMap<String, String> variables;
@@ -28,6 +30,8 @@ public class GameObject {
         this.below = new HashSet<>();
         this.properties = new HashSet<>();
         this.variables = new HashMap<>();
+        this.altDescs = new ArrayList<>();
+        this.altDescConds = new ArrayList<>();
     }
 
     public String getId() { return this.id; }
@@ -121,7 +125,32 @@ public class GameObject {
 
     public void setDesc(String desc) { this.desc = desc.replaceAll("%n", "\n"); }
 
-    public String getDesc() { return this.desc; }
+    public void addAltDesc(String altDesc, Set<String> conds) {
+        this.altDescs.add(altDesc.replaceAll("%n", "\n"));
+        this.altDescConds.add(conds);
+    }
+
+    public String getDesc() {
+        //Try all conditional alt descs first, then resort to default desc
+        for (int i = this.altDescs.size() - 1; i >= 0; i--) {
+            boolean flagsSatisfied = true;
+            Set<String> iConds = this.altDescConds.get(i);
+            for (String cond : iConds) {
+                String[] flagParts = cond.split("=");
+                GameFlag flag = GameState.getFlag(flagParts[0]);
+                int checkVal = Integer.parseInt(flagParts[1]);
+                if (flag.getValue() != checkVal) {
+                    flagsSatisfied = false;
+                    break;
+                }
+            }
+
+            if (flagsSatisfied) {
+                return this.altDescs.get(i);
+            }
+        }
+        return this.desc;
+    }
 
     public int getParentType() { return this.parentType; }
 

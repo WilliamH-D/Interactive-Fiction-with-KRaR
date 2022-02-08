@@ -2,6 +2,7 @@ package ProcessInput;
 
 import ProcessInput.GrammarFiles.EditorGrammarParser;
 import ProcessInput.GrammarFiles.EditorGrammarVisitor;
+import edu.stanford.nlp.util.ArraySet;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
@@ -61,6 +62,29 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
     @Override public T visitDesc_entry(EditorGrammarParser.Desc_entryContext ctx) {
         String desc = ctx.STRING().toString();
         StoryCompiler.get().desc = desc.substring(1, desc.length()-1);
+        return visitChildren(ctx);
+    }
+
+    // TODO
+    @Override
+    public T visitAlt_desc_entry(EditorGrammarParser.Alt_desc_entryContext ctx) {
+        T children = visitChildren(ctx);
+        if (ctx.flag_conditions() != null) {
+            // not epsilon case
+            String desc = ctx.STRING().getText().substring(1, ctx.STRING().getText().length()-1);
+            StoryCompiler.get().altDescs.add(desc);
+            StoryCompiler.get().altDescConds.add(StoryCompiler.get().flagConds.pop());
+        }
+        return children;
+    }
+
+    @Override
+    public T visitFlag_conditions(EditorGrammarParser.Flag_conditionsContext ctx) {
+        Set<String> flagValuePairs = new HashSet<>();
+        for (int i = 0; i < ctx.flag().size(); i++) {
+            flagValuePairs.add(ctx.flag(i).getText() + "=" + ctx.num_int(i).getText());
+        }
+        StoryCompiler.get().flagConds.push(flagValuePairs);
         return visitChildren(ctx);
     }
 
@@ -170,80 +194,62 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
 
     @Override
     public T visitNorth_cond(EditorGrammarParser.North_condContext ctx) {
-        Set<String> flagValuePairs = new HashSet<>();
-        for (int i = 0; i < ctx.flag().size(); i++) {
-            flagValuePairs.add(ctx.flag(i).getText() + "=" + ctx.num_int(i).getText());
-        }
-        StoryCompiler.get().nconds = flagValuePairs;
+        T children = visitChildren(ctx);
+        StoryCompiler.get().nconds = ctx.flag_conditions() != null ? StoryCompiler.get().flagConds.pop() : new ArraySet<>();
         if (ctx.hidden() != null && ctx.hidden().getChildCount() > 0) {
             StoryCompiler.get().nHidden = true;
         }
-        return visitChildren(ctx);
+        return children;
     }
 
     @Override
     public T visitSouth_cond(EditorGrammarParser.South_condContext ctx) {
-        Set<String> flagValuePairs = new HashSet<>();
-        for (int i = 0; i < ctx.flag().size(); i++) {
-            flagValuePairs.add(ctx.flag(i).getText() + "=" + ctx.num_int(i).getText());
-        }
-        StoryCompiler.get().sconds = flagValuePairs;
+        T children = visitChildren(ctx);
+        StoryCompiler.get().sconds = ctx.flag_conditions() != null ? StoryCompiler.get().flagConds.pop() : new ArraySet<>();
         if (ctx.hidden() != null && ctx.hidden().getChildCount() > 0) {
             StoryCompiler.get().sHidden = true;
         }
-        return visitChildren(ctx);
+        return children;
     }
 
     @Override
     public T visitEast_cond(EditorGrammarParser.East_condContext ctx) {
-        Set<String> flagValuePairs = new HashSet<>();
-        for (int i = 0; i < ctx.flag().size(); i++) {
-            flagValuePairs.add(ctx.flag(i).getText() + "=" + ctx.num_int(i).getText());
-        }
-        StoryCompiler.get().econds = flagValuePairs;
+        T children = visitChildren(ctx);
+        StoryCompiler.get().econds = ctx.flag_conditions() != null ? StoryCompiler.get().flagConds.pop() : new ArraySet<>();
         if (ctx.hidden() != null && ctx.hidden().getChildCount() > 0) {
             StoryCompiler.get().eHidden = true;
         }
-        return visitChildren(ctx);
+        return children;
     }
 
     @Override
     public T visitWest_cond(EditorGrammarParser.West_condContext ctx) {
-        Set<String> flagValuePairs = new HashSet<>();
-        for (int i = 0; i < ctx.flag().size(); i++) {
-            flagValuePairs.add(ctx.flag(i).getText() + "=" + ctx.num_int(i).getText());
-        }
-        StoryCompiler.get().wconds = flagValuePairs;
+        T children = visitChildren(ctx);
+        StoryCompiler.get().wconds = ctx.flag_conditions() != null ? StoryCompiler.get().flagConds.pop() : new ArraySet<>();
         if (ctx.hidden() != null && ctx.hidden().getChildCount() > 0) {
             StoryCompiler.get().wHidden = true;
         }
-        return visitChildren(ctx);
+        return children;
     }
 
     @Override
     public T visitUp_cond(EditorGrammarParser.Up_condContext ctx) {
-        Set<String> flagValuePairs = new HashSet<>();
-        for (int i = 0; i < ctx.flag().size(); i++) {
-            flagValuePairs.add(ctx.flag(i).getText() + "=" + ctx.num_int(i).getText());
-        }
-        StoryCompiler.get().uconds = flagValuePairs;
+        T children = visitChildren(ctx);
+        StoryCompiler.get().uconds = ctx.flag_conditions() != null ? StoryCompiler.get().flagConds.pop() : new ArraySet<>();
         if (ctx.hidden() != null && ctx.hidden().getChildCount() > 0) {
             StoryCompiler.get().uHidden = true;
         }
-        return visitChildren(ctx);
+        return children;
     }
 
     @Override
     public T visitDown_cond(EditorGrammarParser.Down_condContext ctx) {
-        Set<String> flagValuePairs = new HashSet<>();
-        for (int i = 0; i < ctx.flag().size(); i++) {
-            flagValuePairs.add(ctx.flag(i).getText() + "=" + ctx.num_int(i).getText());
-        }
-        StoryCompiler.get().dconds = flagValuePairs;
+        T children = visitChildren(ctx);
+        StoryCompiler.get().dconds = ctx.flag_conditions() != null ? StoryCompiler.get().flagConds.pop() : new ArraySet<>();
         if (ctx.hidden() != null && ctx.hidden().getChildCount() > 0) {
             StoryCompiler.get().dHidden = true;
         }
-        return visitChildren(ctx);
+        return children;
     }
 
     @Override

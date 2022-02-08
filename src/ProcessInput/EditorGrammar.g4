@@ -43,6 +43,8 @@ LOC_KEY: 'LOCATION' COLON;
 LOC_TYPE_KEY: 'LOCATIONTYPE' COLON;
 NAME_KEY: 'NAME' COLON;
 DESC_KEY: 'DESC' COLON;
+ALT_DESC_KEY: 'ALTDESC' COLON;
+CONDS_KEY: 'CONDS' COLON;
 SYNS_KEY: 'SYNS' COLON;
 PROPERTIES_KEY: 'PROPERTIES' COLON;
 FLAG_KEY: 'FLAG' COLON;
@@ -101,6 +103,8 @@ loc_entry: LOC_KEY ID SEMICOLON;
 loc_type_entry: LOC_TYPE_KEY num_int SEMICOLON | /* epsilon*/;
 name_entry: NAME_KEY STRING SEMICOLON;
 desc_entry: DESC_KEY STRING SEMICOLON | /* epsilon */;
+alt_desc_entry: ALT_DESC_KEY STRING SEMICOLON CONDS_KEY flag_conditions SEMICOLON alt_desc_entry | /* epsilon */;
+flag_conditions: flag EQUALS num_int (COMMA flag EQUALS num_int)*;
 synonyms_entry: SYNS_KEY STRING (COMMA STRING)* SEMICOLON | /* epsilon */;
 properties_entry: PROPERTIES_KEY flag (COMMA flag)* SEMICOLON | /* epsilon */;
 values_entry: VALUES_KEY value (COMMA value)* SEMICOLON | /* epsilon */;
@@ -110,12 +114,12 @@ east_entry: EAST_KEY ID SEMICOLON east_cond | /*epsilon*/;
 west_entry: WEST_KEY ID SEMICOLON west_cond | /*epsilon*/;
 up_entry: UP_KEY ID SEMICOLON up_cond | /*epsilon*/;
 down_entry: DOWN_KEY ID SEMICOLON down_cond | /*epsilon*/;
-north_cond: NORTH_COND_KEY flag EQUALS num_int (COMMA flag EQUALS num_int)* hidden SEMICOLON north_block_message | /*epsilon*/;
-south_cond: SOUTH_COND_KEY flag EQUALS num_int (COMMA flag EQUALS num_int)* hidden SEMICOLON south_block_message | /*epsilon*/;
-east_cond: EAST_COND_KEY flag EQUALS num_int (COMMA flag EQUALS num_int)* hidden SEMICOLON east_block_message | /*epsilon*/;
-west_cond: WEST_COND_KEY flag EQUALS num_int (COMMA flag EQUALS num_int)* hidden SEMICOLON west_block_message | /*epsilon*/;
-up_cond: UP_COND_KEY flag EQUALS num_int (COMMA flag EQUALS num_int)* hidden SEMICOLON up_block_message | /*epsilon*/;
-down_cond: DOWN_COND_KEY flag EQUALS num_int (COMMA flag EQUALS num_int)* hidden SEMICOLON down_block_message | /*epsilon*/;
+north_cond: NORTH_COND_KEY flag_conditions hidden SEMICOLON north_block_message | /*epsilon*/;
+south_cond: SOUTH_COND_KEY flag_conditions hidden SEMICOLON south_block_message | /*epsilon*/;
+east_cond: EAST_COND_KEY flag_conditions hidden SEMICOLON east_block_message | /*epsilon*/;
+west_cond: WEST_COND_KEY flag_conditions hidden SEMICOLON west_block_message | /*epsilon*/;
+up_cond: UP_COND_KEY flag_conditions hidden SEMICOLON up_block_message | /*epsilon*/;
+down_cond: DOWN_COND_KEY flag_conditions hidden SEMICOLON down_block_message | /*epsilon*/;
 hidden: COMMA UNDERSCORE HIDDEN_KEY | /*epsilon*/;
 north_block_message: NORTH_BLOCK_MESSAGE_KEY STRING SEMICOLON | /*epsilon*/;
 south_block_message: SOUTH_BLOCK_MESSAGE_KEY STRING SEMICOLON | /*epsilon*/;
@@ -134,6 +138,7 @@ object: OBJECT_TAG LB_CURLY
             loc_type_entry
             name_entry
             desc_entry
+            alt_desc_entry
             synonyms_entry
             properties_entry
             values_entry
@@ -150,6 +155,7 @@ room: ROOM_TAG LB_CURLY
             down_entry
             name_entry
             desc_entry
+            alt_desc_entry
             synonyms_entry
             det_entry
             RB_CURLY;

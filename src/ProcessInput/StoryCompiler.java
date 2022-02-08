@@ -25,6 +25,8 @@ public class StoryCompiler {
     // ID
     String id;
 
+    Stack<Set<String>> flagConds = new Stack<>();
+
     // Directions
     String n;
     Set<String> nconds;
@@ -54,6 +56,9 @@ public class StoryCompiler {
 
     String name;
     String desc;
+
+    List<String> altDescs = new ArrayList<>();
+    List<Set<String>> altDescConds = new ArrayList<>();
 
     Set<String> synonyms;
 
@@ -106,6 +111,8 @@ public class StoryCompiler {
     private void resetVars() {
         id = null;
 
+        flagConds = new Stack<>();
+
         n = null;
         nconds = null;
         nHidden = false;
@@ -133,6 +140,8 @@ public class StoryCompiler {
 
         name = null;
         desc = null;
+        altDescs = new ArrayList<>();
+        altDescConds = new ArrayList<>();
 
         synonyms = null;
 
@@ -178,6 +187,10 @@ public class StoryCompiler {
         logger.logRaw("DBLOCKMESSAGE: " + dblockMessage);
         logger.logRaw("NAME: " + name);
         logger.logRaw("DESC: " + desc);
+        for (int i = 0; i < altDescs.size(); i++) {
+            logger.logRaw("ALTDESC: " + altDescs.get(i));
+            logger.logRaw("ALTDESCCONDS: " + altDescConds.get(i));
+        }
         logger.logRaw("SYNS: " + synonyms);
         logger.logRaw("DET: " + det);
 
@@ -209,6 +222,9 @@ public class StoryCompiler {
         room.setDownBlockMessage(dblockMessage);
         room.setName(name);
         room.setDesc(desc);
+        for (int i = 0; i < altDescs.size(); i++) {
+            room.addAltDesc(altDescs.get(i), altDescConds.get(i));
+        }
         room.setSynonyms(synonyms);
         room.setDet(det);
 
@@ -245,6 +261,9 @@ public class StoryCompiler {
         obj.setParentType(locationType);
         obj.setName(name);
         obj.setDesc(desc);
+        for (int i = 0; i < altDescs.size(); i++) {
+            obj.addAltDesc(altDescs.get(i), altDescConds.get(i));
+        }
         obj.setSynonyms(synonyms);
         obj.setDet(det);
         properties.forEach(obj::setProperty);
