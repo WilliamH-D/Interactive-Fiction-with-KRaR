@@ -95,7 +95,29 @@ public class GameController {
         return toRet;
     }
 
-    public static void describeNorth() {
+    public static boolean roomConditionsMet(Set<String> conditions) {
+        if (conditions != null && conditions.size() > 0) {
+            for (String cond : conditions) {
+                String[] flagValuePair = cond.split("=");
+                if (GameState.getFlag(flagValuePair[0]).getValue() != Integer.parseInt(flagValuePair[1])) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private static void describeNorth(GameRoom location) {
+        describeNorth(location, false);
+    }
+
+    public static void describeNorth(GameRoom location, boolean looking) {
+        if (location.isNhidden() && !roomConditionsMet(location.getNConds())) {
+            if (looking) {
+                System.out.println("You can't see anything to the west.");
+            }
+            return;
+        }
         GameRoom northLocation = (GameRoom)GameState.getGameObject(GameController.getPlayer().getLocation().getNorth());
         if (northLocation != null) {
             System.out.println("To the north is " + getDeterminate(northLocation) + northLocation.getName() + ".");
@@ -105,7 +127,17 @@ public class GameController {
         }
     }
 
-    public static void describeSouth() {
+    private static void describeSouth(GameRoom location) {
+        describeSouth(location, false);
+    }
+
+    public static void describeSouth(GameRoom location, boolean looking) {
+        if (location.isShidden() && !roomConditionsMet(location.getSConds())) {
+            if (looking) {
+                System.out.println("You can't see anything to the south.");
+            }
+            return;
+        }
         GameRoom southLocation = (GameRoom)GameState.getGameObject(GameController.getPlayer().getLocation().getSouth());
         if (southLocation != null) {
             System.out.println("To the south is " + getDeterminate(southLocation) + southLocation.getName() + ".");
@@ -115,7 +147,17 @@ public class GameController {
         }
     }
 
-    public static void describeEast() {
+    private static void describeEast(GameRoom location) {
+        describeEast(location, false);
+    }
+
+    public static void describeEast(GameRoom location, boolean looking) {
+        if (location.isEhidden() && !roomConditionsMet(location.getEConds())) {
+            if (looking) {
+                System.out.println("You can't see anything to the east.");
+            }
+            return;
+        }
         GameRoom eastLocation = (GameRoom)GameState.getGameObject(GameController.getPlayer().getLocation().getEast());
         if (eastLocation != null) {
             System.out.println("To the east is " + getDeterminate(eastLocation) + eastLocation.getName() + ".");
@@ -125,7 +167,17 @@ public class GameController {
         }
     }
 
-    public static void describeWest() {
+    private static void describeWest(GameRoom location) {
+        describeWest(location, false);
+    }
+
+    public static void describeWest(GameRoom location, boolean looking) {
+        if (location.isWhidden() && !roomConditionsMet(location.getWConds())) {
+            if (looking) {
+                System.out.println("You can't see anything to the west.");
+            }
+            return;
+        }
         GameRoom westLocation = (GameRoom)GameState.getGameObject(GameController.getPlayer().getLocation().getWest());
         if (westLocation != null) {
             System.out.println("To the west is " + getDeterminate(westLocation) + westLocation.getName() + ".");
@@ -135,7 +187,17 @@ public class GameController {
         }
     }
 
-    public static void describeUp() {
+    private static void describeUp(GameRoom location) {
+        describeUp(location, false);
+    }
+
+    public static void describeUp(GameRoom location, boolean looking) {
+        if (location.isUhidden() && !roomConditionsMet(location.getUConds())) {
+            if (looking) {
+                System.out.println("You can't see anything above you.");
+            }
+            return;
+        }
         GameRoom upLocation = (GameRoom)GameState.getGameObject(GameController.getPlayer().getLocation().getUp());
         if (upLocation != null) {
             System.out.println("Above you is " + getDeterminate(upLocation) + upLocation.getName() + ".");
@@ -145,7 +207,17 @@ public class GameController {
         }
     }
 
-    public static void describeDown() {
+    private static void describeDown(GameRoom location) {
+        describeDown(location, false);
+    }
+
+    public static void describeDown(GameRoom location, boolean looking) {
+        if (location.isDhidden() && !roomConditionsMet(location.getDConds())) {
+            if (looking) {
+                System.out.println("You can't see anything below you.");
+            }
+            return;
+        }
         GameRoom downLocation = (GameRoom)GameState.getGameObject(GameController.getPlayer().getLocation().getDown());
         if (downLocation != null) {
             System.out.println("Below you is " + getDeterminate(downLocation) + downLocation.getName() + ".");
@@ -157,28 +229,29 @@ public class GameController {
 
     public static void describeLocation() {
         GameRoom location = GameController.getPlayer().getLocation();
-        System.out.println("You find yourself in the " + location.getName() + ".");
+        System.out.println("Current location: " + location.getName() + ".");
+        System.out.println();
         System.out.println(GameController.getPlayer().getLocation().getDesc());
 
         System.out.println();
 
         if (location.getNorth() != null) {
-            describeNorth();
+            describeNorth(location);
         }
         if (location.getEast() != null) {
-            describeEast();
+            describeEast(location);
         }
         if (location.getSouth() != null) {
-            describeSouth();
+            describeSouth(location);
         }
         if (location.getWest() != null) {
-            describeWest();
+            describeWest(location);
         }
         if (location.getUp() != null) {
-            describeUp();
+            describeUp(location);
         }
         if (location.getDown() != null) {
-            describeDown();
+            describeDown(location);
         }
 
 

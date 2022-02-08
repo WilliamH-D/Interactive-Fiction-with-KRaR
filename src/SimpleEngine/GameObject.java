@@ -119,7 +119,7 @@ public class GameObject {
 
     public String getDet() { return this.det; }
 
-    public void setDesc(String desc) { this.desc = desc; }
+    public void setDesc(String desc) { this.desc = desc.replaceAll("%n", "\n"); }
 
     public String getDesc() { return this.desc; }
 

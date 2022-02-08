@@ -179,6 +179,12 @@ public interface EditorGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDown_cond(EditorGrammarParser.Down_condContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#hidden}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitHidden(EditorGrammarParser.HiddenContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link EditorGrammarParser#north_block_message}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

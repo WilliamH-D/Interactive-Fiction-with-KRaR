@@ -175,6 +175,9 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
             flagValuePairs.add(ctx.flag(i).getText() + "=" + ctx.num_int(i).getText());
         }
         StoryCompiler.get().nconds = flagValuePairs;
+        if (ctx.hidden() != null && ctx.hidden().getChildCount() > 0) {
+            StoryCompiler.get().nHidden = true;
+        }
         return visitChildren(ctx);
     }
 
@@ -185,6 +188,9 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
             flagValuePairs.add(ctx.flag(i).getText() + "=" + ctx.num_int(i).getText());
         }
         StoryCompiler.get().sconds = flagValuePairs;
+        if (ctx.hidden() != null && ctx.hidden().getChildCount() > 0) {
+            StoryCompiler.get().sHidden = true;
+        }
         return visitChildren(ctx);
     }
 
@@ -195,6 +201,9 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
             flagValuePairs.add(ctx.flag(i).getText() + "=" + ctx.num_int(i).getText());
         }
         StoryCompiler.get().econds = flagValuePairs;
+        if (ctx.hidden() != null && ctx.hidden().getChildCount() > 0) {
+            StoryCompiler.get().eHidden = true;
+        }
         return visitChildren(ctx);
     }
 
@@ -205,6 +214,9 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
             flagValuePairs.add(ctx.flag(i).getText() + "=" + ctx.num_int(i).getText());
         }
         StoryCompiler.get().wconds = flagValuePairs;
+        if (ctx.hidden() != null && ctx.hidden().getChildCount() > 0) {
+            StoryCompiler.get().wHidden = true;
+        }
         return visitChildren(ctx);
     }
 
@@ -215,6 +227,9 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
             flagValuePairs.add(ctx.flag(i).getText() + "=" + ctx.num_int(i).getText());
         }
         StoryCompiler.get().uconds = flagValuePairs;
+        if (ctx.hidden() != null && ctx.hidden().getChildCount() > 0) {
+            StoryCompiler.get().uHidden = true;
+        }
         return visitChildren(ctx);
     }
 
@@ -225,6 +240,14 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
             flagValuePairs.add(ctx.flag(i).getText() + "=" + ctx.num_int(i).getText());
         }
         StoryCompiler.get().dconds = flagValuePairs;
+        if (ctx.hidden() != null && ctx.hidden().getChildCount() > 0) {
+            StoryCompiler.get().dHidden = true;
+        }
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public T visitHidden(EditorGrammarParser.HiddenContext ctx) {
         return visitChildren(ctx);
     }
 

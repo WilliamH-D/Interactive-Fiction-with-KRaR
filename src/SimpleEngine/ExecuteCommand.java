@@ -105,8 +105,14 @@ public class ExecuteCommand {
         for (Direction d : Direction.values()) {
             if (GameController.getPRSO().getId().equals(d.name())) {
                 GameRoom nextLoc = (GameRoom)GameState.getGameObject(currLoc.getDir(d));
+                boolean directionIsHidden = (currLoc.isNhidden() && d.equals(Direction.NORTH)) ||
+                        (currLoc.isShidden() && d.equals(Direction.SOUTH)) ||
+                        (currLoc.isEhidden() && d.equals(Direction.EAST)) ||
+                        (currLoc.isWhidden() && d.equals(Direction.WEST)) ||
+                        (currLoc.isUhidden() && d.equals(Direction.UP)) ||
+                        (currLoc.isDhidden() && d.equals(Direction.DOWN));
 
-                if (nextLoc == null) { System.out.println("You cannot move " + d.name().toLowerCase() + "."); }
+                if (nextLoc == null || directionIsHidden) { System.out.println("You cannot move " + d.name().toLowerCase() + "."); }
                 else {
                     // Check if there are any pre-conditions
                     Set<String> conditions = null;
@@ -121,15 +127,10 @@ public class ExecuteCommand {
                     }
 
                     // If not all conditions are met, then prevent player from moving
-                    if (conditions != null && conditions.size() > 0) {
-                        for (String cond : conditions) {
-                            String[] flagValuePair = cond.split("=");
-                            if (GameState.getFlag(flagValuePair[0]).getValue() != Integer.parseInt(flagValuePair[1])) {
-                                String blockMessage = currLoc.getDirBlockMessage(d);
-                                System.out.println(Objects.requireNonNullElseGet(blockMessage, () -> "Something is preventing you from moving " + d.name().toLowerCase() + "."));
-                                return true;
-                            }
-                        }
+                    if (!GameController.roomConditionsMet(conditions)) {
+                        String blockMessage = currLoc.getDirBlockMessage(d);
+                        System.out.println(Objects.requireNonNullElseGet(blockMessage, () -> "Something is preventing you from moving " + d.name().toLowerCase() + "."));
+                        return true;
                     }
 
                     GameController.getPlayer().movePlayer(nextLoc);
@@ -215,6 +216,7 @@ public class ExecuteCommand {
 
     // General action for looking at an object of interest
     public static boolean cmd_look() {
+        GameRoom location = GameController.getPlayer().getLocation();
         // No target object to look at
         if (GameController.getPRSO() == null) {
             //System.out.println("You look at nothing in particular...");
@@ -226,27 +228,27 @@ public class ExecuteCommand {
         }
         // Look at location to the north
         else if (GameController.getPRSO().equals(GameController.northObj())) {
-            GameController.describeNorth();
+            GameController.describeNorth(location, true);
         }
         // Look at location to the south
         else if (GameController.getPRSO().equals(GameController.southObj())) {
-            GameController.describeSouth();
+            GameController.describeSouth(location, true);
         }
         // Look at location to the east
         else if (GameController.getPRSO().equals(GameController.eastObj())) {
-            GameController.describeEast();
+            GameController.describeEast(location, true);
         }
         // Look at location to the west
         else if (GameController.getPRSO().equals(GameController.westObj())) {
-            GameController.describeWest();
+            GameController.describeWest(location, true);
         }
         // Look at location above
         else if (GameController.getPRSO().equals(GameController.upObj())) {
-            GameController.describeUp();
+            GameController.describeUp(location, true);
         }
         // Look at location below
         else if (GameController.getPRSO().equals(GameController.downObj())) {
-            GameController.describeDown();
+            GameController.describeDown(location, true);
         }
         // Look at target object
         else {

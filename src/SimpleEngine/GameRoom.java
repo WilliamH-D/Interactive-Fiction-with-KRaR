@@ -11,21 +11,27 @@ public class GameRoom extends GameObject {
 
     private String north;
     private Set<String> nconds;
+    private boolean nhidden;
     private String nblockmessage;
     private String south;
     private Set<String> sconds;
+    private boolean shidden;
     private String sblockmessage;
     private String east;
     private Set<String> econds;
+    private boolean ehidden;
     private String eblockmessage;
     private String west;
     private Set<String> wconds;
+    private boolean whidden;
     private String wblockmessage;
     private String up;
     private Set<String> uconds;
+    private boolean uhidden;
     private String ublockmessage;
     private String down;
     private Set<String> dconds;
+    private boolean dhidden;
     private String dblockmessage;
 
     public GameRoom(String n) {
@@ -162,5 +168,29 @@ public class GameRoom extends GameObject {
             case DOWN: setDown(room); break;
         }
     }
+
+    public boolean isNhidden() { return this.nhidden; }
+
+    public void setNhidden(boolean hidden) { this.nhidden = hidden; }
+
+    public boolean isShidden() { return this.shidden; }
+
+    public void setShidden(boolean hidden) { this.shidden = hidden; }
+
+    public boolean isEhidden() { return this.ehidden; }
+
+    public void setEhidden(boolean hidden) { this.ehidden = hidden; }
+
+    public boolean isWhidden() { return this.whidden; }
+
+    public void setWhidden(boolean hidden) { this.whidden = hidden; }
+
+    public boolean isUhidden() { return this.uhidden; }
+
+    public void setUhidden(boolean hidden) { this.uhidden = hidden; }
+
+    public boolean isDhidden() { return this.dhidden; }
+
+    public void setDhidden(boolean hidden) { this.dhidden = hidden; }
 }
 

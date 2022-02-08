@@ -6,7 +6,7 @@
     WCOND: _TREASUREOBTAINED=1;
     WBLOCKMESSAGE: "You don't want to return to civilisation without claiming the ancient treasure!";
     NAME: "Ruin's Entrance";
-    DESC: "A newly excavated entrance way to long-lost ruins. Blinding sunlight streams into the network of caverns, illuminating the crumbling stone structures inside.";
+    DESC: "A newly excavated entrance way to long-lost ruins. %nBlinding sunlight streams into the network of caverns, illuminating the crumbling stone structures inside.";
     DET: "the";
 }
 
@@ -36,6 +36,7 @@
     E: <MARBLEPILLARWAY>;
     W: <OLDPLAZA>;
     D: <TREASUREROOM>;
+    DCOND: _IDOLPLACED=1,_HIDDEN;
     NAME: "Collapsed Columns";
     DESC: "Once a grand atrium, the pillars adorning the temple have withered away over time leaving broken columns and chunks of marble covering the place.";
     DET: "some";
@@ -95,6 +96,8 @@
     N: <WATERFALLCAVERN>;
     S: <GRANDALTER>;
     U: <HIDDENCHAMBER>;
+    UCOND: _SMALLONMEDIUM=1,_MEDIUMONBIG=1;
+    UBLOCKMESSAGE: "Could you reach this hole if you stacked some blocks up as a stairway?";
     NAME: "Rocky Tunnel";
     DESC: "This claustrophobic tunnel is littered with rocks and boulders. A draught seems to be coming from overhead. Maybe if you stacked some blocks, you could climb up...";
 }
@@ -120,6 +123,8 @@
 {
     ID: <SOUTHRIVERCAVERN>;
     N: <NORTHRIVERCAVERN>;
+    NCOND: _RIVERCROSSABLE=1;
+    NBLOCKMESSAGE: "The river is flowing too rapidly to safely cross without some sort of bridge!";
     E: <WATERFALLCAVERN>;
     W: <GREATSTONEDOORWAY>;
     NAME: "South River Cavern";
@@ -133,6 +138,7 @@
     S: <OLDPLAZA>;
     E: <SOUTHRIVERCAVERN>;
     W: <STORAGEROOM>;
+    WCOND: _PRESSUREPLATE1=1,_PRESSUREPLATE2=1,_HIDDEN;
     NAME: "Great Stone-Doorway";
     DESC: "Two pressure-plates lie before a great stone door on the west wall. Do I have anything heavy enough to trigger both plates?";
 }
@@ -141,6 +147,8 @@
 {
     ID: <STORAGEROOM>;
     N: <BACKROOM>;
+    NCOND: _STORAGEVINESREMOVED=1;
+    NBLOCKMESSAGE: "Vines are covering the way to the backroom! They look like they could easily be cut or burnt away...";
     W: <GREATSTONEDOORWAY>;
     NAME: "Storage Room";
     DESC: "This room looks like it was used to store things. There is all sorts of wood and degraded items lying about.";
@@ -158,7 +166,11 @@
 {
     ID: <NORTHRIVERCAVERN>;
     N: <MIDNIGHTTUNNELS>;
+    NCOND: _CAVERNVINESREMOVED=1;
+    NBLOCKMESSAGE: "Vines are covering the way to the backroom! They look like they could easily be cut or burnt away...";
     S: <SOUTHRIVERCAVERN>;
+    SCOND: _RIVERCROSSABLE=1;
+    SBLOCKMESSAGE: "The river is flowing too rapidly to safely cross without some sort of bridge!";
     NAME: "North River Cavern";
     DESC: "The north side of the river. Massive Stalactites extend down from the roof of the cavern. Hopefully they don't fall...";
     DET: "the";
@@ -169,7 +181,9 @@
     ID: <MIDNIGHTTUNNELS>;
     S: <NORTHRIVERCAVERNS>;
     E: <IDOLSSEAT>;
+    ECOND: _TORCHLIT=1,_HIDDEN;
     W: <ANCIENTQUARRY>;
+    WCOND: _TORCHLIT=1,_HIDDEN;
     NAME: "Midnight Tunnels";
     DESC: "These twisting tunnels are pitch black. Squinting, it looks as if there's a torch on the wall. Maybe there's a way to light it and illuminate your surroundings.";
     DET: "the";
@@ -192,8 +206,95 @@
     DET: "the";
 }
 
+[object]
+{
+    ID: <SMALLBLOCK>;
+    LOCATION: <COLLAPSEDCOLUMNS>;
+    NAME: "small block";
+    DESC: "It's a small marble block. It looks as if it fallen from one of the ruined pillars.";
+    SYNS: "little block", "smallest block", "little marble block", "small marble block", "block";
+    PROPERTIES: _TAKEABLE;
+    VALUES: (volume: 25), (surface: 25);
+}
+
+[object]
+{
+    ID: <MEDIUMBLOCK>;
+    LOCATION: <ROCKYTUNNEL>;
+    NAME: "medium block";
+    DESC: "It's a medium sized block of rock. This boulder looks as if it collapsed from the walls of the rocky tunnel, perhaps it could be used in reaching the hidden chamber.";
+    SYNS: "medium block", "medium boulder", "rock block", "boulder", "block";
+    PROPERTIES: _TAKEABLE;
+    VALUES: (volume: 50), (surface: 50);
+}
+
+[object]
+{
+    ID: <LARGEBLOCK>;
+    LOCATION: <ANCIENTQUARRY>;
+    NAME: "large block";
+    DESC: "A massive marble block that never ended up leaving the quarry. It's a miracle you're able to even lift this thing!";
+    SYNS: "large block", "big block", "biggest block", "big marble block", "large marble block", "block";
+    PROPERTIES: _TAKEABLE;
+    VALUES: (volume: 75), (surface: 75);
+}
+
 [flag]
 {
     FLAG: _TREASUREOBTAINED;
+    VALUE: 0;
+}
+
+[flag]
+{
+    FLAG: _IDOLPLACED;
+    VALUE: 0;
+}
+
+[flag]
+{
+    FLAG: _PRESSUREPLATE1;
+    VALUE: 0;
+}
+
+[flag]
+{
+    FLAG: _PRESSUREPLATE2;
+    VALUE: 0;
+}
+
+[flag]
+{
+    FLAG: _RIVERCROSSABLE;
+    VALUE: 0;
+}
+
+[flag]
+{
+    FLAG: _SMALLONMEDIUM;
+    VALUE: 0;
+}
+
+[flag]
+{
+    FLAG: _MEDIUMONBIG;
+    VALUE: 0;
+}
+
+[flag]
+{
+    FLAG: _STORAGEVINESREMOVED;
+    VALUE: 0;
+}
+
+[flag]
+{
+    FLAG: _CAVERNVINESREMOVED;
+    VALUE: 0;
+}
+
+[flag]
+{
+    FLAG: _TORCHLIT;
     VALUE: 0;
 }

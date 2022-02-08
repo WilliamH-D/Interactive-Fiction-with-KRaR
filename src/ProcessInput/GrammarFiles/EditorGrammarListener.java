@@ -288,6 +288,16 @@ public interface EditorGrammarListener extends ParseTreeListener {
 	 */
 	void exitDown_cond(EditorGrammarParser.Down_condContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#hidden}.
+	 * @param ctx the parse tree
+	 */
+	void enterHidden(EditorGrammarParser.HiddenContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#hidden}.
+	 * @param ctx the parse tree
+	 */
+	void exitHidden(EditorGrammarParser.HiddenContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link EditorGrammarParser#north_block_message}.
 	 * @param ctx the parse tree
 	 */

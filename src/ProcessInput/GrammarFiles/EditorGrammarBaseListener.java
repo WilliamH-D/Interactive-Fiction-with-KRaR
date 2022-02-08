@@ -352,6 +352,18 @@ public class EditorGrammarBaseListener implements EditorGrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterHidden(EditorGrammarParser.HiddenContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitHidden(EditorGrammarParser.HiddenContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterNorth_block_message(EditorGrammarParser.North_block_messageContext ctx) { }
 	/**
 	 * {@inheritDoc}
