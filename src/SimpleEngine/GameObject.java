@@ -21,6 +21,7 @@ public class GameObject {
     private Set<String> properties; // Static flags for this object
     private HashMap<String, String> variables;
     private String det;
+    private boolean useAre;
 
     public GameObject(String n) {
         this.id = n.toUpperCase();
@@ -123,6 +124,10 @@ public class GameObject {
 
     public String getDet() { return this.det; }
 
+    public void setUseAre(boolean useAre) { this.useAre = useAre; }
+
+    public boolean getUseAre() { return this.useAre; }
+
     public void setDesc(String desc) { this.desc = desc.replaceAll("%n", "\n"); }
 
     public void addAltDesc(String altDesc, Set<String> conds) {
@@ -168,11 +173,17 @@ public class GameObject {
     public Set<String> getSynonyms() { return this.synonyms; }
 
     public void setProperty(String property) {
+        if (properties.contains(property)) {
+            return;
+        }
         this.properties.add(property);
         KnowledgeBase.getInstance().addClause("hasProperty(" + id.toLowerCase() + "," + property.substring(1).toLowerCase() + ")");
     }
 
     public void removeProperty(String property) {
+        if (!properties.contains(property)) {
+            return;
+        }
         this.properties.remove(property);
         KnowledgeBase.getInstance().removeClause("hasProperty(" + id.toLowerCase() + "," + property.substring(1).toLowerCase() + ")");
     }

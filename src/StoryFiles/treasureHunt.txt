@@ -46,6 +46,40 @@
     DET: "some";
 }
 
+[object]
+{
+    ID: <SMALLBLOCK>;
+    LOCATION: <COLLAPSEDCOLUMNS>;
+    NAME: "small block";
+    DESC: "It's a small marble block. It looks as if it fallen from one of the ruined pillars.";
+    SYNS: "little block", "smallest block", "little marble block", "small marble block", "block";
+    PROPERTIES: _TAKEABLE;
+    VALUES: (volume: 25), (surface: 25);
+}
+
+[action]
+{
+    ID: <SMALLBLOCK>;
+    ACTION:
+        COND<PRSA: PUT, PLACE && PRSA: ON && PRSO: <SMALLBLOCK> && PRSI: <MEDIUMBLOCK>>
+        {
+            EFF<PLACE: <SMALLBLOCK>, <MEDIUMBLOCK>, ON>
+            EFF<TELL: "You placed the small block on top of the medium block.">
+            EFF<SETFLAG: _SMALLONMEDIUM, 1>
+        }
+        COND<PRSA: TAKE, OBTAIN && PRSO: <SMALLBLOCK>>
+        {
+            EFF<TAKE: <SMALLBLOCK>>
+            EFF<REMFLAG: _SMALLONMEDIUM>
+        };
+}
+
+[flag]
+{
+    FLAG: _SMALLONMEDIUM;
+    VALUE: 0;
+}
+
 [room]
 {
     ID: <MARBLEPILLARWAY>;
@@ -65,6 +99,15 @@
     DESC: "At the very end of the temple's long pillar-way stands a grand alter. The alter looks like it's missing something...";
 }
 
+[object]
+{
+    ID: <ALTER>;
+    LOCATION: <GRANDALTER>;
+    NAME: "alter";
+    DESC: "A grand marble alter rising from the centre of the room. Many ceremonies will have been performed here in ages past.";
+    VALUES: (surface: 50);
+}
+
 [room]
 {
     ID: <OLDKITCHENS>;
@@ -73,6 +116,28 @@
     NAME: "Old Kitchens";
     DESC: "The ruins of what looks to be a large food-preparation area. Some of the slate cupboards still have functioning sliding doors!";
     DET: "the";
+}
+
+[object]
+{
+    ID: <CUPBOARD>;
+    LOCATION: <OLDKITCHENS>;
+    NAME: "cupboard";
+    DESC: "An old marble cupboard. It's amazing that the thin stone door still slides open and shut!";
+    SYNS: "counter", "compartment", "surface";
+    PROPERTIES: _CLOSABLECONTAINER;
+    VALUES: (capacity: 25), (surface: 25);
+}
+
+[object]
+{
+    ID: <WATERCONTAINER2>;
+    LOCATION: <CUPBOARD>;
+    NAME: "copper jug";
+    DESC: "It's an old copper jug. It has started turning green over time.%nIt's pretty heavy when filled with water.";
+    SYNS: "jug", "container";
+    PROPERTIES: _TAKEABLE;
+    VALUES: (volume: 25), (capacity: 25);
 }
 
 [room]
@@ -100,10 +165,44 @@
     N: <WATERFALLCAVERN>;
     S: <GRANDALTER>;
     U: <HIDDENCHAMBER>;
-    UCOND: _SMALLONMEDIUM=1,_MEDIUMONBIG=1;
+    UCOND: _SMALLONMEDIUM=1,_MEDIUMONBIG=1,_LARGEINROCKYTUNNEL=1;
     UBLOCKMESSAGE: "Could you reach this hole if you stacked some blocks up as a stairway?";
     NAME: "Rocky Tunnel";
     DESC: "This claustrophobic tunnel is littered with rocks and boulders. A draught seems to be coming from overhead. Maybe if you stacked some blocks, you could climb up...";
+}
+
+[object]
+{
+    ID: <MEDIUMBLOCK>;
+    LOCATION: <ROCKYTUNNEL>;
+    NAME: "medium block";
+    DESC: "It's a medium sized block of rock. This boulder looks as if it collapsed from the walls of the rocky tunnel, perhaps it could be used in reaching the hidden chamber.";
+    SYNS: "medium block", "medium boulder", "rock block", "boulder", "block";
+    PROPERTIES: _TAKEABLE;
+    VALUES: (volume: 50), (surface: 50);
+}
+
+[action]
+{
+    ID: <MEDIUMBLOCK>;
+    ACTION:
+        COND<PRSA: PUT, PLACE && PRSA: ON && PRSO: <MEDIUMBLOCK> && PRSI: <LARGEBLOCK>>
+        {
+            EFF<PLACE: <MEDIUMBLOCK>, <LARGEBLOCK>, ON>
+            EFF<TELL: "You placed the medium block on top of the large block.">
+            EFF<SETFLAG: _MEDIUMONBIG, 1>
+        }
+        COND<PRSA: TAKE, OBTAIN && PRSO: <MEDIUMBLOCK>>
+        {
+            EFF<TAKE: <MEDIUMBLOCK>>
+            EFF<REMFLAG: _MEDIUMONLARGE>
+        };
+}
+
+[flag]
+{
+    FLAG: _MEDIUMONLARGE;
+    VALUE: 0;
 }
 
 [room]
@@ -114,6 +213,16 @@
     DESC: "You managed to access a hidden chamber above the rocky tunnel! Small air vents leading to are causing the draughts in the tunnels below.";
 }
 
+[object]
+{
+    ID: <KEY>;
+    LOCATION: <HIDDENCHAMBER>;
+    NAME: "golden key";
+    DESC: "An old ornate golden key. It looks important.";
+    PROPERTIES: _TAKEABLE;
+    VALUES: (volume: 10);
+}
+
 [room]
 {
     ID: <WATERFALLCAVERN>;
@@ -121,6 +230,37 @@
     W: <SOUTHRIVERCAVERN>;
     NAME: "Waterfall Cavern";
     DESC: "A roaring waterfall is cascading down into this spacious cavern. A river stretches west from its base.";
+}
+
+[object]
+{
+    ID: <WATERFALL>;
+    LOCATION: <WATERFALLCAVERN>;
+    NAME: "waterfall";
+    DESC: "The sound of the roaring waterfall echoes throughout the cavern. It feeds into the river flowing westward.";
+    SYNS: "fall";
+    VALUES: (below: 100);
+}
+
+[object]
+{
+    ID: <WATER2>;
+    LOCATION: <WATERFALL>;
+    NAME: "water";
+    DESC: "Gushing water cascading down the roaring waterfall.";
+    PROPERTIES: _HIDE;
+}
+
+[object]
+{
+    ID: <WATERCONTAINER1>;
+    LOCATION: <WATERFALL>;
+    LOCATIONTYPE: 2;
+    NAME: "clay jug";
+    DESC: "It's an old clay pot. It looks worn from having been left under the waterfall for so long.%nIt's pretty heavy when filled with water.";
+    SYNS: "pot", "container";
+    PROPERTIES: _TAKEABLE;
+    VALUES: (volume: 25), (capacity: 25);
 }
 
 [room]
@@ -136,6 +276,36 @@
     DET: "the";
 }
 
+[object]
+{
+    ID: <RIVER>;
+    LOCATION: <SOUTHRIVERCAVERN>;
+    NAME: "river";
+    DESC: "A fast flowing river snaking it's way through the expansive caverns.%nMost of this cave system would have been forged by this gushing torrent over time.";
+    SYNS: "water", "torrent", "rapids";
+    VALUES: (capacity: 0);
+}
+
+[object]
+{
+    ID: <WATER1>;
+    LOCATION: <RIVER>;
+    NAME: "water";
+    DESC: "A torrent of fast-flowing water that makes up the underground river.";
+    PROPERTIES: _HIDE;
+}
+
+[object]
+{
+    ID: <RIVERSTILTS>;
+    LOCATION: <RIVER>;
+    NAME: "stilts";
+    DESC: "Rotting wooden stilts that extend across the river. This suggests a bridge existed here once.";
+    VALUES: (surface: 50), (volume: 0);
+    DET: "some";
+    ARE: TRUE;
+}
+
 [room]
 {
     ID: <GREATSTONEDOORWAY>;
@@ -147,23 +317,115 @@
     DESC: "Two pressure-plates lie before a great stone door on the west wall. Do I have anything heavy enough to trigger both plates?";
 }
 
+[object]
+{
+    ID: <PRESSUREPLATE2>;
+    LOCATION: <GREATSTONEDOORWAY>;
+    NAME: "right pressure plate";
+    DESC: "It's a pressure plate. It needs something heavy placed on top of it to activate.";
+    SYNS: "right plate", "second plate", "second pressure plate", "plate 2", "other plate";
+    VALUES: (surface: 75);
+}
+
+[flag]
+{
+    FLAG: _PRESSUREPLATE2;
+    VALUE: 0;
+}
+
+[object]
+{
+    ID: <PRESSUREPLATE1>;
+    LOCATION: <GREATSTONEDOORWAY>;
+    NAME: "left pressure plate";
+    DESC: "It's a pressure plate. It needs something heavy placed on top of it to activate.";
+    SYNS: "left plate", "first plate", "first pressure plate", "plate 1", "plate";
+    VALUES: (surface: 75);
+}
+
+[flag]
+{
+    FLAG: _PRESSUREPLATE1;
+    VALUE: 0;
+}
+
 [room]
 {
     ID: <STORAGEROOM>;
-    N: <BACKROOM>;
+    N: <FURNACEROOM>;
     NCOND: _STORAGEVINESREMOVED=1;
-    NBLOCKMESSAGE: "Vines are covering the way to the backroom! They look like they could easily be cut or burnt away...";
+    NBLOCKMESSAGE: "Vines are covering the way to the furnace room! They look like they could easily be cut or burnt away...";
     W: <GREATSTONEDOORWAY>;
     NAME: "Storage Room";
     DESC: "This room looks like it was used to store things. There is all sorts of wood and degraded items lying about.";
 }
 
+[object]
+{
+    ID: <PLANK>;
+    LOCATION: <STORAGEROOM>;
+    NAME: "wooden plank";
+    DESC: "A long wooden plank that has somehow managed to avoid rotting away.%nIt looks sturdy enough to be used as a bridge.";
+    SYNS: "bridge", "wood", "log";
+    PROPERTIES: _TAKEABLE;
+    VALUES: (volume: 50), (surface: 50);
+}
+
+[action]
+{
+    ID: <PLANK>;
+    ACTION:
+        COND<PRSA: PUT, PLACE && PRSO: <PLANK>>
+        {
+            COND<PRSI: <RIVER> || PRSI: <RIVERSTILTS>>
+            {
+                EFF<PLACE: <PLANK>, <RIVERSTILTS>, ON>
+                EFF<TELL: "You placed the wooden plank on top of the wooden stilts in the river.">
+                EFF<SETFLAG: _RIVERCROSSABLE, 1>
+            }
+        }
+        COND<PRSA: TAKE, OBTAIN, PICK && PRSO: <PLANK>>
+        {
+            EFF<TAKE: <PLANK>>
+            EFF<REMFLAG: _RIVERCROSSABLE>
+        };
+}
+
+[flag]
+{
+    FLAG: _RIVERCROSSABLE;
+    VALUE: 0;
+}
+
+[object]
+{
+    ID: <STORAGEVINES>;
+    LOCATION: <STORAGEROOM>;
+    NAME: "vines";
+    DESC: "Thick entangled vines that block the route through to the back room. You need to find a way to cut through them.";
+}
+
+[flag]
+{
+    FLAG: _STORAGEVINESREMOVED;
+    VALUE: 0;
+}
+
 [room]
 {
-    ID: <BACKROOM>;
+    ID: <FURNACEROOM>;
     S: <STORAGEROOM>;
-    NAME: "Back Room";
-    DESC: "There are a few extra trinkets lying around, but like with the storage room, time has taken its toll on the items here.";
+    NAME: "Furnace Room";
+    DESC: "A furnace remains burning in the back of the room. It seems to be constantly powered by some magma flow far below you.";
+    DET: "the";
+}
+
+[object]
+{
+    ID: <FURNACE>;
+    LOCATION: <FURNACEROOM>;
+    NAME: "furnace";
+    DESC: "A flaming furnace. Even if water was poured on it, it would be unable to go out due to the magma fueling it from below.";
 }
 
 [room]
@@ -180,6 +442,31 @@
     DET: "the";
 }
 
+[object]
+{
+    ID: <CAVERNVINES>;
+    LOCATION: <NORTHRIVERCAVERN>;
+    NAME: "vines";
+    DESC: "Thick entangled vines that block the route through to the back room. You need to find a way to cut through them.";
+}
+
+[flag]
+{
+    FLAG: _CAVERNVINESREMOVED;
+    VALUE: 0;
+}
+
+[object]
+{
+    ID: <MACHETE>;
+    LOCATION: <NORTHRIVERCAVERN>;
+    NAME: "machete";
+    DESC: "A sharp steel machete! This would be perfect for cutting through those vines!";
+    SYNS: "sword", "blade", "cutlass", "knife";
+    PROPERTIES: _TAKEABLE;
+    VALUES: (volume: 25);
+}
+
 [room]
 {
     ID: <MIDNIGHTTUNNELS>;
@@ -193,43 +480,28 @@
     DET: "the";
 }
 
+[object]
+{
+    ID: <TORCH>;
+    LOCATION: <MIDNIGHTTUNNELS>;
+    NAME: "torch";
+    DESC: "An unlit torch. If it was lit, you would be able to see in the Midnight Tunnels!";
+    PROPERTIES: _TAKEABLE, _FLAMMABLE;
+    VALUES: (volume: 25);
+}
+
+[flag]
+{
+    FLAG: _TORCHLIT;
+    VALUE: 0;
+}
+
 [room]
 {
     ID: <ANCIENTQUARRY>;
     E: <MIDNIGHTTUNNELS>;
     NAME: "Ancient Quarry";
     DESC: "This seems to be where all of the marble and stone for the underground temple was excavated from. There is still a lot of stone lying about.";
-}
-
-[room]
-{
-    ID: <IDOLSSEAT>;
-    W: <MIDNIGHTTUNNELS>;
-    NAME: "Idol's Seat";
-    DESC: "A very ornate room. The ruby studded golden chest in the centre of the room looks very important!";
-    DET: "the";
-}
-
-[object]
-{
-    ID: <SMALLBLOCK>;
-    LOCATION: <COLLAPSEDCOLUMNS>;
-    NAME: "small block";
-    DESC: "It's a small marble block. It looks as if it fallen from one of the ruined pillars.";
-    SYNS: "little block", "smallest block", "little marble block", "small marble block", "block";
-    PROPERTIES: _TAKEABLE;
-    VALUES: (volume: 25), (surface: 25);
-}
-
-[object]
-{
-    ID: <MEDIUMBLOCK>;
-    LOCATION: <ROCKYTUNNEL>;
-    NAME: "medium block";
-    DESC: "It's a medium sized block of rock. This boulder looks as if it collapsed from the walls of the rocky tunnel, perhaps it could be used in reaching the hidden chamber.";
-    SYNS: "medium block", "medium boulder", "rock block", "boulder", "block";
-    PROPERTIES: _TAKEABLE;
-    VALUES: (volume: 50), (surface: 50);
 }
 
 [object]
@@ -243,10 +515,81 @@
     VALUES: (volume: 75), (surface: 75);
 }
 
+[action]
+{
+    ID: <LARGEBLOCK>;
+    ACTION:
+        COND<PRSA: PUT, PLACE && PRSO: <LARGEBLOCK> && !PRSA: IN, ON, UNDER, UNDERNEATH, INSIDE && HERE: <ROCKYTUNNEL>>
+        {
+            EFF<PLACE: <LARGEBLOCK>, <ROCKYTUNNEL>, IN>
+            EFF<TELL: "You placed the large block.">
+            EFF<SETFLAG: _LARGEINROCKYTUNNEL, 1>
+        }
+        COND<PRSA: TAKE, OBTAIN && PRSO: <LARGEBLOCK>>
+        {
+            EFF<TAKE: <LARGEBLOCK>>
+            EFF<REMFLAG: _LARGEINROCKYTUNNEL>
+        };
+}
+
 [flag]
 {
-    FLAG: _TREASUREOBTAINED;
+    FLAG: _LARGEINROCKYTUNNEL;
     VALUE: 0;
+}
+
+[room]
+{
+    ID: <IDOLSSEAT>;
+    W: <MIDNIGHTTUNNELS>;
+    NAME: "Idol's Seat";
+    DESC: "A very ornate room. The ruby studded golden chest in the centre of the room looks very important!";
+    DET: "the";
+}
+
+[object]
+{
+    ID: <CHEST>;
+    LOCATION: <IDOLSSEAT>;
+    NAME: "treasure chest";
+    DESC: "A golden treasure chest studded with rubies and emeralds.";
+    SYNS: "chest", "box";
+    PROPERTIES: _TAKEABLE, _CLOSABLECONTAINER, _LOCKED;
+    VALUES: (capacity: 50), (volume: 50);
+}
+
+[action]
+{
+    ID: <CHEST>;
+    ACTION:
+        COND<PRSA: UNLOCK && ANDPROPERTIES: <CHEST>, _LOCKED && HAVEITEM: <KEY>>
+        {
+            EFF<REMPROPERTY: <CHEST>, _LOCKED>
+            EFF<TELL: "'CLICK' - The golden chest was unlocked!">
+        }
+        COND<PRSA: LOCK && !ANDPROPERTIES: <CHEST>, _LOCKED && HAVEITEM: <KEY>>
+        {
+            COND<EQUALS: <CHEST> : isClosed, TRUE>
+            {
+                EFF<ADDPROPERTY: <CHEST>, _LOCKED>
+                EFF<TELL: "You locked the golden chest.">
+            }
+            COND<EQUALS: <CHEST> : isClosed, FALSE>
+            {
+                EFF<TELL: "You can't lock the chest when it's open.">
+            }
+        };
+}
+
+[object]
+{
+    ID: <IDOL>;
+    LOCATION: <CHEST>;
+    NAME: "idol";
+    DESC: "It's an idol of an ancient deity carved out of marble. It looks as if it belongs on the temple's alter.";
+    SYNS: "statue", "deity";
+    PROPERTIES: _TAKEABLE;
+    VALUES: (volume: 50);
 }
 
 [flag]
@@ -257,48 +600,6 @@
 
 [flag]
 {
-    FLAG: _PRESSUREPLATE1;
-    VALUE: 0;
-}
-
-[flag]
-{
-    FLAG: _PRESSUREPLATE2;
-    VALUE: 0;
-}
-
-[flag]
-{
-    FLAG: _RIVERCROSSABLE;
-    VALUE: 0;
-}
-
-[flag]
-{
-    FLAG: _SMALLONMEDIUM;
-    VALUE: 0;
-}
-
-[flag]
-{
-    FLAG: _MEDIUMONBIG;
-    VALUE: 0;
-}
-
-[flag]
-{
-    FLAG: _STORAGEVINESREMOVED;
-    VALUE: 0;
-}
-
-[flag]
-{
-    FLAG: _CAVERNVINESREMOVED;
-    VALUE: 0;
-}
-
-[flag]
-{
-    FLAG: _TORCHLIT;
+    FLAG: _TREASUREOBTAINED;
     VALUE: 0;
 }

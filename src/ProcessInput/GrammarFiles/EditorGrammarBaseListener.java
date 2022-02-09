@@ -508,6 +508,18 @@ public class EditorGrammarBaseListener implements EditorGrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterAre_entry(EditorGrammarParser.Are_entryContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAre_entry(EditorGrammarParser.Are_entryContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterObject(EditorGrammarParser.ObjectContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -923,6 +935,30 @@ public class EditorGrammarBaseListener implements EditorGrammarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitDec_var_eff(EditorGrammarParser.Dec_var_effContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAdd_property_eff(EditorGrammarParser.Add_property_effContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAdd_property_eff(EditorGrammarParser.Add_property_effContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterRemove_property_eff(EditorGrammarParser.Remove_property_effContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRemove_property_eff(EditorGrammarParser.Remove_property_effContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

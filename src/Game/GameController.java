@@ -95,6 +95,10 @@ public class GameController {
         return toRet;
     }
 
+    private static String isOrAre(GameObject obj) {
+        return obj.getUseAre() ? " are" : " is";
+    }
+
     public static boolean roomConditionsMet(Set<String> conditions) {
         if (conditions != null && conditions.size() > 0) {
             for (String cond : conditions) {
@@ -288,7 +292,7 @@ public class GameController {
                             printedGap = true;
                         }
                         for (int i = 0; i < 2*pair.indent; i++) { System.out.print(" "); }
-                        System.out.println(" - " + getDeterminate(pair.child, true) + pair.child.getName() + " is in the " + pair.parent.getName() + ".");
+                        System.out.println(" - " + getDeterminate(pair.child, true) + pair.child.getName() + isOrAre(pair.child) + " in the " + pair.parent.getName() + ".");
                     }
                     // Child is on top of its parent
                     else if (pair.child.getParentType() == 1) {
@@ -297,7 +301,7 @@ public class GameController {
                             printedGap = true;
                         }
                         for (int i = 0; i < 2*pair.indent; i++) { System.out.print(" "); }
-                        System.out.println(" - " + getDeterminate(pair.child, true) + pair.child.getName() + " is on the " + pair.parent.getName() + ".");
+                        System.out.println(" - " + getDeterminate(pair.child, true) + pair.child.getName() + isOrAre(pair.child) + " on the " + pair.parent.getName() + ".");
                     }
                     // Child is underneath of its parent
                     else if (pair.child.getParentType() == 2) {
@@ -306,7 +310,7 @@ public class GameController {
                             printedGap = true;
                         }
                         for (int i = 0; i < 2*pair.indent; i++) { System.out.print(" "); }
-                        System.out.println(" - " + getDeterminate(pair.child, true) + pair.child.getName() + " is below the " + pair.parent.getName() + ".");
+                        System.out.println(" - " + getDeterminate(pair.child, true) + pair.child.getName() + isOrAre(pair.child) + " under the " + pair.parent.getName() + ".");
                     }
                     if (pair.child.hasProperty("_CLOSABLECONTAINER")) {
                         if (Boolean.parseBoolean(pair.child.getVariable("isClosed"))) {

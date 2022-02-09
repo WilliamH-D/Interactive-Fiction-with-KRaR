@@ -63,6 +63,7 @@ public class StoryCompiler {
     Set<String> synonyms;
 
     String det;
+    boolean useAre = false;
 
     String location; // Parent
     int locationType = 0;
@@ -155,6 +156,7 @@ public class StoryCompiler {
         flagValue = 0;
 
         det = null;
+        useAre = false;
     }
 
     void compileRoom() {
@@ -255,6 +257,7 @@ public class StoryCompiler {
         logger.logRaw("VALUES: ");
         values.forEach((key, value) -> logger.logRaw("\t" + key + ":" + value));
         logger.logRaw("DET: " + det);
+        logger.logRaw("USE ARE: " + useAre);
 
         GameObject obj = new GameObject(id);
         obj.setParent(location, locationType);
@@ -266,6 +269,7 @@ public class StoryCompiler {
         }
         obj.setSynonyms(synonyms);
         obj.setDet(det);
+        obj.setUseAre(useAre);
         properties.forEach(obj::setProperty);
 
         int volume = 1;
@@ -672,5 +676,25 @@ public class StoryCompiler {
         logger.logRaw("TEXT: " + text);
 
         addToLastActionBlock(new TellEff(text));
+    }
+
+    public void compileAddPropertyEff(String id, String property) {
+        logger.logLine();
+        logger.logRaw("Compiling AddPropertyEff:");
+        logger.logRaw("ITEM: " + id);
+        logger.logRaw("PROPERTY: " + property);
+
+        addToLastActionBlock(new AddPropertyEff(id, property));
+
+    }
+
+    public void compileRemovePropertyEff(String id, String property) {
+        logger.logLine();
+        logger.logRaw("Compiling RemovePropertyEff:");
+        logger.logRaw("ITEM: " + id);
+        logger.logRaw("PROPERTY: " + property);
+
+        addToLastActionBlock(new RemovePropertyEff(id, property));
+
     }
 }

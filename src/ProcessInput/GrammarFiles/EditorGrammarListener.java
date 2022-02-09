@@ -418,6 +418,16 @@ public interface EditorGrammarListener extends ParseTreeListener {
 	 */
 	void exitDet_entry(EditorGrammarParser.Det_entryContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#are_entry}.
+	 * @param ctx the parse tree
+	 */
+	void enterAre_entry(EditorGrammarParser.Are_entryContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#are_entry}.
+	 * @param ctx the parse tree
+	 */
+	void exitAre_entry(EditorGrammarParser.Are_entryContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link EditorGrammarParser#object}.
 	 * @param ctx the parse tree
 	 */
@@ -767,6 +777,26 @@ public interface EditorGrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitDec_var_eff(EditorGrammarParser.Dec_var_effContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#add_property_eff}.
+	 * @param ctx the parse tree
+	 */
+	void enterAdd_property_eff(EditorGrammarParser.Add_property_effContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#add_property_eff}.
+	 * @param ctx the parse tree
+	 */
+	void exitAdd_property_eff(EditorGrammarParser.Add_property_effContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#remove_property_eff}.
+	 * @param ctx the parse tree
+	 */
+	void enterRemove_property_eff(EditorGrammarParser.Remove_property_effContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#remove_property_eff}.
+	 * @param ctx the parse tree
+	 */
+	void exitRemove_property_eff(EditorGrammarParser.Remove_property_effContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link EditorGrammarParser#effect}.
 	 * @param ctx the parse tree

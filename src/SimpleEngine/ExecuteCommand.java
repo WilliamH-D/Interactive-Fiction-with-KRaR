@@ -275,6 +275,11 @@ public class ExecuteCommand {
             System.out.println("The " + obj.getName() + " is already open.");
             return true;
         }
+        // Check object is not locked
+        if (obj.hasProperty("_LOCKED")) {
+            System.out.println("The " + obj.getName() + " is locked.");
+            return true;
+        }
         // Open the object
         obj.setVariable("isClosed", "false");
         EnhancedExecuteCommand.enhanced_cmd_open();

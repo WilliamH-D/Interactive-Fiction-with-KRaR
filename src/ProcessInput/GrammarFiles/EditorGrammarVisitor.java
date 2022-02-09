@@ -257,6 +257,12 @@ public interface EditorGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDet_entry(EditorGrammarParser.Det_entryContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#are_entry}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAre_entry(EditorGrammarParser.Are_entryContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link EditorGrammarParser#object}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -466,6 +472,18 @@ public interface EditorGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitDec_var_eff(EditorGrammarParser.Dec_var_effContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#add_property_eff}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAdd_property_eff(EditorGrammarParser.Add_property_effContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#remove_property_eff}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRemove_property_eff(EditorGrammarParser.Remove_property_effContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link EditorGrammarParser#effect}.
 	 * @param ctx the parse tree

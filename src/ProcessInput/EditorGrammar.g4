@@ -58,6 +58,7 @@ EAST_BLOCK_MESSAGE_KEY: 'E' BLOCK_MESSAGE_TAG COLON; WEST_BLOCK_MESSAGE_KEY: 'W'
 UP_BLOCK_MESSAGE_KEY: 'U' BLOCK_MESSAGE_TAG COLON; DOWN_BLOCK_MESSAGE_KEY: 'D' BLOCK_MESSAGE_TAG COLON;
 ACTION_KEY: 'ACTION' COLON;
 DET_KEY: 'DET' COLON;
+ARE_KEY: 'ARE' COLON;
 
 // Condition type keys
 PRSA_COND: 'PRSA' COLON;
@@ -87,6 +88,8 @@ PLACE_EFF: 'PLACE' COLON;
 SET_VAR_EFF: 'SETVAR' COLON;
 INC_VAR_EFF: 'INCVAR' COLON;
 DEC_VAR_EFF: 'DECVAR' COLON;
+ADD_PROPERTY_EFF: 'ADDPROPERTY' COLON;
+REMOVE_PROPERTY_EFF: 'REMPROPERTY' COLON;
 
 // Parsing rules (Must be lower case)
 alpha_numeric: ALPHA | NUMERIC | ALPHANUMERIC;
@@ -131,6 +134,7 @@ action_entry: ACTION_KEY action_block SEMICOLON;
 global_flag_entry: FLAG_KEY flag SEMICOLON;
 flag_val_entry: VALUE_KEY num_int SEMICOLON | /* epsilon*/;
 det_entry: DET_KEY STRING SEMICOLON | /* epsilon*/;
+are_entry: ARE_KEY (TRUE | FALSE) SEMICOLON | /* epsilon */;
 
 object: OBJECT_TAG LB_CURLY
             id_entry
@@ -142,6 +146,8 @@ object: OBJECT_TAG LB_CURLY
             synonyms_entry
             properties_entry
             values_entry
+            det_entry
+            are_entry
             RB_CURLY;
 
 // May want to add conditions to directions
@@ -215,8 +221,10 @@ place_eff: PLACE_EFF ID COMMA ID COMMA (IN_TAG|ON_TAG|UNDER_TAG);
 set_var_eff: SET_VAR_EFF ID SEMICOLON alpha_numeric COMMA var;
 inc_var_eff: INC_VAR_EFF ID SEMICOLON alpha_numeric COMMA var;
 dec_var_eff: DEC_VAR_EFF ID SEMICOLON alpha_numeric COMMA var;
+add_property_eff: ADD_PROPERTY_EFF ID COMMA flag;
+remove_property_eff: REMOVE_PROPERTY_EFF ID COMMA flag;
 
-effect: tell_eff|goto_eff|setflag_eff|remflag_eff|take_eff|place_eff|set_var_eff|inc_var_eff|dec_var_eff;
+effect: tell_eff|goto_eff|setflag_eff|remflag_eff|take_eff|place_eff|set_var_eff|inc_var_eff|dec_var_eff|add_property_eff|remove_property_eff;
 
 // Entry point
 game_grammar: room (room | object | action | global_flag)*;

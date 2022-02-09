@@ -262,6 +262,7 @@ public class CommandConstructor {
             List<String> nameLemmas = getTokens(obj.getName());
             makeLemmasLowerCase(nameLemmas);
             String[] parts = nameLemmas.toArray(new String[0]);
+            String[] matchedInput = parts;
 
             // Find only the synonyms for this object from the synonyms map
             Map<String, String> synonyms = objSynonyms.entrySet()
@@ -280,6 +281,7 @@ public class CommandConstructor {
                     startInd = newStartInd;
                     maxSize = synLemmas.size();
                     match = true;
+                    matchedInput = synParts;
                 }
             }
 
@@ -305,8 +307,8 @@ public class CommandConstructor {
                 if (!potentialObjectConflictsPotentialVerb(lemmaParts, parts)) {
                     rets[count] = obj;
                     count++;
-                    matchedObjects.add(parts);
-                    logger.logDebug("Adding " + Arrays.toString(parts) + " to matched objects");
+                    matchedObjects.add(matchedInput);
+                    logger.logDebug("Adding " + Arrays.toString(matchedInput) + " to matched objects");
                     matchedIndxs.add(startInd);
                     logger.logDebug("Adding " + startInd + " to matched indices");
                 }
@@ -346,6 +348,8 @@ public class CommandConstructor {
         }
 
         // Build the processed input for returning
+        logger.logDebug("removeStart: " + Arrays.toString(removeStart.toArray()));
+        logger.logDebug("removeEnd: " + Arrays.toString(removeEnd.toArray()));
         StringBuilder processedInput = new StringBuilder();
         boolean inRemoveRegion = false;
         boolean nextIsItem1 = removeStart.size() != 2 || removeStart.get(0) < removeStart.get(1);

@@ -339,6 +339,16 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
         return visitChildren(ctx);
     }
 
+    @Override
+    public T visitAre_entry(EditorGrammarParser.Are_entryContext ctx) {
+        boolean useAre = false;
+        if (ctx.TRUE() != null) {
+            useAre = true;
+        }
+        StoryCompiler.get().useAre = useAre;
+        return visitChildren(ctx);
+    }
+
     // --------------------------------------------------------------------------------------
     //                                OBJECT / ROOM / ACTION
     // --------------------------------------------------------------------------------------
@@ -686,7 +696,27 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
         StoryCompiler.get().compileDecVarEff(id, ctx.alpha_numeric().getText(), Float.parseFloat(ctx.var().getText()));
         return children;
     }
-    
+
+    @Override
+    public T visitAdd_property_eff(EditorGrammarParser.Add_property_effContext ctx) {
+        T children = visitChildren(ctx);
+        String id = ctx.ID().getText();
+        id = id.substring(1, id.length()-1).toUpperCase();
+        String property = ctx.flag().getText();
+        StoryCompiler.get().compileAddPropertyEff(id, property);
+        return children;
+    }
+
+    @Override
+    public T visitRemove_property_eff(EditorGrammarParser.Remove_property_effContext ctx) {
+        T children = visitChildren(ctx);
+        String id = ctx.ID().getText();
+        id = id.substring(1, id.length()-1).toUpperCase();
+        String property = ctx.flag().getText();
+        StoryCompiler.get().compileRemovePropertyEff(id, property);
+        return children;
+    }
+
     @Override public T visitEffect(EditorGrammarParser.EffectContext ctx) { return visitChildren(ctx); }
 
     // --------------------------------------------------------------------------------------
