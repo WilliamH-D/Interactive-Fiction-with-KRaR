@@ -33,6 +33,7 @@ public class CommandConstructor {
 
     // Process a user input by extracting PRSA/PRSO/PRSI
     public void processInput(String userIn) {
+        userIn = userIn.replaceAll("'", " nop ");
         logger.logLine();
         logger.logRaw("======================================================================================");
         logger.logRaw("Processing user input: " + userIn);
@@ -72,6 +73,7 @@ public class CommandConstructor {
         NLPPipeline.getPipeline().annotate(preprocessedDocument);
         sentence = preprocessedDocument.sentences().get(0);
         lemmas = getTokens(preprocessed);
+        posTags = sentence.posTags();
 
         // Give the game controller access to the lemmas (words)
         GameController.setLemmas(lemmas);
@@ -305,12 +307,18 @@ public class CommandConstructor {
             if (match) {
                 // Make sure that the object doesn't conflict with a verb (e.g. PRSA: "put down" and PRSO: DOWN)
                 if (!potentialObjectConflictsPotentialVerb(lemmaParts, parts)) {
-                    rets[count] = obj;
-                    count++;
                     matchedObjects.add(matchedInput);
                     logger.logDebug("Adding " + Arrays.toString(matchedInput) + " to matched objects");
                     matchedIndxs.add(startInd);
                     logger.logDebug("Adding " + startInd + " to matched indices");
+                    if (count < 2) {
+                        rets[count] = obj;
+                        count++;
+                    }
+                    else {
+                        logger.logError("MORE THAN 2 MATCHES");
+                    }
+
                 }
                 else {
                     logger.logDebug(obj.getName() + " could not be extracted due to potential verb conflict");

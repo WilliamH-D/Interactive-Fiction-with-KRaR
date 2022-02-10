@@ -1,5 +1,7 @@
 package SimpleEngine;
 
+import Game.GameController;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,6 +23,9 @@ public class GameState {
 
 
     public static GameObject getGameObject(String id) {
+        if (id != null && id.toUpperCase().equals("HERE")) {
+            id = GameController.getPlayer().getLocation().getId();
+        }
         return gameObjects.get(id);
     }
 

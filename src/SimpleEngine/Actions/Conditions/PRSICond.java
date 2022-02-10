@@ -16,6 +16,10 @@ public class PRSICond extends ConditionTest {
     @Override
     public boolean satisfied() {
         logger.logDebug("Checking PRSICond: Checking PRSI is one of: " + ids);
+        if (GameController.getPRSI() == null) {
+            logger.logDebug("PRSICond not satisfied since PRSI = null");
+            return false;
+        }
         boolean result = ids.contains(GameController.getPRSI().getId());
         if (result) {
             logger.logDebug("PRSICond satisfied since PRSI = " + GameController.getPRSI().getId());

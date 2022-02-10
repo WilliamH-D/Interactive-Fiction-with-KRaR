@@ -228,7 +228,9 @@ public class GameObject {
                 System.out.println("The " + getName() + " contains:");
                 for (String childID : inside) {
                     GameObject child = GameState.getGameObject(childID);
-                    System.out.println(" -" + child.getName());
+                    if (!child.hasProperty("_HIDE")) {
+                        System.out.println(" -" + child.getName());
+                    }
                 }
             }
         }
@@ -237,7 +239,9 @@ public class GameObject {
             System.out.println("On top of the " + getName() + ", you can see:");
             for (String childID : onSurface) {
                 GameObject child = GameState.getGameObject(childID);
-                System.out.println(" - " + child.getName());
+                if (!child.hasProperty("_HIDE")) {
+                    System.out.println(" - " + child.getName());
+                }
             }
         }
         if (below.size() > 0) {
@@ -245,7 +249,9 @@ public class GameObject {
             System.out.println("Below the " + getName() + ", you can see:");
             for (String childID : below) {
                 GameObject child = GameState.getGameObject(childID);
-                System.out.println(" - " + child.getName());
+                if (!child.hasProperty("_HIDE")) {
+                    System.out.println(" - " + child.getName());
+                }
             }
         }
     }

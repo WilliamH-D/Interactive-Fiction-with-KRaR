@@ -7,10 +7,6 @@
     WBLOCKMESSAGE: "You don't want to return to civilisation without claiming the ancient treasure!";
     NAME: "Ruin's Entrance";
     DESC: "A newly excavated entrance way to long-lost ruins. %nBlinding sunlight streams into the network of caverns, illuminating the crumbling stone structures inside.";
-    ALTDESC: "An alternate desc.";
-    CONDS: _TREASUREOBTAINED=3;
-    ALTDESC: "Another alternate desc.";
-    CONDS: _TREASUREOBTAINED=2;
     DET: "the";
 }
 
@@ -43,7 +39,9 @@
     DCOND: _IDOLPLACED=1,_HIDDEN;
     NAME: "Collapsed Columns";
     DESC: "Once a grand atrium, the pillars adorning the temple have withered away over time leaving broken columns and chunks of marble covering the place.";
-    DET: "some";
+    ALTDESC: "Once a grand atrium, the pillars adorning the temple have withered away over time leaving broken columns and chunks of marble covering the place.%n%nThe floor has shifted and a stairway now leads down the centre with a golden glow emanating from the depths...";
+    CONDS: _IDOLPLACED=1;
+    DET: "the";
 }
 
 [object]
@@ -134,10 +132,73 @@
     ID: <WATERCONTAINER2>;
     LOCATION: <CUPBOARD>;
     NAME: "copper jug";
-    DESC: "It's an old copper jug. It has started turning green over time.%nIt's pretty heavy when filled with water.";
-    SYNS: "jug", "container";
+    DESC: "It's an old copper jug. It's colouration has slowly turned mint green over time.%nIt looks like it would be heavy when filled with water.";
+    ALTDESC: "It's an old copper jug. It's colouration has slowly turned mint green over time.%nIt's filled to the brim with water!";
+    CONDS: _CONTAINER2FILLED=1;
+    SYNS: "jug", "container", "copper container";
     PROPERTIES: _TAKEABLE;
     VALUES: (volume: 25), (capacity: 25);
+}
+
+[action]
+{
+    ID: <WATERCONTAINER2>;
+    ACTION:
+        COND<PRSA: SPILL, EMPTY, DROP, POUR && ANDFLAGS: _CONTAINER2FILLED>
+        {
+            EFF<REMFLAG: _CONTAINER2FILLED>
+            EFF<TELL: "The copper jug was emptied of all of its water.">
+        }
+        COND<PRSA: FILL, PUT && !ANDFLAGS: _CONTAINER2FILLED>
+        {
+            COND<PRSI: <WATERFALL> && PRSA: UNDER>
+            {
+                EFF<PLACE: <WATERCONTAINER2>, <WATERFALL>, UNDER>
+                EFF<TELL: "You placed the copper jug under the waterfall. It fills up with water and becomes heavy!">
+                EFF<SETFLAG: _CONTAINER2FILLED, 1>
+            }
+            COND<PRSI: <WATERFALL>, <RIVER>>
+            {
+                EFF<TELL: "You filled the copper jug up with water and it becomes heavy!">
+                EFF<SETFLAG: _CONTAINER2FILLED, 1>
+            }
+            COND<INSCOPE: <WATERCONTAINER2>, <HERE> && INSCOPE: <WATERFALL>, <HERE>>
+            {
+                EFF<TELL: "You filled the copper jug up with water and it becomes heavy!">
+                EFF<SETFLAG: _CONTAINER1FILLED, 2>
+            }
+            COND<INSCOPE: <WATERCONTAINER2>, <HERE> && INSCOPE: <RIVER>, <HERE>>
+            {
+                EFF<TELL: "You filled the copper jug up with water and it becomes heavy!">
+                EFF<SETFLAG: _CONTAINER1FILLED, 2>
+            }
+        }
+        COND<PRSA: TAKE, OBTAIN && INSCOPE: <WATERCONTAINER2>, <PRESSUREPLATE1> && ANDFLAGS: _CONTAINER2FILLED>
+        {
+            EFF<TAKE: <WATERCONTAINER2>>
+            EFF<REMFLAG: _PRESSUREPLATE1>
+            EFF<TELL: "The left pressure plate raises back up as you take off the copper jug.">
+            COND<ANDFLAGS: _PRESSUREPLATE2>
+            {
+                EFF<TELL: "The great stone-door rises from the ground and closes.">
+            }
+        }
+        COND<PRSA: TAKE, OBTAIN && INSCOPE: <WATERCONTAINER2>, <PRESSUREPLATE2> && ANDFLAGS: _CONTAINER2FILLED>
+        {
+            EFF<TAKE: <WATERCONTAINER2>>
+            EFF<REMFLAG: _PRESSUREPLATE2>
+            EFF<TELL: "The right pressure plate raises back up as you take off the copper jug.">
+            COND<ANDFLAGS: _PRESSUREPLATE1>
+            {
+                EFF<TELL: "The great stone-door rises from the ground and closes.">
+            }
+        };
+}
+
+[flag]
+{
+    FLAG: _CONTAINER2FILLED;
+    VALUE: 0;
 }
 
 [room]
@@ -244,23 +305,77 @@
 
 [object]
 {
-    ID: <WATER2>;
-    LOCATION: <WATERFALL>;
-    NAME: "water";
-    DESC: "Gushing water cascading down the roaring waterfall.";
-    PROPERTIES: _HIDE;
-}
-
-[object]
-{
     ID: <WATERCONTAINER1>;
     LOCATION: <WATERFALL>;
     LOCATIONTYPE: 2;
-    NAME: "clay jug";
-    DESC: "It's an old clay pot. It looks worn from having been left under the waterfall for so long.%nIt's pretty heavy when filled with water.";
-    SYNS: "pot", "container";
+    NAME: "clay pot";
+    DESC: "It's an old clay pot. It looks worn from having been left under the waterfall for so long.%nIt looks like it would be heavy when filled with water.";
+    ALTDESC: "It's an old clay pot. It looks worn from having been left under the waterfall for so long.%nIt's filled to the brim with water!";
+    CONDS: _CONTAINER1FILLED=1;
+    SYNS: "pot", "container", "clay container";
     PROPERTIES: _TAKEABLE;
     VALUES: (volume: 25), (capacity: 25);
+}
+
+[action]
+{
+    ID: <WATERCONTAINER1>;
+    ACTION:
+        COND<PRSA: SPILL, EMPTY, DROP, POUR && ANDFLAGS: _CONTAINER1FILLED>
+        {
+            EFF<REMFLAG: _CONTAINER1FILLED>
+            EFF<TELL: "The clay pot was emptied of all of its water.">
+        }
+        COND<PRSA: FILL, PUT && !ANDFLAGS: _CONTAINER1FILLED>
+        {
+            COND<PRSI: <WATERFALL> && PRSA: UNDER>
+            {
+                EFF<PLACE: <WATERCONTAINER1>, <WATERFALL>, UNDER>
+                EFF<TELL: "You placed the clay pot under the waterfall. It fills up with water and becomes heavy!">
+                EFF<SETFLAG: _CONTAINER1FILLED, 1>
+            }
+            COND<PRSI: <WATERFALL>, <RIVER>>
+            {
+                EFF<TELL: "You filled the clay pot up with water and it becomes heavy!">
+                EFF<SETFLAG: _CONTAINER1FILLED, 1>
+            }
+            COND<INSCOPE: <WATERCONTAINER1>, <HERE> && INSCOPE: <WATERFALL>, <HERE>>
+            {
+                EFF<TELL: "You filled the clay pot up with water and it becomes heavy!">
+                EFF<SETFLAG: _CONTAINER1FILLED, 1>
+            }
+            COND<INSCOPE: <WATERCONTAINER1>, <HERE> && INSCOPE: <RIVER>, <HERE>>
+            {
+                EFF<TELL: "You filled the clay pot up with water and it becomes heavy!">
+                EFF<SETFLAG: _CONTAINER1FILLED, 1>
+            }
+        }
+        COND<PRSA: TAKE, OBTAIN && INSCOPE: <WATERCONTAINER1>, <PRESSUREPLATE1> && ANDFLAGS: _CONTAINER1FILLED>
+        {
+            EFF<TAKE: <WATERCONTAINER1>>
+            EFF<REMFLAG: _PRESSUREPLATE1>
+            EFF<TELL: "The left pressure plate raises back up as you take off the clay pot.">
+            COND<ANDFLAGS: _PRESSUREPLATE2>
+            {
+                EFF<TELL: "The great stone-door rises from the ground and closes.">
+            }
+        }
+        COND<PRSA: TAKE, OBTAIN && INSCOPE: <WATERCONTAINER1>, <PRESSUREPLATE2> && ANDFLAGS: _CONTAINER2FILLED>
+        {
+            EFF<TAKE: <WATERCONTAINER1>>
+            EFF<REMFLAG: _PRESSUREPLATE2>
+            EFF<TELL: "The right pressure plate raises back up as you take off the clay pot.">
+            COND<ANDFLAGS: _PRESSUREPLATE1>
+            {
+                EFF<TELL: "The great stone-door rises from the ground and closes.">
+            }
+        };
+}
+
+[flag]
+{
+    FLAG: _CONTAINER1FILLED;
+    VALUE: 1;
 }
 
 [room]
@@ -288,15 +403,6 @@
 
 [object]
 {
-    ID: <WATER1>;
-    LOCATION: <RIVER>;
-    NAME: "water";
-    DESC: "A torrent of fast-flowing water that makes up the underground river.";
-    PROPERTIES: _HIDE;
-}
-
-[object]
-{
     ID: <RIVERSTILTS>;
     LOCATION: <RIVER>;
     NAME: "stilts";
@@ -315,6 +421,8 @@
     WCOND: _PRESSUREPLATE1=1,_PRESSUREPLATE2=1,_HIDDEN;
     NAME: "Great Stone-Doorway";
     DESC: "Two pressure-plates lie before a great stone door on the west wall. Do I have anything heavy enough to trigger both plates?";
+    ALTDESC: "The great stone door has descended into the ground, allowing entry to the storage rooms beyond.";
+    CONDS: _PRESSUREPLATE1=1, _PRESSUREPLATE2=1;
 }
 
 [object]
@@ -322,9 +430,46 @@
     ID: <PRESSUREPLATE2>;
     LOCATION: <GREATSTONEDOORWAY>;
     NAME: "right pressure plate";
-    DESC: "It's a pressure plate. It needs something heavy placed on top of it to activate.";
-    SYNS: "right plate", "second plate", "second pressure plate", "plate 2", "other plate";
-    VALUES: (surface: 75);
+    DESC: "It's the pressure plate to your right. It needs something heavy placed on top of it to activate.";
+    SYNS: "right plate", "second plate", "second pressure plate", "plate 2", "other plate", "plate", "pressure plate";
+    VALUES: (surface: 25);
+}
+
+[action]
+{
+    ID: <PRESSUREPLATE2>;
+    ACTION:
+        COND<PRSAAND: PUT, ON && !ANDFLAGS: _PRESSUREPLATE2>
+        {
+            COND<PRSO: <WATERCONTAINER1>>
+            {
+                EFF<PLACE: <WATERCONTAINER1>, <PRESSUREPLATE2>, ON>
+                EFF<TELL: "You placed the clay pot on the pressure plate.">
+                COND<ANDFLAGS: _CONTAINER1FILLED>
+                {
+                    EFF<SETFLAG: _PRESSUREPLATE2, 1>
+                    EFF<TELL: "You hear a rumble as the pressure plate clicks into place.">
+                    COND<ANDFLAGS: _PRESSUREPLATE1>
+                    {
+                        EFF<TELL: "You hear a loud rumbling as the great stone-door lowers into the ground and opens up, allowing you to move west.">
+                    }
+                }
+            }
+            COND<PRSO: <WATERCONTAINER2>>
+            {
+                EFF<PLACE: <WATERCONTAINER2>, <PRESSUREPLATE2>, ON>
+                EFF<TELL: "You placed the copper jug on the pressure plate.">
+                COND<ANDFLAGS: _CONTAINER2FILLED>
+                {
+                    EFF<SETFLAG: _PRESSUREPLATE2, 1>
+                    EFF<TELL: "You hear a rumble as the pressure plate clicks into place.">
+                    COND<ANDFLAGS: _PRESSUREPLATE1>
+                    {
+                        EFF<TELL: "You hear a loud rumbling as the great stone-door lowers into the ground and opens up, allowing you to move west.">
+                    }
+                }
+            }
+        };
 }
 
 [flag]
@@ -338,9 +483,46 @@
     ID: <PRESSUREPLATE1>;
     LOCATION: <GREATSTONEDOORWAY>;
     NAME: "left pressure plate";
-    DESC: "It's a pressure plate. It needs something heavy placed on top of it to activate.";
-    SYNS: "left plate", "first plate", "first pressure plate", "plate 1", "plate";
-    VALUES: (surface: 75);
+    DESC: "It's the pressure plate to your left. It needs something heavy placed on top of it to activate.";
+    SYNS: "left plate", "first plate", "first pressure plate", "plate 1", "plate", "pressure plate";
+    VALUES: (surface: 25);
+}
+
+[action]
+{
+    ID: <PRESSUREPLATE1>;
+    ACTION:
+        COND<PRSAAND: PUT, ON && !ANDFLAGS: _PRESSUREPLATE1>
+        {
+            COND<PRSO: <WATERCONTAINER1>>
+            {
+                EFF<PLACE: <WATERCONTAINER1>, <PRESSUREPLATE1>, ON>
+                EFF<TELL: "You placed the clay pot on the pressure plate.">
+                COND<ANDFLAGS: _CONTAINER1FILLED>
+                {
+                    EFF<SETFLAG: _PRESSUREPLATE1, 1>
+                    EFF<TELL: "You hear a rumble as the pressure plate clicks into place.">
+                    COND<ANDFLAGS: _PRESSUREPLATE2>
+                    {
+                        EFF<TELL: "You hear a loud rumbling as the great stone-door lowers into the ground and opens up, allowing you to move west.">
+                    }
+                }
+            }
+            COND<PRSO: <WATERCONTAINER2>>
+            {
+                EFF<PLACE: <WATERCONTAINER2>, <PRESSUREPLATE1>, ON>
+                EFF<TELL: "You placed the copper jug on the pressure plate.">
+                COND<ANDFLAGS: _CONTAINER2FILLED>
+                {
+                    EFF<SETFLAG: _PRESSUREPLATE1, 1>
+                    EFF<TELL: "You hear a rumble as the pressure plate clicks into place.">
+                    COND<ANDFLAGS: _PRESSUREPLATE2>
+                    {
+                        EFF<TELL: "You hear a loud rumbling as the great stone-door lowers into the ground and opens up, allowing you to move west.">
+                    }
+                }
+            }
+        };
 }
 
 [flag]
@@ -405,6 +587,18 @@
     DESC: "Thick entangled vines that block the route through to the back room. You need to find a way to cut through them.";
 }
 
+[action]
+{
+    ID: <STORAGEVINES>;
+    ACTION:
+        COND<PRSA: CUT, SLICE, REMOVE, RID, SLASH, HACK && PRSI: <MACHETE>>
+        {
+            EFF<PLACE: <STORAGEVINES>, <DEADROOM>, IN>
+            EFF<TELL: "You sliced away at the vines, allowing you access to the rooms beyond.">
+            EFF<SETFLAG: _STORAGEVINESREMOVED, 1>
+        };
+}
+
 [flag]
 {
     FLAG: _STORAGEVINESREMOVED;
@@ -450,6 +644,18 @@
     DESC: "Thick entangled vines that block the route through to the back room. You need to find a way to cut through them.";
 }
 
+[action]
+{
+    ID: <CAVERNVINES>;
+    ACTION:
+        COND<PRSA: CUT, SLICE, REMOVE, RID, SLASH, HACK && PRSI: <MACHETE>>
+        {
+            EFF<PLACE: <CAVERNVINES>, <DEADROOM>, IN>
+            EFF<TELL: "You sliced away at the vines, allowing you access to the rooms beyond.">
+            EFF<SETFLAG: _CAVERNVINESREMOVED, 1>
+        };
+}
+
 [flag]
 {
     FLAG: _CAVERNVINESREMOVED;
@@ -476,7 +682,9 @@
     W: <ANCIENTQUARRY>;
     WCOND: _TORCHLIT=1,_HIDDEN;
     NAME: "Midnight Tunnels";
-    DESC: "These twisting tunnels are pitch black. Squinting, it looks as if there's a torch on the wall. Maybe there's a way to light it and illuminate your surroundings.";
+    DESC: "These twisting tunnels are pitch black. Maybe you can find a light source to illuminate your surroundings.";
+    ALTDESC: "Carrying your flaming torch, you can see a few exits amongst the shadowy-walls.%nHopefully your torch stays lit, you wouldn't want to get lost in here...";
+    CONDS: _TORCHLIT=1;
     DET: "the";
 }
 
@@ -488,6 +696,30 @@
     DESC: "An unlit torch. If it was lit, you would be able to see in the Midnight Tunnels!";
     PROPERTIES: _TAKEABLE, _FLAMMABLE;
     VALUES: (volume: 25);
+}
+
+[action]
+{
+    ID: <TORCH>;
+    ACTION:
+        COND<PRSA: IGNITE, LIGHT && !ANDFLAGS: _TORCHLIT>
+        {
+            COND<PRSI: <FURNACE> || INSCOPE: <FURNACE>, <HERE>>
+            {
+                EFF<SETFLAG: _TORCHLIT, 1>
+                EFF<TELL: "Using the burning furnace, you set the torch ablaze, casting a luminous aura around you.">
+            }
+        }
+        COND<PRSAAND: PUT, IN && PRSI: <FURNACE> && !ANDFLAGS: _TORCHLIT>
+        {
+            EFF<SETFLAG: _TORCHLIT, 1>
+            EFF<TELL: "Using the burning furnace, you set the torch ablaze, casting a luminous aura around you.">
+        }
+        COND<PRSA: PUT, EXTINGUISH && ANDFLAGS: _TORCHLIT && PRSI: <RIVER>, <WATERFALL>>
+        {
+            EFF<SETFLAG: _TORCHLIT, 0>
+            EFF<TELL: "You extinguished the flaming torch. It can no longer illuminate dark tunnels.">
+        };
 }
 
 [flag]
@@ -592,6 +824,33 @@
     VALUES: (volume: 50);
 }
 
+[action]
+{
+    ID: <IDOL>;
+    ACTION:
+        COND<PRSA: PLACE, PUT && PRSA: ON && PRSO: <IDOL> && PRSI: <ALTER> && !ANDFLAGS: _IDOLPLACED>
+        {
+            EFF<PLACE: <IDOL>, <ALTER>, ON>
+            EFF<TELL: "'RUMBLE' 'RUMBLE' 'RUMBLE'">
+            EFF<TELL: "You hear a rumbling sound coming from the west of the temple as if something were opening.">
+            EFF<SETFLAG: _IDOLPLACED, 1>
+        }
+        COND<PRSA: TAKE, OBTAIN, PICK && PRSO: <IDOL> && ANDFLAGS: _IDOLPLACED>
+        {
+            EFF<TAKE: <IDOL>>
+            EFF<TELL: "'RUMBLE' 'RUMBLE' 'RUMBLE'">
+            EFF<TELL: "You hear a rumbling sound coming from the west of the temple as if something were closing.">
+            EFF<REMFLAG: _IDOLPLACED>
+        }
+        COND<PRSA: PLACE, PUT && PRSO: <IDOL> && !PRSI: <ALTER> && ANDFLAGS: _IDOLPLACED>
+        {
+            EFF<TAKE: <IDOL>>
+            EFF<TELL: "'RUMBLE' 'RUMBLE' 'RUMBLE'">
+            EFF<TELL: "You hear a rumbling sound coming from the west of the temple as if something were closing.">
+            EFF<REMFLAG: _IDOLPLACED>
+        };
+}
+
 [flag]
 {
     FLAG: _IDOLPLACED;
@@ -602,4 +861,11 @@
 {
     FLAG: _TREASUREOBTAINED;
     VALUE: 0;
+}
+
+[room]
+{
+    ID: <DEADROOM>;
+    NAME: "Dead room";
+    DESC: "";
 }

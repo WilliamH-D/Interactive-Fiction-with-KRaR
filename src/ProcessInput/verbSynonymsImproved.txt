@@ -81,3 +81,11 @@ verb: close
 0 ITEM
 0=close,shut,slam
 
+verb: ignite
+0
+0=ignite,light,burn
+0 ITEM 1 2
+0=set,light
+1=on
+2=fire
+

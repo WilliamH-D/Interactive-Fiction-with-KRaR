@@ -372,7 +372,7 @@
           COND<FLAGVALUE: _COUNTER, 34>
           {
             EFF<SETFLAG: _CONDTAKEN, 1>
-            COND<PRSAAnd: LOOK, AT>
+            COND<PRSAAND: LOOK, AT>
             {
                 EFF<TAKE: <TESTITEM>>
             }
@@ -380,7 +380,7 @@
           COND<FLAGVALUE: _COUNTER, 35>
           {
             EFF<SETFLAG: _CONDTAKEN, 1>
-            COND<PRSAAnd: LOOK, AROUND>
+            COND<PRSAAND: LOOK, AROUND>
             {
                 EFF<TAKE: <TESTITEM>>
             }
