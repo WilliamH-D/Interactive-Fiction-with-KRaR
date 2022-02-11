@@ -50,7 +50,7 @@
     LOCATION: <COLLAPSEDCOLUMNS>;
     NAME: "small block";
     DESC: "It's a small marble block. It looks as if it fallen from one of the ruined pillars.";
-    SYNS: "little block", "smallest block", "little marble block", "small marble block", "block";
+    SYNS: "little block", "smallest block", "little marble block", "small marble block", "block", "small";
     PROPERTIES: _TAKEABLE;
     VALUES: (volume: 25), (surface: 25);
 }
@@ -64,6 +64,10 @@
             EFF<PLACE: <SMALLBLOCK>, <MEDIUMBLOCK>, ON>
             EFF<TELL: "You placed the small block on top of the medium block.">
             EFF<SETFLAG: _SMALLONMEDIUM, 1>
+            COND<ANDFLAGS: _MEDIUMONLARGE, _LARGEINROCKYTUNNEL>
+            {
+                EFF<TELL: "With all three blocks stacked on top of one another, you should be able to climb up to the opening above you!">
+            }
         }
         COND<PRSA: TAKE, OBTAIN && PRSO: <SMALLBLOCK>>
         {
@@ -159,18 +163,18 @@
             }
             COND<PRSI: <WATERFALL>, <RIVER>>
             {
-                EFF<TELL: "You filled the copper jug up with water and it becomes heavy!">
+                EFF<TELL: "You filled the copper jug up with water and it became heavy!">
                 EFF<SETFLAG: _CONTAINER2FILLED, 1>
             }
             COND<INSCOPE: <WATERCONTAINER2>, <HERE> && INSCOPE: <WATERFALL>, <HERE>>
             {
-                EFF<TELL: "You filled the copper jug up with water and it becomes heavy!">
-                EFF<SETFLAG: _CONTAINER1FILLED, 2>
+                EFF<TELL: "You filled the copper jug up with water and it became heavy!">
+                EFF<SETFLAG: _CONTAINER2FILLED, 1>
             }
             COND<INSCOPE: <WATERCONTAINER2>, <HERE> && INSCOPE: <RIVER>, <HERE>>
             {
-                EFF<TELL: "You filled the copper jug up with water and it becomes heavy!">
-                EFF<SETFLAG: _CONTAINER1FILLED, 2>
+                EFF<TELL: "You filled the copper jug up with water and it became heavy!">
+                EFF<SETFLAG: _CONTAINER2FILLED, 1>
             }
         }
         COND<PRSA: TAKE, OBTAIN && INSCOPE: <WATERCONTAINER2>, <PRESSUREPLATE1> && ANDFLAGS: _CONTAINER2FILLED>
@@ -220,13 +224,35 @@
     DET: "the";
 }
 
+[object]
+{
+    ID: <TREASURE>;
+    LOCATION: <TREASUREROOM>;
+    NAME: "treasure";
+    DESC: "All the riches you could ever dream of! Sparkling jewels, shining gold, glowing rubies, and more!";
+    PROPERTIES: _TAKEABLE;
+    VALUES: (volume: 50);
+}
+
+[action]
+{
+    ID: <TREASURE>;
+    ACTION:
+        COND<PRSA: TAKE, OBTAIN>
+        {
+            EFF<TAKE: <TREASURE>>
+            EFF<SETFLAG: _TREASUREOBTAINED, 1>
+            EFF<TELL: "CONGRATULATIONS! You have successfully taken the treasure!">
+        };
+}
+
 [room]
 {
     ID: <ROCKYTUNNEL>;
     N: <WATERFALLCAVERN>;
     S: <GRANDALTER>;
     U: <HIDDENCHAMBER>;
-    UCOND: _SMALLONMEDIUM=1,_MEDIUMONBIG=1,_LARGEINROCKYTUNNEL=1;
+    UCOND: _SMALLONMEDIUM=1,_MEDIUMONLARGE=1,_LARGEINROCKYTUNNEL=1;
     UBLOCKMESSAGE: "Could you reach this hole if you stacked some blocks up as a stairway?";
     NAME: "Rocky Tunnel";
     DESC: "This claustrophobic tunnel is littered with rocks and boulders. A draught seems to be coming from overhead. Maybe if you stacked some blocks, you could climb up...";
@@ -238,7 +264,7 @@
     LOCATION: <ROCKYTUNNEL>;
     NAME: "medium block";
     DESC: "It's a medium sized block of rock. This boulder looks as if it collapsed from the walls of the rocky tunnel, perhaps it could be used in reaching the hidden chamber.";
-    SYNS: "medium block", "medium boulder", "rock block", "boulder", "block";
+    SYNS: "medium block", "medium boulder", "rock block", "boulder", "block", "medium";
     PROPERTIES: _TAKEABLE;
     VALUES: (volume: 50), (surface: 50);
 }
@@ -251,7 +277,11 @@
         {
             EFF<PLACE: <MEDIUMBLOCK>, <LARGEBLOCK>, ON>
             EFF<TELL: "You placed the medium block on top of the large block.">
-            EFF<SETFLAG: _MEDIUMONBIG, 1>
+            EFF<SETFLAG: _MEDIUMONLARGE, 1>
+            COND<ANDFLAGS: _SMALLONMEDIUM, _LARGEINROCKYTUNNEL>
+            {
+                EFF<TELL: "With all three blocks stacked on top of one another, you should be able to climb up to the opening above you!">
+            }
         }
         COND<PRSA: TAKE, OBTAIN && PRSO: <MEDIUMBLOCK>>
         {
@@ -280,6 +310,7 @@
     LOCATION: <HIDDENCHAMBER>;
     NAME: "golden key";
     DESC: "An old ornate golden key. It looks important.";
+    SYNS: "key";
     PROPERTIES: _TAKEABLE;
     VALUES: (volume: 10);
 }
@@ -336,17 +367,17 @@
             }
             COND<PRSI: <WATERFALL>, <RIVER>>
             {
-                EFF<TELL: "You filled the clay pot up with water and it becomes heavy!">
+                EFF<TELL: "You filled the clay pot up with water and it became heavy!">
                 EFF<SETFLAG: _CONTAINER1FILLED, 1>
             }
             COND<INSCOPE: <WATERCONTAINER1>, <HERE> && INSCOPE: <WATERFALL>, <HERE>>
             {
-                EFF<TELL: "You filled the clay pot up with water and it becomes heavy!">
+                EFF<TELL: "You filled the clay pot up with water and it became heavy!">
                 EFF<SETFLAG: _CONTAINER1FILLED, 1>
             }
             COND<INSCOPE: <WATERCONTAINER1>, <HERE> && INSCOPE: <RIVER>, <HERE>>
             {
-                EFF<TELL: "You filled the clay pot up with water and it becomes heavy!">
+                EFF<TELL: "You filled the clay pot up with water and it became heavy!">
                 EFF<SETFLAG: _CONTAINER1FILLED, 1>
             }
         }
@@ -537,7 +568,7 @@
     N: <FURNACEROOM>;
     NCOND: _STORAGEVINESREMOVED=1;
     NBLOCKMESSAGE: "Vines are covering the way to the furnace room! They look like they could easily be cut or burnt away...";
-    W: <GREATSTONEDOORWAY>;
+    E: <GREATSTONEDOORWAY>;
     NAME: "Storage Room";
     DESC: "This room looks like it was used to store things. There is all sorts of wood and degraded items lying about.";
 }
@@ -548,7 +579,7 @@
     LOCATION: <STORAGEROOM>;
     NAME: "wooden plank";
     DESC: "A long wooden plank that has somehow managed to avoid rotting away.%nIt looks sturdy enough to be used as a bridge.";
-    SYNS: "bridge", "wood", "log";
+    SYNS: "bridge", "wood", "log", "plank";
     PROPERTIES: _TAKEABLE;
     VALUES: (volume: 50), (surface: 50);
 }
@@ -570,6 +601,12 @@
         {
             EFF<TAKE: <PLANK>>
             EFF<REMFLAG: _RIVERCROSSABLE>
+        }
+        COND<PRSA: MAKE, FORM && PRSO: <PLANK> && HERE: <SOUTHRIVERCAVERN>>
+        {
+            EFF<PLACE: <PLANK>, <RIVERSTILTS>, ON>
+            EFF<TELL: "You placed the wooden plank on top of the wooden stilts in the river.">
+            EFF<SETFLAG: _RIVERCROSSABLE, 1>
         };
 }
 
@@ -585,6 +622,8 @@
     LOCATION: <STORAGEROOM>;
     NAME: "vines";
     DESC: "Thick entangled vines that block the route through to the back room. You need to find a way to cut through them.";
+    DET: "some";
+    ARE: TRUE;
 }
 
 [action]
@@ -642,6 +681,8 @@
     LOCATION: <NORTHRIVERCAVERN>;
     NAME: "vines";
     DESC: "Thick entangled vines that block the route through to the back room. You need to find a way to cut through them.";
+    DET: "some";
+    ARE: TRUE;
 }
 
 [action]
@@ -676,7 +717,7 @@
 [room]
 {
     ID: <MIDNIGHTTUNNELS>;
-    S: <NORTHRIVERCAVERNS>;
+    S: <NORTHRIVERCAVERN>;
     E: <IDOLSSEAT>;
     ECOND: _TORCHLIT=1,_HIDDEN;
     W: <ANCIENTQUARRY>;
@@ -694,6 +735,8 @@
     LOCATION: <MIDNIGHTTUNNELS>;
     NAME: "torch";
     DESC: "An unlit torch. If it was lit, you would be able to see in the Midnight Tunnels!";
+    ALTDESC: "A lit torch. It illuminates the caves around you with a flickering orange glow.";
+    CONDS: _TORCHLIT=1;
     PROPERTIES: _TAKEABLE, _FLAMMABLE;
     VALUES: (volume: 25);
 }
@@ -715,7 +758,17 @@
             EFF<SETFLAG: _TORCHLIT, 1>
             EFF<TELL: "Using the burning furnace, you set the torch ablaze, casting a luminous aura around you.">
         }
+        COND<PRSO: <TORCH>, <FURNACE> && PRSI: <FURNACE>, <TORCH>>
+        {
+            EFF<SETFLAG: _TORCHLIT, 1>
+            EFF<TELL: "Using the burning furnace, you set the torch ablaze, casting a luminous aura around you.">
+        }
         COND<PRSA: PUT, EXTINGUISH && ANDFLAGS: _TORCHLIT && PRSI: <RIVER>, <WATERFALL>>
+        {
+            EFF<SETFLAG: _TORCHLIT, 0>
+            EFF<TELL: "You extinguished the flaming torch. It can no longer illuminate dark tunnels.">
+        }
+        COND<PRSA: EXTINGUISH>
         {
             EFF<SETFLAG: _TORCHLIT, 0>
             EFF<TELL: "You extinguished the flaming torch. It can no longer illuminate dark tunnels.">
@@ -742,7 +795,7 @@
     LOCATION: <ANCIENTQUARRY>;
     NAME: "large block";
     DESC: "A massive marble block that never ended up leaving the quarry. It's a miracle you're able to even lift this thing!";
-    SYNS: "large block", "big block", "biggest block", "big marble block", "large marble block", "block";
+    SYNS: "large block", "big block", "biggest block", "big marble block", "large marble block", "block", "large", "big";
     PROPERTIES: _TAKEABLE;
     VALUES: (volume: 75), (surface: 75);
 }
@@ -751,7 +804,7 @@
 {
     ID: <LARGEBLOCK>;
     ACTION:
-        COND<PRSA: PUT, PLACE && PRSO: <LARGEBLOCK> && !PRSA: IN, ON, UNDER, UNDERNEATH, INSIDE && HERE: <ROCKYTUNNEL>>
+        COND<PRSA: PUT, PLACE, DROP, DISCARD && PRSO: <LARGEBLOCK> && !PRSA: IN, ON, UNDER, UNDERNEATH, INSIDE && HERE: <ROCKYTUNNEL>>
         {
             EFF<PLACE: <LARGEBLOCK>, <ROCKYTUNNEL>, IN>
             EFF<TELL: "You placed the large block.">

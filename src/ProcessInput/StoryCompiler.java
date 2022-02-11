@@ -349,7 +349,7 @@ public class StoryCompiler {
 
         GameFlag flag = new GameFlag(flagName, flagValue);
 
-        kb.addClause("flag(" + flagName.toLowerCase() + "," + flagValue + ")");
+        kb.addClause("flag(" + flagName.substring(1).toLowerCase() + "," + flagValue + ")");
 
         GameState.addFlag(flag);
         resetVars();

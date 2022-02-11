@@ -89,3 +89,15 @@ verb: ignite
 1=on
 2=fire
 
+verb: cut
+0
+0=cut,slice,slash,swing
+
+verb: unlock
+0
+0=unlock
+
+verb: lock
+0
+0=lock
+

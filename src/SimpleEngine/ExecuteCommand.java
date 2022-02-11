@@ -112,7 +112,7 @@ public class ExecuteCommand {
                         (currLoc.isUhidden() && d.equals(Direction.UP)) ||
                         (currLoc.isDhidden() && d.equals(Direction.DOWN));
 
-                if (nextLoc == null || directionIsHidden) { System.out.println("You cannot move " + d.name().toLowerCase() + "."); }
+                if (nextLoc == null) { System.out.println("You cannot move " + d.name().toLowerCase() + "."); }
                 else {
                     // Check if there are any pre-conditions
                     Set<String> conditions = null;
@@ -128,6 +128,10 @@ public class ExecuteCommand {
 
                     // If not all conditions are met, then prevent player from moving
                     if (!GameController.roomConditionsMet(conditions)) {
+                        if (directionIsHidden) {
+                            System.out.println("You cannot move " + d.name().toLowerCase() + ".");
+                            return true;
+                        }
                         String blockMessage = currLoc.getDirBlockMessage(d);
                         System.out.println(Objects.requireNonNullElseGet(blockMessage, () -> "Something is preventing you from moving " + d.name().toLowerCase() + "."));
                         return true;
