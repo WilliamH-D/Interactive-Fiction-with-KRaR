@@ -148,16 +148,6 @@ public interface EditorGrammarListener extends ParseTreeListener {
 	 */
 	void exitAlt_desc_entry(EditorGrammarParser.Alt_desc_entryContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link EditorGrammarParser#flag_conditions}.
-	 * @param ctx the parse tree
-	 */
-	void enterFlag_conditions(EditorGrammarParser.Flag_conditionsContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link EditorGrammarParser#flag_conditions}.
-	 * @param ctx the parse tree
-	 */
-	void exitFlag_conditions(EditorGrammarParser.Flag_conditionsContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link EditorGrammarParser#synonyms_entry}.
 	 * @param ctx the parse tree
 	 */
@@ -247,6 +237,66 @@ public interface EditorGrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitDown_entry(EditorGrammarParser.Down_entryContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#action_entry}.
+	 * @param ctx the parse tree
+	 */
+	void enterAction_entry(EditorGrammarParser.Action_entryContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#action_entry}.
+	 * @param ctx the parse tree
+	 */
+	void exitAction_entry(EditorGrammarParser.Action_entryContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#global_flag_entry}.
+	 * @param ctx the parse tree
+	 */
+	void enterGlobal_flag_entry(EditorGrammarParser.Global_flag_entryContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#global_flag_entry}.
+	 * @param ctx the parse tree
+	 */
+	void exitGlobal_flag_entry(EditorGrammarParser.Global_flag_entryContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#flag_val_entry}.
+	 * @param ctx the parse tree
+	 */
+	void enterFlag_val_entry(EditorGrammarParser.Flag_val_entryContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#flag_val_entry}.
+	 * @param ctx the parse tree
+	 */
+	void exitFlag_val_entry(EditorGrammarParser.Flag_val_entryContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#det_entry}.
+	 * @param ctx the parse tree
+	 */
+	void enterDet_entry(EditorGrammarParser.Det_entryContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#det_entry}.
+	 * @param ctx the parse tree
+	 */
+	void exitDet_entry(EditorGrammarParser.Det_entryContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#are_entry}.
+	 * @param ctx the parse tree
+	 */
+	void enterAre_entry(EditorGrammarParser.Are_entryContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#are_entry}.
+	 * @param ctx the parse tree
+	 */
+	void exitAre_entry(EditorGrammarParser.Are_entryContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#flag_conditions}.
+	 * @param ctx the parse tree
+	 */
+	void enterFlag_conditions(EditorGrammarParser.Flag_conditionsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#flag_conditions}.
+	 * @param ctx the parse tree
+	 */
+	void exitFlag_conditions(EditorGrammarParser.Flag_conditionsContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link EditorGrammarParser#north_cond}.
 	 * @param ctx the parse tree
@@ -378,55 +428,15 @@ public interface EditorGrammarListener extends ParseTreeListener {
 	 */
 	void exitDown_block_message(EditorGrammarParser.Down_block_messageContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link EditorGrammarParser#action_entry}.
+	 * Enter a parse tree produced by {@link EditorGrammarParser#use_packages}.
 	 * @param ctx the parse tree
 	 */
-	void enterAction_entry(EditorGrammarParser.Action_entryContext ctx);
+	void enterUse_packages(EditorGrammarParser.Use_packagesContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link EditorGrammarParser#action_entry}.
+	 * Exit a parse tree produced by {@link EditorGrammarParser#use_packages}.
 	 * @param ctx the parse tree
 	 */
-	void exitAction_entry(EditorGrammarParser.Action_entryContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link EditorGrammarParser#global_flag_entry}.
-	 * @param ctx the parse tree
-	 */
-	void enterGlobal_flag_entry(EditorGrammarParser.Global_flag_entryContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link EditorGrammarParser#global_flag_entry}.
-	 * @param ctx the parse tree
-	 */
-	void exitGlobal_flag_entry(EditorGrammarParser.Global_flag_entryContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link EditorGrammarParser#flag_val_entry}.
-	 * @param ctx the parse tree
-	 */
-	void enterFlag_val_entry(EditorGrammarParser.Flag_val_entryContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link EditorGrammarParser#flag_val_entry}.
-	 * @param ctx the parse tree
-	 */
-	void exitFlag_val_entry(EditorGrammarParser.Flag_val_entryContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link EditorGrammarParser#det_entry}.
-	 * @param ctx the parse tree
-	 */
-	void enterDet_entry(EditorGrammarParser.Det_entryContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link EditorGrammarParser#det_entry}.
-	 * @param ctx the parse tree
-	 */
-	void exitDet_entry(EditorGrammarParser.Det_entryContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link EditorGrammarParser#are_entry}.
-	 * @param ctx the parse tree
-	 */
-	void enterAre_entry(EditorGrammarParser.Are_entryContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link EditorGrammarParser#are_entry}.
-	 * @param ctx the parse tree
-	 */
-	void exitAre_entry(EditorGrammarParser.Are_entryContext ctx);
+	void exitUse_packages(EditorGrammarParser.Use_packagesContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link EditorGrammarParser#object}.
 	 * @param ctx the parse tree
@@ -468,6 +478,16 @@ public interface EditorGrammarListener extends ParseTreeListener {
 	 */
 	void exitGlobal_flag(EditorGrammarParser.Global_flagContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#end}.
+	 * @param ctx the parse tree
+	 */
+	void enterEnd(EditorGrammarParser.EndContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#end}.
+	 * @param ctx the parse tree
+	 */
+	void exitEnd(EditorGrammarParser.EndContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link EditorGrammarParser#action_block}.
 	 * @param ctx the parse tree
 	 */
@@ -498,16 +518,6 @@ public interface EditorGrammarListener extends ParseTreeListener {
 	 */
 	void exitConditions(EditorGrammarParser.ConditionsContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link EditorGrammarParser#effect_aux}.
-	 * @param ctx the parse tree
-	 */
-	void enterEffect_aux(EditorGrammarParser.Effect_auxContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link EditorGrammarParser#effect_aux}.
-	 * @param ctx the parse tree
-	 */
-	void exitEffect_aux(EditorGrammarParser.Effect_auxContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link EditorGrammarParser#condition_aux}.
 	 * @param ctx the parse tree
 	 */
@@ -517,6 +527,16 @@ public interface EditorGrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitCondition_aux(EditorGrammarParser.Condition_auxContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#effect_aux}.
+	 * @param ctx the parse tree
+	 */
+	void enterEffect_aux(EditorGrammarParser.Effect_auxContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#effect_aux}.
+	 * @param ctx the parse tree
+	 */
+	void exitEffect_aux(EditorGrammarParser.Effect_auxContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link EditorGrammarParser#prsa_cond}.
 	 * @param ctx the parse tree
@@ -798,6 +818,26 @@ public interface EditorGrammarListener extends ParseTreeListener {
 	 */
 	void exitRemove_property_eff(EditorGrammarParser.Remove_property_effContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#add_query_eff}.
+	 * @param ctx the parse tree
+	 */
+	void enterAdd_query_eff(EditorGrammarParser.Add_query_effContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#add_query_eff}.
+	 * @param ctx the parse tree
+	 */
+	void exitAdd_query_eff(EditorGrammarParser.Add_query_effContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#remove_query_eff}.
+	 * @param ctx the parse tree
+	 */
+	void enterRemove_query_eff(EditorGrammarParser.Remove_query_effContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#remove_query_eff}.
+	 * @param ctx the parse tree
+	 */
+	void exitRemove_query_eff(EditorGrammarParser.Remove_query_effContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link EditorGrammarParser#effect}.
 	 * @param ctx the parse tree
 	 */
@@ -807,6 +847,96 @@ public interface EditorGrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitEffect(EditorGrammarParser.EffectContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#query_conditional}.
+	 * @param ctx the parse tree
+	 */
+	void enterQuery_conditional(EditorGrammarParser.Query_conditionalContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#query_conditional}.
+	 * @param ctx the parse tree
+	 */
+	void exitQuery_conditional(EditorGrammarParser.Query_conditionalContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#queries}.
+	 * @param ctx the parse tree
+	 */
+	void enterQueries(EditorGrammarParser.QueriesContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#queries}.
+	 * @param ctx the parse tree
+	 */
+	void exitQueries(EditorGrammarParser.QueriesContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#query}.
+	 * @param ctx the parse tree
+	 */
+	void enterQuery(EditorGrammarParser.QueryContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#query}.
+	 * @param ctx the parse tree
+	 */
+	void exitQuery(EditorGrammarParser.QueryContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#functor}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunctor(EditorGrammarParser.FunctorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#functor}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunctor(EditorGrammarParser.FunctorContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#parameters}.
+	 * @param ctx the parse tree
+	 */
+	void enterParameters(EditorGrammarParser.ParametersContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#parameters}.
+	 * @param ctx the parse tree
+	 */
+	void exitParameters(EditorGrammarParser.ParametersContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#parameter}.
+	 * @param ctx the parse tree
+	 */
+	void enterParameter(EditorGrammarParser.ParameterContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#parameter}.
+	 * @param ctx the parse tree
+	 */
+	void exitParameter(EditorGrammarParser.ParameterContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#check_entry}.
+	 * @param ctx the parse tree
+	 */
+	void enterCheck_entry(EditorGrammarParser.Check_entryContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#check_entry}.
+	 * @param ctx the parse tree
+	 */
+	void exitCheck_entry(EditorGrammarParser.Check_entryContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#if_effects}.
+	 * @param ctx the parse tree
+	 */
+	void enterIf_effects(EditorGrammarParser.If_effectsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#if_effects}.
+	 * @param ctx the parse tree
+	 */
+	void exitIf_effects(EditorGrammarParser.If_effectsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#else_effects}.
+	 * @param ctx the parse tree
+	 */
+	void enterElse_effects(EditorGrammarParser.Else_effectsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#else_effects}.
+	 * @param ctx the parse tree
+	 */
+	void exitElse_effects(EditorGrammarParser.Else_effectsContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link EditorGrammarParser#game_grammar}.
 	 * @param ctx the parse tree

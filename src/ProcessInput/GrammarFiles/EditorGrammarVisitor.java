@@ -95,12 +95,6 @@ public interface EditorGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAlt_desc_entry(EditorGrammarParser.Alt_desc_entryContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link EditorGrammarParser#flag_conditions}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFlag_conditions(EditorGrammarParser.Flag_conditionsContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link EditorGrammarParser#synonyms_entry}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -154,6 +148,42 @@ public interface EditorGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitDown_entry(EditorGrammarParser.Down_entryContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#action_entry}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAction_entry(EditorGrammarParser.Action_entryContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#global_flag_entry}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitGlobal_flag_entry(EditorGrammarParser.Global_flag_entryContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#flag_val_entry}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFlag_val_entry(EditorGrammarParser.Flag_val_entryContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#det_entry}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDet_entry(EditorGrammarParser.Det_entryContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#are_entry}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAre_entry(EditorGrammarParser.Are_entryContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#flag_conditions}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFlag_conditions(EditorGrammarParser.Flag_conditionsContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link EditorGrammarParser#north_cond}.
 	 * @param ctx the parse tree
@@ -233,35 +263,11 @@ public interface EditorGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDown_block_message(EditorGrammarParser.Down_block_messageContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link EditorGrammarParser#action_entry}.
+	 * Visit a parse tree produced by {@link EditorGrammarParser#use_packages}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAction_entry(EditorGrammarParser.Action_entryContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link EditorGrammarParser#global_flag_entry}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitGlobal_flag_entry(EditorGrammarParser.Global_flag_entryContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link EditorGrammarParser#flag_val_entry}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFlag_val_entry(EditorGrammarParser.Flag_val_entryContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link EditorGrammarParser#det_entry}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitDet_entry(EditorGrammarParser.Det_entryContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link EditorGrammarParser#are_entry}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAre_entry(EditorGrammarParser.Are_entryContext ctx);
+	T visitUse_packages(EditorGrammarParser.Use_packagesContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link EditorGrammarParser#object}.
 	 * @param ctx the parse tree
@@ -287,6 +293,12 @@ public interface EditorGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitGlobal_flag(EditorGrammarParser.Global_flagContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#end}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEnd(EditorGrammarParser.EndContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link EditorGrammarParser#action_block}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -305,17 +317,17 @@ public interface EditorGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitConditions(EditorGrammarParser.ConditionsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link EditorGrammarParser#effect_aux}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitEffect_aux(EditorGrammarParser.Effect_auxContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link EditorGrammarParser#condition_aux}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitCondition_aux(EditorGrammarParser.Condition_auxContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#effect_aux}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEffect_aux(EditorGrammarParser.Effect_auxContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link EditorGrammarParser#prsa_cond}.
 	 * @param ctx the parse tree
@@ -485,11 +497,77 @@ public interface EditorGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitRemove_property_eff(EditorGrammarParser.Remove_property_effContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#add_query_eff}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAdd_query_eff(EditorGrammarParser.Add_query_effContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#remove_query_eff}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRemove_query_eff(EditorGrammarParser.Remove_query_effContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link EditorGrammarParser#effect}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitEffect(EditorGrammarParser.EffectContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#query_conditional}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitQuery_conditional(EditorGrammarParser.Query_conditionalContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#queries}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitQueries(EditorGrammarParser.QueriesContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#query}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitQuery(EditorGrammarParser.QueryContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#functor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunctor(EditorGrammarParser.FunctorContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#parameters}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParameters(EditorGrammarParser.ParametersContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#parameter}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParameter(EditorGrammarParser.ParameterContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#check_entry}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCheck_entry(EditorGrammarParser.Check_entryContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#if_effects}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIf_effects(EditorGrammarParser.If_effectsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#else_effects}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitElse_effects(EditorGrammarParser.Else_effectsContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link EditorGrammarParser#game_grammar}.
 	 * @param ctx the parse tree

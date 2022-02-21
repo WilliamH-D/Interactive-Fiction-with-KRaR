@@ -74,11 +74,11 @@ public class StoryCompiler {
     String flagName;
     int flagValue;
 
-    KnowledgeBase kb;
+    private KnowledgeBase kb;
 
-    DebugLogger logger;
+    private DebugLogger logger;
 
-    boolean playerStartSet = false;
+    private boolean playerStartSet = false;
 
 
     private StoryCompiler() {
@@ -157,6 +157,10 @@ public class StoryCompiler {
 
         det = null;
         useAre = false;
+    }
+
+    void compilePackages(List<String> packages) {
+        // TODO
     }
 
     void compileRoom() {
@@ -371,7 +375,7 @@ public class StoryCompiler {
         isNot = false;
     }
 
-    public void setIsNot() {
+    void setIsNot() {
         isNot = true; }
 
     private Condition popLastCondition() {
@@ -398,16 +402,16 @@ public class StoryCompiler {
     }
 
     // Add new action block when iterating into new conditional (called as soon as new conditional visited)
-    public void newConditional() {
+    void newConditional() {
         newActionBlock();
         currConditionPart = null;
     }
 
-    public void addConditional() {
+    void addConditional() {
         conditions.add(currConditionPart);
     }
 
-    public void compileConditional() {
+    void compileConditional() {
         Condition cond = popLastCondition();
         List<ActionPart> actions = popLastActionBlock();
         logger.logLine();
@@ -422,7 +426,7 @@ public class StoryCompiler {
         addToLastActionBlock(conditional);
     }
 
-    public void compileConditions(boolean isAnd, boolean isOr) {
+    void compileConditions(boolean isAnd, boolean isOr) {
         ConditionTest test = popLastTest();
         if (!isAnd && !isOr) { isAnd = true; }
 
@@ -451,7 +455,7 @@ public class StoryCompiler {
         tests.add(cond);
     }
 
-    public void compileAndFlagsCond(Set<String> flags) {
+    void compileAndFlagsCond(Set<String> flags) {
         logger.logLine();
         logger.logRaw("Compiling AndFlagsCond:");
         logger.logRaw("FLAGS: " + flags.toString());
@@ -459,7 +463,7 @@ public class StoryCompiler {
         setTest(new AndFlagsCond(flags));
     }
 
-    public void compileEqualsCond(String lobj, String robj, String lhs, String rhs, boolean bothVars) {
+    void compileEqualsCond(String lobj, String robj, String lhs, String rhs, boolean bothVars) {
         logger.logLine();
         logger.logRaw("Compiling EqualsCond:");
         logger.logRaw("LEFT OBJ: " + lobj);
@@ -471,7 +475,7 @@ public class StoryCompiler {
         setTest(new EqualsCond(lobj, robj, lhs, rhs, bothVars));
     }
 
-    public void compileGTCond(String lobj, String robj, String lhs, String rhs, boolean bothVars) {
+    void compileGTCond(String lobj, String robj, String lhs, String rhs, boolean bothVars) {
         logger.logLine();
         logger.logRaw("Compiling GTCond:");
         logger.logRaw("LEFT OBJ: " + lobj);
@@ -483,7 +487,7 @@ public class StoryCompiler {
         setTest(new GTCond(lobj, robj, lhs, rhs, bothVars));
     }
 
-    public void compileHaveItemCond(Set<String> objs) {
+    void compileHaveItemCond(Set<String> objs) {
         logger.logLine();
         logger.logRaw("Compiling HaveItemCond:");
         logger.logRaw("OBJS: " + objs.toString());
@@ -491,7 +495,7 @@ public class StoryCompiler {
         setTest(new HaveItemCond(objs));
     }
 
-    public void compileHaveItemsCond(Set<String> objs) {
+    void compileHaveItemsCond(Set<String> objs) {
         logger.logLine();
         logger.logRaw("Compiling HaveItemsCond:");
         logger.logRaw("OBJS: " + objs.toString());
@@ -499,7 +503,7 @@ public class StoryCompiler {
         setTest(new HaveItemsCond(objs));
     }
 
-    public void compileHereCond(Set<String> locs) {
+    void compileHereCond(Set<String> locs) {
         logger.logLine();
         logger.logRaw("Compiling HereCond:");
         logger.logRaw("LOCATIONS: " + locs.toString());
@@ -507,7 +511,7 @@ public class StoryCompiler {
         setTest(new HereCond(locs));
     }
 
-    public void compileInScopeCond(String obj, Set<String> locs) {
+    void compileInScopeCond(String obj, Set<String> locs) {
         logger.logLine();
         logger.logRaw("Compiling InScopeCond:");
         logger.logRaw("OBJ: " + obj);
@@ -516,7 +520,7 @@ public class StoryCompiler {
         setTest(new InScopeCond(obj, locs));
     }
 
-    public void compileLTCond(String lobj, String robj, String lhs, String rhs, boolean bothVars) {
+    void compileLTCond(String lobj, String robj, String lhs, String rhs, boolean bothVars) {
         logger.logLine();
         logger.logRaw("Compiling LTCond:");
         logger.logRaw("LEFT OBJ: " + lobj);
@@ -528,7 +532,7 @@ public class StoryCompiler {
         setTest(new LTCond(lobj, robj, lhs, rhs, bothVars));
     }
 
-    public void compileOrFlagsCond(Set<String> flags) {
+    void compileOrFlagsCond(Set<String> flags) {
         logger.logLine();
         logger.logRaw("Compiling OrFlagsCond:");
         logger.logRaw("FLAGS: " + flags.toString());
@@ -536,7 +540,7 @@ public class StoryCompiler {
         setTest(new OrFlagsCond(flags));
     }
 
-    public void compileFlagValue(String flag, int value) {
+    void compileFlagValue(String flag, int value) {
         logger.logLine();
         logger.logRaw("Compiling FlagValueCond:");
         logger.logRaw("FLAG: " + flag);
@@ -545,7 +549,7 @@ public class StoryCompiler {
         setTest(new FlagValueCond(flag, value));
     }
 
-    public void compileOrPropertiesCond(String objID, Set<String> properties) {
+    void compileOrPropertiesCond(String objID, Set<String> properties) {
         logger.logLine();
         logger.logRaw("Compiling OrPropertiesCond:");
         logger.logRaw("OBJECT: " + objID);
@@ -554,7 +558,7 @@ public class StoryCompiler {
         setTest(new OrPropertiesCond(objID, properties));
     }
 
-    public void compileAndPropertiesCond(String objID, Set<String> properties) {
+    void compileAndPropertiesCond(String objID, Set<String> properties) {
         logger.logLine();
         logger.logRaw("Compiling AndPropertiesCond:");
         logger.logRaw("OBJECT: " + objID);
@@ -563,7 +567,7 @@ public class StoryCompiler {
         setTest(new AndPropertiesCond(objID, properties));
     }
 
-    public void compilePRSACond(Set<String> verbs) {
+    void compilePRSACond(Set<String> verbs) {
         logger.logLine();
         logger.logRaw("Compiling PRSACond:");
         logger.logRaw("VERBS: " + verbs.toString());
@@ -571,7 +575,7 @@ public class StoryCompiler {
         setTest(new PRSACond(verbs));
     }
 
-    public void compilePRSAAndCond(Set<String> verbs) {
+    void compilePRSAAndCond(Set<String> verbs) {
         logger.logLine();
         logger.logRaw("Compiling PRSAAndCond:");
         logger.logRaw("VERBS: " + verbs.toString());
@@ -579,7 +583,7 @@ public class StoryCompiler {
         setTest(new PRSAAndCond(verbs));
     }
 
-    public void compilePRSICond(Set<String> objs) {
+    void compilePRSICond(Set<String> objs) {
         logger.logLine();
         logger.logRaw("Compiling PRSICond:");
         logger.logRaw("OBJS: " + objs.toString());
@@ -587,7 +591,7 @@ public class StoryCompiler {
         setTest(new PRSICond(objs));
     }
 
-    public void compilePRSOCond(Set<String> objs) {
+    void compilePRSOCond(Set<String> objs) {
         logger.logLine();
         logger.logRaw("Compiling PRSOCond:");
         logger.logRaw("OBJS: " + objs.toString());
@@ -595,9 +599,13 @@ public class StoryCompiler {
         setTest(new PRSOCond(objs));
     }
 
+    void compileQueryCond() {
+        // TODO
+    }
+
     // EFFECTS:
 
-    public void compileGotoEff(String locID) {
+     void compileGotoEff(String locID) {
         logger.logLine();
         logger.logRaw("Compiling GotoEff:");
         logger.logRaw("LOCATION: " + locID);
@@ -605,7 +613,7 @@ public class StoryCompiler {
         addToLastActionBlock(new GotoEff(locID));
     }
 
-    public void compilePlaceEff(String objID, String locID, int type) {
+    void compilePlaceEff(String objID, String locID, int type) {
         logger.logLine();
         logger.logRaw("Compiling PlaceEff:");
         logger.logRaw("ITEM: " + objID);
@@ -615,7 +623,7 @@ public class StoryCompiler {
         addToLastActionBlock(new PlaceEff(objID, locID, type));
     }
 
-    public void compileRemFlagEff(String flagID) {
+    void compileRemFlagEff(String flagID) {
         logger.logLine();
         logger.logRaw("Compiling RemFlagEff:");
         logger.logRaw("FLAG: " + flagID);
@@ -623,7 +631,7 @@ public class StoryCompiler {
         addToLastActionBlock(new RemFlagEff(flagID));
     }
 
-    public void compileSetVarEff(String id, String var, String val) {
+    void compileSetVarEff(String id, String var, String val) {
         logger.logLine();
         logger.logRaw("Compiling SetVarEff:");
         logger.logRaw("ID: " + id);
@@ -633,7 +641,7 @@ public class StoryCompiler {
         addToLastActionBlock(new SetVarEff(id, var, val));
     }
 
-    public void compileIncVarEff(String id, String var, float val) {
+    void compileIncVarEff(String id, String var, float val) {
         logger.logLine();
         logger.logRaw("Compiling SetVarEff:");
         logger.logRaw("ID: " + id);
@@ -643,7 +651,7 @@ public class StoryCompiler {
         addToLastActionBlock(new IncVarEff(id, var, val));
     }
 
-    public void compileDecVarEff(String id, String var, float val) {
+    void compileDecVarEff(String id, String var, float val) {
         logger.logLine();
         logger.logRaw("Compiling SetVarEff:");
         logger.logRaw("ID: " + id);
@@ -653,7 +661,7 @@ public class StoryCompiler {
         addToLastActionBlock(new DecVarEff(id, var, val));
     }
 
-    public void compileSetFlagEff(String flagID, int val) {
+    void compileSetFlagEff(String flagID, int val) {
         logger.logLine();
         logger.logRaw("Compiling SetFlagEff:");
         logger.logRaw("FLAG: " + flagID);
@@ -662,7 +670,7 @@ public class StoryCompiler {
         addToLastActionBlock(new SetFlagEff(flagID, val));
     }
 
-    public void compileTakeEff(String objID) {
+    void compileTakeEff(String objID) {
         logger.logLine();
         logger.logRaw("Compiling TakeEff:");
         logger.logRaw("ITEM: " + objID);
@@ -670,7 +678,7 @@ public class StoryCompiler {
         addToLastActionBlock(new TakeEff(objID));
     }
 
-    public void compileTellEff(String text) {
+    void compileTellEff(String text) {
         logger.logLine();
         logger.logRaw("Compiling TellEff:");
         logger.logRaw("TEXT: " + text);
@@ -678,7 +686,7 @@ public class StoryCompiler {
         addToLastActionBlock(new TellEff(text));
     }
 
-    public void compileAddPropertyEff(String id, String property) {
+    void compileAddPropertyEff(String id, String property) {
         logger.logLine();
         logger.logRaw("Compiling AddPropertyEff:");
         logger.logRaw("ITEM: " + id);
@@ -688,7 +696,7 @@ public class StoryCompiler {
 
     }
 
-    public void compileRemovePropertyEff(String id, String property) {
+    void compileRemovePropertyEff(String id, String property) {
         logger.logLine();
         logger.logRaw("Compiling RemovePropertyEff:");
         logger.logRaw("ITEM: " + id);
@@ -696,5 +704,29 @@ public class StoryCompiler {
 
         addToLastActionBlock(new RemovePropertyEff(id, property));
 
+    }
+
+    void compileAddQueryEff() {
+        // TODO - instantiate AddQueryEff
+    }
+
+    void compileRemoveQueryEff() {
+        // TODO - instantiate RemQueryEff
+    }
+
+    void compileQuery(String query) {
+        // TODO - add to query queue to be compiled elsewhere
+    }
+
+    void compileCheckEntry() {
+        // TODO - compile end of turn query checks
+    }
+
+    void compileIfEffects() {
+        // TODO
+    }
+
+    void compileElseEffects() {
+        // TODO
     }
 }

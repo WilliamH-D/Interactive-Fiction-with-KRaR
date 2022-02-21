@@ -1,0 +1,2597 @@
+
+Compile Room:
+ID: RUINSENTRANCE
+N: COLUMNS
+NCONDS: []
+NHIDDEN: false
+NBLOCKMESSAGE: null
+S: CIVILISATION
+SCONDS: [_TREASUREOBTAINED=1]
+SHIDDEN: false
+SBLOCKMESSAGE: You don't want to return to civilisation without claiming the ancient treasure!
+E: null
+ECONDS: null
+EHIDDEN: false
+EBLOCKMESSAGE: null
+W: ROCKYTUNNEL
+WCONDS: []
+WHIDDEN: false
+WBLOCKMESSAGE: null
+U: null
+UCONDS: null
+UHIDDEN: false
+UBLOCKMESSAGE: null
+D: null
+DCONDS: null
+DHIDDEN: false
+DBLOCKMESSAGE: null
+NAME: Ruin's Entrance
+DESC: A newly excavated entrance way to long-lost underground ruins. %nBlinding sunlight streams into the network of caverns, illuminating the crumbling stone and marble structures inside.
+SYNS: []
+DET: the
+INFO: New Room: SimpleEngine.GameRoom@4bff64c2
+
+Compile Room:
+ID: CIVILISATION
+N: RUINSENTRANCE
+NCONDS: []
+NHIDDEN: false
+NBLOCKMESSAGE: null
+S: null
+SCONDS: null
+SHIDDEN: false
+SBLOCKMESSAGE: null
+E: null
+ECONDS: null
+EHIDDEN: false
+EBLOCKMESSAGE: null
+W: null
+WCONDS: null
+WHIDDEN: false
+WBLOCKMESSAGE: null
+U: null
+UCONDS: null
+UHIDDEN: false
+UBLOCKMESSAGE: null
+D: null
+DCONDS: null
+DHIDDEN: false
+DBLOCKMESSAGE: null
+NAME: Civilisation
+DESC: The outside world as you know it.
+SYNS: []
+DET: 
+INFO: New Room: SimpleEngine.GameRoom@35e5d0e5
+
+Compile Room:
+ID: COLUMNS
+N: ALTERROOM
+NCONDS: []
+NHIDDEN: false
+NBLOCKMESSAGE: null
+S: RUINSENTRANCE
+SCONDS: []
+SHIDDEN: false
+SBLOCKMESSAGE: null
+E: STORAGEROOM
+ECONDS: []
+EHIDDEN: false
+EBLOCKMESSAGE: null
+W: EASTRIVER
+WCONDS: []
+WHIDDEN: false
+WBLOCKMESSAGE: null
+U: null
+UCONDS: null
+UHIDDEN: false
+UBLOCKMESSAGE: null
+D: null
+DCONDS: null
+DHIDDEN: false
+DBLOCKMESSAGE: null
+NAME: Marble Column-way
+DESC: The ornate pathway up to the alter ahead of you is lined with tall marble columns.%nMany of these columns have cracked and crumbled over time.
+SYNS: []
+DET: the
+INFO: New Room: SimpleEngine.GameRoom@73173f63
+
+Compile Object:
+ID: SMALLBLOCK
+LOCATION: COLUMNS
+LOCATION TYPE: 0
+NAME: small block
+DESC: It's a small marble block. It looks as if it fallen from one of the ruined columns.
+SYNS: ["little block", "block", "small", "broken column", "little marble block", "smallest block", "small marble block"]
+FLAGS: [_TAKEABLE]
+VALUES: 
+	volume:25
+	surface:25
+DET: null
+USE ARE: false
+INFO: New Object: SimpleEngine.GameObject@6b98a075
+
+Compiling PRSACond:
+VERBS: [PLACE, PUT]
+
+Compiling PRSACond:
+VERBS: [ON]
+
+Compiling PRSOCond:
+OBJS: [SMALLBLOCK]
+
+Compiling PRSICond:
+OBJS: [MEDIUMBLOCK]
+
+Compiling Conditions:
+TEST: PRSI: [MEDIUMBLOCK]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@1a45193b
+
+Compiling Conditions:
+TEST: PRSO: [SMALLBLOCK]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@1a45193b
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@38f116f6
+
+Compiling Conditions:
+TEST: PRSA: [ON]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@38f116f6
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@5286c33a
+
+Compiling Conditions:
+TEST: PRSA: [PLACE, PUT]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@5286c33a
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@6e6d5d29
+
+Compiling PlaceEff:
+ITEM: SMALLBLOCK
+LOCATION: MEDIUMBLOCK
+LOCATION TYPE: 1
+
+Compiling TellEff:
+TEXT: You placed the small block on top of the medium block.
+
+Compiling SetFlagEff:
+FLAG: _SMALLONMEDIUM
+VALUE: 1
+
+Compiling AndFlagsCond:
+FLAGS: [_LARGEINSTORAGEROOM, _MEDIUMONLARGE]
+
+Compiling Conditions:
+TEST: AndFlags: [_LARGEINSTORAGEROOM, _MEDIUMONLARGE]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@70efb718
+
+Compiling TellEff:
+TEXT: With all three blocks stacked on top of one another, you should be able to climb up to the attic above you!
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@70efb718
+ACTIONS: [SimpleEngine.Actions.Effects.TellEff@b70da4c]
+INFO: New Conditional: <AndFlags: [_LARGEINSTORAGEROOM, _MEDIUMONLARGE]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@6e6d5d29
+ACTIONS: [SimpleEngine.Actions.Effects.PlaceEff@4e858e0a, SimpleEngine.Actions.Effects.TellEff@435fb7b5, SimpleEngine.Actions.Effects.SetFlagEff@4e70a728, <AndFlags: [_LARGEINSTORAGEROOM, _MEDIUMONLARGE]>]
+INFO: New Conditional: <PRSA: [PLACE, PUT] && PRSA: [ON] && PRSO: [SMALLBLOCK] && PRSI: [MEDIUMBLOCK]>
+
+Compiling PRSACond:
+VERBS: [TAKE, OBTAIN]
+
+Compiling PRSOCond:
+OBJS: [SMALLBLOCK]
+
+Compiling Conditions:
+TEST: PRSO: [SMALLBLOCK]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@b7838a9
+
+Compiling Conditions:
+TEST: PRSA: [TAKE, OBTAIN]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@b7838a9
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@696f0212
+
+Compiling TakeEff:
+ITEM: SMALLBLOCK
+
+Compiling RemFlagEff:
+FLAG: _SMALLONMEDIUM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@696f0212
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@56c698e3, SimpleEngine.Actions.Effects.RemFlagEff@47a86fbb]
+INFO: New Conditional: <PRSA: [TAKE, OBTAIN] && PRSO: [SMALLBLOCK]>
+
+Compile Action:
+ID: SMALLBLOCK
+ACTIONS: [<PRSA: [PLACE, PUT] && PRSA: [ON] && PRSO: [SMALLBLOCK] && PRSI: [MEDIUMBLOCK]>, <PRSA: [TAKE, OBTAIN] && PRSO: [SMALLBLOCK]>]
+
+Compile Flag:
+FLAG: _SMALLONMEDIUM
+VALUE: 0
+
+Compile Room:
+ID: ALTERROOM
+N: null
+NCONDS: null
+NHIDDEN: false
+NBLOCKMESSAGE: null
+S: COLUMNS
+SCONDS: []
+SHIDDEN: false
+SBLOCKMESSAGE: null
+E: null
+ECONDS: null
+EHIDDEN: false
+EBLOCKMESSAGE: null
+W: null
+WCONDS: null
+WHIDDEN: false
+WBLOCKMESSAGE: null
+U: null
+UCONDS: null
+UHIDDEN: false
+UBLOCKMESSAGE: null
+D: TREASUREROOM
+DCONDS: [_PRESSUREPLATE1=1, _PRESSUREPLATE2=1]
+DHIDDEN: true
+DBLOCKMESSAGE: You cannot move down.
+NAME: Grand Alter
+DESC: At the very end of the temple's long column-way stands a grand alter.
+ALTDESC: The alter that once stood here has sunken into the floor, exposing a stairway emanating a soft golden glow...
+ALTDESCCONDS: [_PRESSUREPLATE1=1, _PRESSUREPLATE2=1]
+SYNS: []
+DET: null
+INFO: New Room: SimpleEngine.GameRoom@7bb6ab3a
+
+Compile Object:
+ID: ALTER
+LOCATION: ALTERROOM
+LOCATION TYPE: 0
+NAME: alter
+DESC: A grand marble alter rising from the centre of the room. Many ceremonies will have been performed here in ages past.
+SYNS: []
+FLAGS: []
+VALUES: 
+	surface:50
+DET: null
+USE ARE: false
+INFO: New Object: SimpleEngine.GameObject@7fe7c640
+
+Compile Object:
+ID: PRESSUREPLATE2
+LOCATION: ALTERROOM
+LOCATION TYPE: 0
+NAME: right pressure plate
+DESC: It's the pressure plate to your right. It needs something heavy placed on top of it to activate.
+SYNS: ["right plate", "second plate", "pressure plate", "plate", "plate 2", "other plate", "second pressure plate"]
+FLAGS: []
+VALUES: 
+	surface:25
+DET: null
+USE ARE: false
+INFO: New Object: SimpleEngine.GameObject@4c4748bf
+
+Compiling PRSAAndCond:
+VERBS: [PUT, ON]
+
+Compiling AndFlagsCond:
+FLAGS: [_PRESSUREPLATE2]
+
+Compiling Conditions:
+TEST: AndFlags: [_PRESSUREPLATE2]
+TES IS NOT: true
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@32c8e539
+
+Compiling Conditions:
+TEST: PRSAAnd: [PUT, ON]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@32c8e539
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@73dce0e6
+
+Compiling PRSOCond:
+OBJS: [WATERCONTAINER1]
+
+Compiling Conditions:
+TEST: PRSO: [WATERCONTAINER1]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@5a85c92
+
+Compiling PlaceEff:
+ITEM: WATERCONTAINER1
+LOCATION: PRESSUREPLATE2
+LOCATION TYPE: 1
+
+Compiling TellEff:
+TEXT: You placed the clay pot on the pressure plate.
+
+Compiling AndFlagsCond:
+FLAGS: [_CONTAINER1FILLED]
+
+Compiling Conditions:
+TEST: AndFlags: [_CONTAINER1FILLED]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@32811494
+
+Compiling SetFlagEff:
+FLAG: _PRESSUREPLATE2
+VALUE: 1
+
+Compiling TellEff:
+TEXT: You hear a rumble as the pressure plate clicks into place.
+
+Compiling AndFlagsCond:
+FLAGS: [_PRESSUREPLATE1]
+
+Compiling Conditions:
+TEST: AndFlags: [_PRESSUREPLATE1]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@4795ded0
+
+Compiling TellEff:
+TEXT: You hear a loud rumbling as the alter before you lowers into the ground and reveals a hidden stairway...
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@4795ded0
+ACTIONS: [SimpleEngine.Actions.Effects.TellEff@53dacd14]
+INFO: New Conditional: <AndFlags: [_PRESSUREPLATE1]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@32811494
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@14d14731, SimpleEngine.Actions.Effects.TellEff@2eced48b, <AndFlags: [_PRESSUREPLATE1]>]
+INFO: New Conditional: <AndFlags: [_CONTAINER1FILLED]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@5a85c92
+ACTIONS: [SimpleEngine.Actions.Effects.PlaceEff@47c4ecdc, SimpleEngine.Actions.Effects.TellEff@42f33b5d, <AndFlags: [_CONTAINER1FILLED]>]
+INFO: New Conditional: <PRSO: [WATERCONTAINER1]>
+
+Compiling PRSOCond:
+OBJS: [WATERCONTAINER2]
+
+Compiling Conditions:
+TEST: PRSO: [WATERCONTAINER2]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@5c8504fd
+
+Compiling PlaceEff:
+ITEM: WATERCONTAINER2
+LOCATION: PRESSUREPLATE2
+LOCATION TYPE: 1
+
+Compiling TellEff:
+TEXT: You placed the copper jug on the pressure plate.
+
+Compiling AndFlagsCond:
+FLAGS: [_CONTAINER2FILLED]
+
+Compiling Conditions:
+TEST: AndFlags: [_CONTAINER2FILLED]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@4b7e96a
+
+Compiling SetFlagEff:
+FLAG: _PRESSUREPLATE2
+VALUE: 1
+
+Compiling TellEff:
+TEXT: You hear a rumble as the pressure plate clicks into place.
+
+Compiling AndFlagsCond:
+FLAGS: [_PRESSUREPLATE1]
+
+Compiling Conditions:
+TEST: AndFlags: [_PRESSUREPLATE1]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@6475472c
+
+Compiling TellEff:
+TEXT: You hear a loud rumbling as the alter before you lowers into the ground and reveals a hidden stairway...
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@6475472c
+ACTIONS: [SimpleEngine.Actions.Effects.TellEff@3f07b12c]
+INFO: New Conditional: <AndFlags: [_PRESSUREPLATE1]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@4b7e96a
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@4bd1f8dd, SimpleEngine.Actions.Effects.TellEff@7096b474, <AndFlags: [_PRESSUREPLATE1]>]
+INFO: New Conditional: <AndFlags: [_CONTAINER2FILLED]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@5c8504fd
+ACTIONS: [SimpleEngine.Actions.Effects.PlaceEff@3e14c16d, SimpleEngine.Actions.Effects.TellEff@3c989952, <AndFlags: [_CONTAINER2FILLED]>]
+INFO: New Conditional: <PRSO: [WATERCONTAINER2]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@73dce0e6
+ACTIONS: [<PRSO: [WATERCONTAINER1]>, <PRSO: [WATERCONTAINER2]>]
+INFO: New Conditional: <PRSAAnd: [PUT, ON] && !AndFlags: [_PRESSUREPLATE2]>
+
+Compile Action:
+ID: PRESSUREPLATE2
+ACTIONS: [<PRSAAnd: [PUT, ON] && !AndFlags: [_PRESSUREPLATE2]>]
+
+Compile Flag:
+FLAG: _PRESSUREPLATE2
+VALUE: 0
+
+Compile Object:
+ID: PRESSUREPLATE1
+LOCATION: ALTERROOM
+LOCATION TYPE: 0
+NAME: left pressure plate
+DESC: It's the pressure plate to your left. It needs something heavy placed on top of it to activate.
+SYNS: ["first plate", "first pressure plate", "pressure plate", "left plate", "plate", "plate 1"]
+FLAGS: []
+VALUES: 
+	surface:25
+DET: null
+USE ARE: false
+INFO: New Object: SimpleEngine.GameObject@784b990c
+
+Compiling PRSAAndCond:
+VERBS: [PUT, ON]
+
+Compiling AndFlagsCond:
+FLAGS: [_PRESSUREPLATE1]
+
+Compiling Conditions:
+TEST: AndFlags: [_PRESSUREPLATE1]
+TES IS NOT: true
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@3d3ba765
+
+Compiling Conditions:
+TEST: PRSAAnd: [PUT, ON]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@3d3ba765
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@25bc0606
+
+Compiling PRSOCond:
+OBJS: [WATERCONTAINER1]
+
+Compiling Conditions:
+TEST: PRSO: [WATERCONTAINER1]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@5d1659ea
+
+Compiling PlaceEff:
+ITEM: WATERCONTAINER1
+LOCATION: PRESSUREPLATE1
+LOCATION TYPE: 1
+
+Compiling TellEff:
+TEXT: You placed the clay pot on the pressure plate.
+
+Compiling AndFlagsCond:
+FLAGS: [_CONTAINER1FILLED]
+
+Compiling Conditions:
+TEST: AndFlags: [_CONTAINER1FILLED]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@793138bd
+
+Compiling SetFlagEff:
+FLAG: _PRESSUREPLATE1
+VALUE: 1
+
+Compiling TellEff:
+TEXT: You hear a rumble as the pressure plate clicks into place.
+
+Compiling AndFlagsCond:
+FLAGS: [_PRESSUREPLATE2]
+
+Compiling Conditions:
+TEST: AndFlags: [_PRESSUREPLATE2]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@1951b871
+
+Compiling TellEff:
+TEXT: You hear a loud rumbling as the alter before you lowers into the ground and reveals a hidden stairway...
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@1951b871
+ACTIONS: [SimpleEngine.Actions.Effects.TellEff@5c18016b]
+INFO: New Conditional: <AndFlags: [_PRESSUREPLATE2]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@793138bd
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@33aeca0b, SimpleEngine.Actions.Effects.TellEff@43aaf813, <AndFlags: [_PRESSUREPLATE2]>]
+INFO: New Conditional: <AndFlags: [_CONTAINER1FILLED]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@5d1659ea
+ACTIONS: [SimpleEngine.Actions.Effects.PlaceEff@57ac5227, SimpleEngine.Actions.Effects.TellEff@4ba302e0, <AndFlags: [_CONTAINER1FILLED]>]
+INFO: New Conditional: <PRSO: [WATERCONTAINER1]>
+
+Compiling PRSOCond:
+OBJS: [WATERCONTAINER2]
+
+Compiling Conditions:
+TEST: PRSO: [WATERCONTAINER2]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@e98770d
+
+Compiling PlaceEff:
+ITEM: WATERCONTAINER2
+LOCATION: PRESSUREPLATE1
+LOCATION TYPE: 1
+
+Compiling TellEff:
+TEXT: You placed the copper jug on the pressure plate.
+
+Compiling AndFlagsCond:
+FLAGS: [_CONTAINER2FILLED]
+
+Compiling Conditions:
+TEST: AndFlags: [_CONTAINER2FILLED]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@1ae67cad
+
+Compiling SetFlagEff:
+FLAG: _PRESSUREPLATE1
+VALUE: 1
+
+Compiling TellEff:
+TEXT: You hear a rumble as the pressure plate clicks into place.
+
+Compiling AndFlagsCond:
+FLAGS: [_PRESSUREPLATE2]
+
+Compiling Conditions:
+TEST: AndFlags: [_PRESSUREPLATE2]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@2f6e28bc
+
+Compiling TellEff:
+TEXT: You hear a loud rumbling as the alter before you lowers into the ground and reveals a hidden stairway...
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@2f6e28bc
+ACTIONS: [SimpleEngine.Actions.Effects.TellEff@7c098bb3]
+INFO: New Conditional: <AndFlags: [_PRESSUREPLATE2]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@1ae67cad
+ACTIONS: [SimpleEngine.Actions.Effects.SetFlagEff@31e4bb20, SimpleEngine.Actions.Effects.TellEff@18cebaa5, <AndFlags: [_PRESSUREPLATE2]>]
+INFO: New Conditional: <AndFlags: [_CONTAINER2FILLED]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@e98770d
+ACTIONS: [SimpleEngine.Actions.Effects.PlaceEff@463b4ac8, SimpleEngine.Actions.Effects.TellEff@765f05af, <AndFlags: [_CONTAINER2FILLED]>]
+INFO: New Conditional: <PRSO: [WATERCONTAINER2]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@25bc0606
+ACTIONS: [<PRSO: [WATERCONTAINER1]>, <PRSO: [WATERCONTAINER2]>]
+INFO: New Conditional: <PRSAAnd: [PUT, ON] && !AndFlags: [_PRESSUREPLATE1]>
+
+Compile Action:
+ID: PRESSUREPLATE1
+ACTIONS: [<PRSAAnd: [PUT, ON] && !AndFlags: [_PRESSUREPLATE1]>]
+
+Compile Flag:
+FLAG: _PRESSUREPLATE1
+VALUE: 1
+
+Compile Object:
+ID: WATERCONTAINER1
+LOCATION: PRESSUREPLATE1
+LOCATION TYPE: 1
+NAME: clay pot
+DESC: It's an old clay pot that was found holding down a pressure plate.%nIt looks like it would be heavy when filled with water.
+SYNS: ["container", "clay container", "pot"]
+FLAGS: [_TAKEABLE]
+VALUES: 
+	volume:25
+	capacity:25
+DET: null
+USE ARE: false
+INFO: New Object: SimpleEngine.GameObject@62f68dff
+
+Compiling PRSACond:
+VERBS: [POUR, SPILL, EMPTY, DROP]
+
+Compiling AndFlagsCond:
+FLAGS: [_CONTAINER1FILLED]
+
+Compiling Conditions:
+TEST: AndFlags: [_CONTAINER1FILLED]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@f001896
+
+Compiling Conditions:
+TEST: PRSA: [POUR, SPILL, EMPTY, DROP]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@f001896
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@13f17eb4
+
+Compiling RemFlagEff:
+FLAG: _CONTAINER1FILLED
+
+Compiling TellEff:
+TEXT: The clay pot was emptied of all of its water.
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@13f17eb4
+ACTIONS: [SimpleEngine.Actions.Effects.RemFlagEff@1d0d6318, SimpleEngine.Actions.Effects.TellEff@4bc28c33]
+INFO: New Conditional: <PRSA: [POUR, SPILL, EMPTY, DROP] && AndFlags: [_CONTAINER1FILLED]>
+
+Compiling PRSACond:
+VERBS: [FILL, PUT]
+
+Compiling AndFlagsCond:
+FLAGS: [_CONTAINER1FILLED]
+
+Compiling Conditions:
+TEST: AndFlags: [_CONTAINER1FILLED]
+TES IS NOT: true
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@4409e975
+
+Compiling Conditions:
+TEST: PRSA: [FILL, PUT]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@4409e975
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@5c153b9e
+
+Compiling PRSICond:
+OBJS: [WATERFALL]
+
+Compiling PRSACond:
+VERBS: [UNDER]
+
+Compiling Conditions:
+TEST: PRSA: [UNDER]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@2a7686a7
+
+Compiling Conditions:
+TEST: PRSI: [WATERFALL]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@2a7686a7
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@758a34ce
+
+Compiling PlaceEff:
+ITEM: WATERCONTAINER1
+LOCATION: WATERFALL
+LOCATION TYPE: 2
+
+Compiling TellEff:
+TEXT: You placed the clay pot under the waterfall. It fills up with water and becomes heavy!
+
+Compiling SetFlagEff:
+FLAG: _CONTAINER1FILLED
+VALUE: 1
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@758a34ce
+ACTIONS: [SimpleEngine.Actions.Effects.PlaceEff@7ec3394b, SimpleEngine.Actions.Effects.TellEff@bff34c6, SimpleEngine.Actions.Effects.SetFlagEff@1522d8a0]
+INFO: New Conditional: <PRSI: [WATERFALL] && PRSA: [UNDER]>
+
+Compiling PRSICond:
+OBJS: [RIVER, WATERFALL]
+
+Compiling Conditions:
+TEST: PRSI: [RIVER, WATERFALL]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@312ab28e
+
+Compiling TellEff:
+TEXT: You filled the clay pot up with water and it became heavy!
+
+Compiling SetFlagEff:
+FLAG: _CONTAINER1FILLED
+VALUE: 1
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@312ab28e
+ACTIONS: [SimpleEngine.Actions.Effects.TellEff@5644dc81, SimpleEngine.Actions.Effects.SetFlagEff@246f8b8b]
+INFO: New Conditional: <PRSI: [RIVER, WATERFALL]>
+
+Compiling InScopeCond:
+OBJ: WATERCONTAINER1
+LOCATIONS: [HERE]
+
+Compiling InScopeCond:
+OBJ: WATERFALL
+LOCATIONS: [HERE]
+
+Compiling Conditions:
+TEST: InScope: WATERFALL, [HERE]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@4351c8c3
+
+Compiling Conditions:
+TEST: InScope: WATERCONTAINER1, [HERE]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@4351c8c3
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@3381b4fc
+
+Compiling TellEff:
+TEXT: You filled the clay pot up with water and it became heavy!
+
+Compiling SetFlagEff:
+FLAG: _CONTAINER1FILLED
+VALUE: 1
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@3381b4fc
+ACTIONS: [SimpleEngine.Actions.Effects.TellEff@6bea52d4, SimpleEngine.Actions.Effects.SetFlagEff@11981797]
+INFO: New Conditional: <InScope: WATERCONTAINER1, [HERE] && InScope: WATERFALL, [HERE]>
+
+Compiling InScopeCond:
+OBJ: WATERCONTAINER1
+LOCATIONS: [HERE]
+
+Compiling InScopeCond:
+OBJ: RIVER
+LOCATIONS: [HERE]
+
+Compiling Conditions:
+TEST: InScope: RIVER, [HERE]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@5c42d2b7
+
+Compiling Conditions:
+TEST: InScope: WATERCONTAINER1, [HERE]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@5c42d2b7
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@625abb97
+
+Compiling TellEff:
+TEXT: You filled the clay pot up with water and it became heavy!
+
+Compiling SetFlagEff:
+FLAG: _CONTAINER1FILLED
+VALUE: 1
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@625abb97
+ACTIONS: [SimpleEngine.Actions.Effects.TellEff@5b1f29fa, SimpleEngine.Actions.Effects.SetFlagEff@aeab9a1]
+INFO: New Conditional: <InScope: WATERCONTAINER1, [HERE] && InScope: RIVER, [HERE]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@5c153b9e
+ACTIONS: [<PRSI: [WATERFALL] && PRSA: [UNDER]>, <PRSI: [RIVER, WATERFALL]>, <InScope: WATERCONTAINER1, [HERE] && InScope: WATERFALL, [HERE]>, <InScope: WATERCONTAINER1, [HERE] && InScope: RIVER, [HERE]>]
+INFO: New Conditional: <PRSA: [FILL, PUT] && !AndFlags: [_CONTAINER1FILLED]>
+
+Compiling PRSACond:
+VERBS: [TAKE, OBTAIN]
+
+Compiling InScopeCond:
+OBJ: WATERCONTAINER1
+LOCATIONS: [PRESSUREPLATE1]
+
+Compiling AndFlagsCond:
+FLAGS: [_CONTAINER1FILLED]
+
+Compiling Conditions:
+TEST: AndFlags: [_CONTAINER1FILLED]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@40f70521
+
+Compiling Conditions:
+TEST: InScope: WATERCONTAINER1, [PRESSUREPLATE1]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@40f70521
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@774698ab
+
+Compiling Conditions:
+TEST: PRSA: [TAKE, OBTAIN]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@774698ab
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@55342f40
+
+Compiling TakeEff:
+ITEM: WATERCONTAINER1
+
+Compiling RemFlagEff:
+FLAG: _PRESSUREPLATE1
+
+Compiling TellEff:
+TEXT: The left pressure plate raises back up as you take off the clay pot.
+
+Compiling AndFlagsCond:
+FLAGS: [_PRESSUREPLATE2]
+
+Compiling Conditions:
+TEST: AndFlags: [_PRESSUREPLATE2]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@a4ca3f6
+
+Compiling TellEff:
+TEXT: The alter rises back up from the floor and hides the secret stairway.
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@a4ca3f6
+ACTIONS: [SimpleEngine.Actions.Effects.TellEff@72ea6193]
+INFO: New Conditional: <AndFlags: [_PRESSUREPLATE2]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@55342f40
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@31aa3ca5, SimpleEngine.Actions.Effects.RemFlagEff@45905bff, SimpleEngine.Actions.Effects.TellEff@2a2c13a8, <AndFlags: [_PRESSUREPLATE2]>]
+INFO: New Conditional: <PRSA: [TAKE, OBTAIN] && InScope: WATERCONTAINER1, [PRESSUREPLATE1] && AndFlags: [_CONTAINER1FILLED]>
+
+Compiling PRSACond:
+VERBS: [TAKE, OBTAIN]
+
+Compiling InScopeCond:
+OBJ: WATERCONTAINER1
+LOCATIONS: [PRESSUREPLATE2]
+
+Compiling AndFlagsCond:
+FLAGS: [_CONTAINER2FILLED]
+
+Compiling Conditions:
+TEST: AndFlags: [_CONTAINER2FILLED]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@b6b1987
+
+Compiling Conditions:
+TEST: InScope: WATERCONTAINER1, [PRESSUREPLATE2]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@b6b1987
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@6b44435b
+
+Compiling Conditions:
+TEST: PRSA: [TAKE, OBTAIN]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@6b44435b
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@2ccca26f
+
+Compiling TakeEff:
+ITEM: WATERCONTAINER1
+
+Compiling RemFlagEff:
+FLAG: _PRESSUREPLATE2
+
+Compiling TellEff:
+TEXT: The right pressure plate raises back up as you take off the clay pot.
+
+Compiling AndFlagsCond:
+FLAGS: [_PRESSUREPLATE1]
+
+Compiling Conditions:
+TEST: AndFlags: [_PRESSUREPLATE1]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@66b7550d
+
+Compiling TellEff:
+TEXT: The alter rises back up from the floor and hides the secret stairway.
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@66b7550d
+ACTIONS: [SimpleEngine.Actions.Effects.TellEff@3543df7d]
+INFO: New Conditional: <AndFlags: [_PRESSUREPLATE1]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@2ccca26f
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@7c541c15, SimpleEngine.Actions.Effects.RemFlagEff@3542162a, SimpleEngine.Actions.Effects.TellEff@698122b2, <AndFlags: [_PRESSUREPLATE1]>]
+INFO: New Conditional: <PRSA: [TAKE, OBTAIN] && InScope: WATERCONTAINER1, [PRESSUREPLATE2] && AndFlags: [_CONTAINER2FILLED]>
+
+Compile Action:
+ID: WATERCONTAINER1
+ACTIONS: [<PRSA: [POUR, SPILL, EMPTY, DROP] && AndFlags: [_CONTAINER1FILLED]>, <PRSA: [FILL, PUT] && !AndFlags: [_CONTAINER1FILLED]>, <PRSA: [TAKE, OBTAIN] && InScope: WATERCONTAINER1, [PRESSUREPLATE1] && AndFlags: [_CONTAINER1FILLED]>, <PRSA: [TAKE, OBTAIN] && InScope: WATERCONTAINER1, [PRESSUREPLATE2] && AndFlags: [_CONTAINER2FILLED]>]
+
+Compile Flag:
+FLAG: _CONTAINER1FILLED
+VALUE: 1
+
+Compile Room:
+ID: TREASUREROOM
+N: null
+NCONDS: null
+NHIDDEN: false
+NBLOCKMESSAGE: null
+S: null
+SCONDS: null
+SHIDDEN: false
+SBLOCKMESSAGE: null
+E: null
+ECONDS: null
+EHIDDEN: false
+EBLOCKMESSAGE: null
+W: null
+WCONDS: null
+WHIDDEN: false
+WBLOCKMESSAGE: null
+U: ALTERROOM
+UCONDS: []
+UHIDDEN: false
+UBLOCKMESSAGE: null
+D: null
+DCONDS: null
+DHIDDEN: false
+DBLOCKMESSAGE: null
+NAME: Treasure Room
+DESC: Dazzling golden walls surround the room, the faces of ancient deities etched into each one!
+SYNS: []
+DET: the
+INFO: New Room: SimpleEngine.GameRoom@4212a0c8
+
+Compile Object:
+ID: CHEST
+LOCATION: TREASUREROOM
+LOCATION TYPE: 0
+NAME: treasure chest
+DESC: A golden treasure chest studded with rubies and emeralds.
+SYNS: ["box", "chest"]
+FLAGS: [_TAKEABLE, _CLOSABLECONTAINER, _LOCKED]
+VALUES: 
+	volume:50
+	capacity:50
+DET: null
+USE ARE: false
+INFO: New Object: SimpleEngine.GameObject@3b2c0e88
+
+Compiling PRSACond:
+VERBS: [UNLOCK]
+
+Compiling AndPropertiesCond:
+OBJECT: CHEST
+PROPERTIES: [_LOCKED]
+
+Compiling HaveItemCond:
+OBJS: [KEY]
+
+Compiling Conditions:
+TEST: HaveItem: [KEY]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@476b0ae6
+
+Compiling Conditions:
+TEST: AndProperties: CHEST, [_LOCKED]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@476b0ae6
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@1c6804cd
+
+Compiling Conditions:
+TEST: PRSA: [UNLOCK]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@1c6804cd
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@655f7ea
+
+Compiling RemovePropertyEff:
+ITEM: CHEST
+PROPERTY: _LOCKED
+
+Compiling TellEff:
+TEXT: 'CLICK' - The golden chest was unlocked!
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@655f7ea
+ACTIONS: [SimpleEngine.Actions.Effects.RemovePropertyEff@4b3a45f1, SimpleEngine.Actions.Effects.TellEff@17a87e37]
+INFO: New Conditional: <PRSA: [UNLOCK] && AndProperties: CHEST, [_LOCKED] && HaveItem: [KEY]>
+
+Compiling PRSACond:
+VERBS: [LOCK]
+
+Compiling AndPropertiesCond:
+OBJECT: CHEST
+PROPERTIES: [_LOCKED]
+
+Compiling HaveItemCond:
+OBJS: [KEY]
+
+Compiling Conditions:
+TEST: HaveItem: [KEY]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@3eeb318f
+
+Compiling Conditions:
+TEST: AndProperties: CHEST, [_LOCKED]
+TES IS NOT: true
+CONTINUATION: SimpleEngine.Actions.Condition@3eeb318f
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@20a14b55
+
+Compiling Conditions:
+TEST: PRSA: [LOCK]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@20a14b55
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@39ad977d
+
+Compiling EqualsCond:
+LEFT OBJ: CHEST
+RIGHT OBJ: CHEST
+LHS: isClosed
+RHS: isClosed
+BOTH VARS: false
+
+Compiling Conditions:
+TEST: Equals: CHEST, isClosed, CHEST, TRUE
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@3f792b9b
+
+Compiling AddPropertyEff:
+ITEM: CHEST
+PROPERTY: _LOCKED
+
+Compiling TellEff:
+TEXT: You locked the golden chest.
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@3f792b9b
+ACTIONS: [SimpleEngine.Actions.Effects.AddPropertyEff@4b20ca2b, SimpleEngine.Actions.Effects.TellEff@1cbf6e72]
+INFO: New Conditional: <Equals: CHEST, isClosed, CHEST, TRUE>
+
+Compiling EqualsCond:
+LEFT OBJ: CHEST
+RIGHT OBJ: CHEST
+LHS: isClosed
+RHS: isClosed
+BOTH VARS: false
+
+Compiling Conditions:
+TEST: Equals: CHEST, isClosed, CHEST, FALSE
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@6aecbb8d
+
+Compiling TellEff:
+TEXT: You can't lock the chest when it's open.
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@6aecbb8d
+ACTIONS: [SimpleEngine.Actions.Effects.TellEff@1af146]
+INFO: New Conditional: <Equals: CHEST, isClosed, CHEST, FALSE>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@39ad977d
+ACTIONS: [<Equals: CHEST, isClosed, CHEST, TRUE>, <Equals: CHEST, isClosed, CHEST, FALSE>]
+INFO: New Conditional: <PRSA: [LOCK] && !AndProperties: CHEST, [_LOCKED] && HaveItem: [KEY]>
+
+Compile Action:
+ID: CHEST
+ACTIONS: [<PRSA: [UNLOCK] && AndProperties: CHEST, [_LOCKED] && HaveItem: [KEY]>, <PRSA: [LOCK] && !AndProperties: CHEST, [_LOCKED] && HaveItem: [KEY]>]
+
+Compile Object:
+ID: TREASURE
+LOCATION: CHEST
+LOCATION TYPE: 0
+NAME: treasure
+DESC: All the riches you could ever dream of! Sparkling jewels, shining gold, glowing rubies, and more!
+SYNS: []
+FLAGS: [_TAKEABLE]
+VALUES: 
+	volume:50
+DET: null
+USE ARE: false
+INFO: New Object: SimpleEngine.GameObject@4da602fc
+
+Compiling PRSACond:
+VERBS: [TAKE, OBTAIN]
+
+Compiling Conditions:
+TEST: PRSA: [TAKE, OBTAIN]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@2a8d39c4
+
+Compiling TakeEff:
+ITEM: TREASURE
+
+Compiling SetFlagEff:
+FLAG: _TREASUREOBTAINED
+VALUE: 1
+
+Compiling TellEff:
+TEXT: CONGRATULATIONS! You have successfully taken the treasure!
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@2a8d39c4
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@25b2cfcb, SimpleEngine.Actions.Effects.SetFlagEff@72758afa, SimpleEngine.Actions.Effects.TellEff@fb9c7aa]
+INFO: New Conditional: <PRSA: [TAKE, OBTAIN]>
+
+Compile Action:
+ID: TREASURE
+ACTIONS: [<PRSA: [TAKE, OBTAIN]>]
+
+Compile Flag:
+FLAG: _TREASUREOBTAINED
+VALUE: 0
+
+Compile Room:
+ID: STORAGEROOM
+N: null
+NCONDS: null
+NHIDDEN: false
+NBLOCKMESSAGE: null
+S: null
+SCONDS: null
+SHIDDEN: false
+SBLOCKMESSAGE: null
+E: null
+ECONDS: null
+EHIDDEN: false
+EBLOCKMESSAGE: null
+W: COLUMNS
+WCONDS: []
+WHIDDEN: false
+WBLOCKMESSAGE: null
+U: ATTIC
+UCONDS: [_SMALLONMEDIUM=1, _LARGEINSTORAGEROOM=1, _MEDIUMONLARGE=1]
+UHIDDEN: false
+UBLOCKMESSAGE: Could you reach the attic if you stacked some blocks up as a stairway?
+D: null
+DCONDS: null
+DHIDDEN: false
+DBLOCKMESSAGE: null
+NAME: Storage Room
+DESC: This room looks like it was used to store things. There is all sorts of wood and degraded items lying about.
+SYNS: []
+DET: null
+INFO: New Room: SimpleEngine.GameRoom@4c398c80
+
+Compile Object:
+ID: CUPBOARD
+LOCATION: STORAGEROOM
+LOCATION TYPE: 0
+NAME: cupboard
+DESC: An old marble cupboard. It's amazing that the thin stone door still slides open and shut!
+SYNS: ["compartment", "counter", "surface"]
+FLAGS: [_CLOSABLECONTAINER]
+VALUES: 
+	surface:25
+	capacity:25
+DET: null
+USE ARE: false
+INFO: New Object: SimpleEngine.GameObject@7fc6de5b
+
+Compile Object:
+ID: WATERCONTAINER2
+LOCATION: CUPBOARD
+LOCATION TYPE: 0
+NAME: copper jug
+DESC: It's an old copper jug. It's colouration has slowly turned mint green over time.%nIt looks like it would be heavy when filled with water.
+SYNS: ["copper container", "jug", "container"]
+FLAGS: [_TAKEABLE]
+VALUES: 
+	volume:25
+	capacity:25
+DET: null
+USE ARE: false
+INFO: New Object: SimpleEngine.GameObject@21baa903
+
+Compiling PRSACond:
+VERBS: [POUR, SPILL, EMPTY, DROP]
+
+Compiling AndFlagsCond:
+FLAGS: [_CONTAINER2FILLED]
+
+Compiling Conditions:
+TEST: AndFlags: [_CONTAINER2FILLED]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@607fbe09
+
+Compiling Conditions:
+TEST: PRSA: [POUR, SPILL, EMPTY, DROP]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@607fbe09
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@60a2630a
+
+Compiling RemFlagEff:
+FLAG: _CONTAINER2FILLED
+
+Compiling TellEff:
+TEXT: The copper jug was emptied of all of its water.
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@60a2630a
+ACTIONS: [SimpleEngine.Actions.Effects.RemFlagEff@29df4d43, SimpleEngine.Actions.Effects.TellEff@5dd91bca]
+INFO: New Conditional: <PRSA: [POUR, SPILL, EMPTY, DROP] && AndFlags: [_CONTAINER2FILLED]>
+
+Compiling PRSACond:
+VERBS: [FILL, PUT]
+
+Compiling AndFlagsCond:
+FLAGS: [_CONTAINER2FILLED]
+
+Compiling Conditions:
+TEST: AndFlags: [_CONTAINER2FILLED]
+TES IS NOT: true
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@40cb698e
+
+Compiling Conditions:
+TEST: PRSA: [FILL, PUT]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@40cb698e
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@3382f8ae
+
+Compiling PRSICond:
+OBJS: [WATERFALL]
+
+Compiling PRSACond:
+VERBS: [UNDER]
+
+Compiling Conditions:
+TEST: PRSA: [UNDER]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@60641ec8
+
+Compiling Conditions:
+TEST: PRSI: [WATERFALL]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@60641ec8
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@75f65e45
+
+Compiling PlaceEff:
+ITEM: WATERCONTAINER2
+LOCATION: WATERFALL
+LOCATION TYPE: 2
+
+Compiling TellEff:
+TEXT: You placed the copper jug under the waterfall. It fills up with water and becomes heavy!
+
+Compiling SetFlagEff:
+FLAG: _CONTAINER2FILLED
+VALUE: 1
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@75f65e45
+ACTIONS: [SimpleEngine.Actions.Effects.PlaceEff@6eeade6c, SimpleEngine.Actions.Effects.TellEff@4a891c97, SimpleEngine.Actions.Effects.SetFlagEff@a5bd950]
+INFO: New Conditional: <PRSI: [WATERFALL] && PRSA: [UNDER]>
+
+Compiling PRSICond:
+OBJS: [RIVER, WATERFALL]
+
+Compiling Conditions:
+TEST: PRSI: [RIVER, WATERFALL]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@4d18aa28
+
+Compiling TellEff:
+TEXT: You filled the copper jug up with water and it became heavy!
+
+Compiling SetFlagEff:
+FLAG: _CONTAINER2FILLED
+VALUE: 1
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@4d18aa28
+ACTIONS: [SimpleEngine.Actions.Effects.TellEff@75390459, SimpleEngine.Actions.Effects.SetFlagEff@7756c3cd]
+INFO: New Conditional: <PRSI: [RIVER, WATERFALL]>
+
+Compiling InScopeCond:
+OBJ: WATERCONTAINER2
+LOCATIONS: [HERE]
+
+Compiling InScopeCond:
+OBJ: WATERFALL
+LOCATIONS: [HERE]
+
+Compiling Conditions:
+TEST: InScope: WATERFALL, [HERE]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@2313052e
+
+Compiling Conditions:
+TEST: InScope: WATERCONTAINER2, [HERE]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@2313052e
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@2bd2b28e
+
+Compiling TellEff:
+TEXT: You filled the copper jug up with water and it became heavy!
+
+Compiling SetFlagEff:
+FLAG: _CONTAINER2FILLED
+VALUE: 1
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@2bd2b28e
+ACTIONS: [SimpleEngine.Actions.Effects.TellEff@16746061, SimpleEngine.Actions.Effects.SetFlagEff@57fd91c9]
+INFO: New Conditional: <InScope: WATERCONTAINER2, [HERE] && InScope: WATERFALL, [HERE]>
+
+Compiling InScopeCond:
+OBJ: WATERCONTAINER2
+LOCATIONS: [HERE]
+
+Compiling InScopeCond:
+OBJ: RIVER
+LOCATIONS: [HERE]
+
+Compiling Conditions:
+TEST: InScope: RIVER, [HERE]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@6cfcd46d
+
+Compiling Conditions:
+TEST: InScope: WATERCONTAINER2, [HERE]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@6cfcd46d
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@52045dbe
+
+Compiling TellEff:
+TEXT: You filled the copper jug up with water and it became heavy!
+
+Compiling SetFlagEff:
+FLAG: _CONTAINER2FILLED
+VALUE: 1
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@52045dbe
+ACTIONS: [SimpleEngine.Actions.Effects.TellEff@674658f7, SimpleEngine.Actions.Effects.SetFlagEff@5c8eee0f]
+INFO: New Conditional: <InScope: WATERCONTAINER2, [HERE] && InScope: RIVER, [HERE]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@3382f8ae
+ACTIONS: [<PRSI: [WATERFALL] && PRSA: [UNDER]>, <PRSI: [RIVER, WATERFALL]>, <InScope: WATERCONTAINER2, [HERE] && InScope: WATERFALL, [HERE]>, <InScope: WATERCONTAINER2, [HERE] && InScope: RIVER, [HERE]>]
+INFO: New Conditional: <PRSA: [FILL, PUT] && !AndFlags: [_CONTAINER2FILLED]>
+
+Compiling PRSACond:
+VERBS: [TAKE, OBTAIN]
+
+Compiling InScopeCond:
+OBJ: WATERCONTAINER2
+LOCATIONS: [PRESSUREPLATE1]
+
+Compiling AndFlagsCond:
+FLAGS: [_CONTAINER2FILLED]
+
+Compiling Conditions:
+TEST: AndFlags: [_CONTAINER2FILLED]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@565b064f
+
+Compiling Conditions:
+TEST: InScope: WATERCONTAINER2, [PRESSUREPLATE1]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@565b064f
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@26425897
+
+Compiling Conditions:
+TEST: PRSA: [TAKE, OBTAIN]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@26425897
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@73163d48
+
+Compiling TakeEff:
+ITEM: WATERCONTAINER2
+
+Compiling RemFlagEff:
+FLAG: _PRESSUREPLATE1
+
+Compiling TellEff:
+TEXT: The left pressure plate raises back up as you take off the copper jug.
+
+Compiling AndFlagsCond:
+FLAGS: [_PRESSUREPLATE2]
+
+Compiling Conditions:
+TEST: AndFlags: [_PRESSUREPLATE2]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@58c34bb3
+
+Compiling TellEff:
+TEXT: The alter rises back up from the floor and hides the secret stairway.
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@58c34bb3
+ACTIONS: [SimpleEngine.Actions.Effects.TellEff@56a4479a]
+INFO: New Conditional: <AndFlags: [_PRESSUREPLATE2]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@73163d48
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@62163b39, SimpleEngine.Actions.Effects.RemFlagEff@20a8a64e, SimpleEngine.Actions.Effects.TellEff@62f4ff3b, <AndFlags: [_PRESSUREPLATE2]>]
+INFO: New Conditional: <PRSA: [TAKE, OBTAIN] && InScope: WATERCONTAINER2, [PRESSUREPLATE1] && AndFlags: [_CONTAINER2FILLED]>
+
+Compiling PRSACond:
+VERBS: [TAKE, OBTAIN]
+
+Compiling InScopeCond:
+OBJ: WATERCONTAINER2
+LOCATIONS: [PRESSUREPLATE2]
+
+Compiling AndFlagsCond:
+FLAGS: [_CONTAINER2FILLED]
+
+Compiling Conditions:
+TEST: AndFlags: [_CONTAINER2FILLED]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@1698fc68
+
+Compiling Conditions:
+TEST: InScope: WATERCONTAINER2, [PRESSUREPLATE2]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@1698fc68
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@4504d271
+
+Compiling Conditions:
+TEST: PRSA: [TAKE, OBTAIN]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@4504d271
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@207b8649
+
+Compiling TakeEff:
+ITEM: WATERCONTAINER2
+
+Compiling RemFlagEff:
+FLAG: _PRESSUREPLATE2
+
+Compiling TellEff:
+TEXT: The right pressure plate raises back up as you take off the copper jug.
+
+Compiling AndFlagsCond:
+FLAGS: [_PRESSUREPLATE1]
+
+Compiling Conditions:
+TEST: AndFlags: [_PRESSUREPLATE1]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@65b3a85a
+
+Compiling TellEff:
+TEXT: The alter rises back up from the floor and hides the secret stairway.
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@65b3a85a
+ACTIONS: [SimpleEngine.Actions.Effects.TellEff@34997338]
+INFO: New Conditional: <AndFlags: [_PRESSUREPLATE1]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@207b8649
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@57eda880, SimpleEngine.Actions.Effects.RemFlagEff@2b5825fa, SimpleEngine.Actions.Effects.TellEff@53d1b9b3, <AndFlags: [_PRESSUREPLATE1]>]
+INFO: New Conditional: <PRSA: [TAKE, OBTAIN] && InScope: WATERCONTAINER2, [PRESSUREPLATE2] && AndFlags: [_CONTAINER2FILLED]>
+
+Compile Action:
+ID: WATERCONTAINER2
+ACTIONS: [<PRSA: [POUR, SPILL, EMPTY, DROP] && AndFlags: [_CONTAINER2FILLED]>, <PRSA: [FILL, PUT] && !AndFlags: [_CONTAINER2FILLED]>, <PRSA: [TAKE, OBTAIN] && InScope: WATERCONTAINER2, [PRESSUREPLATE1] && AndFlags: [_CONTAINER2FILLED]>, <PRSA: [TAKE, OBTAIN] && InScope: WATERCONTAINER2, [PRESSUREPLATE2] && AndFlags: [_CONTAINER2FILLED]>]
+
+Compile Flag:
+FLAG: _CONTAINER2FILLED
+VALUE: 0
+
+Compile Object:
+ID: PLANK
+LOCATION: STORAGEROOM
+LOCATION TYPE: 0
+NAME: wooden plank
+DESC: A long wooden plank that has somehow managed to avoid rotting away.%nIt looks sturdy enough to be used as a bridge.
+SYNS: ["plank", "log", "wood", "bridge"]
+FLAGS: [_TAKEABLE]
+VALUES: 
+	volume:50
+	surface:50
+DET: null
+USE ARE: false
+INFO: New Object: SimpleEngine.GameObject@2cae1042
+
+Compiling PRSACond:
+VERBS: [PLACE, PUT]
+
+Compiling PRSOCond:
+OBJS: [PLANK]
+
+Compiling Conditions:
+TEST: PRSO: [PLANK]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@163d04ff
+
+Compiling Conditions:
+TEST: PRSA: [PLACE, PUT]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@163d04ff
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@7c209437
+
+Compiling PRSICond:
+OBJS: [RIVER]
+
+Compiling PRSICond:
+OBJS: [RIVERSTILTS]
+
+Compiling Conditions:
+TEST: PRSI: [RIVERSTILTS]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@2262b621
+
+Compiling Conditions:
+TEST: PRSI: [RIVER]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@2262b621
+IsAND: false
+IsOR: true
+INFO: New Conditions: SimpleEngine.Actions.Condition@7e928e2f
+
+Compiling PlaceEff:
+ITEM: PLANK
+LOCATION: RIVERSTILTS
+LOCATION TYPE: 1
+
+Compiling TellEff:
+TEXT: You placed the wooden plank on top of the wooden stilts in the river.
+
+Compiling SetFlagEff:
+FLAG: _RIVERCROSSABLE
+VALUE: 1
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@7e928e2f
+ACTIONS: [SimpleEngine.Actions.Effects.PlaceEff@f667fe, SimpleEngine.Actions.Effects.TellEff@788fcafb, SimpleEngine.Actions.Effects.SetFlagEff@4febb875]
+INFO: New Conditional: <PRSI: [RIVER] || PRSI: [RIVERSTILTS]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@7c209437
+ACTIONS: [<PRSI: [RIVER] || PRSI: [RIVERSTILTS]>]
+INFO: New Conditional: <PRSA: [PLACE, PUT] && PRSO: [PLANK]>
+
+Compiling PRSACond:
+VERBS: [TAKE, PICK, OBTAIN]
+
+Compiling PRSOCond:
+OBJS: [PLANK]
+
+Compiling Conditions:
+TEST: PRSO: [PLANK]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@25e2a451
+
+Compiling Conditions:
+TEST: PRSA: [TAKE, PICK, OBTAIN]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@25e2a451
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@1698ee84
+
+Compiling TakeEff:
+ITEM: PLANK
+
+Compiling RemFlagEff:
+FLAG: _RIVERCROSSABLE
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@1698ee84
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@10c626be, SimpleEngine.Actions.Effects.RemFlagEff@2fc0cc3]
+INFO: New Conditional: <PRSA: [TAKE, PICK, OBTAIN] && PRSO: [PLANK]>
+
+Compiling PRSACond:
+VERBS: [FORM, MAKE]
+
+Compiling PRSOCond:
+OBJS: [PLANK]
+
+Compiling HereCond:
+LOCATIONS: [EASTRIVER]
+
+Compiling Conditions:
+TEST: Here: [EASTRIVER]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@63b1d4fa
+
+Compiling Conditions:
+TEST: PRSO: [PLANK]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@63b1d4fa
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@42e3ede4
+
+Compiling Conditions:
+TEST: PRSA: [FORM, MAKE]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@42e3ede4
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@201b6b6f
+
+Compiling PlaceEff:
+ITEM: PLANK
+LOCATION: RIVERSTILTS
+LOCATION TYPE: 1
+
+Compiling TellEff:
+TEXT: You placed the wooden plank on top of the wooden stilts in the river.
+
+Compiling SetFlagEff:
+FLAG: _RIVERCROSSABLE
+VALUE: 1
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@201b6b6f
+ACTIONS: [SimpleEngine.Actions.Effects.PlaceEff@75459c75, SimpleEngine.Actions.Effects.TellEff@183e8023, SimpleEngine.Actions.Effects.SetFlagEff@45efc20d]
+INFO: New Conditional: <PRSA: [FORM, MAKE] && PRSO: [PLANK] && Here: [EASTRIVER]>
+
+Compile Action:
+ID: PLANK
+ACTIONS: [<PRSA: [PLACE, PUT] && PRSO: [PLANK]>, <PRSA: [TAKE, PICK, OBTAIN] && PRSO: [PLANK]>, <PRSA: [FORM, MAKE] && PRSO: [PLANK] && Here: [EASTRIVER]>]
+
+Compile Flag:
+FLAG: _RIVERCROSSABLE
+VALUE: 0
+
+Compile Room:
+ID: ATTIC
+N: null
+NCONDS: null
+NHIDDEN: false
+NBLOCKMESSAGE: null
+S: null
+SCONDS: null
+SHIDDEN: false
+SBLOCKMESSAGE: null
+E: null
+ECONDS: null
+EHIDDEN: false
+EBLOCKMESSAGE: null
+W: null
+WCONDS: null
+WHIDDEN: false
+WBLOCKMESSAGE: null
+U: null
+UCONDS: null
+UHIDDEN: false
+UBLOCKMESSAGE: null
+D: STORAGEROOM
+DCONDS: []
+DHIDDEN: false
+DBLOCKMESSAGE: null
+NAME: Attic
+DESC: A musty room above the storage room. A few small things are scattered around amongst all of the rubble, dust, and cobwebs.
+SYNS: []
+DET: null
+INFO: New Room: SimpleEngine.GameRoom@3e5499cc
+
+Compile Object:
+ID: KEY
+LOCATION: ATTIC
+LOCATION TYPE: 0
+NAME: golden key
+DESC: An old ornate golden key. It looks important.
+SYNS: ["key"]
+FLAGS: [_TAKEABLE]
+VALUES: 
+	volume:10
+DET: null
+USE ARE: false
+INFO: New Object: SimpleEngine.GameObject@67ab1c47
+
+Compile Room:
+ID: ROCKYTUNNEL
+N: EASTRIVER
+NCONDS: []
+NHIDDEN: false
+NBLOCKMESSAGE: null
+S: null
+SCONDS: null
+SHIDDEN: false
+SBLOCKMESSAGE: null
+E: RUINSENTRANCE
+ECONDS: []
+EHIDDEN: false
+EBLOCKMESSAGE: null
+W: null
+WCONDS: null
+WHIDDEN: false
+WBLOCKMESSAGE: null
+U: null
+UCONDS: null
+UHIDDEN: false
+UBLOCKMESSAGE: null
+D: null
+DCONDS: null
+DHIDDEN: false
+DBLOCKMESSAGE: null
+NAME: Rocky Tunnel
+DESC: This claustrophobic tunnel is littered with rocks and boulders.
+SYNS: []
+DET: null
+INFO: New Room: SimpleEngine.GameRoom@b78a709
+
+Compile Object:
+ID: MEDIUMBLOCK
+LOCATION: ROCKYTUNNEL
+LOCATION TYPE: 0
+NAME: medium block
+DESC: It's a medium sized block of rock. This boulder looks as if it collapsed from the walls of the rocky tunnel, perhaps it could be used as a building block to climb on.
+SYNS: ["medium", "medium boulder", "boulder", "block", "medium block", "rock block"]
+FLAGS: [_TAKEABLE]
+VALUES: 
+	volume:50
+	surface:50
+DET: null
+USE ARE: false
+INFO: New Object: SimpleEngine.GameObject@30bcf3c1
+
+Compiling PRSACond:
+VERBS: [PLACE, PUT]
+
+Compiling PRSACond:
+VERBS: [ON]
+
+Compiling PRSOCond:
+OBJS: [MEDIUMBLOCK]
+
+Compiling PRSICond:
+OBJS: [LARGEBLOCK]
+
+Compiling Conditions:
+TEST: PRSI: [LARGEBLOCK]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@2a3c96e3
+
+Compiling Conditions:
+TEST: PRSO: [MEDIUMBLOCK]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@2a3c96e3
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@15cafec7
+
+Compiling Conditions:
+TEST: PRSA: [ON]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@15cafec7
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@5b444398
+
+Compiling Conditions:
+TEST: PRSA: [PLACE, PUT]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@5b444398
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@cb191ca
+
+Compiling PlaceEff:
+ITEM: MEDIUMBLOCK
+LOCATION: LARGEBLOCK
+LOCATION TYPE: 1
+
+Compiling TellEff:
+TEXT: You placed the medium block on top of the large block.
+
+Compiling SetFlagEff:
+FLAG: _MEDIUMONLARGE
+VALUE: 1
+
+Compiling AndFlagsCond:
+FLAGS: [_SMALLONMEDIUM, _LARGEINSTORAGEROOM]
+
+Compiling Conditions:
+TEST: AndFlags: [_SMALLONMEDIUM, _LARGEINSTORAGEROOM]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@42f48531
+
+Compiling TellEff:
+TEXT: With all three blocks stacked on top of one another, you should be able to climb up to the attic above you!
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@42f48531
+ACTIONS: [SimpleEngine.Actions.Effects.TellEff@a776e]
+INFO: New Conditional: <AndFlags: [_SMALLONMEDIUM, _LARGEINSTORAGEROOM]>
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@cb191ca
+ACTIONS: [SimpleEngine.Actions.Effects.PlaceEff@792bbc74, SimpleEngine.Actions.Effects.TellEff@79145d5a, SimpleEngine.Actions.Effects.SetFlagEff@1f2f9244, <AndFlags: [_SMALLONMEDIUM, _LARGEINSTORAGEROOM]>]
+INFO: New Conditional: <PRSA: [PLACE, PUT] && PRSA: [ON] && PRSO: [MEDIUMBLOCK] && PRSI: [LARGEBLOCK]>
+
+Compiling PRSACond:
+VERBS: [TAKE, OBTAIN]
+
+Compiling PRSOCond:
+OBJS: [MEDIUMBLOCK]
+
+Compiling Conditions:
+TEST: PRSO: [MEDIUMBLOCK]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@4c4d27c8
+
+Compiling Conditions:
+TEST: PRSA: [TAKE, OBTAIN]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@4c4d27c8
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@6821ea29
+
+Compiling TakeEff:
+ITEM: MEDIUMBLOCK
+
+Compiling RemFlagEff:
+FLAG: _MEDIUMONLARGE
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@6821ea29
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@338494fa, SimpleEngine.Actions.Effects.RemFlagEff@505a9d7c]
+INFO: New Conditional: <PRSA: [TAKE, OBTAIN] && PRSO: [MEDIUMBLOCK]>
+
+Compile Action:
+ID: MEDIUMBLOCK
+ACTIONS: [<PRSA: [PLACE, PUT] && PRSA: [ON] && PRSO: [MEDIUMBLOCK] && PRSI: [LARGEBLOCK]>, <PRSA: [TAKE, OBTAIN] && PRSO: [MEDIUMBLOCK]>]
+
+Compile Flag:
+FLAG: _MEDIUMONLARGE
+VALUE: 0
+
+Compile Room:
+ID: EASTRIVER
+N: WATERFALLCAVERN
+NCONDS: []
+NHIDDEN: false
+NBLOCKMESSAGE: null
+S: ROCKYTUNNEL
+SCONDS: []
+SHIDDEN: false
+SBLOCKMESSAGE: null
+E: COLUMNS
+ECONDS: []
+EHIDDEN: false
+EBLOCKMESSAGE: null
+W: WESTRIVER
+WCONDS: [_RIVERCROSSABLE=1]
+WHIDDEN: false
+WBLOCKMESSAGE: The river is flowing too rapidly to safely cross without some sort of bridge!
+U: null
+UCONDS: null
+UHIDDEN: false
+UBLOCKMESSAGE: null
+D: null
+DCONDS: null
+DHIDDEN: false
+DBLOCKMESSAGE: null
+NAME: East River Cavern
+DESC: The east side of the river. Rotten wooden stilts extend across the river as if there used to be a bridge here in the distant past
+SYNS: []
+DET: the
+INFO: New Room: SimpleEngine.GameRoom@758c83d8
+
+Compile Object:
+ID: RIVER
+LOCATION: EASTRIVER
+LOCATION TYPE: 0
+NAME: river
+DESC: A fast flowing river snaking it's way through the expansive caverns.%nMost of this cave system would have been forged by this gushing torrent over time.
+SYNS: ["torrent", "rapids", "water"]
+FLAGS: []
+VALUES: 
+	capacity:0
+DET: null
+USE ARE: false
+INFO: New Object: SimpleEngine.GameObject@129b4fe2
+
+Compile Object:
+ID: RIVERSTILTS
+LOCATION: RIVER
+LOCATION TYPE: 0
+NAME: stilts
+DESC: Rotting wooden stilts that extend across the river. This suggests a bridge existed here once.
+SYNS: []
+FLAGS: []
+VALUES: 
+	volume:0
+	surface:50
+DET: some
+USE ARE: true
+INFO: New Object: SimpleEngine.GameObject@5af3a0f
+
+Compile Room:
+ID: WATERFALLCAVERN
+N: null
+NCONDS: null
+NHIDDEN: false
+NBLOCKMESSAGE: null
+S: EASTRIVER
+SCONDS: []
+SHIDDEN: false
+SBLOCKMESSAGE: null
+E: ALTERROOM
+ECONDS: []
+EHIDDEN: false
+EBLOCKMESSAGE: null
+W: null
+WCONDS: null
+WHIDDEN: false
+WBLOCKMESSAGE: null
+U: null
+UCONDS: null
+UHIDDEN: false
+UBLOCKMESSAGE: null
+D: null
+DCONDS: null
+DHIDDEN: false
+DBLOCKMESSAGE: null
+NAME: Waterfall Cavern
+DESC: A roaring waterfall is cascading down into this spacious cavern. A river stretches south from its base.
+SYNS: []
+DET: null
+INFO: New Room: SimpleEngine.GameRoom@19ae6bb
+
+Compile Object:
+ID: WATERFALL
+LOCATION: WATERFALLCAVERN
+LOCATION TYPE: 0
+NAME: waterfall
+DESC: The sound of the roaring waterfall echoes throughout the cavern. It feeds into the river flowing southward.
+SYNS: ["fall"]
+FLAGS: []
+VALUES: 
+	below:100
+DET: null
+USE ARE: false
+INFO: New Object: SimpleEngine.GameObject@10993713
+
+Compile Room:
+ID: WESTRIVER
+N: ANCIENTQUARRY
+NCONDS: []
+NHIDDEN: false
+NBLOCKMESSAGE: null
+S: null
+SCONDS: null
+SHIDDEN: false
+SBLOCKMESSAGE: null
+E: EASTRIVER
+ECONDS: [_RIVERCROSSABLE=1]
+EHIDDEN: false
+EBLOCKMESSAGE: The river is flowing too rapidly to safely cross without some sort of bridge!
+W: null
+WCONDS: null
+WHIDDEN: false
+WBLOCKMESSAGE: null
+U: null
+UCONDS: null
+UHIDDEN: false
+UBLOCKMESSAGE: null
+D: null
+DCONDS: null
+DHIDDEN: false
+DBLOCKMESSAGE: null
+NAME: West River Cavern
+DESC: This large cavern is split in two by the fast-flowing river. Massive Stalactites extend down from the roof of the cavern. Hopefully they don't fall...
+SYNS: []
+DET: the
+INFO: New Room: SimpleEngine.GameRoom@58359ebd
+
+Compile Room:
+ID: ANCIENTQUARRY
+N: null
+NCONDS: null
+NHIDDEN: false
+NBLOCKMESSAGE: null
+S: WESTRIVER
+SCONDS: []
+SHIDDEN: false
+SBLOCKMESSAGE: null
+E: null
+ECONDS: null
+EHIDDEN: false
+EBLOCKMESSAGE: null
+W: null
+WCONDS: null
+WHIDDEN: false
+WBLOCKMESSAGE: null
+U: null
+UCONDS: null
+UHIDDEN: false
+UBLOCKMESSAGE: null
+D: null
+DCONDS: null
+DHIDDEN: false
+DBLOCKMESSAGE: null
+NAME: Ancient Quarry
+DESC: This seems to be where all of the marble and stone for the underground temple was excavated from. There is still a lot of stone lying about.
+SYNS: []
+DET: null
+INFO: New Room: SimpleEngine.GameRoom@24b6b8f6
+
+Compile Object:
+ID: LARGEBLOCK
+LOCATION: ANCIENTQUARRY
+LOCATION TYPE: 0
+NAME: large block
+DESC: A massive marble block that never ended up leaving the quarry. It's a miracle you're able to even lift this thing!
+SYNS: ["large block", "large marble block", "large", "block", "biggest block", "big block", "big", "big marble block"]
+FLAGS: [_TAKEABLE]
+VALUES: 
+	volume:75
+	surface:75
+DET: null
+USE ARE: false
+INFO: New Object: SimpleEngine.GameObject@72cf2de5
+
+Compiling PRSACond:
+VERBS: [DISCARD, PLACE, PUT, DROP]
+
+Compiling PRSOCond:
+OBJS: [LARGEBLOCK]
+
+Compiling PRSACond:
+VERBS: [UNDERNEATH, IN, UNDER, INSIDE, ON]
+
+Compiling HereCond:
+LOCATIONS: [STORAGEROOM]
+
+Compiling Conditions:
+TEST: Here: [STORAGEROOM]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@2bb7bd00
+
+Compiling Conditions:
+TEST: PRSA: [UNDERNEATH, IN, UNDER, INSIDE, ON]
+TES IS NOT: true
+CONTINUATION: SimpleEngine.Actions.Condition@2bb7bd00
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@5f031ebd
+
+Compiling Conditions:
+TEST: PRSO: [LARGEBLOCK]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@5f031ebd
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@4ee37ca3
+
+Compiling Conditions:
+TEST: PRSA: [DISCARD, PLACE, PUT, DROP]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@4ee37ca3
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@45c8d09f
+
+Compiling PlaceEff:
+ITEM: LARGEBLOCK
+LOCATION: STORAGEROOM
+LOCATION TYPE: 0
+
+Compiling TellEff:
+TEXT: You placed the large block.
+
+Compiling SetFlagEff:
+FLAG: _LARGEINSTORAGEROOM
+VALUE: 1
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@45c8d09f
+ACTIONS: [SimpleEngine.Actions.Effects.PlaceEff@53812a9b, SimpleEngine.Actions.Effects.TellEff@14b030a0, SimpleEngine.Actions.Effects.SetFlagEff@41e350f1]
+INFO: New Conditional: <PRSA: [DISCARD, PLACE, PUT, DROP] && PRSO: [LARGEBLOCK] && !PRSA: [UNDERNEATH, IN, UNDER, INSIDE, ON] && Here: [STORAGEROOM]>
+
+Compiling PRSACond:
+VERBS: [TAKE, OBTAIN]
+
+Compiling PRSOCond:
+OBJS: [LARGEBLOCK]
+
+Compiling Conditions:
+TEST: PRSO: [LARGEBLOCK]
+TES IS NOT: false
+CONTINUATION: null
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@422c3c7a
+
+Compiling Conditions:
+TEST: PRSA: [TAKE, OBTAIN]
+TES IS NOT: false
+CONTINUATION: SimpleEngine.Actions.Condition@422c3c7a
+IsAND: true
+IsOR: false
+INFO: New Conditions: SimpleEngine.Actions.Condition@18230356
+
+Compiling TakeEff:
+ITEM: LARGEBLOCK
+
+Compiling RemFlagEff:
+FLAG: _LARGEINSTORAGEROOM
+
+Compiling Conditional:
+CONDITION: SimpleEngine.Actions.Condition@18230356
+ACTIONS: [SimpleEngine.Actions.Effects.TakeEff@d8305c2, SimpleEngine.Actions.Effects.RemFlagEff@56bca85b]
+INFO: New Conditional: <PRSA: [TAKE, OBTAIN] && PRSO: [LARGEBLOCK]>
+
+Compile Action:
+ID: LARGEBLOCK
+ACTIONS: [<PRSA: [DISCARD, PLACE, PUT, DROP] && PRSO: [LARGEBLOCK] && !PRSA: [UNDERNEATH, IN, UNDER, INSIDE, ON] && Here: [STORAGEROOM]>, <PRSA: [TAKE, OBTAIN] && PRSO: [LARGEBLOCK]>]
+
+Compile Flag:
+FLAG: _LARGEINSTORAGEROOM
+VALUE: 0
+ERROR: Error initialising parent variables for RIVERSTILTS
+
+Knowledge Base:
+isObject(player)
+capacity(player,2147483647)
+capacityUsed(player,0)
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1071),isLocated(player,B,_1072),'!'))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1075),hasProperty(B,closablecontainer),'!',isClosed(B,false),inScope(B)))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1078),inScope(B)))
+':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),isLocated(A,C,_1082),'\='(A,C),hasProperty(B,closablecontainer),'!',isClosed(B,false),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),isLocated(A,C,_1090),'\='(A,C),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putInIgnoreScope(A,B),('\='(A,B),isLocated(A,C,_1098),'\='(A,C),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putOn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putOnIgnoreScope(A,B),('\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putBelow(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putBelowIgnoreScope(A,B),('\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(outOfScope(A),not(inScope(A)))
+':-'(noCapacity(A),not(capacity(A,_1129)))
+':-'(noSurface(A),not(surface(A,_1131)))
+':-'(noBelow(A),not(below(A,_1133)))
+':-'(cantFitCapacity(A,B),(volume(A,X),capacity(B,Y),capacityUsed(B,Z),'>'('+'(X,Z),Y)))
+':-'(cantFitSurface(A,B),(volume(A,X),surface(B,Y),surfaceUsed(B,Z),'>'('+'(X,Z),Y)))
+':-'(cantFitBelow(A,B),(volume(A,X),below(B,Y),belowUsed(B,Z),'>'('+'(X,Z),Y)))
+':-'(tooBigCapacity(A,B),(volume(A,X),capacity(B,Y),'>'(X,Y)))
+':-'(tooBigSurface(A,B),(volume(A,X),surface(B,Y),'>'(X,Y)))
+':-'(tooBigBelow(A,B),(volume(A,X),below(B,Y),'>'(X,Y)))
+':-'(sameObject(A,B),'='(A,B))
+':-'(notObject(A),not(isObject(A)))
+':-'(targetClosed(A),(hasProperty(A,closablecontainer),isClosed(A,true)))
+isRoom(ruinsentrance)
+isLocated(player,ruinsentrance,0)
+isRoom(civilisation)
+isRoom(columns)
+hasProperty(smallblock,takeable)
+isObject(smallblock)
+volume(smallblock,25)
+surface(smallblock,25)
+surfaceUsed(smallblock,0)
+isLocated(smallblock,columns,0)
+flag(smallonmedium,0)
+isRoom(alterroom)
+isObject(alter)
+volume(alter,1)
+surface(alter,50)
+surfaceUsed(alter,0)
+isLocated(alter,alterroom,0)
+isObject(pressureplate2)
+volume(pressureplate2,1)
+surface(pressureplate2,25)
+surfaceUsed(pressureplate2,0)
+isLocated(pressureplate2,alterroom,0)
+flag(pressureplate2,0)
+isObject(pressureplate1)
+volume(pressureplate1,1)
+surface(pressureplate1,25)
+isLocated(pressureplate1,alterroom,0)
+flag(pressureplate1,1)
+hasProperty(watercontainer1,takeable)
+isObject(watercontainer1)
+volume(watercontainer1,25)
+capacity(watercontainer1,25)
+capacityUsed(watercontainer1,0)
+isLocated(watercontainer1,pressureplate1,1)
+flag(container1filled,1)
+isRoom(treasureroom)
+hasProperty(chest,takeable)
+hasProperty(chest,closablecontainer)
+hasProperty(chest,locked)
+isClosed(chest,true)
+isObject(chest)
+volume(chest,50)
+capacity(chest,50)
+isLocated(chest,treasureroom,0)
+hasProperty(treasure,takeable)
+isObject(treasure)
+volume(treasure,50)
+isLocated(treasure,chest,0)
+flag(treasureobtained,0)
+isRoom(storageroom)
+hasProperty(cupboard,closablecontainer)
+isClosed(cupboard,true)
+isObject(cupboard)
+volume(cupboard,1)
+capacity(cupboard,25)
+surface(cupboard,25)
+surfaceUsed(cupboard,0)
+isLocated(cupboard,storageroom,0)
+hasProperty(watercontainer2,takeable)
+isObject(watercontainer2)
+volume(watercontainer2,25)
+capacity(watercontainer2,25)
+capacityUsed(watercontainer2,0)
+isLocated(watercontainer2,cupboard,0)
+flag(container2filled,0)
+hasProperty(plank,takeable)
+isObject(plank)
+volume(plank,50)
+surface(plank,50)
+surfaceUsed(plank,0)
+isLocated(plank,storageroom,0)
+flag(rivercrossable,0)
+isRoom(attic)
+hasProperty(key,takeable)
+isObject(key)
+volume(key,10)
+isLocated(key,attic,0)
+isRoom(rockytunnel)
+hasProperty(mediumblock,takeable)
+isObject(mediumblock)
+volume(mediumblock,50)
+surface(mediumblock,50)
+surfaceUsed(mediumblock,0)
+isLocated(mediumblock,rockytunnel,0)
+flag(mediumonlarge,0)
+isRoom(eastriver)
+isObject(river)
+volume(river,1)
+isLocated(river,eastriver,0)
+isObject(riverstilts)
+volume(riverstilts,0)
+surface(riverstilts,50)
+surfaceUsed(riverstilts,0)
+isLocated(riverstilts,river,0)
+isRoom(waterfallcavern)
+isObject(waterfall)
+volume(waterfall,1)
+below(waterfall,100)
+belowUsed(waterfall,0)
+isLocated(waterfall,waterfallcavern,0)
+isRoom(westriver)
+isRoom(ancientquarry)
+hasProperty(largeblock,takeable)
+isObject(largeblock)
+volume(largeblock,75)
+surface(largeblock,75)
+surfaceUsed(largeblock,0)
+isLocated(largeblock,ancientquarry,0)
+flag(largeinstorageroom,0)
+surfaceUsed(pressureplate1,25)
+capacityUsed(chest,50)
+capacityUsed(cupboard,25)
+
+======================================================================================
+Processing user input: q
+======================================================================================
+
+
+DEBUG: PRSA: QUIT, PRSO: null, PRSI: null
+
+DEBUG: ATTEMPT TO PERFORM ACTION ON PRSI
+
+DEBUG: FAILED TO PERFORM ACTION ON PRSI
+
+DEBUG: ATTEMPT TO PERFORM ACTION ON PRSO
+
+DEBUG: FAILED TO PERFORM ACTION ON PRSO
+
+DEBUG: ATTEMPT TO PERFORM GENERIC ACTION ON PRSA
+
+Knowledge Base:
+isObject(player)
+capacity(player,2147483647)
+capacityUsed(player,0)
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1071),isLocated(player,B,_1072),'!'))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1075),hasProperty(B,closablecontainer),'!',isClosed(B,false),inScope(B)))
+':-'(inScope(A),(isObject(A),isLocated(A,B,_1078),inScope(B)))
+':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),isLocated(A,C,_1082),'\='(A,C),hasProperty(B,closablecontainer),'!',isClosed(B,false),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putIn(A,B),(inScope(A),inScope(B),'\='(A,B),isLocated(A,C,_1090),'\='(A,C),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putInIgnoreScope(A,B),('\='(A,B),isLocated(A,C,_1098),'\='(A,C),volume(A,X),capacity(B,Y),capacityUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putOn(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putOnIgnoreScope(A,B),('\='(A,B),volume(A,X),surface(B,Y),surfaceUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putBelow(A,B),(inScope(A),inScope(B),'\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(putBelowIgnoreScope(A,B),('\='(A,B),volume(A,X),below(B,Y),belowUsed(B,Z),is(Y2,'+'(Y,1)),'<'('+'(X,Z),Y2)))
+':-'(outOfScope(A),not(inScope(A)))
+':-'(noCapacity(A),not(capacity(A,_1129)))
+':-'(noSurface(A),not(surface(A,_1131)))
+':-'(noBelow(A),not(below(A,_1133)))
+':-'(cantFitCapacity(A,B),(volume(A,X),capacity(B,Y),capacityUsed(B,Z),'>'('+'(X,Z),Y)))
+':-'(cantFitSurface(A,B),(volume(A,X),surface(B,Y),surfaceUsed(B,Z),'>'('+'(X,Z),Y)))
+':-'(cantFitBelow(A,B),(volume(A,X),below(B,Y),belowUsed(B,Z),'>'('+'(X,Z),Y)))
+':-'(tooBigCapacity(A,B),(volume(A,X),capacity(B,Y),'>'(X,Y)))
+':-'(tooBigSurface(A,B),(volume(A,X),surface(B,Y),'>'(X,Y)))
+':-'(tooBigBelow(A,B),(volume(A,X),below(B,Y),'>'(X,Y)))
+':-'(sameObject(A,B),'='(A,B))
+':-'(notObject(A),not(isObject(A)))
+':-'(targetClosed(A),(hasProperty(A,closablecontainer),isClosed(A,true)))
+isRoom(ruinsentrance)
+isLocated(player,ruinsentrance,0)
+isRoom(civilisation)
+isRoom(columns)
+hasProperty(smallblock,takeable)
+isObject(smallblock)
+volume(smallblock,25)
+surface(smallblock,25)
+surfaceUsed(smallblock,0)
+isLocated(smallblock,columns,0)
+flag(smallonmedium,0)
+isRoom(alterroom)
+isObject(alter)
+volume(alter,1)
+surface(alter,50)
+surfaceUsed(alter,0)
+isLocated(alter,alterroom,0)
+isObject(pressureplate2)
+volume(pressureplate2,1)
+surface(pressureplate2,25)
+surfaceUsed(pressureplate2,0)
+isLocated(pressureplate2,alterroom,0)
+flag(pressureplate2,0)
+isObject(pressureplate1)
+volume(pressureplate1,1)
+surface(pressureplate1,25)
+isLocated(pressureplate1,alterroom,0)
+flag(pressureplate1,1)
+hasProperty(watercontainer1,takeable)
+isObject(watercontainer1)
+volume(watercontainer1,25)
+capacity(watercontainer1,25)
+capacityUsed(watercontainer1,0)
+isLocated(watercontainer1,pressureplate1,1)
+flag(container1filled,1)
+isRoom(treasureroom)
+hasProperty(chest,takeable)
+hasProperty(chest,closablecontainer)
+hasProperty(chest,locked)
+isClosed(chest,true)
+isObject(chest)
+volume(chest,50)
+capacity(chest,50)
+isLocated(chest,treasureroom,0)
+hasProperty(treasure,takeable)
+isObject(treasure)
+volume(treasure,50)
+isLocated(treasure,chest,0)
+flag(treasureobtained,0)
+isRoom(storageroom)
+hasProperty(cupboard,closablecontainer)
+isClosed(cupboard,true)
+isObject(cupboard)
+volume(cupboard,1)
+capacity(cupboard,25)
+surface(cupboard,25)
+surfaceUsed(cupboard,0)
+isLocated(cupboard,storageroom,0)
+hasProperty(watercontainer2,takeable)
+isObject(watercontainer2)
+volume(watercontainer2,25)
+capacity(watercontainer2,25)
+capacityUsed(watercontainer2,0)
+isLocated(watercontainer2,cupboard,0)
+flag(container2filled,0)
+hasProperty(plank,takeable)
+isObject(plank)
+volume(plank,50)
+surface(plank,50)
+surfaceUsed(plank,0)
+isLocated(plank,storageroom,0)
+flag(rivercrossable,0)
+isRoom(attic)
+hasProperty(key,takeable)
+isObject(key)
+volume(key,10)
+isLocated(key,attic,0)
+isRoom(rockytunnel)
+hasProperty(mediumblock,takeable)
+isObject(mediumblock)
+volume(mediumblock,50)
+surface(mediumblock,50)
+surfaceUsed(mediumblock,0)
+isLocated(mediumblock,rockytunnel,0)
+flag(mediumonlarge,0)
+isRoom(eastriver)
+isObject(river)
+volume(river,1)
+isLocated(river,eastriver,0)
+isObject(riverstilts)
+volume(riverstilts,0)
+surface(riverstilts,50)
+surfaceUsed(riverstilts,0)
+isLocated(riverstilts,river,0)
+isRoom(waterfallcavern)
+isObject(waterfall)
+volume(waterfall,1)
+below(waterfall,100)
+belowUsed(waterfall,0)
+isLocated(waterfall,waterfallcavern,0)
+isRoom(westriver)
+isRoom(ancientquarry)
+hasProperty(largeblock,takeable)
+isObject(largeblock)
+volume(largeblock,75)
+surface(largeblock,75)
+surfaceUsed(largeblock,0)
+isLocated(largeblock,ancientquarry,0)
+flag(largeinstorageroom,0)
+surfaceUsed(pressureplate1,25)
+capacityUsed(chest,50)
+capacityUsed(cupboard,25)

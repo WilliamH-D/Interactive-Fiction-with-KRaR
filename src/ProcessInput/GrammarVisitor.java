@@ -6,7 +6,9 @@ import edu.stanford.nlp.util.ArraySet;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements EditorGrammarVisitor<T> {
@@ -317,6 +319,17 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
         return visitChildren(ctx);
     }
 
+    @Override
+    public T visitUse_packages(EditorGrammarParser.Use_packagesContext ctx) {
+        List<String> packages = new ArrayList<>();
+        for (TerminalNode p : ctx.ID()) {
+            String text = p.getText();
+            packages.add(text.substring(1, text.length()-1));
+        }
+        StoryCompiler.get().compilePackages(packages);
+        return visitChildren(ctx);
+    }
+
     @Override public T visitAction_entry(EditorGrammarParser.Action_entryContext ctx) {
         return visitChildren(ctx);
     }
@@ -377,6 +390,9 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
         StoryCompiler.get().compileFlag();
         return children;
     }
+
+    @Override
+    public T visitEnd(EditorGrammarParser.EndContext ctx) { return visitChildren(ctx); }
 
     // --------------------------------------------------------------------------------------
     //                                  ACTION PARTS
@@ -655,7 +671,13 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
         String obj = ctx.ID(0).getText();
         String loc = ctx.ID(1).getText();
         int type = 0;
-        try {
+        if (ctx.ON_TAG() != null) {
+            type = 1;
+        }
+        else if (ctx.UNDER_TAG() != null) {
+            type = 2;
+        }
+        /*try {
             String x = ctx.ON_TAG().getText();
             type = 1;
         }
@@ -665,7 +687,7 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
                 type = 2;
             }
             catch (Exception ignored) {}
-        }
+        }*/
         StoryCompiler.get().compilePlaceEff(obj.substring(1, obj.length()-1), loc.substring(1, loc.length()-1), type);
         return children;
     }
@@ -717,7 +739,68 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
         return children;
     }
 
+    @Override
+    public T visitAdd_query_eff(EditorGrammarParser.Add_query_effContext ctx) {
+        T children = visitChildren(ctx);
+        StoryCompiler.get().compileAddQueryEff();
+        return children;
+    }
+
+    @Override
+    public T visitRemove_query_eff(EditorGrammarParser.Remove_query_effContext ctx) {
+        T children = visitChildren(ctx);
+        StoryCompiler.get().compileRemoveQueryEff();
+        return children;
+    }
+
     @Override public T visitEffect(EditorGrammarParser.EffectContext ctx) { return visitChildren(ctx); }
+
+    @Override
+    public T visitQuery_conditional(EditorGrammarParser.Query_conditionalContext ctx) {
+        T children = visitChildren(ctx);
+        StoryCompiler.get().compileQueryCond();
+        return children;
+    }
+
+    @Override
+    public T visitQueries(EditorGrammarParser.QueriesContext ctx) { return visitChildren(ctx); }
+
+    @Override
+    public T visitQuery(EditorGrammarParser.QueryContext ctx) {
+        String query = ctx.getText();
+        StoryCompiler.get().compileQuery(query);
+        return null;
+    }
+
+    @Override
+    public T visitFunctor(EditorGrammarParser.FunctorContext ctx) { return null; }
+
+    @Override
+    public T visitParameters(EditorGrammarParser.ParametersContext ctx) { return null; }
+
+    @Override
+    public T visitParameter(EditorGrammarParser.ParameterContext ctx) { return null; }
+
+    @Override
+    public T visitCheck_entry(EditorGrammarParser.Check_entryContext ctx) {
+        T children = visitChildren(ctx);
+        StoryCompiler.get().compileCheckEntry();
+        return children;
+    }
+
+    @Override
+    public T visitIf_effects(EditorGrammarParser.If_effectsContext ctx) {
+        T children = visitChildren(ctx);
+        StoryCompiler.get().compileIfEffects();
+        return children;
+    }
+
+    @Override
+    public T visitElse_effects(EditorGrammarParser.Else_effectsContext ctx) {
+        T children = visitChildren(ctx);
+        StoryCompiler.get().compileElseEffects();
+        return children;
+    }
 
     // --------------------------------------------------------------------------------------
     //                                 ENTRY POINT
