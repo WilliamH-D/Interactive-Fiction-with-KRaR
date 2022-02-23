@@ -3,8 +3,10 @@ package SimpleEngine;
 import EnhancedEngine.EnhancedExecuteCommand;
 import Game.Direction;
 import Game.GameController;
+import Game.Main;
 import Logging.DebugLogger;
 import SimpleEngine.Actions.ConditionTest;
+import SimpleEngine.Actions.Conditions.QueryCond;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -130,7 +132,15 @@ public class ExecuteCommand {
                             return true;
                         }
                         String blockMessage = currLoc.getDirBlockMessage(d);
-                        System.out.println(Objects.requireNonNullElseGet(blockMessage, () -> "Something is preventing you from moving " + d.name().toLowerCase() + "."));
+                        String message = Objects.requireNonNullElseGet(blockMessage, () -> "Something is preventing you from moving " + d.name().toLowerCase() + ".");
+                        if (GameController.usingEnhancedEngine() && query != null) {
+                            for (String q : ((QueryCond)query).getQueries()) {
+                                EnhancedExecuteCommand.addFailedQueryCond(q);
+                                EnhancedExecuteCommand.setSkippedFailMessage(message);
+                            }
+                            return false;
+                        }
+                        System.out.println(message);
                         return true;
                     }
 

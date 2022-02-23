@@ -327,7 +327,7 @@ USE: <StackableObjects>;
     W: <COLUMNS>;
     U: <ATTIC>;
     UCOND: QUERY<climbableStack(3,storageroom)>;
-    UBLOCKMESSAGE: "Could you reach the attic if you stacked some blocks up as a stairway?";
+    UBLOCKMESSAGE: "There's nothing tall and stable enough for you to climb on to reach the attic.";
     NAME: "Storage Room";
     DESC: "This room looks like it was used to store things. There is all sorts of wood and degraded items lying about.";
 }
@@ -565,7 +565,7 @@ USE: <StackableObjects>;
     NAME: "large block";
     DESC: "A massive marble block that never ended up leaving the quarry. It's a miracle you're able to even lift this thing!";
     SYNS: "large block", "big block", "biggest block", "big marble block", "large marble block", "block", "large", "big";
-    PROPERTIES: _TAKEABLE;
+    PROPERTIES: _TAKEABLE, _STABLE;
     VALUES: (volume: 75), (surface: 75);
 }
 

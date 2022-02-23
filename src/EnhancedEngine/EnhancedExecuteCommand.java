@@ -7,12 +7,16 @@ import alice.tuprolog.Var;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 public class EnhancedExecuteCommand {
 
     private static KnowledgeBase kb;
     private static DebugLogger logger;
+
+    private static List<Extension> extensions = new ArrayList<>();
+    private static List<String> failedQueryConds = new ArrayList<>();
+    private static String skippedFailMessage;
 
     public static void initKB() {
         // Make sure the knowledge base is referenced
@@ -21,13 +25,71 @@ public class EnhancedExecuteCommand {
         }
     }
 
+    public static void addExtension(Extension extension) {
+        extensions.add(extension);
+    }
+
+    public static void addFailedQueryCond(String query) {
+        failedQueryConds.add(query);
+    }
+
+    public static void setSkippedFailMessage(String message) {
+        skippedFailMessage = message;
+    }
+
+    public static void resetSkippedFailMessage() {
+        skippedFailMessage = null;
+    }
+
+    // Assumes only 1 set of parenthesis in query
+    public static String failedQueryCondsContainsQuery(String query) {
+        String[] s1 = query.split("\\(");
+        String functor = s1[0];
+        String s2 = s1[1].substring(0, s1[1].length()-1);
+        String[] params = s2.split(",");
+
+        for (String q : failedQueryConds) {
+
+            String[] q1 = q.split("\\(");
+            String qfunctor = q1[0];
+            if (!qfunctor.equals(functor)) { continue; }
+            String q2 = q1[1].substring(0, q1[1].length()-1);
+            String[] qparams = q2.split(",");
+
+            if (qparams.length != params.length) { continue; }
+
+            boolean match = true;
+            for (int i = 0; i < qparams.length; i++) {
+                if (qparams[i].charAt(0) == '_' || params[i].charAt(0) == '_'
+                        || Character.isUpperCase(params[i].charAt(0)) || Character.isUpperCase(params[i].charAt(0))) {
+                    continue;
+                }
+                if (!qparams[i].equals(params[i])) {
+                    match = false;
+                    break;
+                }
+            }
+
+            if (match) {
+                return q;
+            }
+        }
+
+        return null;
+    }
+
+    public static void resetFailedQueryConds() {
+        failedQueryConds = new ArrayList<>();
+    }
+
     public static boolean decodePRSAEnhanced(String correctedVerb) {
 
         if (logger == null) {
             logger = DebugLogger.getInstance();
         }
 
-        if (correctedVerb == null || !getVerbs().contains(correctedVerb)) { return false; }
+        if (correctedVerb == null) {
+            return false; }
 
         try {
             Class<EnhancedExecuteCommand> c = EnhancedExecuteCommand.class;
@@ -35,7 +97,22 @@ public class EnhancedExecuteCommand {
             return (boolean)verbAction.invoke(null);
         }
         catch (Exception e) {
-            e.printStackTrace(System.err);
+            // Try getting a result from one of the extensions
+            for (Extension extension : extensions) {
+                try {
+                    boolean res =  extension.decodePRSAEnhanced(correctedVerb);
+                    if (res) {
+                        return true;
+                    }
+                }
+                catch (Exception ignored) {
+                }
+            }
+
+            if (skippedFailMessage != null) {
+                System.out.println(skippedFailMessage);
+                return true;
+            }
             return false;
         }
     }

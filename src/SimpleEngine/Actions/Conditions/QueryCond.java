@@ -32,4 +32,8 @@ public class QueryCond extends ConditionTest {
     public String toString() {
         return "Query: " + queries;
     }
+
+    public List<String> getQueries() {
+        return queries;
+    }
 }

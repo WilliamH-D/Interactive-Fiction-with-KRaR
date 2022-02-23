@@ -258,6 +258,7 @@ public class CommandConstructor {
         int count = 0;
         boolean conflictFound = false;
         for (GameObject obj : allowedObjects) {
+            if (obj == null) { continue; }
             boolean match = false;
             int startInd = -1;
             int maxSize = 0;
@@ -398,6 +399,7 @@ public class CommandConstructor {
     private SynonymsAndConflicts getObjSynonyms(List<GameObject> allowedObjects) {
         SynonymsAndConflicts synsAndCons = new SynonymsAndConflicts();
         for (GameObject obj : allowedObjects) {
+            if (obj == null) { continue; }
             synsAndCons.synonyms.put(obj.getName().toUpperCase(), obj.getName().toLowerCase());
             Set<String> objSynonyms = obj.getSynonyms();
             if (objSynonyms == null) { continue; }

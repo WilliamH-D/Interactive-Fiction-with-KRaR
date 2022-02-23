@@ -97,6 +97,8 @@ public class Main {
         ExecuteCommand.executeAction();
         if (useEnhanced) {
             TurnEndChecks.getInstance().performChecks();
+            EnhancedExecuteCommand.resetFailedQueryConds();
+            EnhancedExecuteCommand.resetSkippedFailMessage();
             KnowledgeBase.getInstance().printKB();
         }
     }

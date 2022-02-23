@@ -1,0 +1,112 @@
+USE: <StackableObjects>;
+
+[room]
+{
+    ID: <STORAGEROOM>;
+    W: <COLUMNS>;
+    U: <ATTIC>;
+    UCOND: QUERY<climbableStack(3,storageroom)>;
+    UBLOCKMESSAGE: "There's nothing tall and stable enough for you to climb on to reach the attic.";
+    NAME: "Storage Room";
+    DESC: "This room looks like it was used to store things. There is all sorts of wood and degraded items lying about.";
+}
+
+[object]
+{
+    ID: <SMALLBLOCK>;
+    LOCATION: <PLAYER>;
+    NAME: "small block";
+    DESC: "It's a small marble block. It looks as if it fallen from one of the ruined columns.";
+    SYNS: "little block", "smallest block", "little marble block", "small marble block", "block", "small", "broken column";
+    PROPERTIES: _TAKEABLE, _STABLE;
+    VALUES: (volume: 25), (surface: 25);
+}
+
+[object]
+{
+    ID: <CUPBOARD>;
+    LOCATION: <STORAGEROOM>;
+    NAME: "cupboard";
+    DESC: "An old marble cupboard. It's amazing that the thin stone door still slides open and shut!";
+    SYNS: "counter", "compartment", "surface";
+    PROPERTIES: _CLOSABLECONTAINER, _STABLE;
+    VALUES: (capacity: 50), (surface: 50);
+}
+
+[object]
+{
+    ID: <WATERCONTAINER2>;
+    LOCATION: <CUPBOARD>;
+    NAME: "copper jug";
+    DESC: "It's an old copper jug. It's colouration has slowly turned mint green over time.%nIt looks like it would be heavy when filled with water.";
+    ALTDESC: "It's an old copper jug. It's colouration has slowly turned mint green over time.%nIt's filled to the brim with water!";
+    CONDS: _CONTAINER2FILLED=1;
+    SYNS: "jug", "container", "copper container";
+    PROPERTIES: _TAKEABLE;
+    VALUES: (volume: 25), (capacity: 25);
+}
+
+[object]
+{
+    ID: <PLANK>;
+    LOCATION: <STORAGEROOM>;
+    NAME: "wooden plank";
+    DESC: "A long wooden plank that has somehow managed to avoid rotting away.%nIt looks sturdy enough to be used as a bridge.";
+    SYNS: "bridge", "wood", "log", "plank";
+    PROPERTIES: _TAKEABLE;
+    VALUES: (volume: 50), (surface: 50);
+}
+
+[room]
+{
+    ID: <ATTIC>;
+    D: <STORAGEROOM>;
+    NAME: "Attic";
+    DESC: "A musty room above the storage room. A few small things are scattered around amongst all of the rubble, dust, and cobwebs.";
+}
+
+[object]
+{
+    ID: <KEY>;
+    LOCATION: <ATTIC>;
+    NAME: "golden key";
+    DESC: "An old ornate golden key. It looks important.";
+    SYNS: "key";
+    PROPERTIES: _TAKEABLE;
+    VALUES: (volume: 10);
+}
+
+[object]
+{
+    ID: <MEDIUMBLOCK>;
+    LOCATION: <PLAYER>;
+    NAME: "medium block";
+    DESC: "It's a medium sized block of rock. This boulder looks as if it collapsed from the walls of the rocky tunnel, perhaps it could be used as a building block to climb on.";
+    SYNS: "medium block", "medium boulder", "rock block", "boulder", "block", "medium";
+    PROPERTIES: _TAKEABLE, _STABLE;
+    VALUES: (volume: 50), (surface: 50);
+}
+
+[object]
+{
+    ID: <LARGEBLOCK>;
+    LOCATION: <PLAYER>;
+    NAME: "large block";
+    DESC: "A massive marble block that never ended up leaving the quarry. It's a miracle you're able to even lift this thing!";
+    SYNS: "large block", "big block", "biggest block", "big marble block", "large marble block", "block", "large", "big";
+    PROPERTIES: _TAKEABLE, _STABLE;
+    VALUES: (volume: 75), (surface: 75);
+}
+
+[end]
+{
+    CHECK:
+        QUERY<climbableStack(3,storageroom)>
+        {
+            EFF<TELL: "You've created a stable structure tall enough to climb to the attic!">
+        }
+        ELSE
+        {
+            EFF<TELL: "You're now unable to climb up to reach the attic.">
+        };
+}

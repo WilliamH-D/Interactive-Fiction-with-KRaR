@@ -1,10 +1,7 @@
 package ProcessInput;
 
-import EnhancedEngine.EndCheck;
-import EnhancedEngine.Extension;
-import EnhancedEngine.TurnEndChecks;
+import EnhancedEngine.*;
 import Logging.DebugLogger;
-import EnhancedEngine.KnowledgeBase;
 import Game.GameController;
 import ProcessInput.GrammarFiles.EditorGrammarLexer;
 import ProcessInput.GrammarFiles.EditorGrammarParser;
@@ -192,6 +189,7 @@ public class StoryCompiler {
                 Class<?> c = Class.forName("EnhancedEngine.Extensions." + s);
                 Constructor<?> constructor = c.getConstructor();
                 Extension instance = (Extension) constructor.newInstance();
+                EnhancedExecuteCommand.addExtension(instance);
                 List<String> clauses = instance.getClauses();
                 for (String clause : clauses) {
                     kb.addClause(clause);
