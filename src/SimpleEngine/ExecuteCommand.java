@@ -4,6 +4,7 @@ import EnhancedEngine.EnhancedExecuteCommand;
 import Game.Direction;
 import Game.GameController;
 import Logging.DebugLogger;
+import SimpleEngine.Actions.ConditionTest;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -86,11 +87,6 @@ public class ExecuteCommand {
     //                                       COMMANDS
     // -----------------------------------------------------------------------------------------------
 
-    public static boolean cmd_attack() {
-        System.out.println("You Attacked!");
-        return true;
-    }
-
     // General action for player movement
     public static boolean cmd_move() {
         // PRSO should be a direction (NORTH/SOUTH/EAST/WEST/UP/DOWN), or a named room
@@ -116,18 +112,19 @@ public class ExecuteCommand {
                 else {
                     // Check if there are any pre-conditions
                     Set<String> conditions = null;
+                    ConditionTest query = null;
 
                     switch (d) {
-                        case NORTH: conditions = currLoc.getNConds(); break;
-                        case SOUTH: conditions = currLoc.getSConds(); break;
-                        case EAST: conditions = currLoc.getEConds(); break;
-                        case WEST: conditions = currLoc.getWConds(); break;
-                        case UP: conditions = currLoc.getUConds(); break;
-                        case DOWN: conditions = currLoc.getDConds(); break;
+                        case NORTH: conditions = currLoc.getNConds(); query = currLoc.getNQuery(); break;
+                        case SOUTH: conditions = currLoc.getSConds(); query = currLoc.getSQuery(); break;
+                        case EAST: conditions = currLoc.getEConds(); query = currLoc.getEQuery(); break;
+                        case WEST: conditions = currLoc.getWConds(); query = currLoc.getWQuery(); break;
+                        case UP: conditions = currLoc.getUConds(); query = currLoc.getUQuery(); break;
+                        case DOWN: conditions = currLoc.getDConds(); query = currLoc.getDQuery(); break;
                     }
 
                     // If not all conditions are met, then prevent player from moving
-                    if (!GameController.roomConditionsMet(conditions)) {
+                    if (!GameController.roomConditionsMet(conditions, query)) {
                         if (directionIsHidden) {
                             System.out.println("You cannot move " + d.name().toLowerCase() + ".");
                             return true;
@@ -147,17 +144,26 @@ public class ExecuteCommand {
         if (!(GameController.getPRSO() instanceof GameRoom)) { return false; }
         GameRoom nextLoc = (GameRoom)GameController.getPRSO();
 
-        if (tryMovingToNamedRoom(currLoc, nextLoc, currLoc.getNorth(), currLoc.getNConds(), "north")) { return true; }
-        if (tryMovingToNamedRoom(currLoc, nextLoc, currLoc.getSouth(), currLoc.getSConds(), "south")) { return true; }
-        if (tryMovingToNamedRoom(currLoc, nextLoc, currLoc.getEast(), currLoc.getEConds(), "east")) { return true; }
-        if (tryMovingToNamedRoom(currLoc, nextLoc, currLoc.getWest(), currLoc.getWConds(), "west")) { return true; }
-        if (tryMovingToNamedRoom(currLoc, nextLoc, currLoc.getUp(), currLoc.getUConds(), "up")) { return true; }
-        return tryMovingToNamedRoom(currLoc, nextLoc, currLoc.getDown(), currLoc.getDConds(), "down");
+        if (tryMovingToNamedRoom(currLoc, nextLoc, currLoc.getNorth(), currLoc.getNConds(), currLoc.getNQuery(),"north")) { return true; }
+        if (tryMovingToNamedRoom(currLoc, nextLoc, currLoc.getSouth(), currLoc.getSConds(), currLoc.getSQuery(), "south")) { return true; }
+        if (tryMovingToNamedRoom(currLoc, nextLoc, currLoc.getEast(), currLoc.getEConds(), currLoc.getEQuery(), "east")) { return true; }
+        if (tryMovingToNamedRoom(currLoc, nextLoc, currLoc.getWest(), currLoc.getWConds(), currLoc.getWQuery(), "west")) { return true; }
+        if (tryMovingToNamedRoom(currLoc, nextLoc, currLoc.getUp(), currLoc.getUConds(), currLoc.getUQuery(), "up")) { return true; }
+        return tryMovingToNamedRoom(currLoc, nextLoc, currLoc.getDown(), currLoc.getDConds(), currLoc.getDQuery(), "down");
     }
 
     // Auxiliary function for moving to a named room (Auxiliary for cmd_move())
-    private static boolean tryMovingToNamedRoom(GameRoom currLoc, GameRoom nextLoc, String roomInDir, Set<String> conditions, String dir) {
+    private static boolean tryMovingToNamedRoom(GameRoom currLoc, GameRoom nextLoc, String roomInDir, Set<String> conditions, ConditionTest query, String dir) {
         if (roomInDir != null && GameState.getGameObject(roomInDir).equals(nextLoc)) {
+            if (query != null) {
+                if (query.satisfied()) {
+                    GameController.getPlayer().movePlayer(nextLoc);
+                    return true;
+                }
+                String blockMessage = currLoc.getDirBlockMessage(Direction.valueOf(dir.toUpperCase()));
+                System.out.println(Objects.requireNonNullElseGet(blockMessage, () -> "Something is preventing you from moving " + dir + "."));
+                return true;
+            }
             if (conditions != null && conditions.size() > 0) {
                 for (String cond : conditions) {
                     String[] flagValuePair = cond.split("=");

@@ -428,6 +428,23 @@ USE: <StackableObjects>;
     VALUES: (volume: 50), (surface: 50);
 }
 
+[action]
+{
+    ID: <PLANK>;
+    ACTION:
+        COND<PRSA: PUT, PLACE && PRSO: <PLANK>>
+        {
+            COND<PRSI: <RIVER>>
+            {
+                EFF<PLACE: <PLANK>, <RIVERSTILTS>, ON>
+            }
+        }
+        COND<PRSA: MAKE, FORM && PRSO: <PLANK> && HERE: <EASTRIVER>>
+        {
+            EFF<PLACE: <PLANK>, <RIVERSTILTS>, ON>
+        };
+}
+
 [room]
 {
     ID: <ATTIC>;
@@ -566,10 +583,10 @@ USE: <StackableObjects>;
     CHECK:
         QUERY<isLocated(plank,riverstilts,1)>
         {
-            EFF<TELL: "You placed the wooden plank on top of the wooden stilts in the river. You can now safely cross!">
+            EFF<TELL: "Using the plank as a makeshift bridge, you can now safely cross!">
         }
         ELSE
         {
-            EFF<TELL: "You're again unable to cross the river.">
+            EFF<TELL: "Without the plank, you can no longer cross the river safely.">
         };
 }

@@ -1,5 +1,8 @@
 package ProcessInput;
 
+import EnhancedEngine.EndCheck;
+import EnhancedEngine.Extension;
+import EnhancedEngine.TurnEndChecks;
 import Logging.DebugLogger;
 import EnhancedEngine.KnowledgeBase;
 import Game.GameController;
@@ -16,6 +19,8 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 public class StoryCompiler {
@@ -30,26 +35,32 @@ public class StoryCompiler {
     // Directions
     String n;
     Set<String> nconds;
+    ConditionTest ndirQuery;
     boolean nHidden;
     String nblockMessage;
     String s;
     Set<String> sconds;
+    ConditionTest sdirQuery;
     boolean sHidden;
     String sblockMessage;
     String e;
     Set<String> econds;
+    ConditionTest edirQuery;
     boolean eHidden;
     String eblockMessage;
     String w;
     Set<String> wconds;
+    ConditionTest wdirQuery;
     boolean wHidden;
     String wblockMessage;
     String u;
     Set<String> uconds;
+    ConditionTest udirQuery;
     boolean uHidden;
     String ublockMessage;
     String d;
     Set<String> dconds;
+    ConditionTest ddirQuery;
     boolean dHidden;
     String dblockMessage;
 
@@ -61,6 +72,8 @@ public class StoryCompiler {
     List<Set<String>> altDescConds = new ArrayList<>();
 
     Set<String> synonyms;
+
+    private List<String> queries = new ArrayList<>();
 
     String det;
     boolean useAre = false;
@@ -79,6 +92,9 @@ public class StoryCompiler {
     private DebugLogger logger;
 
     private boolean playerStartSet = false;
+
+    private List<ActionPart> ifEffects;
+    private List<ActionPart> elseEffects;
 
 
     private StoryCompiler() {
@@ -116,26 +132,32 @@ public class StoryCompiler {
 
         n = null;
         nconds = null;
+        ndirQuery = null;
         nHidden = false;
         nblockMessage = null;
         s = null;
         sconds = null;
+        sdirQuery = null;
         sHidden = false;
         sblockMessage = null;
         e = null;
         econds = null;
+        edirQuery = null;
         eHidden = false;
         eblockMessage = null;
         w = null;
         wconds = null;
+        wdirQuery = null;
         wHidden = false;
         wblockMessage = null;
         u = null;
         uconds = null;
+        udirQuery = null;
         uHidden = false;
         ublockMessage = null;
         d = null;
         dconds = null;
+        ddirQuery = null;
         dHidden = false;
         dblockMessage = null;
 
@@ -143,6 +165,8 @@ public class StoryCompiler {
         desc = null;
         altDescs = new ArrayList<>();
         altDescConds = new ArrayList<>();
+
+        queries = new ArrayList<>();
 
         synonyms = null;
 
@@ -157,10 +181,28 @@ public class StoryCompiler {
 
         det = null;
         useAre = false;
+
+        ifEffects = null;
+        elseEffects = null;
     }
 
-    void compilePackages(List<String> packages) {
-        // TODO
+    void compilePackages(List<String> packages){
+        for (String s : packages) {
+            try {
+                Class<?> c = Class.forName("EnhancedEngine.Extensions." + s);
+                Constructor<?> constructor = c.getConstructor();
+                Extension instance = (Extension) constructor.newInstance();
+                List<String> clauses = instance.getClauses();
+                for (String clause : clauses) {
+                    kb.addClause(clause);
+                }
+                logger.logRaw("Compiled package: " + s);
+            }
+            catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
+                e.printStackTrace();
+                logger.logDebug("Failed to compile package: " + s);
+            }
+        }
     }
 
     void compileRoom() {
@@ -169,26 +211,32 @@ public class StoryCompiler {
         logger.logRaw("ID: " + id);
         logger.logRaw("N: " + n);
         logger.logRaw("NCONDS: " + nconds);
+        logger.logRaw("NQUERY: " + ndirQuery);
         logger.logRaw("NHIDDEN: " + nHidden);
         logger.logRaw("NBLOCKMESSAGE: " + nblockMessage);
         logger.logRaw("S: " + s);
         logger.logRaw("SCONDS: " + sconds);
+        logger.logRaw("SQUERY: " + sdirQuery);
         logger.logRaw("SHIDDEN: " + sHidden);
         logger.logRaw("SBLOCKMESSAGE: " + sblockMessage);
         logger.logRaw("E: " + e);
         logger.logRaw("ECONDS: " + econds);
+        logger.logRaw("EQUERY: " + edirQuery);
         logger.logRaw("EHIDDEN: " + eHidden);
         logger.logRaw("EBLOCKMESSAGE: " + eblockMessage);
         logger.logRaw("W: " + w);
         logger.logRaw("WCONDS: " + wconds);
+        logger.logRaw("WQUERY: " + wdirQuery);
         logger.logRaw("WHIDDEN: " + wHidden);
         logger.logRaw("WBLOCKMESSAGE: " + wblockMessage);
         logger.logRaw("U: " + u);
         logger.logRaw("UCONDS: " + uconds);
+        logger.logRaw("UQUERY: " + udirQuery);
         logger.logRaw("UHIDDEN: " + uHidden);
         logger.logRaw("UBLOCKMESSAGE: " + ublockMessage);
         logger.logRaw("D: " + d);
         logger.logRaw("DCONDS: " + dconds);
+        logger.logRaw("DQUERY: " + ddirQuery);
         logger.logRaw("DHIDDEN: " + dHidden);
         logger.logRaw("DBLOCKMESSAGE: " + dblockMessage);
         logger.logRaw("NAME: " + name);
@@ -204,26 +252,32 @@ public class StoryCompiler {
         room.setParent("ROOT", 0);
         room.setNorth(n);
         room.setNConds(nconds);
+        room.setNQuery(ndirQuery);
         room.setNhidden(nHidden);
         room.setNorthBlockMessage(nblockMessage);
         room.setSouth(s);
         room.setSConds(sconds);
+        room.setSQuery(sdirQuery);
         room.setShidden(sHidden);
         room.setSouthBlockMessage(sblockMessage);
         room.setEast(e);
         room.setEConds(econds);
+        room.setEQuery(edirQuery);
         room.setEhidden(eHidden);
         room.setEastBlockMessage(eblockMessage);
         room.setWest(w);
         room.setWConds(wconds);
+        room.setWQuery(wdirQuery);
         room.setWhidden(wHidden);
         room.setWestBlockMessage(wblockMessage);
         room.setUp(u);
         room.setUConds(uconds);
+        room.setUQuery(udirQuery);
         room.setUhidden(uHidden);
         room.setUpBlockMessage(ublockMessage);
         room.setDown(d);
         room.setDConds(dconds);
+        room.setDQuery(ddirQuery);
         room.setDhidden(dHidden);
         room.setDownBlockMessage(dblockMessage);
         room.setName(name);
@@ -386,7 +440,7 @@ public class StoryCompiler {
         return action_blocks.remove(action_blocks.size()-1);
     }
 
-    private ConditionTest popLastTest() {
+    public ConditionTest popLastTest() {
         return tests.remove(tests.size()-1);
     }
 
@@ -600,7 +654,12 @@ public class StoryCompiler {
     }
 
     void compileQueryCond() {
-        // TODO
+        logger.logLine();
+        logger.logRaw("Compiling QueryCond:");
+        logger.logRaw("Queries: " + queries.toString());
+
+        setTest(new QueryCond(queries));
+        queries = new ArrayList<>();
     }
 
     // EFFECTS:
@@ -715,18 +774,29 @@ public class StoryCompiler {
     }
 
     void compileQuery(String query) {
-        // TODO - add to query queue to be compiled elsewhere
+        queries.add(query);
     }
 
     void compileCheckEntry() {
-        // TODO - compile end of turn query checks
+        EndCheck endCheck = new EndCheck(tests, ifEffects, elseEffects);
+        TurnEndChecks.getInstance().addEndCheck(endCheck);
+
+        logger.logLine();
+        logger.logDebug("Compiling EncCheck:");
+        logger.logDebug("Queries: " + tests.toString());
+        logger.logDebug("ifEffects: " + ifEffects.toString());
+        logger.logDebug("elseEffects: " + elseEffects.toString());
+
+        tests = new ArrayList<>();
+        ifEffects = null;
+        elseEffects = null;
     }
 
     void compileIfEffects() {
-        // TODO
+        ifEffects = popLastActionBlock();
     }
 
     void compileElseEffects() {
-        // TODO
+        elseEffects = popLastActionBlock();
     }
 }

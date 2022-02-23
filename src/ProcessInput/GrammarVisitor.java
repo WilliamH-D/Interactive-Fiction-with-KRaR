@@ -197,6 +197,7 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
     @Override
     public T visitNorth_cond(EditorGrammarParser.North_condContext ctx) {
         T children = visitChildren(ctx);
+        StoryCompiler.get().ndirQuery = ctx.query_conditional() != null ? StoryCompiler.get().popLastTest() : null;
         StoryCompiler.get().nconds = ctx.flag_conditions() != null ? StoryCompiler.get().flagConds.pop() : new ArraySet<>();
         if (ctx.hidden() != null && ctx.hidden().getChildCount() > 0) {
             StoryCompiler.get().nHidden = true;
@@ -207,6 +208,7 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
     @Override
     public T visitSouth_cond(EditorGrammarParser.South_condContext ctx) {
         T children = visitChildren(ctx);
+        StoryCompiler.get().sdirQuery = ctx.query_conditional() != null ? StoryCompiler.get().popLastTest() : null;
         StoryCompiler.get().sconds = ctx.flag_conditions() != null ? StoryCompiler.get().flagConds.pop() : new ArraySet<>();
         if (ctx.hidden() != null && ctx.hidden().getChildCount() > 0) {
             StoryCompiler.get().sHidden = true;
@@ -217,6 +219,7 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
     @Override
     public T visitEast_cond(EditorGrammarParser.East_condContext ctx) {
         T children = visitChildren(ctx);
+        StoryCompiler.get().edirQuery = ctx.query_conditional() != null ? StoryCompiler.get().popLastTest() : null;
         StoryCompiler.get().econds = ctx.flag_conditions() != null ? StoryCompiler.get().flagConds.pop() : new ArraySet<>();
         if (ctx.hidden() != null && ctx.hidden().getChildCount() > 0) {
             StoryCompiler.get().eHidden = true;
@@ -227,6 +230,7 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
     @Override
     public T visitWest_cond(EditorGrammarParser.West_condContext ctx) {
         T children = visitChildren(ctx);
+        StoryCompiler.get().wdirQuery = ctx.query_conditional() != null ? StoryCompiler.get().popLastTest() : null;
         StoryCompiler.get().wconds = ctx.flag_conditions() != null ? StoryCompiler.get().flagConds.pop() : new ArraySet<>();
         if (ctx.hidden() != null && ctx.hidden().getChildCount() > 0) {
             StoryCompiler.get().wHidden = true;
@@ -237,6 +241,7 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
     @Override
     public T visitUp_cond(EditorGrammarParser.Up_condContext ctx) {
         T children = visitChildren(ctx);
+        StoryCompiler.get().udirQuery = ctx.query_conditional() != null ? StoryCompiler.get().popLastTest() : null;
         StoryCompiler.get().uconds = ctx.flag_conditions() != null ? StoryCompiler.get().flagConds.pop() : new ArraySet<>();
         if (ctx.hidden() != null && ctx.hidden().getChildCount() > 0) {
             StoryCompiler.get().uHidden = true;
@@ -247,6 +252,7 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
     @Override
     public T visitDown_cond(EditorGrammarParser.Down_condContext ctx) {
         T children = visitChildren(ctx);
+        StoryCompiler.get().ddirQuery = ctx.query_conditional() != null ? StoryCompiler.get().popLastTest() : null;
         StoryCompiler.get().dconds = ctx.flag_conditions() != null ? StoryCompiler.get().flagConds.pop() : new ArraySet<>();
         if (ctx.hidden() != null && ctx.hidden().getChildCount() > 0) {
             StoryCompiler.get().dHidden = true;

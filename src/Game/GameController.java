@@ -1,5 +1,6 @@
 package Game;
 
+import SimpleEngine.Actions.ConditionTest;
 import SimpleEngine.GameObject;
 import SimpleEngine.GameRoom;
 import SimpleEngine.GameState;
@@ -99,7 +100,10 @@ public class GameController {
         return obj.getUseAre() ? " are" : " is";
     }
 
-    public static boolean roomConditionsMet(Set<String> conditions) {
+    public static boolean roomConditionsMet(Set<String> conditions, ConditionTest query) {
+        if (query != null) {
+            return query.satisfied();
+        }
         if (conditions != null && conditions.size() > 0) {
             for (String cond : conditions) {
                 String[] flagValuePair = cond.split("=");
@@ -116,7 +120,7 @@ public class GameController {
     }
 
     public static void describeNorth(GameRoom location, boolean looking) {
-        if (location.isNhidden() && !roomConditionsMet(location.getNConds())) {
+        if (location.isNhidden() && !roomConditionsMet(location.getNConds(), location.getNQuery())) {
             if (looking) {
                 System.out.println("You can't see anything to the west.");
             }
@@ -136,7 +140,7 @@ public class GameController {
     }
 
     public static void describeSouth(GameRoom location, boolean looking) {
-        if (location.isShidden() && !roomConditionsMet(location.getSConds())) {
+        if (location.isShidden() && !roomConditionsMet(location.getSConds(), location.getSQuery())) {
             if (looking) {
                 System.out.println("You can't see anything to the south.");
             }
@@ -156,7 +160,7 @@ public class GameController {
     }
 
     public static void describeEast(GameRoom location, boolean looking) {
-        if (location.isEhidden() && !roomConditionsMet(location.getEConds())) {
+        if (location.isEhidden() && !roomConditionsMet(location.getEConds(), location.getEQuery())) {
             if (looking) {
                 System.out.println("You can't see anything to the east.");
             }
@@ -176,7 +180,7 @@ public class GameController {
     }
 
     public static void describeWest(GameRoom location, boolean looking) {
-        if (location.isWhidden() && !roomConditionsMet(location.getWConds())) {
+        if (location.isWhidden() && !roomConditionsMet(location.getWConds(), location.getWQuery())) {
             if (looking) {
                 System.out.println("You can't see anything to the west.");
             }
@@ -196,7 +200,7 @@ public class GameController {
     }
 
     public static void describeUp(GameRoom location, boolean looking) {
-        if (location.isUhidden() && !roomConditionsMet(location.getUConds())) {
+        if (location.isUhidden() && !roomConditionsMet(location.getUConds(), location.getUQuery())) {
             if (looking) {
                 System.out.println("You can't see anything above you.");
             }
@@ -216,7 +220,7 @@ public class GameController {
     }
 
     public static void describeDown(GameRoom location, boolean looking) {
-        if (location.isDhidden() && !roomConditionsMet(location.getDConds())) {
+        if (location.isDhidden() && !roomConditionsMet(location.getDConds(), location.getDQuery())) {
             if (looking) {
                 System.out.println("You can't see anything below you.");
             }

@@ -1,22 +1,15 @@
 package Game;
 
 import EnhancedEngine.EnhancedExecuteCommand;
-import EnhancedEngine.Extension;
-import EnhancedEngine.Extensions.StackableObjects;
 import EnhancedEngine.KnowledgeBase;
+import EnhancedEngine.TurnEndChecks;
 import ProcessInput.CommandConstructor;
-import SimpleEngine.Actions.Conditions.AndFlagsCond;
 import SimpleEngine.ExecuteCommand;
 import ProcessInput.NLPPipeline;
 import ProcessInput.StoryCompiler;
 
-import java.io.IOException;
-import java.lang.reflect.Constructor;
+import java.io.IOException;;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -32,8 +25,9 @@ public class Main {
             return;
         }
 
+        boolean useEnhanced;
         try {
-            boolean useEnhanced = args.length > 1 && args[1].equals("enhanced");
+            useEnhanced = args.length > 1 && args[1].equals("enhanced");
             init(args[0], useEnhanced);
         } catch (IOException e) {
             e.printStackTrace(System.err);
@@ -43,7 +37,7 @@ public class Main {
         // Until something sets continueLooping to false, execute the game loop
         continueLooping = true;
         while (continueLooping) {
-            loop();
+            loop(useEnhanced);
         }
         System.out.println("Exiting game.");
     }
@@ -88,7 +82,7 @@ public class Main {
         GameController.describeLocation();
     }
 
-    private static void loop() {
+    private static void loop(boolean useEnhanced) {
         // Get a user input
         System.out.println();
         Scanner myObj = new Scanner(System.in);
@@ -101,7 +95,10 @@ public class Main {
         Main.commandConstructor.setVerbSynonyms(GameController.getVerbSynonyms());
         Main.commandConstructor.processInput(userInput);
         ExecuteCommand.executeAction();
-        KnowledgeBase.getInstance().printKB();
+        if (useEnhanced) {
+            TurnEndChecks.getInstance().performChecks();
+            KnowledgeBase.getInstance().printKB();
+        }
     }
 
     public static void quitGame() {

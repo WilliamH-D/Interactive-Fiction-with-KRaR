@@ -389,6 +389,7 @@ public class CommandConstructor {
             if (l.equals("UP") || l.equals("U")) { GameController.setPRSO(GameController.upObj()); GameController.setPRSA("move"); return true; }
             if (l.equals("DOWN") || l.equals("D")) { GameController.setPRSO(GameController.downObj()); GameController.setPRSA("move"); return true; }
             if (l.equals("INVENTORY")) { GameController.setPRSO(GameController.getPlayer()); GameController.setPRSA("look"); return true; }
+            if (l.equals("LOOK")) { GameController.setPRSA("look around"); return true; }
         }
         return false;
     }

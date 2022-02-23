@@ -1,6 +1,7 @@
 package SimpleEngine;
 
 import Game.Direction;
+import SimpleEngine.Actions.ConditionTest;
 import edu.stanford.nlp.util.ArraySet;
 
 import java.util.ArrayList;
@@ -11,26 +12,32 @@ public class GameRoom extends GameObject {
 
     private String north;
     private Set<String> nconds;
+    private ConditionTest nquery;
     private boolean nhidden;
     private String nblockmessage;
     private String south;
     private Set<String> sconds;
+    private ConditionTest squery;
     private boolean shidden;
     private String sblockmessage;
     private String east;
     private Set<String> econds;
+    private ConditionTest equery;
     private boolean ehidden;
     private String eblockmessage;
     private String west;
     private Set<String> wconds;
+    private ConditionTest wquery;
     private boolean whidden;
     private String wblockmessage;
     private String up;
     private Set<String> uconds;
+    private ConditionTest uquery;
     private boolean uhidden;
     private String ublockmessage;
     private String down;
     private Set<String> dconds;
+    private ConditionTest dquery;
     private boolean dhidden;
     private String dblockmessage;
 
@@ -61,6 +68,18 @@ public class GameRoom extends GameObject {
     public Set<String> getUConds() { return this.uconds; }
 
     public Set<String> getDConds() { return this.dconds; }
+
+    public ConditionTest getNQuery() { return this.nquery;  }
+
+    public ConditionTest getSQuery() { return this.squery; }
+
+    public ConditionTest getEQuery() { return this.equery; }
+
+    public ConditionTest getWQuery() { return this.wquery; }
+
+    public ConditionTest getUQuery() { return this.uquery; }
+
+    public ConditionTest getDQuery() { return this.dquery; }
 
     public String getDir(Direction dir) {
         switch(dir) {
@@ -145,6 +164,18 @@ public class GameRoom extends GameObject {
             this.dconds = new HashSet<>(conds);
         }
     }
+
+    public void setNQuery(ConditionTest query) { this.nquery = query; }
+
+    public void setSQuery(ConditionTest query) { this.squery = query; }
+
+    public void setEQuery(ConditionTest query) { this.equery = query; }
+
+    public void setWQuery(ConditionTest query) { this.wquery = query; }
+
+    public void setUQuery(ConditionTest query) { this.uquery = query; }
+
+    public void setDQuery(ConditionTest query) { this.dquery = query; }
 
     public void setNorthBlockMessage(String message) { this.nblockmessage = message; }
 
