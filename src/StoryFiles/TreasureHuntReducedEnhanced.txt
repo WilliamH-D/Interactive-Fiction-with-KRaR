@@ -339,8 +339,8 @@ USE: <StackableObjects>;
     NAME: "cupboard";
     DESC: "An old marble cupboard. It's amazing that the thin stone door still slides open and shut!";
     SYNS: "counter", "compartment", "surface";
-    PROPERTIES: _CLOSABLECONTAINER;
-    VALUES: (capacity: 25), (surface: 25);
+    PROPERTIES: _CLOSABLECONTAINER, _STABLE;
+    VALUES: (capacity: 50), (surface: 50);
 }
 
 [object]

@@ -43,7 +43,7 @@ public class KnowledgeBase {
 
         // Object is in scope (first arg is object, second arg is the scope of the object)
         addClause("inScope(A) :- isObject(A), isLocated(A,B,_), isLocated(" + GameController.getPlayer().getId().toLowerCase() + ",B,_),!");
-        addClause("inScope(A) :- isObject(A), isLocated(A,B,_), hasProperty(B,closablecontainer),!,isClosed(B,false), inScope(B)");
+        addClause("inScope(A) :- isObject(A), isLocated(A,B,0), hasProperty(B,closablecontainer),!,isClosed(B,false), inScope(B)");
         addClause("inScope(A) :- isObject(A), isLocated(A,B,_), inScope(B)");
 
         // Put object in other object (put object A inside object B)
