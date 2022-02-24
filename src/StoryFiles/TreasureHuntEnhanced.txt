@@ -1,4 +1,4 @@
-USE: <StackableObjects>;
+USE: <StackableObjects>, <WeightedObjects>;
 
 [room]
 {
@@ -42,7 +42,7 @@ USE: <StackableObjects>;
     DESC: "It's a small marble block. It looks as if it fallen from one of the ruined columns.";
     SYNS: "little block", "smallest block", "little marble block", "small marble block", "block", "small", "broken column";
     PROPERTIES: _TAKEABLE, _STABLE;
-    VALUES: (volume: 25), (surface: 25);
+    VALUES: (volume: 25), (surface: 25), (weight: 25);
 }
 
 [room]
@@ -50,7 +50,7 @@ USE: <StackableObjects>;
     ID: <ALTERROOM>;
     S: <COLUMNS>;
     D: <TREASUREROOM>;
-    DCOND: _PRESSUREPLATE1=1, _PRESSUREPLATE2=1, _HIDDEN;
+    DCOND: QUERY<weightOnObjectAtLeast(pressureplate1,50), weightOnObjectAtLeast(pressureplate2,50)>, _HIDDEN;
     DBLOCKMESSAGE: "You cannot move down.";
     NAME: "Grand Alter";
     DESC: "At the very end of the temple's long column-way stands a grand alter.";
@@ -66,6 +66,7 @@ USE: <StackableObjects>;
     DESC: "A grand marble alter rising from the centre of the room. Many ceremonies will have been performed here in ages past.";
     ALTDESC: "The alter is no longer visible as it has retreated into the ground and in its place is a stairway.";
     CONDS: _PRESSUREPLATE1=1, _PRESSUREPLATE2=1;
+    PROPERTIES: _STABLE;
     VALUES: (surface: 50);
 }
 

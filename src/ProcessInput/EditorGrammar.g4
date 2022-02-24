@@ -136,7 +136,7 @@ name_entry: NAME_KEY STRING SEMICOLON;
 desc_entry: DESC_KEY STRING SEMICOLON | /* epsilon */;
 
 alt_desc_entry: ALT_DESC_KEY STRING SEMICOLON CONDS_KEY
-                flag_conditions SEMICOLON
+                (flag_conditions | query_conditional) SEMICOLON
                 alt_desc_entry | /* epsilon */;
 
 synonyms_entry: SYNS_KEY STRING (COMMA STRING)* SEMICOLON | /* epsilon */;
