@@ -32,6 +32,18 @@ public class WeightedObjects implements Extension {
         clauses.add("weightOnObjectEquals(O,W) :- weightOnObject(_,O,W2), W2 = W");
         clauses.add("weightOnObjectAtLeast(O,W) :- weightOnObject(_,O,W2), W2 >= W");
         clauses.add("weightOnObjectAtMost(O,W) :- weightOnObject(_,O,W2), W2 =< W");
+
+        clauses.add("weightInObjectEquals(O,W) :- weightInObject(_,O,W2), W2 = W");
+        clauses.add("weightInObjectAtLeast(O,W) :- weightInObject(_,O,W2), W2 >= W");
+        clauses.add("weightInObjectAtMost(O,W) :- weightInObject(_,O,W2), W2 =< W");
+
+        clauses.add("weightOnObjectNotEquals(O,W) :- weightOnObject(_,O,W2), W2 \\= W");
+        clauses.add("weightOnObjectTooLow(O,W) :- weightOnObject(_,O,W2), W2 < W");
+        clauses.add("weightOnObjectTooHigh(O,W) :- weightOnObject(_,O,W2), W2 > W");
+
+        clauses.add("weightInObjectNotEquals(O,W) :- weightInObject(_,O,W2), W2 \\= W");
+        clauses.add("weightInObjectTooLow(O,W) :- weightInObject(_,O,W2), W2 < W");
+        clauses.add("weightInObjectTooHigh(O,W) :- weightInObject(_,O,W2), W2 > W");
         return clauses;
     }
 

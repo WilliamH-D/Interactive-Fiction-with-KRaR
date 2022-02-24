@@ -55,7 +55,7 @@ USE: <StackableObjects>, <WeightedObjects>;
     NAME: "Grand Alter";
     DESC: "At the very end of the temple's long column-way stands a grand alter.";
     ALTDESC: "The alter that once stood here has sunken into the floor, exposing a stairway emanating a soft golden glow...";
-    CONDS: _PRESSUREPLATE1=1, _PRESSUREPLATE2=1;
+    CONDS: QUERY<weightOnObjectAtLeast(pressureplate1,50), weightOnObjectAtLeast(pressureplate2,50)>;
 }
 
 [object]
@@ -65,7 +65,7 @@ USE: <StackableObjects>, <WeightedObjects>;
     NAME: "alter";
     DESC: "A grand marble alter rising from the centre of the room. Many ceremonies will have been performed here in ages past.";
     ALTDESC: "The alter is no longer visible as it has retreated into the ground and in its place is a stairway.";
-    CONDS: _PRESSUREPLATE1=1, _PRESSUREPLATE2=1;
+    CONDS: QUERY<weightOnObjectAtLeast(pressureplate1,50), weightOnObjectAtLeast(pressureplate2,50)>;
     PROPERTIES: _STABLE;
     VALUES: (surface: 50);
 }
@@ -77,50 +77,7 @@ USE: <StackableObjects>, <WeightedObjects>;
     NAME: "right pressure plate";
     DESC: "It's the pressure plate to your right. It needs something heavy placed on top of it to activate.";
     SYNS: "right plate", "second plate", "second pressure plate", "plate 2", "other plate", "plate", "pressure plate";
-    VALUES: (surface: 25);
-}
-
-[action]
-{
-    ID: <PRESSUREPLATE2>;
-    ACTION:
-        COND<PRSAAND: PUT, ON && !ANDFLAGS: _PRESSUREPLATE2>
-        {
-            COND<PRSO: <WATERCONTAINER1>>
-            {
-                EFF<PLACE: <WATERCONTAINER1>, <PRESSUREPLATE2>, ON>
-                EFF<TELL: "You placed the clay pot on the pressure plate.">
-                COND<ANDFLAGS: _CONTAINER1FILLED>
-                {
-                    EFF<SETFLAG: _PRESSUREPLATE2, 1>
-                    EFF<TELL: "You hear a rumble as the pressure plate clicks into place.">
-                    COND<ANDFLAGS: _PRESSUREPLATE1>
-                    {
-                        EFF<TELL: "You hear a loud rumbling as the alter before you lowers into the ground and reveals a hidden stairway...">
-                    }
-                }
-            }
-            COND<PRSO: <WATERCONTAINER2>>
-            {
-                EFF<PLACE: <WATERCONTAINER2>, <PRESSUREPLATE2>, ON>
-                EFF<TELL: "You placed the copper jug on the pressure plate.">
-                COND<ANDFLAGS: _CONTAINER2FILLED>
-                {
-                    EFF<SETFLAG: _PRESSUREPLATE2, 1>
-                    EFF<TELL: "You hear a rumble as the pressure plate clicks into place.">
-                    COND<ANDFLAGS: _PRESSUREPLATE1>
-                    {
-                        EFF<TELL: "You hear a loud rumbling as the alter before you lowers into the ground and reveals a hidden stairway...">
-                    }
-                }
-            }
-        };
-}
-
-[flag]
-{
-    FLAG: _PRESSUREPLATE2;
-    VALUE: 0;
+    VALUES: (surface: 50);
 }
 
 [object]
@@ -130,50 +87,7 @@ USE: <StackableObjects>, <WeightedObjects>;
     NAME: "left pressure plate";
     DESC: "It's the pressure plate to your left. It needs something heavy placed on top of it to activate.";
     SYNS: "left plate", "first plate", "first pressure plate", "plate 1", "plate", "pressure plate";
-    VALUES: (surface: 25);
-}
-
-[action]
-{
-    ID: <PRESSUREPLATE1>;
-    ACTION:
-        COND<PRSAAND: PUT, ON && !ANDFLAGS: _PRESSUREPLATE1>
-        {
-            COND<PRSO: <WATERCONTAINER1>>
-            {
-                EFF<PLACE: <WATERCONTAINER1>, <PRESSUREPLATE1>, ON>
-                EFF<TELL: "You placed the clay pot on the pressure plate.">
-                COND<ANDFLAGS: _CONTAINER1FILLED>
-                {
-                    EFF<SETFLAG: _PRESSUREPLATE1, 1>
-                    EFF<TELL: "You hear a rumble as the pressure plate clicks into place.">
-                    COND<ANDFLAGS: _PRESSUREPLATE2>
-                    {
-                        EFF<TELL: "You hear a loud rumbling as the alter before you lowers into the ground and reveals a hidden stairway...">
-                    }
-                }
-            }
-            COND<PRSO: <WATERCONTAINER2>>
-            {
-                EFF<PLACE: <WATERCONTAINER2>, <PRESSUREPLATE1>, ON>
-                EFF<TELL: "You placed the copper jug on the pressure plate.">
-                COND<ANDFLAGS: _CONTAINER2FILLED>
-                {
-                    EFF<SETFLAG: _PRESSUREPLATE1, 1>
-                    EFF<TELL: "You hear a rumble as the pressure plate clicks into place.">
-                    COND<ANDFLAGS: _PRESSUREPLATE2>
-                    {
-                        EFF<TELL: "You hear a loud rumbling as the alter before you lowers into the ground and reveals a hidden stairway...">
-                    }
-                }
-            }
-        };
-}
-
-[flag]
-{
-    FLAG: _PRESSUREPLATE1;
-    VALUE: 1;
+    VALUES: (surface: 50);
 }
 
 [object]
@@ -187,7 +101,7 @@ USE: <StackableObjects>, <WeightedObjects>;
     CONDS: _CONTAINER1FILLED=1;
     SYNS: "pot", "container", "clay container";
     PROPERTIES: _TAKEABLE;
-    VALUES: (volume: 25), (capacity: 25);
+    VALUES: (volume: 25), (capacity: 25), (weight : 5);
 }
 
 [action]
@@ -222,26 +136,6 @@ USE: <StackableObjects>, <WeightedObjects>;
                 EFF<TELL: "You filled the clay pot up with water and it became heavy!">
                 EFF<SETFLAG: _CONTAINER1FILLED, 1>
             }
-        }
-        COND<PRSA: TAKE, OBTAIN && INSCOPE: <WATERCONTAINER1>, <PRESSUREPLATE1> && ANDFLAGS: _CONTAINER1FILLED>
-        {
-            EFF<TAKE: <WATERCONTAINER1>>
-            EFF<REMFLAG: _PRESSUREPLATE1>
-            EFF<TELL: "The left pressure plate raises back up as you take off the clay pot.">
-            COND<ANDFLAGS: _PRESSUREPLATE2>
-            {
-                EFF<TELL: "The alter rises back up from the floor and hides the secret stairway.">
-            }
-        }
-        COND<PRSA: TAKE, OBTAIN && INSCOPE: <WATERCONTAINER1>, <PRESSUREPLATE2> && ANDFLAGS: _CONTAINER2FILLED>
-        {
-            EFF<TAKE: <WATERCONTAINER1>>
-            EFF<REMFLAG: _PRESSUREPLATE2>
-            EFF<TELL: "The right pressure plate raises back up as you take off the clay pot.">
-            COND<ANDFLAGS: _PRESSUREPLATE1>
-            {
-                EFF<TELL: "The alter rises back up from the floor and hides the secret stairway.">
-            }
         };
 }
 
@@ -268,7 +162,7 @@ USE: <StackableObjects>, <WeightedObjects>;
     DESC: "A golden treasure chest studded with rubies and emeralds.";
     SYNS: "chest", "box";
     PROPERTIES: _TAKEABLE, _CLOSABLECONTAINER, _LOCKED;
-    VALUES: (capacity: 50), (volume: 50);
+    VALUES: (capacity: 50), (volume: 50), (weight: 25);
 }
 
 [action]
@@ -301,25 +195,7 @@ USE: <StackableObjects>, <WeightedObjects>;
     NAME: "treasure";
     DESC: "All the riches you could ever dream of! Sparkling jewels, shining gold, glowing rubies, and more!";
     PROPERTIES: _TAKEABLE;
-    VALUES: (volume: 50);
-}
-
-[action]
-{
-    ID: <TREASURE>;
-    ACTION:
-        COND<PRSA: TAKE, OBTAIN>
-        {
-            EFF<TAKE: <TREASURE>>
-            EFF<SETFLAG: _TREASUREOBTAINED, 1>
-            EFF<TELL: "CONGRATULATIONS! You have successfully taken the treasure!">
-        };
-}
-
-[flag]
-{
-    FLAG: _TREASUREOBTAINED;
-    VALUE: 0;
+    VALUES: (volume: 50), (weight: 25);
 }
 
 [room]
@@ -354,7 +230,7 @@ USE: <StackableObjects>, <WeightedObjects>;
     CONDS: _CONTAINER2FILLED=1;
     SYNS: "jug", "container", "copper container";
     PROPERTIES: _TAKEABLE;
-    VALUES: (volume: 25), (capacity: 25);
+    VALUES: (volume: 25), (capacity: 25), (weight: 5);
 }
 
 [action]
@@ -389,26 +265,6 @@ USE: <StackableObjects>, <WeightedObjects>;
                 EFF<TELL: "You filled the copper jug up with water and it became heavy!">
                 EFF<SETFLAG: _CONTAINER2FILLED, 1>
             }
-        }
-        COND<PRSA: TAKE, OBTAIN && INSCOPE: <WATERCONTAINER2>, <PRESSUREPLATE1> && ANDFLAGS: _CONTAINER2FILLED>
-        {
-            EFF<TAKE: <WATERCONTAINER2>>
-            EFF<REMFLAG: _PRESSUREPLATE1>
-            EFF<TELL: "The left pressure plate raises back up as you take off the copper jug.">
-            COND<ANDFLAGS: _PRESSUREPLATE2>
-            {
-                EFF<TELL: "The alter rises back up from the floor and hides the secret stairway.">
-            }
-        }
-        COND<PRSA: TAKE, OBTAIN && INSCOPE: <WATERCONTAINER2>, <PRESSUREPLATE2> && ANDFLAGS: _CONTAINER2FILLED>
-        {
-            EFF<TAKE: <WATERCONTAINER2>>
-            EFF<REMFLAG: _PRESSUREPLATE2>
-            EFF<TELL: "The right pressure plate raises back up as you take off the copper jug.">
-            COND<ANDFLAGS: _PRESSUREPLATE1>
-            {
-                EFF<TELL: "The alter rises back up from the floor and hides the secret stairway.">
-            }
         };
 }
 
@@ -426,19 +282,16 @@ USE: <StackableObjects>, <WeightedObjects>;
     DESC: "A long wooden plank that has somehow managed to avoid rotting away.%nIt looks sturdy enough to be used as a bridge.";
     SYNS: "bridge", "wood", "log", "plank";
     PROPERTIES: _TAKEABLE;
-    VALUES: (volume: 50), (surface: 50);
+    VALUES: (volume: 50), (surface: 50), (weight: 25);
 }
 
 [action]
 {
     ID: <PLANK>;
     ACTION:
-        COND<PRSA: PUT, PLACE && PRSO: <PLANK>>
+        COND<PRSA: PUT, PLACE && PRSO: <PLANK> && PRSI: <RIVER>>
         {
-            COND<PRSI: <RIVER>>
-            {
-                EFF<PLACE: <PLANK>, <RIVERSTILTS>, ON>
-            }
+            EFF<PLACE: <PLANK>, <RIVERSTILTS>, ON>
         }
         COND<PRSA: MAKE, FORM && PRSO: <PLANK> && HERE: <EASTRIVER>>
         {
@@ -462,7 +315,7 @@ USE: <StackableObjects>, <WeightedObjects>;
     DESC: "An old ornate golden key. It looks important.";
     SYNS: "key";
     PROPERTIES: _TAKEABLE;
-    VALUES: (volume: 10);
+    VALUES: (volume: 10), (weight: 1);
 }
 
 [room]
@@ -482,7 +335,7 @@ USE: <StackableObjects>, <WeightedObjects>;
     DESC: "It's a medium sized block of rock. This boulder looks as if it collapsed from the walls of the rocky tunnel, perhaps it could be used as a building block to climb on.";
     SYNS: "medium block", "medium boulder", "rock block", "boulder", "block", "medium";
     PROPERTIES: _TAKEABLE, _STABLE;
-    VALUES: (volume: 50), (surface: 50);
+    VALUES: (volume: 50), (surface: 50), (weight: 50);
 }
 
 [room]
@@ -567,7 +420,7 @@ USE: <StackableObjects>, <WeightedObjects>;
     DESC: "A massive marble block that never ended up leaving the quarry. It's a miracle you're able to even lift this thing!";
     SYNS: "large block", "big block", "biggest block", "big marble block", "large marble block", "block", "large", "big";
     PROPERTIES: _TAKEABLE, _STABLE;
-    VALUES: (volume: 75), (surface: 75);
+    VALUES: (volume: 75), (surface: 75), (weight: 75);
 }
 
 [end]
@@ -589,5 +442,37 @@ USE: <StackableObjects>, <WeightedObjects>;
         ELSE
         {
             EFF<TELL: "Without the plank, you can no longer cross the river safely.">
+        };
+    CHECK:
+        QUERY<weightOnObjectAtLeast(pressureplate1,50)>
+        {
+            EFF<TELL: "You hear a rumble as the pressure plate clicks into place.">
+        }
+        ELSE
+        {
+            EFF<TELL: "The Pressure plate clicks as it lift back up.">
+        };
+    CHECK:
+        QUERY<weightOnObjectAtLeast(pressureplate2,50)>
+        {
+            EFF<TELL: "You hear a rumble as the pressure plate clicks into place.">
+        }
+        ELSE
+        {
+            EFF<TELL: "The Pressure plate clicks as it lift back up.">
+        };
+    CHECK:
+        QUERY<weightOnObjectAtLeast(pressureplate1,50), weightOnObjectAtLeast(pressureplate2,50)>
+        {
+            EFF<TELL: "You hear a loud rumbling as the alter before you lowers into the ground and reveals a hidden stairway...">
+        }
+        ELSE
+        {
+            EFF<TELL: "The alter rises back up from the floor and hides the secret stairway.">
+        };
+    CHECK:
+        QUERY<isLocated(treasure,player,1)>
+        {
+            EFF<TELL: "Congratulations! You obtained the ancient treasure!">
         };
 }

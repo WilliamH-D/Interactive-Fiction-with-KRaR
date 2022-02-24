@@ -67,6 +67,7 @@ public class StoryCompiler {
 
     List<String> altDescs = new ArrayList<>();
     List<Set<String>> altDescConds = new ArrayList<>();
+    List<ConditionTest> altDescQueries = new ArrayList<>();
 
     Set<String> synonyms;
 
@@ -162,6 +163,7 @@ public class StoryCompiler {
         desc = null;
         altDescs = new ArrayList<>();
         altDescConds = new ArrayList<>();
+        altDescQueries = new ArrayList<>();
 
         queries = new ArrayList<>();
 
@@ -242,6 +244,7 @@ public class StoryCompiler {
         for (int i = 0; i < altDescs.size(); i++) {
             logger.logRaw("ALTDESC: " + altDescs.get(i));
             logger.logRaw("ALTDESCCONDS: " + altDescConds.get(i));
+            logger.logRaw("ALTDESCQUERY: " + altDescQueries.get(i).toString());
         }
         logger.logRaw("SYNS: " + synonyms);
         logger.logRaw("DET: " + det);
@@ -281,7 +284,7 @@ public class StoryCompiler {
         room.setName(name);
         room.setDesc(desc);
         for (int i = 0; i < altDescs.size(); i++) {
-            room.addAltDesc(altDescs.get(i), altDescConds.get(i));
+            room.addAltDesc(altDescs.get(i), altDescConds.get(i), altDescQueries.get(i));
         }
         room.setSynonyms(synonyms);
         room.setDet(det);
@@ -308,6 +311,11 @@ public class StoryCompiler {
         logger.logRaw("LOCATION TYPE: " + locationType);
         logger.logRaw("NAME: " + name);
         logger.logRaw("DESC: " + desc);
+        for (int i = 0; i < altDescs.size(); i++) {
+            logger.logRaw("ALTDESC: " + altDescs.get(i));
+            logger.logRaw("ALTDESCCONDS: " + altDescConds.get(i));
+            logger.logRaw("ALTDESCQUERY: " + altDescQueries.get(i));
+        }
         logger.logRaw("SYNS: " + synonyms);
         logger.logRaw("FLAGS: " + Arrays.toString(properties.toArray()));
         logger.logRaw("VALUES: ");
@@ -321,7 +329,7 @@ public class StoryCompiler {
         obj.setName(name);
         obj.setDesc(desc);
         for (int i = 0; i < altDescs.size(); i++) {
-            obj.addAltDesc(altDescs.get(i), altDescConds.get(i));
+            obj.addAltDesc(altDescs.get(i), altDescConds.get(i), altDescQueries.get(i));
         }
         obj.setSynonyms(synonyms);
         obj.setDet(det);
@@ -349,6 +357,9 @@ public class StoryCompiler {
                 case "below":
                     below = Integer.parseInt(value.getValue().toString());
                     obj.addVariable("belowUsed", "0");
+                    break;
+                default:
+                    kb.addClause("hasVariable(" + id.toLowerCase() + "," + value.getKey().toString() + "," + value.getValue().toString() + ")");
                     break;
             }
         }
@@ -780,10 +791,10 @@ public class StoryCompiler {
         TurnEndChecks.getInstance().addEndCheck(endCheck);
 
         logger.logLine();
-        logger.logDebug("Compiling EncCheck:");
+        logger.logDebug("Compiling EndCheck:");
         logger.logDebug("Queries: " + tests.toString());
-        logger.logDebug("ifEffects: " + ifEffects.toString());
-        logger.logDebug("elseEffects: " + elseEffects.toString());
+        logger.logDebug("ifEffects: " + ifEffects);
+        logger.logDebug("elseEffects: " + elseEffects);
 
         tests = new ArrayList<>();
         ifEffects = null;

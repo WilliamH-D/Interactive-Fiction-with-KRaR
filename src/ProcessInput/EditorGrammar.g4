@@ -308,7 +308,7 @@ parameters: parameter (COMMA parameter)*;
 parameter: (ALPHA |ALPHANUMERIC) | NUMERIC | LB_SQUARE parameter (BAR parameter | /* epsilon */) RB_SQUARE;
 
 // Define parts of an end block (enhanced engine only)
-check_entry: CHECK_KEY query_conditional LB_CURLY if_effects RB_CURLY ELSE_TAG LB_CURLY else_effects RB_CURLY SEMICOLON;
+check_entry: CHECK_KEY query_conditional LB_CURLY if_effects RB_CURLY SEMICOLON | CHECK_KEY query_conditional LB_CURLY if_effects RB_CURLY ELSE_TAG LB_CURLY else_effects RB_CURLY SEMICOLON;
 if_effects: effect_aux (effect_aux)*;
 else_effects: effect_aux (effect_aux)*;
 

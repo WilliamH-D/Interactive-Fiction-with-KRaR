@@ -37,6 +37,9 @@ public class KnowledgeBase {
     }
 
     private void addRules() {
+        addClause("notMember(_,[]) :- !");
+        addClause("notMember(X, [Head|Tail]) :- X \\= Head, notMember(X, Tail)");
+
         addClause("isObject(" + GameController.getPlayer().getId().toLowerCase() + ")");
         addClause("capacity(" + GameController.getPlayer().getId().toLowerCase() + "," + Integer.MAX_VALUE + ")");
         addClause("capacityUsed(" + GameController.getPlayer().getId().toLowerCase() + ",0)");

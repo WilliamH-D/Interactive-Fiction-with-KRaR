@@ -71,11 +71,19 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
     @Override
     public T visitAlt_desc_entry(EditorGrammarParser.Alt_desc_entryContext ctx) {
         T children = visitChildren(ctx);
+        if (ctx.query_conditional() != null) {
+            String desc = ctx.STRING().getText().substring(1, ctx.STRING().getText().length()-1);
+            StoryCompiler.get().altDescs.add(desc);
+            StoryCompiler.get().altDescConds.add(null);
+            StoryCompiler.get().altDescQueries.add(StoryCompiler.get().popLastTest());
+            return children;
+        }
         if (ctx.flag_conditions() != null) {
             // not epsilon case
             String desc = ctx.STRING().getText().substring(1, ctx.STRING().getText().length()-1);
             StoryCompiler.get().altDescs.add(desc);
             StoryCompiler.get().altDescConds.add(StoryCompiler.get().flagConds.pop());
+            StoryCompiler.get().altDescQueries.add(null);
         }
         return children;
     }

@@ -3,6 +3,7 @@ package SimpleEngine;
 import EnhancedEngine.KnowledgeBase;
 import Game.GameController;
 import Game.Main;
+import SimpleEngine.Actions.ConditionTest;
 
 import java.util.*;
 
@@ -17,6 +18,7 @@ public class GameObject {
     private String desc;
     private List<String> altDescs;
     private List<Set<String>> altDescConds;
+    private List<ConditionTest> altDescQueries;
     private Set<String> synonyms; // Generate automatically when parsing input rather than defining here (can be difference for enhanced engine)
     private Set<String> properties; // Static flags for this object
     private HashMap<String, String> variables;
@@ -33,6 +35,7 @@ public class GameObject {
         this.variables = new HashMap<>();
         this.altDescs = new ArrayList<>();
         this.altDescConds = new ArrayList<>();
+        this.altDescQueries = new ArrayList<>();
     }
 
     public String getId() { return this.id; }
@@ -130,15 +133,24 @@ public class GameObject {
 
     public void setDesc(String desc) { this.desc = desc.replaceAll("%n", "\n"); }
 
-    public void addAltDesc(String altDesc, Set<String> conds) {
+    public void addAltDesc(String altDesc, Set<String> conds, ConditionTest queries) {
         this.altDescs.add(altDesc.replaceAll("%n", "\n"));
         this.altDescConds.add(conds);
+        this.altDescQueries.add(queries);
     }
 
     public String getDesc() {
         //Try all conditional alt descs first, then resort to default desc
         for (int i = this.altDescs.size() - 1; i >= 0; i--) {
             boolean flagsSatisfied = true;
+            if (altDescQueries.get(i) != null) {
+                if (!altDescQueries.get(i).satisfied()) {
+                    continue;
+                }
+                else {
+                    return this.altDescs.get(i);
+                }
+            }
             Set<String> iConds = this.altDescConds.get(i);
             for (String cond : iConds) {
                 String[] flagParts = cond.split("=");
