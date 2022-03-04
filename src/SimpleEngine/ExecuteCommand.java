@@ -24,13 +24,13 @@ public class ExecuteCommand {
         logger.logDebug("PRSA: " + GameController.getPRSA() + ", PRSO: " + (GameController.getPRSO() == null ? "null" : GameController.getPRSO().getId()) + ", PRSI: " + (GameController.getPRSI() == null ? "null" : GameController.getPRSI().getId()));
         logger.logLine();
         if (GameController.getPRSA() == null) {
-            System.out.println("I didn't understand that input.");
+            System.err.println("I didn't understand that input.");
             return;
         }
 
         // Handle object conflict
         if (GameController.getPRSA().equals("CONFLICT")) {
-            System.out.println("I cannot determine which object you are referencing, please be more specific.");
+            System.err.println("I cannot determine which object you are referencing, please be more specific.");
             return;
         }
 
@@ -53,7 +53,7 @@ public class ExecuteCommand {
         if (GameController.usingEnhancedEngine() && EnhancedExecuteCommand.decodePRSAEnhanced(getCorrectedVerb())) { return; }
         logger.logLine();
         logger.logDebug("FAILED TO PERFORM ENHANCED ACTION USING PRSA");
-        System.out.println("I didn't understand that input.");
+        System.err.println("I didn't understand that input.");
     }
 
     // If the given PRSA is a synonym, get the corresponding action

@@ -7,7 +7,7 @@ public class TellEff extends Effect {
     private String text;
 
     public TellEff(String text) {
-        this.text = text;
+        this.text = text.replaceAll("%n", "\n");
     }
 
     @Override

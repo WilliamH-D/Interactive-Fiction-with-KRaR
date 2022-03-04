@@ -22,6 +22,7 @@ NOT:'!';
 
 // Reserved keyword for defining a room as being hidden
 HIDDEN_KEY: 'HIDDEN';
+DEFAULT_KEY: 'DEFAULT';
 
 // Reserved strings
 COND_TAG: 'COND';
@@ -243,10 +244,9 @@ end: END_TAG LB_CURLY
             RB_CURLY | /* epsilon */;
 
 // Define the parts of an action entry
-action_block: effect_aux
-              | effect_aux action_block
-              | conditional
-              | conditional action_block;
+action_block: effect_aux action_block
+              | conditional action_block
+              | /*epsilon*/;
 conditional: COND_TAG LB_SHARP conditions RB_SHARP LB_CURLY action_block RB_CURLY;
 conditions: condition_aux
             | condition_aux AND conditions
@@ -286,9 +286,9 @@ setflag_eff: SETFLAG_EFF flag | SETFLAG_EFF flag COMMA num_int;
 remflag_eff: REMFLAG_EFF flag;
 take_eff: TAKE_EFF ID;
 place_eff: PLACE_EFF ID COMMA ID COMMA (IN_TAG|ON_TAG|UNDER_TAG);
-set_var_eff: SET_VAR_EFF ID SEMICOLON alpha_numeric COMMA var;
-inc_var_eff: INC_VAR_EFF ID SEMICOLON alpha_numeric COMMA var;
-dec_var_eff: DEC_VAR_EFF ID SEMICOLON alpha_numeric COMMA var;
+set_var_eff: SET_VAR_EFF ID COLON alpha_numeric COMMA var;
+inc_var_eff: INC_VAR_EFF ID COLON alpha_numeric COMMA var;
+dec_var_eff: DEC_VAR_EFF ID COLON alpha_numeric COMMA var;
 add_property_eff: ADD_PROPERTY_EFF ID COMMA flag;
 remove_property_eff: REMOVE_PROPERTY_EFF ID COMMA flag;
 add_query_eff: ADD_QUERY_EFF query;
@@ -300,6 +300,7 @@ effect: tell_eff|goto_eff|setflag_eff|remflag_eff|take_eff|place_eff|set_var_eff
 // Define parts of a query conditional (enhanced engine only)
 query_conditional: QUERY_TAG LB_SHARP queries RB_SHARP;
 
+
 queries: query (COMMA query)*;
 
 query: functor LB_ROUND parameters RB_ROUND;
@@ -307,8 +308,11 @@ functor: ALPHA | ALPHANUMERIC;
 parameters: parameter (COMMA parameter)*;
 parameter: (ALPHA |ALPHANUMERIC) | NUMERIC | LB_SQUARE parameter (BAR parameter | /* epsilon */) RB_SQUARE;
 
+// End condition is already set by default
+defaultCheck: COMMA UNDERSCORE DEFAULT_KEY | /*epsilon*/;
+
 // Define parts of an end block (enhanced engine only)
-check_entry: CHECK_KEY query_conditional LB_CURLY if_effects RB_CURLY SEMICOLON | CHECK_KEY query_conditional LB_CURLY if_effects RB_CURLY ELSE_TAG LB_CURLY else_effects RB_CURLY SEMICOLON;
+check_entry: CHECK_KEY query_conditional defaultCheck LB_CURLY if_effects RB_CURLY SEMICOLON | CHECK_KEY query_conditional defaultCheck LB_CURLY if_effects RB_CURLY ELSE_TAG LB_CURLY else_effects RB_CURLY SEMICOLON;
 if_effects: effect_aux (effect_aux)*;
 else_effects: effect_aux (effect_aux)*;
 

@@ -6,10 +6,10 @@ USE: <StackableObjects>, <WeightedObjects>;
     N: <COLUMNS>;
     S: <CIVILISATION>;
     SCOND: QUERY<isLocated(treasure,player,0)>;
-    SBLOCKMESSAGE: "You don't want to return to civilisation without claiming the ancient treasure!";
+    SBLOCKMESSAGE: "This is the direction you came into the ruins from.%nYou don't want to return to civilisation without claiming the ancient treasure you came for!";
     W: <ROCKYTUNNEL>;
     NAME: "Ruin's Entrance";
-    DESC: "A newly excavated entrance way to long-lost underground ruins. %nBlinding sunlight streams into the network of caverns, illuminating the crumbling stone and marble structures inside.";
+    DESC: "A newly excavated entrance way to long-lost underground ruins.%n%nBlinding sunlight streams into the network of caverns, illuminating the crumbling stone and marble structures inside.%n%nAhead of you are some stairs leading into a long-abandoned temple with cracked marble columns reaching%nto the roof of the caverns";
     DET: "the";
 }
 
@@ -39,7 +39,7 @@ USE: <StackableObjects>, <WeightedObjects>;
     ID: <SMALLBLOCK>;
     LOCATION: <COLUMNS>;
     NAME: "small block";
-    DESC: "It's a small marble block. It looks as if it fallen from one of the ruined columns.";
+    DESC: "It's a small marble block. It looks as if it fallen from one of the ruined columns.%nThe block is still sturdy, perhaps it could be stacked up on something to climb somewhere unreachable...";
     SYNS: "little block", "smallest block", "little marble block", "small marble block", "block", "small", "broken column";
     PROPERTIES: _TAKEABLE, _STABLE;
     VALUES: (volume: 25), (surface: 25), (weight: 25);
@@ -53,7 +53,7 @@ USE: <StackableObjects>, <WeightedObjects>;
     DCOND: QUERY<weightOnObjectAtLeast(pressureplate1,50), weightOnObjectAtLeast(pressureplate2,50)>, _HIDDEN;
     DBLOCKMESSAGE: "You cannot move down.";
     NAME: "Grand Alter";
-    DESC: "At the very end of the temple's long column-way stands a grand alter.";
+    DESC: "At the very end of the temple's long column-way stands a grand alter%nThe two pressure plates in front of it seem connected to it somehow.";
     ALTDESC: "The alter that once stood here has sunken into the floor, exposing a stairway emanating a soft golden glow...";
     CONDS: QUERY<weightOnObjectAtLeast(pressureplate1,50), weightOnObjectAtLeast(pressureplate2,50)>;
 }
@@ -72,21 +72,21 @@ USE: <StackableObjects>, <WeightedObjects>;
 
 [object]
 {
-    ID: <PRESSUREPLATE2>;
+    ID: <PRESSUREPLATE1>;
     LOCATION: <ALTERROOM>;
-    NAME: "right pressure plate";
-    DESC: "It's the pressure plate to your right. It needs something heavy placed on top of it to activate.";
-    SYNS: "right plate", "second plate", "second pressure plate", "plate 2", "other plate", "plate", "pressure plate";
+    NAME: "left pressure plate";
+    DESC: "It's the pressure plate to your left.%nIf something heavy is placed on top of it, then it may do something.";
+    SYNS: "left plate", "first plate", "first pressure plate", "plate 1", "plate", "pressure plate";
     VALUES: (surface: 50);
 }
 
 [object]
 {
-    ID: <PRESSUREPLATE1>;
+    ID: <PRESSUREPLATE2>;
     LOCATION: <ALTERROOM>;
-    NAME: "left pressure plate";
-    DESC: "It's the pressure plate to your left. It needs something heavy placed on top of it to activate.";
-    SYNS: "left plate", "first plate", "first pressure plate", "plate 1", "plate", "pressure plate";
+    NAME: "right pressure plate";
+    DESC: "It's the pressure plate to your right.%nIf something heavy is placed on top of it, then it may do something.";
+    SYNS: "right plate", "second plate", "second pressure plate", "plate 2", "other plate", "plate", "pressure plate";
     VALUES: (surface: 50);
 }
 
@@ -97,52 +97,46 @@ USE: <StackableObjects>, <WeightedObjects>;
     LOCATIONTYPE: 1;
     NAME: "clay pot";
     DESC: "It's an old clay pot that was found holding down a pressure plate.%nIt looks like it would be heavy when filled with water.";
-    ALTDESC: "It's an old clay pot that was found holding down a pressure plate.%nIt's filled to the brim with water!";
-    CONDS: _CONTAINER1FILLED=1;
+    ALTDESC: "It's an old clay pot that was found holding down a pressure plate.%nIt's filled to the brim with water! It's heavy enough to hold down the pressure plate.";
+    CONDS: QUERY<selfWeight(watercontainer1,50)>;
     SYNS: "pot", "container", "clay container";
     PROPERTIES: _TAKEABLE;
-    VALUES: (volume: 25), (capacity: 25), (weight : 5);
+    VALUES: (volume: 25), (capacity: 25), (weight : 50);
 }
 
 [action]
 {
     ID: <WATERCONTAINER1>;
     ACTION:
-        COND<PRSA: SPILL, EMPTY, DROP, POUR && ANDFLAGS: _CONTAINER1FILLED>
+        COND<PRSA: SPILL, EMPTY, DROP, POUR && QUERY<selfWeight(watercontainer1,50)>>
         {
-            EFF<REMFLAG: _CONTAINER1FILLED>
+            EFF<SETVAR: <WATERCONTAINER1>: weight, 10>
             EFF<TELL: "The clay pot was emptied of all of its water.">
         }
-        COND<PRSA: FILL, PUT && !ANDFLAGS: _CONTAINER1FILLED>
+        COND<PRSA: FILL, PUT && !QUERY<selfWeight(watercontainer1,50)>>
         {
             COND<PRSI: <WATERFALL> && PRSA: UNDER>
             {
                 EFF<PLACE: <WATERCONTAINER1>, <WATERFALL>, UNDER>
                 EFF<TELL: "You placed the clay pot under the waterfall. It fills up with water and becomes heavy!">
-                EFF<SETFLAG: _CONTAINER1FILLED, 1>
+                EFF<SETVAR: <WATERCONTAINER1>: weight, 50>
             }
             COND<PRSI: <WATERFALL>, <RIVER>>
             {
                 EFF<TELL: "You filled the clay pot up with water and it became heavy!">
-                EFF<SETFLAG: _CONTAINER1FILLED, 1>
+                EFF<SETVAR: <WATERCONTAINER1>: weight, 50>
             }
             COND<INSCOPE: <WATERCONTAINER1>, <HERE> && INSCOPE: <WATERFALL>, <HERE>>
             {
                 EFF<TELL: "You filled the clay pot up with water and it became heavy!">
-                EFF<SETFLAG: _CONTAINER1FILLED, 1>
+                EFF<SETVAR: <WATERCONTAINER1>: weight, 50>
             }
             COND<INSCOPE: <WATERCONTAINER1>, <HERE> && INSCOPE: <RIVER>, <HERE>>
             {
                 EFF<TELL: "You filled the clay pot up with water and it became heavy!">
-                EFF<SETFLAG: _CONTAINER1FILLED, 1>
+                EFF<SETVAR: <WATERCONTAINER1>: weight, 50>
             }
         };
-}
-
-[flag]
-{
-    FLAG: _CONTAINER1FILLED;
-    VALUE: 1;
 }
 
 [room]
@@ -204,9 +198,9 @@ USE: <StackableObjects>, <WeightedObjects>;
     W: <COLUMNS>;
     U: <ATTIC>;
     UCOND: QUERY<climbableStack(3,storageroom)>;
-    UBLOCKMESSAGE: "There's nothing tall and stable enough for you to climb on to reach the attic.";
+    UBLOCKMESSAGE: "There's nothing tall and stable enough for you to climb on to reach the attic.%nYou've seen some blocks lying around in other rooms, maybe you could reach it if you stack them up...%nThe cupboard against the wall is also stable and can be climbed on.";
     NAME: "Storage Room";
-    DESC: "This room looks like it was used to store things. There is all sorts of wood and degraded items lying about.";
+    DESC: "This room looks like it was used to store things. There is all sorts of wood and degraded items lying about.%nA marble cupboard is standing against the wall opposite you, and a slight chill is coming from the rotted hatch to the attic above you.";
 }
 
 [object]
@@ -214,7 +208,7 @@ USE: <StackableObjects>, <WeightedObjects>;
     ID: <CUPBOARD>;
     LOCATION: <STORAGEROOM>;
     NAME: "cupboard";
-    DESC: "An old marble cupboard. It's amazing that the thin stone door still slides open and shut!";
+    DESC: "An old marble cupboard. It's amazing that the thin stone door still slides open and shut!%nThe cupboard looks big enough to fit things inside.%nWhilst a little dusty, the surface looks stable. Could it be used to climb up to the attic above if we stack some things on top?";
     SYNS: "counter", "compartment", "surface";
     PROPERTIES: _CLOSABLECONTAINER, _STABLE;
     VALUES: (capacity: 50), (surface: 50);
@@ -226,52 +220,46 @@ USE: <StackableObjects>, <WeightedObjects>;
     LOCATION: <CUPBOARD>;
     NAME: "copper jug";
     DESC: "It's an old copper jug. It's colouration has slowly turned mint green over time.%nIt looks like it would be heavy when filled with water.";
-    ALTDESC: "It's an old copper jug. It's colouration has slowly turned mint green over time.%nIt's filled to the brim with water!";
-    CONDS: _CONTAINER2FILLED=1;
+    ALTDESC: "It's an old copper jug. It's colouration has slowly turned mint green over time.%nIt's filled to the brim with water! It should be heavy enough to hold down one of the pressure plates.";
+    CONDS: QUERY<selfWeight(watercontainer2,50)>;
     SYNS: "jug", "container", "copper container";
     PROPERTIES: _TAKEABLE;
-    VALUES: (volume: 25), (capacity: 25), (weight: 5);
+    VALUES: (volume: 25), (capacity: 25), (weight: 10);
 }
 
 [action]
 {
     ID: <WATERCONTAINER2>;
     ACTION:
-        COND<PRSA: SPILL, EMPTY, DROP, POUR && ANDFLAGS: _CONTAINER2FILLED>
+        COND<PRSA: SPILL, EMPTY, DROP, POUR && QUERY<selfWeight(watercontainer2,50)>>
         {
-            EFF<REMFLAG: _CONTAINER2FILLED>
+            EFF<SETVAR: <WATERCONTAINER2>: weight, 10>
             EFF<TELL: "The copper jug was emptied of all of its water.">
         }
-        COND<PRSA: FILL, PUT && !ANDFLAGS: _CONTAINER2FILLED>
+        COND<PRSA: FILL, PUT && !QUERY<selfWeight(watercontainer2,50)>>
         {
             COND<PRSI: <WATERFALL> && PRSA: UNDER>
             {
                 EFF<PLACE: <WATERCONTAINER2>, <WATERFALL>, UNDER>
                 EFF<TELL: "You placed the copper jug under the waterfall. It fills up with water and becomes heavy!">
-                EFF<SETFLAG: _CONTAINER2FILLED, 1>
+                EFF<SETVAR: <WATERCONTAINER2>: weight, 50>
             }
             COND<PRSI: <WATERFALL>, <RIVER>>
             {
                 EFF<TELL: "You filled the copper jug up with water and it became heavy!">
-                EFF<SETFLAG: _CONTAINER2FILLED, 1>
+                EFF<SETVAR: <WATERCONTAINER2>: weight, 50>
             }
             COND<INSCOPE: <WATERCONTAINER2>, <HERE> && INSCOPE: <WATERFALL>, <HERE>>
             {
                 EFF<TELL: "You filled the copper jug up with water and it became heavy!">
-                EFF<SETFLAG: _CONTAINER2FILLED, 1>
+                EFF<SETVAR: <WATERCONTAINER2>: weight, 50>
             }
             COND<INSCOPE: <WATERCONTAINER2>, <HERE> && INSCOPE: <RIVER>, <HERE>>
             {
                 EFF<TELL: "You filled the copper jug up with water and it became heavy!">
-                EFF<SETFLAG: _CONTAINER2FILLED, 1>
+                EFF<SETVAR: <WATERCONTAINER2>: weight, 50>
             }
         };
-}
-
-[flag]
-{
-    FLAG: _CONTAINER2FILLED;
-    VALUE: 0;
 }
 
 [object]
@@ -423,6 +411,13 @@ USE: <StackableObjects>, <WeightedObjects>;
     VALUES: (volume: 75), (surface: 75), (weight: 75);
 }
 
+[room]
+{
+    ID: <DEADROOM>;
+    NAME: "Dead Room";
+    DESC: "A room that the player shouldn't be able to access.";
+}
+
 [end]
 {
     CHECK:
@@ -444,7 +439,7 @@ USE: <StackableObjects>, <WeightedObjects>;
             EFF<TELL: "Without the plank, you can no longer cross the river safely.">
         };
     CHECK:
-        QUERY<weightOnObjectAtLeast(pressureplate1,50)>
+        QUERY<weightOnObjectAtLeast(pressureplate1,50)>, _DEFAULT
         {
             EFF<TELL: "You hear a rumble as the pressure plate clicks into place.">
         }
@@ -465,13 +460,15 @@ USE: <StackableObjects>, <WeightedObjects>;
         QUERY<weightOnObjectAtLeast(pressureplate1,50), weightOnObjectAtLeast(pressureplate2,50)>
         {
             EFF<TELL: "You hear a loud rumbling as the alter before you lowers into the ground and reveals a hidden stairway...">
+            EFF<PLACE: <ALTER>, <DEADROOM>, IN>
         }
         ELSE
         {
             EFF<TELL: "The alter rises back up from the floor and hides the secret stairway.">
+            EFF<PLACE: <ALTER>, <ALTERROOM>, IN>
         };
     CHECK:
-        QUERY<isLocated(treasure,player,1)>
+        QUERY<isLocated(treasure,player,0)>
         {
             EFF<TELL: "Congratulations! You obtained the ancient treasure!">
         };

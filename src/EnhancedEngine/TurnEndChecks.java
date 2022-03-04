@@ -24,7 +24,7 @@ public class TurnEndChecks {
 
     public void addEndCheck(EndCheck check) {
         this.endChecks.add(check);
-        this.checkingForIf.add(Boolean.TRUE);
+        this.checkingForIf.add(check.getIsDefault() ? Boolean.FALSE : Boolean.TRUE);
     }
 
     public void performChecks() {

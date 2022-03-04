@@ -235,15 +235,97 @@ public class GameController {
         }
     }
 
+    public static void printRepeat(int length, String repeat) {
+        for (int i = 0; i < length; i++) {
+            System.out.print(repeat);
+        }
+    }
+
+    public static void showCompass(GameRoom location) {
+        GameRoom n = (GameRoom)GameState.getGameObject(location.getNorth());
+        GameRoom s = (GameRoom)GameState.getGameObject(location.getSouth());
+        GameRoom e = (GameRoom)GameState.getGameObject(location.getEast());
+        GameRoom w = (GameRoom)GameState.getGameObject(location.getWest());
+        GameRoom u = (GameRoom)GameState.getGameObject(location.getUp());
+        GameRoom d = (GameRoom)GameState.getGameObject(location.getDown());
+
+        if (location.isNhidden() && !roomConditionsMet(location.getNConds(), location.getNQuery())) { n = null; }
+        if (location.isShidden() && !roomConditionsMet(location.getSConds(), location.getSQuery())) { s = null; }
+        if (location.isEhidden() && !roomConditionsMet(location.getEConds(), location.getEQuery())) { e = null; }
+        if (location.isWhidden() && !roomConditionsMet(location.getWConds(), location.getWQuery())) { w = null; }
+        if (location.isUhidden() && !roomConditionsMet(location.getUConds(), location.getUQuery())) { u = null; }
+        if (location.isDhidden() && !roomConditionsMet(location.getDConds(), location.getDQuery())) { d = null; }
+
+        int westLength = w == null ? 0 : w.getName().length();
+        int northLength = n == null ? 0 : n.getName().length();
+        int southLength = s == null ? 0 : s.getName().length();
+        int upLength = u == null ? 0 : u.getName().length();
+        int downLength = d == null ? 0 : d.getName().length();
+
+        int compassCentre = Math.max(10, Math.max(westLength+4, Math.max(northLength/2, Math.max(southLength/2, Math.max((upLength+3)/2, (downLength+3)/2)))));
+
+        String up = u == null ? "" : u.getName();
+        String north = n == null ? "" : n.getName();
+        String west = w == null ? "" : w.getName();
+        String east = e == null ? "" : e.getName();
+        String south = s == null ? "" : s.getName();
+        String down = d == null ? "" : d.getName();
+
+        if (u != null) {
+            printRepeat(compassCentre - (upLength+3) / 2, " ");
+            System.out.print("U: ");
+            System.out.println(up);
+
+            printRepeat(compassCentre, " ");
+            System.out.println("\u2191");
+        }
+
+        if (n != null) {
+            printRepeat(compassCentre - northLength / 2, " ");
+            System.out.println(north);
+        }
+
+        printRepeat(compassCentre - 3, " ");
+        System.out.println("   _   ");
+        printRepeat(compassCentre - 3, " ");
+        System.out.println(" _|N|_ ");
+        printRepeat(compassCentre - 4 - westLength, " ");
+        System.out.println(west + " |W   E| " + east);
+        printRepeat(compassCentre - 3, " ");
+        System.out.println(" \u203E|S|\u203E ");
+        printRepeat(compassCentre - 3, " ");
+        System.out.println("   \u203E   ");
+
+        if (s != null) {
+            printRepeat(compassCentre - southLength / 2, " ");
+            System.out.println(south);
+        }
+
+        if (d != null) {
+            printRepeat(compassCentre, " ");
+            System.out.println("\u2193");
+
+            printRepeat(compassCentre - (downLength+3) / 2, " ");
+            System.out.print("D: ");
+            System.out.println(down);
+        }
+    }
+
     public static void describeLocation() {
         GameRoom location = GameController.getPlayer().getLocation();
-        System.out.println("Current location: " + location.getName() + ".");
+        System.out.print("-------------------");
+        printRepeat(location.getName().length(), "-");
+        System.out.println();
+        System.out.println("Current location: " + location.getName());
+        System.out.print("-------------------");
+        printRepeat(location.getName().length(), "-");
+        System.out.println();
         System.out.println();
         System.out.println(GameController.getPlayer().getLocation().getDesc());
 
         System.out.println();
 
-        if (location.getNorth() != null) {
+        /*if (location.getNorth() != null) {
             describeNorth(location);
         }
         if (location.getEast() != null) {
@@ -260,8 +342,9 @@ public class GameController {
         }
         if (location.getDown() != null) {
             describeDown(location);
-        }
+        }*/
 
+        showCompass(location);
 
         // Class for pairing up parents and children in the search stack
         class ParentChildPair {
@@ -292,6 +375,8 @@ public class GameController {
                     // Child is inside of its parent
                     if (pair.child.getParentType() == 0) {
                         if (!printedGap) {
+                            System.out.println();
+                            System.out.println("Objects around you:");
                             System.out.println();
                             printedGap = true;
                         }

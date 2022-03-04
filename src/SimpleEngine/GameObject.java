@@ -208,7 +208,18 @@ public class GameObject {
 
     public boolean hasVariable(String varName) { return this.variables.containsKey(varName); }
 
-    public void setVariable(String varName, String value) { addVariable(varName, value); }
+    public void setVariable(String varName, String value) {
+        if (varName.equals("capacity") || varName.equals("capacityUsed")
+            || varName.equals("surface") || varName.equals("surfaceUsed")
+            || varName.equals("below") || varName.equals("belowUsed")
+            || varName.equals("volume")) {
+            return;
+        }
+        String oldVal = getVariable(varName);
+        addVariable(varName, value);
+        KnowledgeBase.getInstance().removeClause("hasVariable(" + id.toLowerCase() + "," + varName + "," + oldVal + ")");
+        KnowledgeBase.getInstance().addClause("hasVariable(" + id.toLowerCase() + "," + varName + "," + value + ")");
+    }
 
     public boolean action() {
         if (GameState.existsAction(this.id)) {

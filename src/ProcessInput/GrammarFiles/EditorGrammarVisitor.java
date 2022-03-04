@@ -551,6 +551,12 @@ public interface EditorGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitParameter(EditorGrammarParser.ParameterContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link EditorGrammarParser#defaultCheck}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDefaultCheck(EditorGrammarParser.DefaultCheckContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link EditorGrammarParser#check_entry}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

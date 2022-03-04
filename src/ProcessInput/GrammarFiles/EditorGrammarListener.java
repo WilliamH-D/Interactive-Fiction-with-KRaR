@@ -908,6 +908,16 @@ public interface EditorGrammarListener extends ParseTreeListener {
 	 */
 	void exitParameter(EditorGrammarParser.ParameterContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link EditorGrammarParser#defaultCheck}.
+	 * @param ctx the parse tree
+	 */
+	void enterDefaultCheck(EditorGrammarParser.DefaultCheckContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EditorGrammarParser#defaultCheck}.
+	 * @param ctx the parse tree
+	 */
+	void exitDefaultCheck(EditorGrammarParser.DefaultCheckContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link EditorGrammarParser#check_entry}.
 	 * @param ctx the parse tree
 	 */

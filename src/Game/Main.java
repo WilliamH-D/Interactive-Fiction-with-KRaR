@@ -43,10 +43,6 @@ public class Main {
     }
 
     public static void init(String storyFile, boolean useEnhanced) throws IOException {
-        //System.setErr(new PrintStream(new OutputStream() {
-        //    public void write(int b) {
-        //    }
-        //}));
 
         // Instantiate the Game Controller
         GameController.instantiateGameController();

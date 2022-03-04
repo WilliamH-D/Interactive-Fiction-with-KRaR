@@ -94,6 +94,7 @@ public class StoryCompiler {
     private List<ActionPart> ifEffects;
     private List<ActionPart> elseEffects;
 
+    boolean isDefault = false;
 
     private StoryCompiler() {
         properties = new ArrayList<>();
@@ -183,6 +184,8 @@ public class StoryCompiler {
 
         ifEffects = null;
         elseEffects = null;
+
+        isDefault = false;
     }
 
     void compilePackages(List<String> packages){
@@ -787,18 +790,20 @@ public class StoryCompiler {
     }
 
     void compileCheckEntry() {
-        EndCheck endCheck = new EndCheck(tests, ifEffects, elseEffects);
+        EndCheck endCheck = new EndCheck(tests, isDefault, ifEffects, elseEffects);
         TurnEndChecks.getInstance().addEndCheck(endCheck);
 
         logger.logLine();
         logger.logDebug("Compiling EndCheck:");
         logger.logDebug("Queries: " + tests.toString());
+        logger.logDebug("isDefault: " + isDefault);
         logger.logDebug("ifEffects: " + ifEffects);
         logger.logDebug("elseEffects: " + elseEffects);
 
         tests = new ArrayList<>();
         ifEffects = null;
         elseEffects = null;
+        isDefault = false;
     }
 
     void compileIfEffects() {

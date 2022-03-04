@@ -122,6 +122,11 @@ public class CommandConstructor {
         if (GameController.getPRSA() == null) {
             tryExtractNewVerb(lemmas, posTags);
         }
+
+        // As last resort, just use userin
+        if (GameController.getPRSA() == null) {
+            GameController.setPRSA(userIn);
+        }
     }
 
     private void makeLemmasLowerCase(List<String> lemmas) {
@@ -167,8 +172,9 @@ public class CommandConstructor {
     }
 
     private void tryExtractNewVerb(List<String> lemmas, List<String> posTags) {
+        logger.logDebug("Extract from tags: " + posTags);
         for (int i=0; i<posTags.size(); i++) {
-            if (posTags.get(i).equals("VB") || posTags.get(i).equals("NNP")) {
+            if (posTags.get(i).equals("VB") || posTags.get(i).equals("VBP") || posTags.get(i).equals("NNP")) {
                 if (!lemmas.get(i).equals("item1") && !lemmas.get(i).equals("item2")) {
                     StringBuilder verb = new StringBuilder(lemmas.get(i));
                     for (int j = i + 1; j < posTags.size(); j++) {

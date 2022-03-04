@@ -274,6 +274,13 @@ public class GrammarVisitor<T> extends AbstractParseTreeVisitor<T> implements Ed
     }
 
     @Override
+    public T visitDefaultCheck(EditorGrammarParser.DefaultCheckContext ctx) {
+        if (ctx.DEFAULT_KEY() != null) {
+            StoryCompiler.get().isDefault = true;
+        }
+        return visitChildren(ctx); }
+
+    @Override
     public T visitNorth_block_message(EditorGrammarParser.North_block_messageContext ctx) {
         if (ctx.STRING() == null) {
             return visitChildren(ctx);

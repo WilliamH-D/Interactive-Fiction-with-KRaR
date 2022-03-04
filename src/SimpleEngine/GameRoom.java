@@ -177,17 +177,35 @@ public class GameRoom extends GameObject {
 
     public void setDQuery(ConditionTest query) { this.dquery = query; }
 
-    public void setNorthBlockMessage(String message) { this.nblockmessage = message; }
+    public void setNorthBlockMessage(String message) {
+        if (message == null) { return; }
+        this.nblockmessage = message.replaceAll("%n", "\n");
+    }
 
-    public void setSouthBlockMessage(String message) { this.sblockmessage = message; }
+    public void setSouthBlockMessage(String message) {
+        if (message == null) { return; }
+        this.sblockmessage = message.replaceAll("%n", "\n");
+    }
 
-    public void setEastBlockMessage(String message) { this.eblockmessage = message; }
+    public void setEastBlockMessage(String message) {
+        if (message == null) { return; }
+        this.eblockmessage = message.replaceAll("%n", "\n");
+    }
 
-    public void setWestBlockMessage(String message) { this.wblockmessage = message; }
+    public void setWestBlockMessage(String message) {
+        if (message == null) { return; }
+        this.wblockmessage = message.replaceAll("%n", "\n");
+    }
 
-    public void setUpBlockMessage(String message) { this.ublockmessage = message; }
+    public void setUpBlockMessage(String message) {
+        if (message == null) { return; }
+        this.ublockmessage = message.replaceAll("%n", "\n");
+    }
 
-    public void setDownBlockMessage(String message) { this.dblockmessage = message; }
+    public void setDownBlockMessage(String message) {
+        if (message == null) { return; }
+        this.dblockmessage = message.replaceAll("%n", "\n");
+    }
 
     public void setDir(Direction dir, String room) {
         switch (dir) {

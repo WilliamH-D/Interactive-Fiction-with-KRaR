@@ -1096,6 +1096,18 @@ public class EditorGrammarBaseListener implements EditorGrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterDefaultCheck(EditorGrammarParser.DefaultCheckContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDefaultCheck(EditorGrammarParser.DefaultCheckContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterCheck_entry(EditorGrammarParser.Check_entryContext ctx) { }
 	/**
 	 * {@inheritDoc}

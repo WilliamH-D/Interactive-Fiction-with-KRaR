@@ -647,6 +647,13 @@ public class EditorGrammarBaseVisitor<T> extends AbstractParseTreeVisitor<T> imp
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitDefaultCheck(EditorGrammarParser.DefaultCheckContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitCheck_entry(EditorGrammarParser.Check_entryContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
