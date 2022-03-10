@@ -313,11 +313,11 @@ public class GameController {
 
     public static void describeLocation() {
         GameRoom location = GameController.getPlayer().getLocation();
-        System.out.print("-------------------");
+        System.out.print("------------------");
         printRepeat(location.getName().length(), "-");
         System.out.println();
         System.out.println("Current location: " + location.getName());
-        System.out.print("-------------------");
+        System.out.print("------------------");
         printRepeat(location.getName().length(), "-");
         System.out.println();
         System.out.println();

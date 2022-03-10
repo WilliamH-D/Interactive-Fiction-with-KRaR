@@ -6,10 +6,17 @@ USE: <StackableObjects>, <WeightedObjects>;
     N: <COLUMNS>;
     S: <CIVILISATION>;
     SCOND: QUERY<isLocated(treasure,player,0)>;
-    SBLOCKMESSAGE: "This is the direction you came into the ruins from.%nYou don't want to return to civilisation without claiming the ancient treasure you came for!";
+    SBLOCKMESSAGE: "This is the direction you came into the ruins from.
+
+You don't want to return to civilisation without claiming the ancient treasure you came for!";
     W: <ROCKYTUNNEL>;
     NAME: "Ruin's Entrance";
-    DESC: "A newly excavated entrance way to long-lost underground ruins.%n%nBlinding sunlight streams into the network of caverns, illuminating the crumbling stone and marble structures inside.%n%nAhead of you are some stairs leading into a long-abandoned temple with cracked marble columns reaching%nto the roof of the caverns";
+    DESC: "You find yourself in a spacious cavern, the light from the excavated opening behind you streaming into the network
+of caves to your left, and illuminating the ornate, ancient marble structures that extend into the far reaches
+of the cavern before of you.
+
+Directly ahead of you are some crumbling stairs that lead to the remains of a long-abandoned temple with marble columns
+reaching to the roof of the cavern.";
     DET: "the";
 }
 
@@ -18,7 +25,10 @@ USE: <StackableObjects>, <WeightedObjects>;
     ID: <CIVILISATION>;
     N: <RUINSENTRANCE>;
     NAME: "Civilisation";
-    DESC: "The outside world as you know it.";
+    DESC: "The outside world as you know it.
+
+As the result of a recent archaeological study, a hole was blasted into the rock face in the desert cliffs, revealing
+a sprawling network of ancient underground caverns thought to be teeming with the treasure of a lost civilisation.";
     DET: "";
 }
 
@@ -30,7 +40,12 @@ USE: <StackableObjects>, <WeightedObjects>;
     E: <STORAGEROOM>;
     W: <EASTRIVER>;
     NAME: "Marble Column-way";
-    DESC: "The ornate pathway up to the alter ahead of you is lined with tall marble columns.%nMany of these columns have cracked and crumbled over time.";
+    DESC: "The ornate pathway up to the alter ahead of you is lined with tall marble columns, reaching up to the cavern's roof.
+
+Many of these columns have cracked and crumbled over time, resulting in piles of rubble and broken marble littering the
+floor around you.
+
+There are a couple of rooms off to the side behind the columns, carved out into the walls of rock.";
     DET: "the";
 }
 
@@ -39,7 +54,9 @@ USE: <StackableObjects>, <WeightedObjects>;
     ID: <SMALLBLOCK>;
     LOCATION: <COLUMNS>;
     NAME: "small block";
-    DESC: "It's a small marble block. It looks as if it fallen from one of the ruined columns.%nThe block is still sturdy, perhaps it could be stacked up on something to climb somewhere unreachable...";
+    DESC: "It's a small marble block. It looks as if it fallen from one of the ruined columns.
+
+The block is still sturdy, perhaps it could be stacked up on something to climb somewhere unreachable...";
     SYNS: "little block", "smallest block", "little marble block", "small marble block", "block", "small", "broken column";
     PROPERTIES: _TAKEABLE, _STABLE;
     VALUES: (volume: 25), (surface: 25), (weight: 25);
@@ -49,12 +66,21 @@ USE: <StackableObjects>, <WeightedObjects>;
 {
     ID: <ALTERROOM>;
     S: <COLUMNS>;
+    W: <WATERFALLCAVERN>;
     D: <TREASUREROOM>;
     DCOND: QUERY<weightOnObjectAtLeast(pressureplate1,50), weightOnObjectAtLeast(pressureplate2,50)>, _HIDDEN;
     DBLOCKMESSAGE: "You cannot move down.";
     NAME: "Grand Alter";
-    DESC: "At the very end of the temple's long column-way stands a grand alter%nThe two pressure plates in front of it seem connected to it somehow.";
-    ALTDESC: "The alter that once stood here has sunken into the floor, exposing a stairway emanating a soft golden glow...";
+    DESC: "Having reached the far end of the temple, the rising columns either side of you give way to an open room with
+an ornate marble alter at its centre. The faint light streaming into the cavern is reflected off the gold strips that
+line the alter.
+
+There are two pressure plates in front of the alter and they seem connected to it somehow. Perhaps the mysteries of
+the temple will be uncovered if both plates could be activated at once...";
+    ALTDESC: "With both pressure plates being held down by heavy objects, the grand alter that once stood in the centre
+of the room has retreated into the floor, revealing a narrow stairway to a hidden room below you.
+
+A faint golden light emanates from the stairway. Just what could be hidden down there?";
     CONDS: QUERY<weightOnObjectAtLeast(pressureplate1,50), weightOnObjectAtLeast(pressureplate2,50)>;
 }
 
@@ -63,7 +89,9 @@ USE: <StackableObjects>, <WeightedObjects>;
     ID: <ALTER>;
     LOCATION: <ALTERROOM>;
     NAME: "alter";
-    DESC: "A grand marble alter rising from the centre of the room. Many ceremonies will have been performed here in ages past.";
+    DESC: "A grand marble alter rising from the centre of the room. Many ceremonies will have been performed here in ages past.
+
+The alter seems to be hiding a secret. Perhaps activating the pressure plates will reveal it...";
     ALTDESC: "The alter is no longer visible as it has retreated into the ground and in its place is a stairway.";
     CONDS: QUERY<weightOnObjectAtLeast(pressureplate1,50), weightOnObjectAtLeast(pressureplate2,50)>;
     PROPERTIES: _STABLE;
@@ -75,7 +103,14 @@ USE: <StackableObjects>, <WeightedObjects>;
     ID: <PRESSUREPLATE1>;
     LOCATION: <ALTERROOM>;
     NAME: "left pressure plate";
-    DESC: "It's the pressure plate to your left.%nIf something heavy is placed on top of it, then it may do something.";
+    DESC: "A pressure plate found in front of the alter. It's the one on the left.
+
+It seems to be connected to the alter. It currently isn't activated as there's nothing heavy enough on top of it.
+If something heavy is placed on top of it, then it may do something...";
+    ALTDESC: "A pressure plate found in front of the alter. It's the one on the left.
+
+It has clicked into the ground as the object on top of it is heavy enough to hold it down and activate it.";
+    CONDS: QUERY<weightOnObjectAtLeast(pressureplate1,50)>;
     SYNS: "left plate", "first plate", "first pressure plate", "plate 1", "plate", "pressure plate";
     VALUES: (surface: 50);
 }
@@ -85,7 +120,14 @@ USE: <StackableObjects>, <WeightedObjects>;
     ID: <PRESSUREPLATE2>;
     LOCATION: <ALTERROOM>;
     NAME: "right pressure plate";
-    DESC: "It's the pressure plate to your right.%nIf something heavy is placed on top of it, then it may do something.";
+    DESC: "A pressure plate found in front of the alter. It's the one on the right.
+
+It seems to be connected to the alter. It currently isn't activated as there's nothing heavy enough on top of it.
+If something heavy is placed on top of it, then it may do something...";
+    ALTDESC: "A pressure plate found in front of the alter. It's the one on the right.
+
+It has clicked into the ground as the object on top of it is heavy enough to hold it down and activate it.";
+    CONDS: QUERY<weightOnObjectAtLeast(pressureplate2,50)>;
     SYNS: "right plate", "second plate", "second pressure plate", "plate 2", "other plate", "plate", "pressure plate";
     VALUES: (surface: 50);
 }
@@ -96,8 +138,13 @@ USE: <StackableObjects>, <WeightedObjects>;
     LOCATION: <PRESSUREPLATE1>;
     LOCATIONTYPE: 1;
     NAME: "clay pot";
-    DESC: "It's an old clay pot that was found holding down a pressure plate.%nIt looks like it would be heavy when filled with water.";
-    ALTDESC: "It's an old clay pot that was found holding down a pressure plate.%nIt's filled to the brim with water! It's heavy enough to hold down the pressure plate.";
+    DESC: "It's an old clay pot that was found holding down a pressure plate in front of the alter.
+
+The water has been poured out, making it too light to activate the plate. It would be heavy enough again if
+filled back up with water.";
+    ALTDESC: "It's an old clay pot that was found holding down a pressure plate.
+
+It's filled to the brim with water! It's heavy enough to hold down the pressure plate.";
     CONDS: QUERY<selfWeight(watercontainer1,50)>;
     SYNS: "pot", "container", "clay container";
     PROPERTIES: _TAKEABLE;
@@ -144,7 +191,18 @@ USE: <StackableObjects>, <WeightedObjects>;
     ID: <TREASUREROOM>;
     U: <ALTERROOM>;
     NAME: "Treasure Room";
-    DESC: "Dazzling golden walls surround the room, the faces of ancient deities etched into each one!";
+    DESC: "After descending the stairway down from the alter, you find yourself in a dazzling room with walls made
+from solid gold! Each golden wall is covered in carvings. It can be assumed that these are the faces of the ancient
+deities worshiped by the lost civilisation.
+
+You have taken possession of the treasure chest that was kept hidden here for millennia.";
+    ALTDESC: "After descending the stairway down from the alter, you find yourself in a dazzling room with walls made
+from solid gold! Each golden wall is covered in carvings. It can be assumed that these are the faces of the ancient
+deities worshiped by the lost civilisation.
+
+In the centre of the room is a golden chest emboldened with rubies. The light reflecting off the rubies cast a red
+glow amongst the golden walls.";
+    CONDS: QUERY<isLocated(chest,treasureroom,0)>;
     DET: "the";
 }
 
@@ -153,7 +211,20 @@ USE: <StackableObjects>, <WeightedObjects>;
     ID: <CHEST>;
     LOCATION: <TREASUREROOM>;
     NAME: "treasure chest";
-    DESC: "A golden treasure chest studded with rubies and emeralds.";
+    DESC: "A golden treasure chest that was found in the hidden room under the alter.
+
+The chest's sides are etched with similar carvings as on the walls of the room it was found in. Precious gemstones
+line its edges, amongst them you can recognise rubies and emeralds.
+
+The chest has been opened and you can peer inside of it.";
+    ALTDESC: "A golden treasure chest that was found in the hidden room under the alter.
+
+The chest's sides are etched with similar carvings as on the walls of the room it was found in. Precious gemstones
+line its edges, amongst them you can recognise rubies and emeralds.
+
+It is currently firmly locked. A keyhole can be seen on the front of the chest, so it can be opened if the key
+can be found.";
+    CONDS: QUERY<hasProperty(chest,locked)>;
     SYNS: "chest", "box";
     PROPERTIES: _TAKEABLE, _CLOSABLECONTAINER, _LOCKED;
     VALUES: (capacity: 50), (volume: 50), (weight: 25);
@@ -187,7 +258,11 @@ USE: <StackableObjects>, <WeightedObjects>;
     ID: <TREASURE>;
     LOCATION: <CHEST>;
     NAME: "treasure";
-    DESC: "All the riches you could ever dream of! Sparkling jewels, shining gold, glowing rubies, and more!";
+    DESC: "After opening the chest, you are greeted with a golden idol!
+
+It's elegantly hand-carved and has remained in pristine condition. The gemstones in its eyes alone would fetch you
+a small fortune. The idol as a whole will make you richer than beyond your wildest dreams!";
+    SYNS: "idol", "statue";
     PROPERTIES: _TAKEABLE;
     VALUES: (volume: 50), (weight: 25);
 }
@@ -198,9 +273,16 @@ USE: <StackableObjects>, <WeightedObjects>;
     W: <COLUMNS>;
     U: <ATTIC>;
     UCOND: QUERY<climbableStack(3,storageroom)>;
-    UBLOCKMESSAGE: "There's nothing tall and stable enough for you to climb on to reach the attic.%nYou've seen some blocks lying around in other rooms, maybe you could reach it if you stack them up...%nThe cupboard against the wall is also stable and can be climbed on.";
+    UBLOCKMESSAGE: "There's nothing tall and stable enough for you to climb on to reach the attic.
+
+You've seen some blocks lying around in other rooms, maybe you could reach it if you stack them up...
+The cupboard against the wall is also stable and can be climbed on if stable objects were piled up on top of it.";
     NAME: "Storage Room";
-    DESC: "This room looks like it was used to store things. There is all sorts of wood and degraded items lying about.%nA marble cupboard is standing against the wall opposite you, and a slight chill is coming from the rotted hatch to the attic above you.";
+    DESC: "This room looks like it was used to store things, though all that remains now are pieces of wood and rubble.
+Any artifacts once stored here have degraded over time and wont be worth anything now...
+
+A marble cupboard is standing against the wall opposite you, and a slight chill is coming from the rotted hatch to the
+attic above you. There may be something interesting hidden in there if you could find a way up.";
 }
 
 [object]
@@ -208,7 +290,10 @@ USE: <StackableObjects>, <WeightedObjects>;
     ID: <CUPBOARD>;
     LOCATION: <STORAGEROOM>;
     NAME: "cupboard";
-    DESC: "An old marble cupboard. It's amazing that the thin stone door still slides open and shut!%nThe cupboard looks big enough to fit things inside.%nWhilst a little dusty, the surface looks stable. Could it be used to climb up to the attic above if we stack some things on top?";
+    DESC: "An old marble cupboard. It's amazing that the thin stone door still slides open and shut!
+
+The cupboard looks big enough to fit things inside. And whilst a little dusty, the surface looks stable. Could it be
+used to climb up to the attic above if we stacked some things on top?";
     SYNS: "counter", "compartment", "surface";
     PROPERTIES: _CLOSABLECONTAINER, _STABLE;
     VALUES: (capacity: 50), (surface: 50);
@@ -219,8 +304,12 @@ USE: <StackableObjects>, <WeightedObjects>;
     ID: <WATERCONTAINER2>;
     LOCATION: <CUPBOARD>;
     NAME: "copper jug";
-    DESC: "It's an old copper jug. It's colouration has slowly turned mint green over time.%nIt looks like it would be heavy when filled with water.";
-    ALTDESC: "It's an old copper jug. It's colouration has slowly turned mint green over time.%nIt's filled to the brim with water! It should be heavy enough to hold down one of the pressure plates.";
+    DESC: "It's an old copper jug. It's colouration has slowly turned mint green over time.
+
+It's currently empty right now, though if it were filled with water, it would gain a lot of weight!";
+    ALTDESC: "It's an old copper jug. It's colouration has slowly turned mint green over time.
+
+It's filled to the brim with water! It should be heavy enough to hold down one of the pressure plates.";
     CONDS: QUERY<selfWeight(watercontainer2,50)>;
     SYNS: "jug", "container", "copper container";
     PROPERTIES: _TAKEABLE;
@@ -267,7 +356,9 @@ USE: <StackableObjects>, <WeightedObjects>;
     ID: <PLANK>;
     LOCATION: <STORAGEROOM>;
     NAME: "wooden plank";
-    DESC: "A long wooden plank that has somehow managed to avoid rotting away.%nIt looks sturdy enough to be used as a bridge.";
+    DESC: "A long wooden plank that has somehow managed to avoid rotting away completely over the millennia.
+
+It looks sturdy enough to walk over, perhaps it could be used as a makeshift bridge...";
     SYNS: "bridge", "wood", "log", "plank";
     PROPERTIES: _TAKEABLE;
     VALUES: (volume: 50), (surface: 50), (weight: 25);
@@ -292,7 +383,11 @@ USE: <StackableObjects>, <WeightedObjects>;
     ID: <ATTIC>;
     D: <STORAGEROOM>;
     NAME: "Attic";
-    DESC: "A musty room above the storage room. A few small things are scattered around amongst all of the rubble, dust, and cobwebs.";
+    DESC: "A musty attic that you managed to climb to from the storage room. It's not very big and seems it was just
+used as a bit of extra space.
+
+A few small things are scattered around amongst all of the rubble, dust, and cobwebs. It seems treasure was hidden here
+once upon a time, but all that remained when you entered was a golden key. It could still be useful for something though...";
 }
 
 [object]
@@ -300,7 +395,9 @@ USE: <StackableObjects>, <WeightedObjects>;
     ID: <KEY>;
     LOCATION: <ATTIC>;
     NAME: "golden key";
-    DESC: "An old ornate golden key. It looks important.";
+    DESC: "An old ornate golden key. It looks important.
+
+Try using it if you find something with a matching keyhole!";
     SYNS: "key";
     PROPERTIES: _TAKEABLE;
     VALUES: (volume: 10), (weight: 1);
@@ -312,7 +409,10 @@ USE: <StackableObjects>, <WeightedObjects>;
     N: <EASTRIVER>;
     E: <RUINSENTRANCE>;
     NAME: "Rocky Tunnel";
-    DESC: "This claustrophobic tunnel is littered with rocks and boulders.";
+    DESC: "A long narrow tunnel that snakes from the temple's entrance towards a network of caverns and crevices.
+
+The faint sound of flowing water can be heard in the distance. This claustrophobic tunnel is littered with rocks
+and boulders that have collapsed over time.";
 }
 
 [object]
@@ -320,8 +420,11 @@ USE: <StackableObjects>, <WeightedObjects>;
     ID: <MEDIUMBLOCK>;
     LOCATION: <ROCKYTUNNEL>;
     NAME: "medium block";
-    DESC: "It's a medium sized block of rock. This boulder looks as if it collapsed from the walls of the rocky tunnel, perhaps it could be used as a building block to climb on.";
-    SYNS: "medium block", "medium boulder", "rock block", "boulder", "block", "medium";
+    DESC: "It's a medium sized block of rock.
+
+This boulder looks as if it collapsed from the walls of the rocky tunnel, perhaps it could be used as a stable building
+block to climb on to reach a place high up.";
+    SYNS: "medium block", "medium boulder", "rock block", "boulder", "block", "medium", "rock";
     PROPERTIES: _TAKEABLE, _STABLE;
     VALUES: (volume: 50), (surface: 50), (weight: 50);
 }
@@ -336,7 +439,18 @@ USE: <StackableObjects>, <WeightedObjects>;
     WCOND: QUERY<isLocated(plank,riverstilts,1)>;
     WBLOCKMESSAGE: "The river is flowing too rapidly to safely cross without some sort of bridge!";
     NAME: "East River Cavern";
-    DESC: "The east side of the river. Rotten wooden stilts extend across the river as if there used to be a bridge here in the distant past";
+    DESC: "You find yourself emerging into a large cavern split in two by a turbulent river flowing through it. You
+are on the east side of the river.
+
+Rotten wooden stilts extend across the river as if there used to be a bridge here in the distant past. However,
+with the bridge now long washed away, you are unable to cross the river to reach the other side of the cavern and
+the tunnels beyond.";
+    ALTDESC: "You find yourself emerging into a large cavern split in two by a turbulent river flowing through it. You
+are on the east side of the river.
+
+You are able to cross the river thanks to the wooden plank laid out across the old support stilts that are somehow
+still standing.";
+    CONDS: QUERY<isLocated(plank,riverstilts,1)>;
     DET: "the";
 }
 
@@ -345,7 +459,10 @@ USE: <StackableObjects>, <WeightedObjects>;
     ID: <RIVER>;
     LOCATION: <EASTRIVER>;
     NAME: "river";
-    DESC: "A fast flowing river snaking it's way through the expansive caverns.%nMost of this cave system would have been forged by this gushing torrent over time.";
+    DESC: "A fast flowing river snaking it's way through the expansive caverns.
+Most of this cave system would have been forged by this gushing torrent over time.
+
+You could use the flowing torrent to fill up any water containers you have!";
     SYNS: "water", "torrent", "rapids";
     VALUES: (capacity: 0);
 }
@@ -355,7 +472,10 @@ USE: <StackableObjects>, <WeightedObjects>;
     ID: <RIVERSTILTS>;
     LOCATION: <RIVER>;
     NAME: "stilts";
-    DESC: "Rotting wooden stilts that extend across the river. This suggests a bridge existed here once.";
+    DESC: "Rotting wooden stilts that extend across the river. This suggests a bridge existed here once.
+
+Though the wood still looks sturdy enough to hold some weight if you can find something to put on top of it. Then you
+would be able to cross the river!";
     VALUES: (surface: 50), (volume: 0);
     DET: "some";
     ARE: TRUE;
@@ -367,7 +487,11 @@ USE: <StackableObjects>, <WeightedObjects>;
     S: <EASTRIVER>;
     E: <ALTERROOM>;
     NAME: "Waterfall Cavern";
-    DESC: "A roaring waterfall is cascading down into this spacious cavern. A river stretches south from its base.";
+    DESC: "At the far end of the caverns, a roaring waterfall pours down from a rocky outcrop above.
+
+The river stretching south from its base is hypothesised to have carved out this entire network of caverns and tunnels.
+It's said that the civilisation that once lived here worshiped a deity that is responsible for the everlasting
+flow of water.";
 }
 
 [object]
@@ -375,8 +499,10 @@ USE: <StackableObjects>, <WeightedObjects>;
     ID: <WATERFALL>;
     LOCATION: <WATERFALLCAVERN>;
     NAME: "waterfall";
-    DESC: "The sound of the roaring waterfall echoes throughout the cavern. It feeds into the river flowing southward.";
-    SYNS: "fall";
+    DESC: "The sound of the roaring waterfall echoes throughout the cavern. It feeds into the river flowing southward.
+
+If you placed a water container under the waterfall, it would instantly fill up!";
+    SYNS: "fall", "falls";
     VALUES: (below: 100);
 }
 
@@ -388,7 +514,11 @@ USE: <StackableObjects>, <WeightedObjects>;
     ECOND: QUERY<isLocated(plank,riverstilts,1)>;
     EBLOCKMESSAGE: "The river is flowing too rapidly to safely cross without some sort of bridge!";
     NAME: "West River Cavern";
-    DESC: "This large cavern is split in two by the fast-flowing river. Massive Stalactites extend down from the roof of the cavern. Hopefully they don't fall...";
+    DESC: "You are on the west side of the large split in two by the fast-flowing river. Massive Stalactites extend down
+from the roof of the cavern. Hopefully they don't fall...
+
+To the north is the entrance to what looks like a quarry. Resources were likely mined from this side of the cavern to
+build the temple on the other side.";
     DET: "the";
 }
 
@@ -397,7 +527,10 @@ USE: <StackableObjects>, <WeightedObjects>;
     ID: <ANCIENTQUARRY>;
     S: <WESTRIVER>;
     NAME: "Ancient Quarry";
-    DESC: "This seems to be where all of the marble and stone for the underground temple was excavated from. There is still a lot of stone lying about.";
+    DESC: "This seems to be where all of the marble and stone for the underground temple was excavated from. The hole
+before you burrows deep into the earth, so far that you can't even see the bottom.
+
+There is still a lot of stone lying about. Neatly carved chunks of different types of rock.";
 }
 
 [object]
@@ -405,8 +538,10 @@ USE: <StackableObjects>, <WeightedObjects>;
     ID: <LARGEBLOCK>;
     LOCATION: <ANCIENTQUARRY>;
     NAME: "large block";
-    DESC: "A massive marble block that never ended up leaving the quarry. It's a miracle you're able to even lift this thing!";
-    SYNS: "large block", "big block", "biggest block", "big marble block", "large marble block", "block", "large", "big";
+    DESC: "A massive marble block that never ended up leaving the quarry. It's a miracle you're able to even lift this thing!
+
+This would make a good stable base to climb on, and is large enough to pile other blocks on top of it.";
+    SYNS: "large block", "big block", "biggest block", "big marble block", "large marble block", "block", "large", "big", "marble";
     PROPERTIES: _TAKEABLE, _STABLE;
     VALUES: (volume: 75), (surface: 75), (weight: 75);
 }
@@ -423,7 +558,7 @@ USE: <StackableObjects>, <WeightedObjects>;
     CHECK:
         QUERY<climbableStack(3,storageroom)>
         {
-            EFF<TELL: "With all three blocks stacked on top of one another, you should be able to climb up to the attic above you!">
+            EFF<TELL: "With all of these objects stacked on top of one another, you should be able to climb up to the attic above you!">
         }
         ELSE
         {

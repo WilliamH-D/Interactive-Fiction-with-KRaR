@@ -4,10 +4,17 @@
     N: <COLUMNS>;
     S: <CIVILISATION>;
     SCOND: _TREASUREOBTAINED=1;
-    SBLOCKMESSAGE: "You don't want to return to civilisation without claiming the ancient treasure!";
+    SBLOCKMESSAGE: "This is the direction you came into the ruins from.
+
+You don't want to return to civilisation without claiming the ancient treasure you came for!";
     W: <ROCKYTUNNEL>;
     NAME: "Ruin's Entrance";
-    DESC: "A newly excavated entrance way to long-lost underground ruins. %nBlinding sunlight streams into the network of caverns, illuminating the crumbling stone and marble structures inside.";
+    DESC: "You find yourself in a spacious cavern, the light from the excavated opening behind you streaming into the network
+of caves to your left, and illuminating the ornate, ancient marble structures that extend into the far reaches
+of the cavern before of you.
+
+Directly ahead of you are some crumbling stairs that lead to the remains of a long-abandoned temple with marble columns
+reaching to the roof of the cavern.";
     DET: "the";
 }
 
@@ -16,7 +23,10 @@
     ID: <CIVILISATION>;
     N: <RUINSENTRANCE>;
     NAME: "Civilisation";
-    DESC: "The outside world as you know it.";
+    DESC: "The outside world as you know it.
+
+As the result of a recent archaeological study, a hole was blasted into the rock face in the desert cliffs, revealing
+a sprawling network of ancient underground caverns thought to be teeming with the treasure of a lost civilisation.";
     DET: "";
 }
 
@@ -28,7 +38,12 @@
     E: <STORAGEROOM>;
     W: <EASTRIVER>;
     NAME: "Marble Column-way";
-    DESC: "The ornate pathway up to the alter ahead of you is lined with tall marble columns.%nMany of these columns have cracked and crumbled over time.";
+    DESC: "The ornate pathway up to the alter ahead of you is lined with tall marble columns, reaching up to the cavern's roof.
+
+Many of these columns have cracked and crumbled over time, resulting in piles of rubble and broken marble littering the
+floor around you.
+
+There are a couple of rooms off to the side behind the columns, carved out into the walls of rock.";
     DET: "the";
 }
 
@@ -37,7 +52,9 @@
     ID: <SMALLBLOCK>;
     LOCATION: <COLUMNS>;
     NAME: "small block";
-    DESC: "It's a small marble block. It looks as if it fallen from one of the ruined columns.";
+    DESC: "It's a small marble block. It looks as if it fallen from one of the ruined columns.
+
+The block is still sturdy, perhaps it could be stacked up on something to climb somewhere unreachable...";
     SYNS: "little block", "smallest block", "little marble block", "small marble block", "block", "small", "broken column";
     PROPERTIES: _TAKEABLE;
     VALUES: (volume: 25), (surface: 25);
@@ -78,8 +95,16 @@
     DCOND: _PRESSUREPLATE1=1, _PRESSUREPLATE2=1, _HIDDEN;
     DBLOCKMESSAGE: "You cannot move down.";
     NAME: "Grand Alter";
-    DESC: "At the very end of the temple's long column-way stands a grand alter.";
-    ALTDESC: "The alter that once stood here has sunken into the floor, exposing a stairway emanating a soft golden glow...";
+    DESC: "Having reached the far end of the temple, the rising columns either side of you give way to an open room with
+an ornate marble alter at its centre. The faint light streaming into the cavern is reflected off the gold strips that
+line the alter.
+
+There are two pressure plates in front of the alter and they seem connected to it somehow. Perhaps the mysteries of
+the temple will be uncovered if both plates could be activated at once...";
+    ALTDESC: "With both pressure plates being held down by heavy objects, the grand alter that once stood in the centre
+of the room has retreated into the floor, revealing a narrow stairway to a hidden room below you.
+
+A faint golden light emanates from the stairway. Just what could be hidden down there?";
     CONDS: _PRESSUREPLATE1=1, _PRESSUREPLATE2=1;
 }
 
@@ -88,7 +113,9 @@
     ID: <ALTER>;
     LOCATION: <ALTERROOM>;
     NAME: "alter";
-    DESC: "A grand marble alter rising from the centre of the room. Many ceremonies will have been performed here in ages past.";
+    DESC: "A grand marble alter rising from the centre of the room. Many ceremonies will have been performed here in ages past.
+
+The alter seems to be hiding a secret. Perhaps activating the pressure plates will reveal it...";
     ALTDESC: "The alter is no longer visible as it has retreated into the ground and in its place is a stairway.";
     CONDS: _PRESSUREPLATE1=1, _PRESSUREPLATE2=1;
     VALUES: (surface: 50);
@@ -96,63 +123,17 @@
 
 [object]
 {
-    ID: <PRESSUREPLATE2>;
-    LOCATION: <ALTERROOM>;
-    NAME: "right pressure plate";
-    DESC: "It's the pressure plate to your right. It needs something heavy placed on top of it to activate.";
-    SYNS: "right plate", "second plate", "second pressure plate", "plate 2", "other plate", "plate", "pressure plate";
-    VALUES: (surface: 25);
-}
-
-[action]
-{
-    ID: <PRESSUREPLATE2>;
-    ACTION:
-        COND<PRSAAND: PUT, ON && !ANDFLAGS: _PRESSUREPLATE2>
-        {
-            COND<PRSO: <WATERCONTAINER1>>
-            {
-                EFF<PLACE: <WATERCONTAINER1>, <PRESSUREPLATE2>, ON>
-                EFF<TELL: "You placed the clay pot on the pressure plate.">
-                COND<ANDFLAGS: _CONTAINER1FILLED>
-                {
-                    EFF<SETFLAG: _PRESSUREPLATE2, 1>
-                    EFF<TELL: "You hear a rumble as the pressure plate clicks into place.">
-                    COND<ANDFLAGS: _PRESSUREPLATE1>
-                    {
-                        EFF<TELL: "You hear a loud rumbling as the alter before you lowers into the ground and reveals a hidden stairway...">
-                    }
-                }
-            }
-            COND<PRSO: <WATERCONTAINER2>>
-            {
-                EFF<PLACE: <WATERCONTAINER2>, <PRESSUREPLATE2>, ON>
-                EFF<TELL: "You placed the copper jug on the pressure plate.">
-                COND<ANDFLAGS: _CONTAINER2FILLED>
-                {
-                    EFF<SETFLAG: _PRESSUREPLATE2, 1>
-                    EFF<TELL: "You hear a rumble as the pressure plate clicks into place.">
-                    COND<ANDFLAGS: _PRESSUREPLATE1>
-                    {
-                        EFF<TELL: "You hear a loud rumbling as the alter before you lowers into the ground and reveals a hidden stairway...">
-                    }
-                }
-            }
-        };
-}
-
-[flag]
-{
-    FLAG: _PRESSUREPLATE2;
-    VALUE: 0;
-}
-
-[object]
-{
     ID: <PRESSUREPLATE1>;
     LOCATION: <ALTERROOM>;
     NAME: "left pressure plate";
-    DESC: "It's the pressure plate to your left. It needs something heavy placed on top of it to activate.";
+    DESC: "A pressure plate found in front of the alter. It's the one on the left.
+
+It seems to be connected to the alter. It currently isn't activated as there's nothing heavy enough on top of it.
+If something heavy is placed on top of it, then it may do something...";
+    ALTDESC: "A pressure plate found in front of the alter. It's the one on the left.
+
+It has clicked into the ground as the object on top of it is heavy enough to hold it down and activate it.";
+    CONDS: _PRESSUREPLATE1=1;
     SYNS: "left plate", "first plate", "first pressure plate", "plate 1", "plate", "pressure plate";
     VALUES: (surface: 25);
 }
@@ -202,12 +183,77 @@
 
 [object]
 {
+    ID: <PRESSUREPLATE2>;
+    LOCATION: <ALTERROOM>;
+    NAME: "right pressure plate";
+    DESC: "A pressure plate found in front of the alter. It's the one on the right.
+
+It seems to be connected to the alter. It currently isn't activated as there's nothing heavy enough on top of it.
+If something heavy is placed on top of it, then it may do something...";
+    ALTDESC: "A pressure plate found in front of the alter. It's the one on the right.
+
+It has clicked into the ground as the object on top of it is heavy enough to hold it down and activate it.";
+    CONDS: _PRESSUREPLATE2=1;
+    SYNS: "right plate", "second plate", "second pressure plate", "plate 2", "other plate", "plate", "pressure plate";
+    VALUES: (surface: 25);
+}
+
+[action]
+{
+    ID: <PRESSUREPLATE2>;
+    ACTION:
+        COND<PRSAAND: PUT, ON && !ANDFLAGS: _PRESSUREPLATE2>
+        {
+            COND<PRSO: <WATERCONTAINER1>>
+            {
+                EFF<PLACE: <WATERCONTAINER1>, <PRESSUREPLATE2>, ON>
+                EFF<TELL: "You placed the clay pot on the pressure plate.">
+                COND<ANDFLAGS: _CONTAINER1FILLED>
+                {
+                    EFF<SETFLAG: _PRESSUREPLATE2, 1>
+                    EFF<TELL: "You hear a rumble as the pressure plate clicks into place.">
+                    COND<ANDFLAGS: _PRESSUREPLATE1>
+                    {
+                        EFF<TELL: "You hear a loud rumbling as the alter before you lowers into the ground and reveals a hidden stairway...">
+                    }
+                }
+            }
+            COND<PRSO: <WATERCONTAINER2>>
+            {
+                EFF<PLACE: <WATERCONTAINER2>, <PRESSUREPLATE2>, ON>
+                EFF<TELL: "You placed the copper jug on the pressure plate.">
+                COND<ANDFLAGS: _CONTAINER2FILLED>
+                {
+                    EFF<SETFLAG: _PRESSUREPLATE2, 1>
+                    EFF<TELL: "You hear a rumble as the pressure plate clicks into place.">
+                    COND<ANDFLAGS: _PRESSUREPLATE1>
+                    {
+                        EFF<TELL: "You hear a loud rumbling as the alter before you lowers into the ground and reveals a hidden stairway...">
+                    }
+                }
+            }
+        };
+}
+
+[flag]
+{
+    FLAG: _PRESSUREPLATE2;
+    VALUE: 0;
+}
+
+[object]
+{
     ID: <WATERCONTAINER1>;
     LOCATION: <PRESSUREPLATE1>;
     LOCATIONTYPE: 1;
     NAME: "clay pot";
-    DESC: "It's an old clay pot that was found holding down a pressure plate.%nIt looks like it would be heavy when filled with water.";
-    ALTDESC: "It's an old clay pot that was found holding down a pressure plate.%nIt's filled to the brim with water!";
+    DESC: "It's an old clay pot that was found holding down a pressure plate in front of the alter.
+
+The water has been poured out, making it too light to activate the plate. It would be heavy enough again if
+filled back up with water.";
+    ALTDESC: "It's an old clay pot that was found holding down a pressure plate.
+
+It's filled to the brim with water! It's heavy enough to hold down the pressure plate.";
     CONDS: _CONTAINER1FILLED=1;
     SYNS: "pot", "container", "clay container";
     PROPERTIES: _TAKEABLE;
@@ -280,7 +326,18 @@
     ID: <TREASUREROOM>;
     U: <ALTERROOM>;
     NAME: "Treasure Room";
-    DESC: "Dazzling golden walls surround the room, the faces of ancient deities etched into each one!";
+    DESC: "After descending the stairway down from the alter, you find yourself in a dazzling room with walls made
+from solid gold! Each golden wall is covered in carvings. It can be assumed that these are the faces of the ancient
+deities worshiped by the lost civilisation.
+
+In the centre of the room is a golden chest emboldened with rubies. The light reflecting off the rubies cast a red
+glow amongst the golden walls.";
+    ALTDESC: "After descending the stairway down from the alter, you find yourself in a dazzling room with walls made
+from solid gold! Each golden wall is covered in carvings. It can be assumed that these are the faces of the ancient
+deities worshiped by the lost civilisation.
+
+You have taken possession of the treasure chest that was kept hidden here for millennia.";
+    CONDS: _CHESTTAKEN=1;
     DET: "the";
 }
 
@@ -299,6 +356,10 @@
 {
     ID: <CHEST>;
     ACTION:
+        COND<PRSA: TAKE, PICK, OBTAIN>
+        {
+            EFF<SETFLAG: _CHESTTAKEN, 1>
+        }
         COND<PRSA: UNLOCK && ANDPROPERTIES: <CHEST>, _LOCKED && HAVEITEM: <KEY>>
         {
             EFF<REMPROPERTY: <CHEST>, _LOCKED>
@@ -318,12 +379,22 @@
         };
 }
 
+[flag]
+{
+    FLAG: _CHESTTAKEN;
+    VALUE: 0;
+}
+
 [object]
 {
     ID: <TREASURE>;
     LOCATION: <CHEST>;
     NAME: "treasure";
-    DESC: "All the riches you could ever dream of! Sparkling jewels, shining gold, glowing rubies, and more!";
+    DESC: "After opening the chest, you are greeted with a golden idol!
+
+It's elegantly hand-carved and has remained in pristine condition. The gemstones in its eyes alone would fetch you
+a small fortune. The idol as a whole will make you richer than beyond your wildest dreams!";
+    SYNS: "idol", "statue";
     PROPERTIES: _TAKEABLE;
     VALUES: (volume: 50);
 }
@@ -352,9 +423,15 @@
     W: <COLUMNS>;
     U: <ATTIC>;
     UCOND: _SMALLONMEDIUM=1, _MEDIUMONLARGE=1, _LARGEINSTORAGEROOM=1;
-    UBLOCKMESSAGE: "Could you reach the attic if you stacked some blocks up as a stairway?";
+    UBLOCKMESSAGE: "There's nothing tall and stable enough for you to climb on to reach the attic.
+
+You've seen some blocks lying around in other rooms, maybe you could reach it if you stack them up...";
     NAME: "Storage Room";
-    DESC: "This room looks like it was used to store things. There is all sorts of wood and degraded items lying about.";
+    DESC: "This room looks like it was used to store things, though all that remains now are pieces of wood and rubble.
+Any artifacts once stored here have degraded over time and wont be worth anything now...
+
+A marble cupboard is standing against the wall opposite you, and a slight chill is coming from the rotted hatch to the
+attic above you. There may be something interesting hidden in there if you could find a way up.";
 }
 
 [object]
@@ -363,7 +440,7 @@
     LOCATION: <STORAGEROOM>;
     NAME: "cupboard";
     DESC: "An old marble cupboard. It's amazing that the thin stone door still slides open and shut!";
-    SYNS: "counter", "compartment", "surface";
+    SYNS: "counter", "compartment";
     PROPERTIES: _CLOSABLECONTAINER;
     VALUES: (capacity: 25), (surface: 25);
 }
@@ -373,8 +450,12 @@
     ID: <WATERCONTAINER2>;
     LOCATION: <CUPBOARD>;
     NAME: "copper jug";
-    DESC: "It's an old copper jug. It's colouration has slowly turned mint green over time.%nIt looks like it would be heavy when filled with water.";
-    ALTDESC: "It's an old copper jug. It's colouration has slowly turned mint green over time.%nIt's filled to the brim with water!";
+    DESC: "It's an old copper jug. It's colouration has slowly turned mint green over time.
+
+It's currently empty right now, though if it were filled with water, it would gain a lot of weight!";
+    ALTDESC: "It's an old copper jug. It's colouration has slowly turned mint green over time.
+
+It's filled to the brim with water! It should be heavy enough to hold down one of the pressure plates.";
     CONDS: _CONTAINER2FILLED=1;
     SYNS: "jug", "container", "copper container";
     PROPERTIES: _TAKEABLE;
@@ -447,7 +528,9 @@
     ID: <PLANK>;
     LOCATION: <STORAGEROOM>;
     NAME: "wooden plank";
-    DESC: "A long wooden plank that has somehow managed to avoid rotting away.%nIt looks sturdy enough to be used as a bridge.";
+    DESC: "A long wooden plank that has somehow managed to avoid rotting away completely over the millennia.
+
+It looks sturdy enough to walk over, perhaps it could be used as a makeshift bridge...";
     SYNS: "bridge", "wood", "log", "plank";
     PROPERTIES: _TAKEABLE;
     VALUES: (volume: 50), (surface: 50);
@@ -490,7 +573,11 @@
     ID: <ATTIC>;
     D: <STORAGEROOM>;
     NAME: "Attic";
-    DESC: "A musty room above the storage room. A few small things are scattered around amongst all of the rubble, dust, and cobwebs.";
+    DESC: "A musty attic that you managed to climb to from the storage room. It's not very big and seems it was just
+used as a bit of extra space.
+
+A few small things are scattered around amongst all of the rubble, dust, and cobwebs. It seems treasure was hidden here
+once upon a time, but all that remained when you entered was a golden key. It could still be useful for something though...";
 }
 
 [object]
@@ -498,7 +585,9 @@
     ID: <KEY>;
     LOCATION: <ATTIC>;
     NAME: "golden key";
-    DESC: "An old ornate golden key. It looks important.";
+    DESC: "An old ornate golden key. It looks important.
+
+Try using it if you find something with a matching keyhole!";
     SYNS: "key";
     PROPERTIES: _TAKEABLE;
     VALUES: (volume: 10);
@@ -510,7 +599,10 @@
     N: <EASTRIVER>;
     E: <RUINSENTRANCE>;
     NAME: "Rocky Tunnel";
-    DESC: "This claustrophobic tunnel is littered with rocks and boulders.";
+    DESC: "A long narrow tunnel that snakes from the temple's entrance towards a network of caverns and crevices.
+
+The faint sound of flowing water can be heard in the distance. This claustrophobic tunnel is littered with rocks
+and boulders that have collapsed over time.";
 }
 
 [object]
@@ -518,8 +610,11 @@
     ID: <MEDIUMBLOCK>;
     LOCATION: <ROCKYTUNNEL>;
     NAME: "medium block";
-    DESC: "It's a medium sized block of rock. This boulder looks as if it collapsed from the walls of the rocky tunnel, perhaps it could be used as a building block to climb on.";
-    SYNS: "medium block", "medium boulder", "rock block", "boulder", "block", "medium";
+    DESC: "It's a medium sized block of rock.
+
+This boulder looks as if it collapsed from the walls of the rocky tunnel, perhaps it could be used as a stable building
+block to climb on to reach a place high up.";
+    SYNS: "medium block", "medium boulder", "rock block", "boulder", "block", "medium", "rock";
     PROPERTIES: _TAKEABLE;
     VALUES: (volume: 50), (surface: 50);
 }
@@ -561,7 +656,18 @@
     WCOND: _RIVERCROSSABLE=1;
     WBLOCKMESSAGE: "The river is flowing too rapidly to safely cross without some sort of bridge!";
     NAME: "East River Cavern";
-    DESC: "The east side of the river. Rotten wooden stilts extend across the river as if there used to be a bridge here in the distant past";
+    DESC: "You find yourself emerging into a large cavern split in two by a turbulent river flowing through it. You
+are on the east side of the river.
+
+Rotten wooden stilts extend across the river as if there used to be a bridge here in the distant past. However,
+with the bridge now long washed away, you are unable to cross the river to reach the other side of the cavern and
+the tunnels beyond.";
+    ALTDESC: "You find yourself emerging into a large cavern split in two by a turbulent river flowing through it. You
+are on the east side of the river.
+
+You are able to cross the river thanks to the wooden plank laid out across the old support stilts that are somehow
+still standing.";
+    CONDS: _RIVERCROSSABLE=1;
     DET: "the";
 }
 
@@ -570,7 +676,10 @@
     ID: <RIVER>;
     LOCATION: <EASTRIVER>;
     NAME: "river";
-    DESC: "A fast flowing river snaking it's way through the expansive caverns.%nMost of this cave system would have been forged by this gushing torrent over time.";
+    DESC: "A fast flowing river snaking it's way through the expansive caverns.
+Most of this cave system would have been forged by this gushing torrent over time.
+
+You could use the flowing torrent to fill up any water containers you have!";
     SYNS: "water", "torrent", "rapids";
     VALUES: (capacity: 0);
 }
@@ -580,7 +689,10 @@
     ID: <RIVERSTILTS>;
     LOCATION: <RIVER>;
     NAME: "stilts";
-    DESC: "Rotting wooden stilts that extend across the river. This suggests a bridge existed here once.";
+    DESC: "Rotting wooden stilts that extend across the river. This suggests a bridge existed here once.
+
+Though the wood still looks sturdy enough to hold some weight if you can find something to put on top of it. Then you
+would be able to cross the river!";
     VALUES: (surface: 50), (volume: 0);
     DET: "some";
     ARE: TRUE;
@@ -592,7 +704,11 @@
     S: <EASTRIVER>;
     E: <ALTERROOM>;
     NAME: "Waterfall Cavern";
-    DESC: "A roaring waterfall is cascading down into this spacious cavern. A river stretches south from its base.";
+    DESC: "At the far end of the caverns, a roaring waterfall pours down from a rocky outcrop above.
+
+The river stretching south from its base is hypothesised to have carved out this entire network of caverns and tunnels.
+It's said that the civilisation that once lived here worshiped a deity that is responsible for the everlasting
+flow of water.";
 }
 
 [object]
@@ -600,8 +716,10 @@
     ID: <WATERFALL>;
     LOCATION: <WATERFALLCAVERN>;
     NAME: "waterfall";
-    DESC: "The sound of the roaring waterfall echoes throughout the cavern. It feeds into the river flowing southward.";
-    SYNS: "fall";
+    DESC: "The sound of the roaring waterfall echoes throughout the cavern. It feeds into the river flowing southward.
+
+If you placed a water container under the waterfall, it would instantly fill up!";
+    SYNS: "fall", "falls";
     VALUES: (below: 100);
 }
 
@@ -613,7 +731,11 @@
     ECOND: _RIVERCROSSABLE=1;
     EBLOCKMESSAGE: "The river is flowing too rapidly to safely cross without some sort of bridge!";
     NAME: "West River Cavern";
-    DESC: "This large cavern is split in two by the fast-flowing river. Massive Stalactites extend down from the roof of the cavern. Hopefully they don't fall...";
+    DESC: "You are on the west side of the large split in two by the fast-flowing river. Massive Stalactites extend down
+from the roof of the cavern. Hopefully they don't fall...
+
+To the north is the entrance to what looks like a quarry. Resources were likely mined from this side of the cavern to
+build the temple on the other side.";
     DET: "the";
 }
 
@@ -622,7 +744,10 @@
     ID: <ANCIENTQUARRY>;
     S: <WESTRIVER>;
     NAME: "Ancient Quarry";
-    DESC: "This seems to be where all of the marble and stone for the underground temple was excavated from. There is still a lot of stone lying about.";
+    DESC: "This seems to be where all of the marble and stone for the underground temple was excavated from. The hole
+before you burrows deep into the earth, so far that you can't even see the bottom.
+
+There is still a lot of stone lying about. Neatly carved chunks of different types of rock.";
 }
 
 [object]
@@ -630,7 +755,9 @@
     ID: <LARGEBLOCK>;
     LOCATION: <ANCIENTQUARRY>;
     NAME: "large block";
-    DESC: "A massive marble block that never ended up leaving the quarry. It's a miracle you're able to even lift this thing!";
+    DESC: "A massive marble block that never ended up leaving the quarry. It's a miracle you're able to even lift this thing!
+
+This would make a good stable base to climb on, and is large enough to pile other blocks on top of it.";
     SYNS: "large block", "big block", "biggest block", "big marble block", "large marble block", "block", "large", "big";
     PROPERTIES: _TAKEABLE;
     VALUES: (volume: 75), (surface: 75);

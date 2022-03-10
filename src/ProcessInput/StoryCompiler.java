@@ -247,7 +247,7 @@ public class StoryCompiler {
         for (int i = 0; i < altDescs.size(); i++) {
             logger.logRaw("ALTDESC: " + altDescs.get(i));
             logger.logRaw("ALTDESCCONDS: " + altDescConds.get(i));
-            logger.logRaw("ALTDESCQUERY: " + altDescQueries.get(i).toString());
+            logger.logRaw("ALTDESCQUERY: " + altDescQueries.get(i));
         }
         logger.logRaw("SYNS: " + synonyms);
         logger.logRaw("DET: " + det);

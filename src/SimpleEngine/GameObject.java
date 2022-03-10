@@ -231,6 +231,7 @@ public class GameObject {
     public void inspectObject() {
         // Show basic object description
         System.out.println(getDesc());
+        System.out.println();
 
         if (GameController.usingEnhancedEngine()) {
             for (Map.Entry<String, String> entry : variables.entrySet()) {
