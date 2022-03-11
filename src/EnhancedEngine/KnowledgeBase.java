@@ -1,6 +1,7 @@
 package EnhancedEngine;
 
 import Game.GameController;
+import Game.Main;
 import Logging.DebugLogger;
 import SimpleEngine.GameObject;
 import SimpleEngine.GameState;
@@ -20,11 +21,14 @@ public class KnowledgeBase {
     private DebugLogger logger;
 
     private KnowledgeBase() {
-        this.engine = new Prolog();
-        this.clauses = new ArrayList<>();
-        this.dirty = false;
         this.debug = false;
         this.logger = DebugLogger.getInstance();
+        this.clauses = new ArrayList<>();
+        this.dirty = false;
+        this.engine = new Prolog();
+        if (!GameController.usingEnhancedEngine()) {
+            return;
+        }
         addRules();
     }
 
@@ -122,6 +126,9 @@ public class KnowledgeBase {
 
     // Add a new clause to the knowledge base
     public Term addClause(String clause) {
+        if (!GameController.usingEnhancedEngine()) {
+            return null;
+        }
         if (this.debug) { logger.logLine(); }
         Term c = Term.createTerm(clause);
         if (!this.clauses.contains(c)) {
@@ -135,6 +142,9 @@ public class KnowledgeBase {
 
     // Remove the input clause, as well as any unifying clauses if removeUni is set
     public void removeClause(Term clause, Boolean removeUni) {
+        if (!GameController.usingEnhancedEngine()) {
+            return;
+        }
         if (this.debug) { logger.logLine(); }
         boolean removedFlag = false;
         if (this.clauses.contains(clause)) {
@@ -184,6 +194,9 @@ public class KnowledgeBase {
 
     // Reset the knowledge base with the current list of clauses
     private void replaceTheory() {
+        if (!GameController.usingEnhancedEngine()) {
+            return;
+        }
         if (this.dirty) {
             this.engine.setTheory(new Theory(new Struct(this.clauses)));
             this.dirty = false;
@@ -192,6 +205,9 @@ public class KnowledgeBase {
 
     // Set capacityUsed/surfaceUsed/belowUsed for objects that already have something in/on/below them
     public void initVariablesAfterCompilation() {
+        if (!GameController.usingEnhancedEngine()) {
+            return;
+        }
         ArrayList<ArrayList<Var>> objects = query("isObject(X)");
         for (ArrayList<Var> solution : objects) {
             String id = solution.get(0).getTerm().toString().toUpperCase();

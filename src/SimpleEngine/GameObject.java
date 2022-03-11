@@ -231,9 +231,9 @@ public class GameObject {
     public void inspectObject() {
         // Show basic object description
         System.out.println(getDesc());
-        System.out.println();
 
         if (GameController.usingEnhancedEngine()) {
+            System.out.println();
             for (Map.Entry<String, String> entry : variables.entrySet()) {
                 if (!entry.getKey().equals("isClosed") && !entry.getKey().equals("capacityUsed") && !entry.getKey().equals("surfaceUsed") && !entry.getKey().equals("belowUsed")) {
                     System.out.println(" - " + entry.getKey() + " : " + entry.getValue());
@@ -287,7 +287,7 @@ public class GameObject {
             return;
         }
         KnowledgeBase kb = KnowledgeBase.getInstance();
-        if (hasVariable("volume") && kb.query("isObject(" + getParent().toLowerCase() + ")").size() > 0) {
+        if (GameController.usingEnhancedEngine() && hasVariable("volume") && kb.query("isObject(" + getParent().toLowerCase() + ")").size() > 0) {
             // remove the volume from in/on/below
             GameObject parent = GameState.getGameObject(getParent());
             String parentID = parent.getId().toLowerCase();
@@ -352,7 +352,7 @@ public class GameObject {
         KnowledgeBase kb = KnowledgeBase.getInstance();
 
         // Remove volume from current parent
-        if (hasVariable("volume") && kb.query("isObject(" + oldParentID + ")").size() > 0) {
+        if (GameController.usingEnhancedEngine() && hasVariable("volume") && kb.query("isObject(" + oldParentID + ")").size() > 0) {
             switch (getParentType()) {
                 case 0:
                     int volume = Integer.parseInt(getVariable("volume"));
@@ -379,7 +379,7 @@ public class GameObject {
         }
 
         // Add the volume to in/on/below
-        if (hasVariable("volume") && kb.query("isObject(" + newParentID + ")").size() > 0) {
+        if (GameController.usingEnhancedEngine() && hasVariable("volume") && kb.query("isObject(" + newParentID + ")").size() > 0) {
             switch (parentType) {
                 case 0:
                     int volume = Integer.parseInt(getVariable("volume"));

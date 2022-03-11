@@ -35,12 +35,12 @@ a sprawling network of ancient underground caverns thought to be teeming with th
 [room]
 {
     ID: <COLUMNS>;
-    N: <ALTERROOM>;
+    N: <ALTARROOM>;
     S: <RUINSENTRANCE>;
     E: <STORAGEROOM>;
     W: <EASTRIVER>;
     NAME: "Marble Column-way";
-    DESC: "The ornate pathway up to the alter ahead of you is lined with tall marble columns, reaching up to the cavern's roof.
+    DESC: "The ornate pathway up to the altar ahead of you is lined with tall marble columns, reaching up to the cavern's roof.
 
 Many of these columns have cracked and crumbled over time, resulting in piles of rubble and broken marble littering the
 floor around you.
@@ -64,20 +64,20 @@ The block is still sturdy, perhaps it could be stacked up on something to climb 
 
 [room]
 {
-    ID: <ALTERROOM>;
+    ID: <ALTARROOM>;
     S: <COLUMNS>;
     W: <WATERFALLCAVERN>;
     D: <TREASUREROOM>;
     DCOND: QUERY<weightOnObjectAtLeast(pressureplate1,50), weightOnObjectAtLeast(pressureplate2,50)>, _HIDDEN;
     DBLOCKMESSAGE: "You cannot move down.";
-    NAME: "Grand Alter";
+    NAME: "Grand Altar";
     DESC: "Having reached the far end of the temple, the rising columns either side of you give way to an open room with
-an ornate marble alter at its centre. The faint light streaming into the cavern is reflected off the gold strips that
-line the alter.
+an ornate marble altar at its centre. The faint light streaming into the cavern is reflected off the gold strips that
+line the altar.
 
-There are two pressure plates in front of the alter and they seem connected to it somehow. Perhaps the mysteries of
+There are two pressure plates in front of the altar and they seem connected to it somehow. Perhaps the mysteries of
 the temple will be uncovered if both plates could be activated at once...";
-    ALTDESC: "With both pressure plates being held down by heavy objects, the grand alter that once stood in the centre
+    ALTDESC: "With both pressure plates being held down by heavy objects, the grand altar that once stood in the centre
 of the room has retreated into the floor, revealing a narrow stairway to a hidden room below you.
 
 A faint golden light emanates from the stairway. Just what could be hidden down there?";
@@ -86,13 +86,13 @@ A faint golden light emanates from the stairway. Just what could be hidden down 
 
 [object]
 {
-    ID: <ALTER>;
-    LOCATION: <ALTERROOM>;
-    NAME: "alter";
-    DESC: "A grand marble alter rising from the centre of the room. Many ceremonies will have been performed here in ages past.
+    ID: <ALTAR>;
+    LOCATION: <ALTARROOM>;
+    NAME: "altar";
+    DESC: "A grand marble altar rising from the centre of the room. Many ceremonies will have been performed here in ages past.
 
-The alter seems to be hiding a secret. Perhaps activating the pressure plates will reveal it...";
-    ALTDESC: "The alter is no longer visible as it has retreated into the ground and in its place is a stairway.";
+The altar seems to be hiding a secret. Perhaps activating the pressure plates will reveal it...";
+    ALTDESC: "The altar is no longer visible as it has retreated into the ground and in its place is a stairway.";
     CONDS: QUERY<weightOnObjectAtLeast(pressureplate1,50), weightOnObjectAtLeast(pressureplate2,50)>;
     PROPERTIES: _STABLE;
     VALUES: (surface: 50);
@@ -101,13 +101,13 @@ The alter seems to be hiding a secret. Perhaps activating the pressure plates wi
 [object]
 {
     ID: <PRESSUREPLATE1>;
-    LOCATION: <ALTERROOM>;
+    LOCATION: <ALTARROOM>;
     NAME: "left pressure plate";
-    DESC: "A pressure plate found in front of the alter. It's the one on the left.
+    DESC: "A pressure plate found in front of the altar. It's the one on the left.
 
-It seems to be connected to the alter. It currently isn't activated as there's nothing heavy enough on top of it.
+It seems to be connected to the altar. It currently isn't activated as there's nothing heavy enough on top of it.
 If something heavy is placed on top of it, then it may do something...";
-    ALTDESC: "A pressure plate found in front of the alter. It's the one on the left.
+    ALTDESC: "A pressure plate found in front of the altar. It's the one on the left.
 
 It has clicked into the ground as the object on top of it is heavy enough to hold it down and activate it.";
     CONDS: QUERY<weightOnObjectAtLeast(pressureplate1,50)>;
@@ -118,13 +118,13 @@ It has clicked into the ground as the object on top of it is heavy enough to hol
 [object]
 {
     ID: <PRESSUREPLATE2>;
-    LOCATION: <ALTERROOM>;
+    LOCATION: <ALTARROOM>;
     NAME: "right pressure plate";
-    DESC: "A pressure plate found in front of the alter. It's the one on the right.
+    DESC: "A pressure plate found in front of the altar. It's the one on the right.
 
-It seems to be connected to the alter. It currently isn't activated as there's nothing heavy enough on top of it.
+It seems to be connected to the altar. It currently isn't activated as there's nothing heavy enough on top of it.
 If something heavy is placed on top of it, then it may do something...";
-    ALTDESC: "A pressure plate found in front of the alter. It's the one on the right.
+    ALTDESC: "A pressure plate found in front of the altar. It's the one on the right.
 
 It has clicked into the ground as the object on top of it is heavy enough to hold it down and activate it.";
     CONDS: QUERY<weightOnObjectAtLeast(pressureplate2,50)>;
@@ -138,7 +138,7 @@ It has clicked into the ground as the object on top of it is heavy enough to hol
     LOCATION: <PRESSUREPLATE1>;
     LOCATIONTYPE: 1;
     NAME: "clay pot";
-    DESC: "It's an old clay pot that was found holding down a pressure plate in front of the alter.
+    DESC: "It's an old clay pot that was found holding down a pressure plate in front of the altar.
 
 The water has been poured out, making it too light to activate the plate. It would be heavy enough again if
 filled back up with water.";
@@ -189,14 +189,14 @@ It's filled to the brim with water! It's heavy enough to hold down the pressure 
 [room]
 {
     ID: <TREASUREROOM>;
-    U: <ALTERROOM>;
+    U: <ALTARROOM>;
     NAME: "Treasure Room";
-    DESC: "After descending the stairway down from the alter, you find yourself in a dazzling room with walls made
+    DESC: "After descending the stairway down from the altar, you find yourself in a dazzling room with walls made
 from solid gold! Each golden wall is covered in carvings. It can be assumed that these are the faces of the ancient
 deities worshiped by the lost civilisation.
 
 You have taken possession of the treasure chest that was kept hidden here for millennia.";
-    ALTDESC: "After descending the stairway down from the alter, you find yourself in a dazzling room with walls made
+    ALTDESC: "After descending the stairway down from the altar, you find yourself in a dazzling room with walls made
 from solid gold! Each golden wall is covered in carvings. It can be assumed that these are the faces of the ancient
 deities worshiped by the lost civilisation.
 
@@ -211,13 +211,13 @@ glow amongst the golden walls.";
     ID: <CHEST>;
     LOCATION: <TREASUREROOM>;
     NAME: "treasure chest";
-    DESC: "A golden treasure chest that was found in the hidden room under the alter.
+    DESC: "A golden treasure chest that was found in the hidden room under the altar.
 
 The chest's sides are etched with similar carvings as on the walls of the room it was found in. Precious gemstones
 line its edges, amongst them you can recognise rubies and emeralds.
 
 The chest has been opened and you can peer inside of it.";
-    ALTDESC: "A golden treasure chest that was found in the hidden room under the alter.
+    ALTDESC: "A golden treasure chest that was found in the hidden room under the altar.
 
 The chest's sides are etched with similar carvings as on the walls of the room it was found in. Precious gemstones
 line its edges, amongst them you can recognise rubies and emeralds.
@@ -370,11 +370,11 @@ It looks sturdy enough to walk over, perhaps it could be used as a makeshift bri
     ACTION:
         COND<PRSA: PUT, PLACE && PRSO: <PLANK> && PRSI: <RIVER>>
         {
-            EFF<PLACE: <PLANK>, <RIVERSTILTS>, ON>
+            EFF<PLACE: <PLANK>, <RIVERSUPPORTS>, ON>
         }
         COND<PRSA: MAKE, FORM && PRSO: <PLANK> && HERE: <EASTRIVER>>
         {
-            EFF<PLACE: <PLANK>, <RIVERSTILTS>, ON>
+            EFF<PLACE: <PLANK>, <RIVERSUPPORTS>, ON>
         };
 }
 
@@ -436,21 +436,21 @@ block to climb on to reach a place high up.";
     S: <ROCKYTUNNEL>;
     E: <COLUMNS>;
     W: <WESTRIVER>;
-    WCOND: QUERY<isLocated(plank,riverstilts,1)>;
+    WCOND: QUERY<isLocated(plank,riversupports,1)>;
     WBLOCKMESSAGE: "The river is flowing too rapidly to safely cross without some sort of bridge!";
     NAME: "East River Cavern";
     DESC: "You find yourself emerging into a large cavern split in two by a turbulent river flowing through it. You
 are on the east side of the river.
 
-Rotten wooden stilts extend across the river as if there used to be a bridge here in the distant past. However,
+Rotten wooden supports extend across the river as if there used to be a bridge here in the distant past. However,
 with the bridge now long washed away, you are unable to cross the river to reach the other side of the cavern and
 the tunnels beyond.";
     ALTDESC: "You find yourself emerging into a large cavern split in two by a turbulent river flowing through it. You
 are on the east side of the river.
 
-You are able to cross the river thanks to the wooden plank laid out across the old support stilts that are somehow
+You are able to cross the river thanks to the wooden plank laid out across the old support supports that are somehow
 still standing.";
-    CONDS: QUERY<isLocated(plank,riverstilts,1)>;
+    CONDS: QUERY<isLocated(plank,riversupports,1)>;
     DET: "the";
 }
 
@@ -469,10 +469,10 @@ You could use the flowing torrent to fill up any water containers you have!";
 
 [object]
 {
-    ID: <RIVERSTILTS>;
+    ID: <RIVERSUPPORTS>;
     LOCATION: <RIVER>;
-    NAME: "stilts";
-    DESC: "Rotting wooden stilts that extend across the river. This suggests a bridge existed here once.
+    NAME: "supports";
+    DESC: "Rotting wooden supports that extend across the river. This suggests a bridge existed here once.
 
 Though the wood still looks sturdy enough to hold some weight if you can find something to put on top of it. Then you
 would be able to cross the river!";
@@ -485,7 +485,7 @@ would be able to cross the river!";
 {
     ID: <WATERFALLCAVERN>;
     S: <EASTRIVER>;
-    E: <ALTERROOM>;
+    E: <ALTARROOM>;
     NAME: "Waterfall Cavern";
     DESC: "At the far end of the caverns, a roaring waterfall pours down from a rocky outcrop above.
 
@@ -511,7 +511,7 @@ If you placed a water container under the waterfall, it would instantly fill up!
     ID: <WESTRIVER>;
     N: <ANCIENTQUARRY>;
     E: <EASTRIVER>;
-    ECOND: QUERY<isLocated(plank,riverstilts,1)>;
+    ECOND: QUERY<isLocated(plank,riversupports,1)>;
     EBLOCKMESSAGE: "The river is flowing too rapidly to safely cross without some sort of bridge!";
     NAME: "West River Cavern";
     DESC: "You are on the west side of the large split in two by the fast-flowing river. Massive Stalactites extend down
@@ -565,7 +565,7 @@ This would make a good stable base to climb on, and is large enough to pile othe
             EFF<TELL: "You're now unable to climb up to reach the attic.">
         };
     CHECK:
-        QUERY<isLocated(plank,riverstilts,1)>
+        QUERY<isLocated(plank,riversupports,1)>
         {
             EFF<TELL: "Using the plank as a makeshift bridge, you can now safely cross!">
         }
@@ -594,13 +594,13 @@ This would make a good stable base to climb on, and is large enough to pile othe
     CHECK:
         QUERY<weightOnObjectAtLeast(pressureplate1,50), weightOnObjectAtLeast(pressureplate2,50)>
         {
-            EFF<TELL: "You hear a loud rumbling as the alter before you lowers into the ground and reveals a hidden stairway...">
-            EFF<PLACE: <ALTER>, <DEADROOM>, IN>
+            EFF<TELL: "You hear a loud rumbling as the altar before you lowers into the ground and reveals a hidden stairway...">
+            EFF<PLACE: <ALTAR>, <DEADROOM>, IN>
         }
         ELSE
         {
-            EFF<TELL: "The alter rises back up from the floor and hides the secret stairway.">
-            EFF<PLACE: <ALTER>, <ALTERROOM>, IN>
+            EFF<TELL: "The altar rises back up from the floor and hides the secret stairway.">
+            EFF<PLACE: <ALTAR>, <ALTARROOM>, IN>
         };
     CHECK:
         QUERY<isLocated(treasure,player,0)>

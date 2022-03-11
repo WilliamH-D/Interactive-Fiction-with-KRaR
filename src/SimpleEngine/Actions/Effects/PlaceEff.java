@@ -48,6 +48,9 @@ public class PlaceEff extends Effect {
 
     @Override
     protected boolean effectLegalUnderEnhancedConstraints() {
+        if (!GameController.usingEnhancedEngine()) {
+            return true;
+        }
         KnowledgeBase kb = KnowledgeBase.getInstance();
         if (kb.query("isRoom(" + locID.toLowerCase() + ")").size() > 0) {
             return true;

@@ -8,6 +8,8 @@ import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader;
 import edu.stanford.nlp.ling.*;
 import edu.stanford.nlp.pipeline.*;
 import edu.stanford.nlp.semgraph.*;
+import edu.stanford.nlp.util.ArraySet;
+
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -64,7 +66,7 @@ public class CommandConstructor {
         try {
             preprocessed = extractObjects(lemmas, posTags, rets);
         } catch (ConflictException e) {
-            GameController.setPRSA("CONFLICT");
+            GameController.setPRSA("CONFLICT: " + e.getMessage());
             return;
         }
 
@@ -262,12 +264,22 @@ public class CommandConstructor {
         ArrayList<Integer> matchedIndxs = new ArrayList<>();
 
         int count = 0;
-        boolean conflictFound = false;
+        Set<String[]> conflictingStrings = new ArraySet<>();
+        Set<String> conflictingNames = new ArraySet<>();
+
+        // Iterate through each accessible game object in the scene
         for (GameObject obj : allowedObjects) {
+
+            /*System.err.println();
+            System.err.println("CHECK GAME OBJECT: " + obj.getName());
+            System.err.println();*/
+
             if (obj == null) { continue; }
             boolean match = false;
             int startInd = -1;
             int maxSize = 0;
+
+            // Split the object name into tokens
             List<String> nameLemmas = getTokens(obj.getName());
             makeLemmasLowerCase(nameLemmas);
             String[] parts = nameLemmas.toArray(new String[0]);
@@ -279,6 +291,7 @@ public class CommandConstructor {
                     .filter(entry -> entry.getValue().equals(obj.getName().toLowerCase()))
                     .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
+            // For each non-conflicting synonym of this object, see if the user input contains the synonym
             for (String syn : synonyms.keySet()) {
                 List<String> synLemmas = getTokens(syn);
                 if (synLemmas.size() <= maxSize) { continue; }
@@ -288,25 +301,29 @@ public class CommandConstructor {
                 int newStartInd = arrayContainsSubArray(lemmaParts, synParts);
                 if (newStartInd > -1) {
                     startInd = newStartInd;
-                    maxSize = synLemmas.size();
+                    maxSize = synLemmas.size();;
                     match = true;
                     matchedInput = synParts;
                 }
             }
 
             // try match on conflicts
-            if (!match && !conflictFound) {
+            if (!match) {
                 for (String conflict : conflicts) {
+                    if (conflictingNames.contains(conflict)) { continue; }
                     List<String> conLemmas = getTokens(conflict);
                     makeLemmasLowerCase(conLemmas);
                     String[] conParts = conLemmas.toArray(new String[0]);
 
-                    //logger.logDebug("Check that " + Arrays.toString(lemmaParts) + " contains " + Arrays.toString(conParts));
-                    conflictFound = arrayContainsSubArray(lemmaParts, conParts) > -1;
-                    //logger.logDebug("conflict " + (conflictFound ? "found" : "not found"));
+                    //System.err.println("Check that " + Arrays.toString(lemmaParts) + " contains " + Arrays.toString(conParts));
+                    boolean conflictFound = arrayContainsSubArray(lemmaParts, conParts) > -1;
+                    //System.err.println("conflict " + (conflictFound ? "found" : "not found"));
 
                     // If we find a matching synonym for this object, ignore all other synonyms
-                    if (conflictFound) { break; }
+                    if (conflictFound) {
+                        conflictingStrings.add(conParts);
+                        conflictingNames.add(conflict);
+                    }
                 }
             }
 
@@ -314,6 +331,15 @@ public class CommandConstructor {
             if (match) {
                 // Make sure that the object doesn't conflict with a verb (e.g. PRSA: "put down" and PRSO: DOWN)
                 if (!potentialObjectConflictsPotentialVerb(lemmaParts, parts)) {
+                    // Fix for inputs such as "pick item up" or "put item down"
+                    for (String[] input : matchedObjects) {
+                        if (input.length == 1 && (input[0].equals("up") || input[0].equals("down"))) {
+                            matchedObjects.remove(input);
+                            matchedIndxs.remove(0);
+                            count--;
+                            break;
+                        }
+                    }
                     matchedObjects.add(matchedInput);
                     logger.logDebug("Adding " + Arrays.toString(matchedInput) + " to matched objects");
                     matchedIndxs.add(startInd);
@@ -333,9 +359,23 @@ public class CommandConstructor {
             }
         }
 
-        // No unique objects identified, but conflict found
-        if (conflictFound && count == 0) {
-            throw new ConflictException();
+        // Check that all conflicting synonyms found in input are resolved (conflict is substring of matched unique synonym)
+        for (String[] conParts : conflictingStrings) {
+            boolean ignoreConflict = false;
+            for (String[] objParts : matchedObjects) {
+                if (arrayContainsSubArray(objParts, conParts) > -1) {
+                    ignoreConflict = true;
+                }
+            }
+            if (!ignoreConflict) {
+                StringBuilder sb = new StringBuilder();
+                for (String part : conParts) {
+                    sb.append(part).append(" ");
+                }
+                String confString = sb.toString();
+                confString = confString.substring(0, confString.length()-1);
+                throw new ConflictException(confString);
+            }
         }
 
         // Remove object adjectives and descriptors such as "the"
@@ -395,8 +435,8 @@ public class CommandConstructor {
             if (l.equals("WEST") || l.equals("W")) { GameController.setPRSO(GameController.westObj()); GameController.setPRSA("move"); return true; }
             if (l.equals("UP") || l.equals("U")) { GameController.setPRSO(GameController.upObj()); GameController.setPRSA("move"); return true; }
             if (l.equals("DOWN") || l.equals("D")) { GameController.setPRSO(GameController.downObj()); GameController.setPRSA("move"); return true; }
-            if (l.equals("INVENTORY")) { GameController.setPRSO(GameController.getPlayer()); GameController.setPRSA("look"); return true; }
-            if (l.equals("LOOK")) { GameController.setPRSA("look around"); return true; }
+            if (l.equals("INVENTORY") || l.equals("ITEMS")) { GameController.setPRSO(GameController.getPlayer()); GameController.setPRSA("look"); return true; }
+            if (l.equals("LOOK") || l.equals("SEE")) { GameController.setPRSA("look around"); return true; }
         }
         return false;
     }
@@ -436,4 +476,8 @@ class SynonymsAndConflicts {
     }
 }
 
-class ConflictException extends Exception { }
+class ConflictException extends Exception {
+    public ConflictException(String errorMessage) {
+        super(errorMessage);
+    }
+}

@@ -24,13 +24,13 @@ public class ExecuteCommand {
         logger.logDebug("PRSA: " + GameController.getPRSA() + ", PRSO: " + (GameController.getPRSO() == null ? "null" : GameController.getPRSO().getId()) + ", PRSI: " + (GameController.getPRSI() == null ? "null" : GameController.getPRSI().getId()));
         logger.logLine();
         if (GameController.getPRSA() == null) {
-            System.err.println("I didn't understand that input.");
+            System.out.println(GameController.redText + "I didn't understand that input." + GameController.resetText);
             return;
         }
 
         // Handle object conflict
-        if (GameController.getPRSA().equals("CONFLICT")) {
-            System.err.println("I cannot determine which object you are referencing, please be more specific.");
+        if (GameController.getPRSA().length() > 7 && GameController.getPRSA().substring(0, 8).equals("CONFLICT")) {
+            System.out.println(GameController.redText + "I cannot determine which object you are referencing, please be more specific. [Conflicting object name: " + GameController.getPRSA().substring(10) + "]" + GameController.resetText);
             return;
         }
 
@@ -53,7 +53,7 @@ public class ExecuteCommand {
         if (GameController.usingEnhancedEngine() && EnhancedExecuteCommand.decodePRSAEnhanced(getCorrectedVerb())) { return; }
         logger.logLine();
         logger.logDebug("FAILED TO PERFORM ENHANCED ACTION USING PRSA");
-        System.err.println("I didn't understand that input.");
+        System.out.println(GameController.redText + "I didn't understand that input." + GameController.resetText);
     }
 
     // If the given PRSA is a synonym, get the corresponding action
@@ -199,6 +199,10 @@ public class ExecuteCommand {
         }
         // The target object has the takeable flag
         else if (obj.hasProperty("_TAKEABLE")) {
+            if (GameController.getPlayer().hasDescendant(obj.getId()).size() > 0) {
+                System.out.println("You already have the " + obj.getName() + ".");
+                return true;
+            }
             obj.takeItem();
             obj.setParentType(0);
         }

@@ -14,12 +14,15 @@ verb: look around
 
 verb: look
 0
-0=look,observe,inspect,analyse,peek,peer,stare
+0=look,observe,inspect,analyse,peek,peer,stare,see
 
 verb: take
 0
-0=take,obtain,get,claim,acquire
+0=take,obtain,get,claim,acquire,pick
 0 1
+0=pick
+1=up
+0 ITEM 1
 0=pick
 1=up
 
@@ -53,9 +56,12 @@ verb: place under
 
 verb: place
 0
-0=place,drop,discard
+0=place,drop,discard,put
 0 1
 0=put,place
+1=down
+0 ITEM 1
+0=place,put
 1=down
 
 verb: move

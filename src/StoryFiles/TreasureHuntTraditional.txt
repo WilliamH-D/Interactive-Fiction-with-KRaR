@@ -33,12 +33,12 @@ a sprawling network of ancient underground caverns thought to be teeming with th
 [room]
 {
     ID: <COLUMNS>;
-    N: <ALTERROOM>;
+    N: <ALTARROOM>;
     S: <RUINSENTRANCE>;
     E: <STORAGEROOM>;
     W: <EASTRIVER>;
     NAME: "Marble Column-way";
-    DESC: "The ornate pathway up to the alter ahead of you is lined with tall marble columns, reaching up to the cavern's roof.
+    DESC: "The ornate pathway up to the altar ahead of you is lined with tall marble columns, reaching up to the cavern's roof.
 
 Many of these columns have cracked and crumbled over time, resulting in piles of rubble and broken marble littering the
 floor around you.
@@ -74,7 +74,7 @@ The block is still sturdy, perhaps it could be stacked up on something to climb 
                 EFF<TELL: "With all three blocks stacked on top of one another, you should be able to climb up to the attic above you!">
             }
         }
-        COND<PRSA: TAKE, OBTAIN && PRSO: <SMALLBLOCK>>
+        COND<PRSA: TAKE, OBTAIN, GET, PICK && PRSO: <SMALLBLOCK> && !HAVEITEM: <SMALLBLOCK>>
         {
             EFF<TAKE: <SMALLBLOCK>>
             EFF<REMFLAG: _SMALLONMEDIUM>
@@ -89,19 +89,19 @@ The block is still sturdy, perhaps it could be stacked up on something to climb 
 
 [room]
 {
-    ID: <ALTERROOM>;
+    ID: <ALTARROOM>;
     S: <COLUMNS>;
     D: <TREASUREROOM>;
     DCOND: _PRESSUREPLATE1=1, _PRESSUREPLATE2=1, _HIDDEN;
     DBLOCKMESSAGE: "You cannot move down.";
-    NAME: "Grand Alter";
+    NAME: "Grand Altar";
     DESC: "Having reached the far end of the temple, the rising columns either side of you give way to an open room with
-an ornate marble alter at its centre. The faint light streaming into the cavern is reflected off the gold strips that
-line the alter.
+an ornate marble altar at its centre. The faint light streaming into the cavern is reflected off the gold strips that
+line the altar.
 
-There are two pressure plates in front of the alter and they seem connected to it somehow. Perhaps the mysteries of
+There are two pressure plates in front of the altar and they seem connected to it somehow. Perhaps the mysteries of
 the temple will be uncovered if both plates could be activated at once...";
-    ALTDESC: "With both pressure plates being held down by heavy objects, the grand alter that once stood in the centre
+    ALTDESC: "With both pressure plates being held down by heavy objects, the grand altar that once stood in the centre
 of the room has retreated into the floor, revealing a narrow stairway to a hidden room below you.
 
 A faint golden light emanates from the stairway. Just what could be hidden down there?";
@@ -110,13 +110,13 @@ A faint golden light emanates from the stairway. Just what could be hidden down 
 
 [object]
 {
-    ID: <ALTER>;
-    LOCATION: <ALTERROOM>;
-    NAME: "alter";
-    DESC: "A grand marble alter rising from the centre of the room. Many ceremonies will have been performed here in ages past.
+    ID: <ALTAR>;
+    LOCATION: <ALTARROOM>;
+    NAME: "altar";
+    DESC: "A grand marble altar rising from the centre of the room. Many ceremonies will have been performed here in ages past.
 
-The alter seems to be hiding a secret. Perhaps activating the pressure plates will reveal it...";
-    ALTDESC: "The alter is no longer visible as it has retreated into the ground and in its place is a stairway.";
+The altar seems to be hiding a secret. Perhaps activating the pressure plates will reveal it...";
+    ALTDESC: "The altar is no longer visible as it has retreated into the ground and in its place is a stairway.";
     CONDS: _PRESSUREPLATE1=1, _PRESSUREPLATE2=1;
     VALUES: (surface: 50);
 }
@@ -124,13 +124,13 @@ The alter seems to be hiding a secret. Perhaps activating the pressure plates wi
 [object]
 {
     ID: <PRESSUREPLATE1>;
-    LOCATION: <ALTERROOM>;
+    LOCATION: <ALTARROOM>;
     NAME: "left pressure plate";
-    DESC: "A pressure plate found in front of the alter. It's the one on the left.
+    DESC: "A pressure plate found in front of the altar. It's the one on the left.
 
-It seems to be connected to the alter. It currently isn't activated as there's nothing heavy enough on top of it.
+It seems to be connected to the altar. It currently isn't activated as there's nothing heavy enough on top of it.
 If something heavy is placed on top of it, then it may do something...";
-    ALTDESC: "A pressure plate found in front of the alter. It's the one on the left.
+    ALTDESC: "A pressure plate found in front of the altar. It's the one on the left.
 
 It has clicked into the ground as the object on top of it is heavy enough to hold it down and activate it.";
     CONDS: _PRESSUREPLATE1=1;
@@ -154,7 +154,7 @@ It has clicked into the ground as the object on top of it is heavy enough to hol
                     EFF<TELL: "You hear a rumble as the pressure plate clicks into place.">
                     COND<ANDFLAGS: _PRESSUREPLATE2>
                     {
-                        EFF<TELL: "You hear a loud rumbling as the alter before you lowers into the ground and reveals a hidden stairway...">
+                        EFF<TELL: "You hear a loud rumbling as the altar before you lowers into the ground and reveals a hidden stairway...">
                     }
                 }
             }
@@ -168,7 +168,7 @@ It has clicked into the ground as the object on top of it is heavy enough to hol
                     EFF<TELL: "You hear a rumble as the pressure plate clicks into place.">
                     COND<ANDFLAGS: _PRESSUREPLATE2>
                     {
-                        EFF<TELL: "You hear a loud rumbling as the alter before you lowers into the ground and reveals a hidden stairway...">
+                        EFF<TELL: "You hear a loud rumbling as the altar before you lowers into the ground and reveals a hidden stairway...">
                     }
                 }
             }
@@ -184,13 +184,13 @@ It has clicked into the ground as the object on top of it is heavy enough to hol
 [object]
 {
     ID: <PRESSUREPLATE2>;
-    LOCATION: <ALTERROOM>;
+    LOCATION: <ALTARROOM>;
     NAME: "right pressure plate";
-    DESC: "A pressure plate found in front of the alter. It's the one on the right.
+    DESC: "A pressure plate found in front of the altar. It's the one on the right.
 
-It seems to be connected to the alter. It currently isn't activated as there's nothing heavy enough on top of it.
+It seems to be connected to the altar. It currently isn't activated as there's nothing heavy enough on top of it.
 If something heavy is placed on top of it, then it may do something...";
-    ALTDESC: "A pressure plate found in front of the alter. It's the one on the right.
+    ALTDESC: "A pressure plate found in front of the altar. It's the one on the right.
 
 It has clicked into the ground as the object on top of it is heavy enough to hold it down and activate it.";
     CONDS: _PRESSUREPLATE2=1;
@@ -214,7 +214,7 @@ It has clicked into the ground as the object on top of it is heavy enough to hol
                     EFF<TELL: "You hear a rumble as the pressure plate clicks into place.">
                     COND<ANDFLAGS: _PRESSUREPLATE1>
                     {
-                        EFF<TELL: "You hear a loud rumbling as the alter before you lowers into the ground and reveals a hidden stairway...">
+                        EFF<TELL: "You hear a loud rumbling as the altar before you lowers into the ground and reveals a hidden stairway...">
                     }
                 }
             }
@@ -228,7 +228,7 @@ It has clicked into the ground as the object on top of it is heavy enough to hol
                     EFF<TELL: "You hear a rumble as the pressure plate clicks into place.">
                     COND<ANDFLAGS: _PRESSUREPLATE1>
                     {
-                        EFF<TELL: "You hear a loud rumbling as the alter before you lowers into the ground and reveals a hidden stairway...">
+                        EFF<TELL: "You hear a loud rumbling as the altar before you lowers into the ground and reveals a hidden stairway...">
                     }
                 }
             }
@@ -247,7 +247,7 @@ It has clicked into the ground as the object on top of it is heavy enough to hol
     LOCATION: <PRESSUREPLATE1>;
     LOCATIONTYPE: 1;
     NAME: "clay pot";
-    DESC: "It's an old clay pot that was found holding down a pressure plate in front of the alter.
+    DESC: "It's an old clay pot that was found holding down a pressure plate in front of the altar.
 
 The water has been poured out, making it too light to activate the plate. It would be heavy enough again if
 filled back up with water.";
@@ -293,24 +293,24 @@ It's filled to the brim with water! It's heavy enough to hold down the pressure 
                 EFF<SETFLAG: _CONTAINER1FILLED, 1>
             }
         }
-        COND<PRSA: TAKE, OBTAIN && INSCOPE: <WATERCONTAINER1>, <PRESSUREPLATE1> && ANDFLAGS: _CONTAINER1FILLED>
+        COND<PRSA: TAKE, OBTAIN, GET, PICK && INSCOPE: <WATERCONTAINER1>, <PRESSUREPLATE1> && ANDFLAGS: _CONTAINER1FILLED>
         {
             EFF<TAKE: <WATERCONTAINER1>>
             EFF<REMFLAG: _PRESSUREPLATE1>
             EFF<TELL: "The left pressure plate raises back up as you take off the clay pot.">
             COND<ANDFLAGS: _PRESSUREPLATE2>
             {
-                EFF<TELL: "The alter rises back up from the floor and hides the secret stairway.">
+                EFF<TELL: "The altar rises back up from the floor and hides the secret stairway.">
             }
         }
-        COND<PRSA: TAKE, OBTAIN && INSCOPE: <WATERCONTAINER1>, <PRESSUREPLATE2> && ANDFLAGS: _CONTAINER2FILLED>
+        COND<PRSA: TAKE, OBTAIN, GET, PICK && INSCOPE: <WATERCONTAINER1>, <PRESSUREPLATE2> && ANDFLAGS: _CONTAINER2FILLED>
         {
             EFF<TAKE: <WATERCONTAINER1>>
             EFF<REMFLAG: _PRESSUREPLATE2>
             EFF<TELL: "The right pressure plate raises back up as you take off the clay pot.">
             COND<ANDFLAGS: _PRESSUREPLATE1>
             {
-                EFF<TELL: "The alter rises back up from the floor and hides the secret stairway.">
+                EFF<TELL: "The altar rises back up from the floor and hides the secret stairway.">
             }
         };
 }
@@ -324,15 +324,15 @@ It's filled to the brim with water! It's heavy enough to hold down the pressure 
 [room]
 {
     ID: <TREASUREROOM>;
-    U: <ALTERROOM>;
+    U: <ALTARROOM>;
     NAME: "Treasure Room";
-    DESC: "After descending the stairway down from the alter, you find yourself in a dazzling room with walls made
+    DESC: "After descending the stairway down from the altar, you find yourself in a dazzling room with walls made
 from solid gold! Each golden wall is covered in carvings. It can be assumed that these are the faces of the ancient
 deities worshiped by the lost civilisation.
 
 In the centre of the room is a golden chest emboldened with rubies. The light reflecting off the rubies cast a red
 glow amongst the golden walls.";
-    ALTDESC: "After descending the stairway down from the alter, you find yourself in a dazzling room with walls made
+    ALTDESC: "After descending the stairway down from the altar, you find yourself in a dazzling room with walls made
 from solid gold! Each golden wall is covered in carvings. It can be assumed that these are the faces of the ancient
 deities worshiped by the lost civilisation.
 
@@ -356,7 +356,7 @@ You have taken possession of the treasure chest that was kept hidden here for mi
 {
     ID: <CHEST>;
     ACTION:
-        COND<PRSA: TAKE, PICK, OBTAIN>
+        COND<PRSA: TAKE, PICK, OBTAIN, GET>
         {
             EFF<SETFLAG: _CHESTTAKEN, 1>
         }
@@ -403,7 +403,7 @@ a small fortune. The idol as a whole will make you richer than beyond your wilde
 {
     ID: <TREASURE>;
     ACTION:
-        COND<PRSA: TAKE, OBTAIN>
+        COND<PRSA: TAKE, OBTAIN, GET, PICK>
         {
             EFF<TAKE: <TREASURE>>
             EFF<SETFLAG: _TREASUREOBTAINED, 1>
@@ -495,24 +495,24 @@ It's filled to the brim with water! It should be heavy enough to hold down one o
                 EFF<SETFLAG: _CONTAINER2FILLED, 1>
             }
         }
-        COND<PRSA: TAKE, OBTAIN && INSCOPE: <WATERCONTAINER2>, <PRESSUREPLATE1> && ANDFLAGS: _CONTAINER2FILLED>
+        COND<PRSA: TAKE, OBTAIN, GET, PICK && INSCOPE: <WATERCONTAINER2>, <PRESSUREPLATE1> && ANDFLAGS: _CONTAINER2FILLED>
         {
             EFF<TAKE: <WATERCONTAINER2>>
             EFF<REMFLAG: _PRESSUREPLATE1>
             EFF<TELL: "The left pressure plate raises back up as you take off the copper jug.">
             COND<ANDFLAGS: _PRESSUREPLATE2>
             {
-                EFF<TELL: "The alter rises back up from the floor and hides the secret stairway.">
+                EFF<TELL: "The altar rises back up from the floor and hides the secret stairway.">
             }
         }
-        COND<PRSA: TAKE, OBTAIN && INSCOPE: <WATERCONTAINER2>, <PRESSUREPLATE2> && ANDFLAGS: _CONTAINER2FILLED>
+        COND<PRSA: TAKE, OBTAIN, GET, PICK && INSCOPE: <WATERCONTAINER2>, <PRESSUREPLATE2> && ANDFLAGS: _CONTAINER2FILLED>
         {
             EFF<TAKE: <WATERCONTAINER2>>
             EFF<REMFLAG: _PRESSUREPLATE2>
             EFF<TELL: "The right pressure plate raises back up as you take off the copper jug.">
             COND<ANDFLAGS: _PRESSUREPLATE1>
             {
-                EFF<TELL: "The alter rises back up from the floor and hides the secret stairway.">
+                EFF<TELL: "The altar rises back up from the floor and hides the secret stairway.">
             }
         };
 }
@@ -542,22 +542,22 @@ It looks sturdy enough to walk over, perhaps it could be used as a makeshift bri
     ACTION:
         COND<PRSA: PUT, PLACE && PRSO: <PLANK>>
         {
-            COND<PRSI: <RIVER> || PRSI: <RIVERSTILTS>>
+            COND<PRSI: <RIVER> || PRSI: <RIVERSUPPORTS>>
             {
-                EFF<PLACE: <PLANK>, <RIVERSTILTS>, ON>
-                EFF<TELL: "You placed the wooden plank on top of the wooden stilts in the river.">
+                EFF<PLACE: <PLANK>, <RIVERSUPPORTS>, ON>
+                EFF<TELL: "You placed the wooden plank on top of the wooden supports in the river.">
                 EFF<SETFLAG: _RIVERCROSSABLE, 1>
             }
         }
-        COND<PRSA: TAKE, OBTAIN, PICK && PRSO: <PLANK>>
+        COND<PRSA: TAKE, OBTAIN, PICK, GET && PRSO: <PLANK>>
         {
             EFF<TAKE: <PLANK>>
             EFF<REMFLAG: _RIVERCROSSABLE>
         }
         COND<PRSA: MAKE, FORM && PRSO: <PLANK> && HERE: <EASTRIVER>>
         {
-            EFF<PLACE: <PLANK>, <RIVERSTILTS>, ON>
-            EFF<TELL: "You placed the wooden plank on top of the wooden stilts in the river.">
+            EFF<PLACE: <PLANK>, <RIVERSUPPORTS>, ON>
+            EFF<TELL: "You placed the wooden plank on top of the wooden supports in the river.">
             EFF<SETFLAG: _RIVERCROSSABLE, 1>
         };
 }
@@ -633,7 +633,7 @@ block to climb on to reach a place high up.";
                 EFF<TELL: "With all three blocks stacked on top of one another, you should be able to climb up to the attic above you!">
             }
         }
-        COND<PRSA: TAKE, OBTAIN && PRSO: <MEDIUMBLOCK>>
+        COND<PRSA: TAKE, OBTAIN, GET, PICK && PRSO: <MEDIUMBLOCK> && !HAVEITEM: <MEDIUMBLOCK>>
         {
             EFF<TAKE: <MEDIUMBLOCK>>
             EFF<REMFLAG: _MEDIUMONLARGE>
@@ -659,13 +659,13 @@ block to climb on to reach a place high up.";
     DESC: "You find yourself emerging into a large cavern split in two by a turbulent river flowing through it. You
 are on the east side of the river.
 
-Rotten wooden stilts extend across the river as if there used to be a bridge here in the distant past. However,
+Rotten wooden supports extend across the river as if there used to be a bridge here in the distant past. However,
 with the bridge now long washed away, you are unable to cross the river to reach the other side of the cavern and
 the tunnels beyond.";
     ALTDESC: "You find yourself emerging into a large cavern split in two by a turbulent river flowing through it. You
 are on the east side of the river.
 
-You are able to cross the river thanks to the wooden plank laid out across the old support stilts that are somehow
+You are able to cross the river thanks to the wooden plank laid out across the old support supports that are somehow
 still standing.";
     CONDS: _RIVERCROSSABLE=1;
     DET: "the";
@@ -686,10 +686,10 @@ You could use the flowing torrent to fill up any water containers you have!";
 
 [object]
 {
-    ID: <RIVERSTILTS>;
+    ID: <RIVERSUPPORTS>;
     LOCATION: <RIVER>;
-    NAME: "stilts";
-    DESC: "Rotting wooden stilts that extend across the river. This suggests a bridge existed here once.
+    NAME: "supports";
+    DESC: "Rotting wooden supports that extend across the river. This suggests a bridge existed here once.
 
 Though the wood still looks sturdy enough to hold some weight if you can find something to put on top of it. Then you
 would be able to cross the river!";
@@ -702,7 +702,7 @@ would be able to cross the river!";
 {
     ID: <WATERFALLCAVERN>;
     S: <EASTRIVER>;
-    E: <ALTERROOM>;
+    E: <ALTARROOM>;
     NAME: "Waterfall Cavern";
     DESC: "At the far end of the caverns, a roaring waterfall pours down from a rocky outcrop above.
 
@@ -773,7 +773,7 @@ This would make a good stable base to climb on, and is large enough to pile othe
             EFF<TELL: "You placed the large block.">
             EFF<SETFLAG: _LARGEINSTORAGEROOM, 1>
         }
-        COND<PRSA: TAKE, OBTAIN && PRSO: <LARGEBLOCK>>
+        COND<PRSA: TAKE, OBTAIN, GET, PICK && PRSO: <LARGEBLOCK> && !HAVEITEM: <LARGEBLOCK>>
         {
             EFF<TAKE: <LARGEBLOCK>>
             EFF<REMFLAG: _LARGEINSTORAGEROOM>

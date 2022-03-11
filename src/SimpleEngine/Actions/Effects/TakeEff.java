@@ -32,6 +32,9 @@ public class TakeEff extends Effect {
 
     @Override
     protected boolean effectLegalUnderEnhancedConstraints() {
+        if (!GameController.usingEnhancedEngine()) {
+            return true;
+        }
         KnowledgeBase kb = KnowledgeBase.getInstance();
         if (kb.query("isLocated(X," + itemID.toLowerCase() + ",1)").size() > 0) {
             System.out.println("The " + GameState.getGameObject(itemID).getName() + " has stuff on top of it, you're unable to take it without removing them first!");
