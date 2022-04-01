@@ -265,6 +265,7 @@ a small fortune. The idol as a whole will make you richer than beyond your wilde
     SYNS: "idol", "statue";
     PROPERTIES: _TAKEABLE;
     VALUES: (volume: 50), (weight: 25);
+    DET: "";
 }
 
 [room]
@@ -281,7 +282,7 @@ The cupboard against the wall is also stable and can be climbed on if stable obj
     DESC: "This room looks like it was used to store things, though all that remains now are pieces of wood and rubble.
 Any artifacts once stored here have degraded over time and wont be worth anything now...
 
-A marble cupboard is standing against the wall opposite you, and a slight chill is coming from the rotted hatch to the
+A marble cupboard with a large, stable surface is standing against the wall opposite you, and a slight chill is coming from the rotted hatch to the
 attic above you. There may be something interesting hidden in there if you could find a way up.";
 }
 

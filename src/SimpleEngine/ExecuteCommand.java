@@ -325,7 +325,12 @@ public class ExecuteCommand {
         }
         System.out.println("Inside you find:");
         for (String childID : obj.getInside()) {
-            System.out.println(" - A " + GameState.getGameObject(childID).getName());
+            if (GameState.getGameObject(childID).getDet() != null) {
+                System.out.println(" - " + GameState.getGameObject(childID).getDet() + " " + GameState.getGameObject(childID).getName());
+            }
+            else {
+                System.out.println(" - A " + GameState.getGameObject(childID).getName());
+            }
         }
     }
 

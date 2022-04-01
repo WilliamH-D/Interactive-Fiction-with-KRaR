@@ -91,6 +91,7 @@ The block is still sturdy, perhaps it could be stacked up on something to climb 
 {
     ID: <ALTARROOM>;
     S: <COLUMNS>;
+    W: <WATERFALLCAVERN>;
     D: <TREASUREROOM>;
     DCOND: _PRESSUREPLATE1=1, _PRESSUREPLATE2=1, _HIDDEN;
     DBLOCKMESSAGE: "You cannot move down.";
@@ -397,6 +398,7 @@ a small fortune. The idol as a whole will make you richer than beyond your wilde
     SYNS: "idol", "statue";
     PROPERTIES: _TAKEABLE;
     VALUES: (volume: 50);
+    DET: "";
 }
 
 [action]

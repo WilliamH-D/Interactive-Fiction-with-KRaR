@@ -14,7 +14,7 @@ verb: look around
 
 verb: look
 0
-0=look,observe,inspect,analyse,peek,peer,stare,see
+0=look,observe,inspect,analyse,peek,peer,stare,see,examine
 
 verb: take
 0
