@@ -143,7 +143,7 @@ It has clicked into the ground as the object on top of it is heavy enough to hol
 {
     ID: <PRESSUREPLATE1>;
     ACTION:
-        COND<PRSAAND: PUT, ON && !ANDFLAGS: _PRESSUREPLATE1>
+        COND<PRSA: PUT, PLACE && PRSA: ON && !ANDFLAGS: _PRESSUREPLATE1>
         {
             COND<PRSO: <WATERCONTAINER1>>
             {
@@ -203,7 +203,7 @@ It has clicked into the ground as the object on top of it is heavy enough to hol
 {
     ID: <PRESSUREPLATE2>;
     ACTION:
-        COND<PRSAAND: PUT, ON && !ANDFLAGS: _PRESSUREPLATE2>
+        COND<PRSA: PUT, PLACE && PRSA: ON && !ANDFLAGS: _PRESSUREPLATE2>
         {
             COND<PRSO: <WATERCONTAINER1>>
             {
@@ -360,6 +360,7 @@ You have taken possession of the treasure chest that was kept hidden here for mi
         COND<PRSA: TAKE, PICK, OBTAIN, GET>
         {
             EFF<SETFLAG: _CHESTTAKEN, 1>
+            EFF<TAKE: <CHEST>>
         }
         COND<PRSA: UNLOCK && ANDPROPERTIES: <CHEST>, _LOCKED && HAVEITEM: <KEY>>
         {
