@@ -686,6 +686,20 @@ You could use the flowing torrent to fill up any water containers you have!";
     VALUES: (capacity: 0);
 }
 
+[action]
+{
+    ID: <RIVER>;
+    ACTION:
+        COND<PRSA: CROSS, MOVE, WALK, GET, OVER && PRSO: <RIVER>>
+        {
+            COND<ANDFLAGS: _RIVERCROSSABLE>
+            {
+                EFF<GOTO: <WESTRIVER>>
+            }
+            EFF<TELL: "The river is flowing too rapidly to safely cross without some sort of bridge!">
+        };
+}
+
 [object]
 {
     ID: <RIVERSUPPORTS>;
