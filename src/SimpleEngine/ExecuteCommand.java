@@ -199,7 +199,7 @@ public class ExecuteCommand {
         }
         // The target object has the takeable flag
         else if (obj.hasProperty("_TAKEABLE")) {
-            if (GameController.getPlayer().hasDescendant(obj.getId()).size() > 0) {
+            if (GameController.getPlayer().hasDescendant(obj.getId()).size() == 2) {
                 System.out.println("You already have the " + obj.getName() + ".");
                 return true;
             }
