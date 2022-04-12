@@ -312,4 +312,37 @@ public class testNLPInputs {
         Assert.assertEquals(GameController.getPRSO().getId(), "SMALLBOX");
         Assert.assertNull(GameController.getPRSI());
     }
+
+    @Test
+    public void testInputPutSmallBlockOnBigBlockAdjectives() {
+        // Create synonyms map
+        Map<String, String> synonyms = new TreeMap<>();
+        synonyms.put("place on", "place on");
+        synonyms.put("place item on item", "place on");
+        synonyms.put("put item on item", "place on");
+        synonyms.put("place item on top of item", "place on");
+        synonyms.put("put item on top of item", "place on");
+        synonyms.put("place", "place");
+        synonyms.put("put down", "place");
+        synonyms.put("drop", "place");
+        synonyms.put("discard", "place");
+        synonyms.put("place down", "place");
+
+        // Create interactable objects list
+        ArrayList<GameObject> objects = new ArrayList<>();
+        GameObject smallblock = new GameObject("SMALLBLOCK");
+        smallblock.setName("small block");
+        GameObject bigblock = new GameObject("BIGBLOCK");
+        bigblock.setName("big block");
+        objects.add(smallblock);
+        objects.add(bigblock);
+
+        testNLPInputs.commandConstructor.setVerbSynonyms(synonyms);
+        testNLPInputs.commandConstructor.setAllowedObjects(objects);
+        testNLPInputs.commandConstructor.processInput("Carefully place the delicate small block on top of the great sturdy big block.");
+
+        Assert.assertEquals(getCorrectedVerb(synonyms), "PLACE ON");
+        Assert.assertEquals(GameController.getPRSO().getId(), "SMALLBLOCK");
+        Assert.assertEquals(GameController.getPRSI().getId(), "BIGBLOCK");
+    }
 }

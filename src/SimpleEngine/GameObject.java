@@ -79,6 +79,13 @@ public class GameObject {
         children.addAll(inside);
         children.addAll(onSurface);
         children.addAll(below);
+        List<String> hidden = new ArrayList<>();
+        for (String c : children) {
+            if (GameState.getGameObject(c).hasProperty("_HIDE")) {
+                hidden.add(c);
+            }
+        }
+        children.removeAll(hidden);
         return children;
     }
 

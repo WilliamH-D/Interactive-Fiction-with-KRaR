@@ -8,6 +8,8 @@ import SimpleEngine.ExecuteCommand;
 import ProcessInput.NLPPipeline;
 import ProcessInput.StoryCompiler;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Scanner;
@@ -19,7 +21,7 @@ public class Main {
 
     // Initialise the game ready for running
     // If initialisation fails, print the stack trace and safely exit
-    public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+    public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, FileNotFoundException {
         if (args.length == 0 || !args[0].substring(args[0].length() - 4).equals(".txt")) {
             System.err.println("No story file argument.");
             return;
@@ -34,10 +36,26 @@ public class Main {
             return;
         }
 
+        File readInputs = null;
+        Scanner inputReader = null;
+        if (useEnhanced) {
+            if(args.length > 2 && args[2].substring(args[2].length() - 4).equals(".txt")) {
+                readInputs = new File("src\\Test\\" + args[2]);
+            }
+        }
+        else {
+            if(args.length > 1 && args[1].substring(args[1].length() - 4).equals(".txt")) {
+                readInputs = new File("src\\Test\\" + args[1]);
+            }
+        }
+        if (readInputs != null) {
+            inputReader = new Scanner(readInputs);
+        }
+
         // Until something sets continueLooping to false, execute the game loop
         continueLooping = true;
         while (continueLooping) {
-            loop(useEnhanced);
+            loop(useEnhanced, readInputs, inputReader);
         }
         System.out.println("Exiting game.");
     }
@@ -79,11 +97,30 @@ public class Main {
     }
 
     private static void loop(boolean useEnhanced) {
+        loop(useEnhanced, null, null);
+    }
+
+    private static void loop(boolean useEnhanced, File readInputs, Scanner inputReader) {
         // Get a user input
         System.out.println();
-        Scanner myObj = new Scanner(System.in);
-        System.out.print("INPUT: ");
-        String userInput = myObj.nextLine();
+        String userInput;
+        if (readInputs == null) {
+            Scanner myObj = new Scanner(System.in);
+            System.out.print("INPUT: ");
+            userInput = myObj.nextLine();
+        }
+        else {
+            if (inputReader.hasNextLine()) {
+                userInput = inputReader.nextLine();
+                System.out.print("INPUT: ");
+                System.out.println(GameController.greenText + userInput + GameController.resetText);
+            }
+            else {
+                quitGame();
+                inputReader.close();
+                return;
+            }
+        }
         System.out.println();
 
         // Process the user's input and update the game state (via executeAction())

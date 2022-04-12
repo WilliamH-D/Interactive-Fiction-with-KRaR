@@ -197,6 +197,9 @@ public class ExecuteCommand {
         if (obj == null) {
             System.out.println("You can't try and pick up nothing!");
         }
+        else if (obj.hasProperty("_HIDE")) {
+            return false;
+        }
         // The target object has the takeable flag
         else if (obj.hasProperty("_TAKEABLE")) {
             if (GameController.getPlayer().hasDescendant(obj.getId()).size() == 2) {
@@ -219,6 +222,9 @@ public class ExecuteCommand {
         // There is no target to place
         if (obj == null) {
             System.out.println("What are you trying to place!?");
+        }
+        else if (obj.hasProperty("_HIDE")) {
+            return false;
         }
         // The item is in the player's inventory
         else if (GameState.getGameObject(obj.getParent()).equals(GameController.getPlayer())) {

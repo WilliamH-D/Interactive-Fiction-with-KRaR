@@ -1,0 +1,14 @@
+look at the cupboard.
+open the cupboard.
+take the small box.
+inspect the small box.
+inspect the medium box.
+inspect the big box.
+put the small box in the big box.
+take the small box.
+put the big box in the medium box.
+put the medium box in the big box.
+put the small box in the medium box.
+take the cupboard.
+put the medium box in the cupboard.
+look around.

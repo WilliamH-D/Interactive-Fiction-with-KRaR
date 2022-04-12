@@ -32,6 +32,7 @@ public class GameController {
     private boolean usingEnhanced;
 
     public static final String redText = "\u001B[31m";
+    public static final String greenText = "\u001B[32m";
     public static final String resetText = "\u001B[0m";
 
     private GameController() {

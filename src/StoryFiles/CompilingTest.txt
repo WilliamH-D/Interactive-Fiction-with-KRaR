@@ -1,0 +1,27 @@
+[room]
+   {
+       ID: <KITCHEN>;
+       NAME: "Kitchen";
+       DESC: "A neat and tidy kitchen with a counter and several cupboards.";
+   }
+
+   [object]
+   {
+       ID: <SANDWICH>;
+       LOCATION: <KITCHEN>;
+       NAME: "sandwich";
+       DESC: "A tasty looking sandwich.";
+       SYNS: "food";
+       PROPERTIES: _TAKEABLE;
+   }
+
+   [action]
+   {
+       ID: <SANDWICH>;
+       ACTION:
+           COND<PRSA: EAT, CONSUME, TASTE && !ANDPROPERTIES: <SANDWICH>, _HIDE>
+           {
+               EFF<ADDPROPERTY: <SANDWICH>, _HIDE>
+               EFF<TELL: "You ate the sandwich. It was delicious!">
+           };
+   }

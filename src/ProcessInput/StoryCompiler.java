@@ -122,6 +122,8 @@ public class StoryCompiler {
 
         GameState.setChildren();
         kb.initVariablesAfterCompilation();
+
+        GameState.printTree();
     }
 
     private void resetVars() {

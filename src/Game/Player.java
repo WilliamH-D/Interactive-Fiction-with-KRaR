@@ -42,6 +42,7 @@ public class Player extends GameObject {
         }
         for (String c : getChildren()) {
             GameObject obj = GameState.getGameObject(c);
+            if (obj.hasProperty("_HIDE")) { continue; }
             System.out.println("\t- " + obj.getName());
         }
     }

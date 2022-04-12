@@ -1,9 +1,11 @@
 package SimpleEngine;
 
 import Game.GameController;
+import Logging.DebugLogger;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class GameState {
 
@@ -62,5 +64,24 @@ public class GameState {
                 gameObjects.get(obj.getParent()).addChild(obj.getId(), obj.getParentType());
             }
         }
+    }
+
+    // Debugging method to print the game state tree
+    public static void printTree() {
+        DebugLogger.getInstance().logLine();
+        DebugLogger.getInstance().logRaw("Game State Tree: " + printTreeHelper(gameObjects.get("ROOT")));
+        DebugLogger.getInstance().logLine();
+    }
+
+    private static String printTreeHelper(GameObject obj)  {
+        StringBuilder node = new StringBuilder(obj.getId() + "(");
+        for (String child : obj.getChildren()) {
+            node.append(printTreeHelper(gameObjects.get(child))).append(",");
+        }
+        if (obj.getChildren().size() > 0) {
+            node.deleteCharAt(node.length()-1);
+        }
+        node.append(")");
+        return node.toString();
     }
 }
