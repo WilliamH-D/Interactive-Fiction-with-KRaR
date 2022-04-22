@@ -5,3 +5,6 @@ Libraries:
  - CoreNLP for processing the user's input
     - Initialisation is slow, but subsequent annotations are fast
  - tuProlog for knowledge base
+
+Plug-ins:
+ - ANTLR for compiling stroy files writen within a .txt file into a useable game state
