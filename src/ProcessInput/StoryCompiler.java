@@ -123,7 +123,7 @@ public class StoryCompiler {
         GameState.setChildren();
         kb.initVariablesAfterCompilation();
 
-        GameState.printTree();
+        GameState.printState();
     }
 
     private void resetVars() {

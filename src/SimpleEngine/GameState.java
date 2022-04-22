@@ -67,10 +67,32 @@ public class GameState {
     }
 
     // Debugging method to print the game state tree
-    public static void printTree() {
-        DebugLogger.getInstance().logLine();
-        DebugLogger.getInstance().logRaw("Game State Tree: " + printTreeHelper(gameObjects.get("ROOT")));
-        DebugLogger.getInstance().logLine();
+    public static void printState() {
+        DebugLogger logger = DebugLogger.getInstance();
+        logger.logLine();
+        logger.logRaw("Game State Tree: " + printTreeHelper(gameObjects.get("ROOT")));
+
+        // Print actions
+        StringBuilder actionString = new StringBuilder("Actions: ");
+        for (String act : actions.keySet()) {
+            actionString.append(act + ", ");
+        }
+        if (actions.keySet().size() > 0) {
+            actionString.deleteCharAt(actionString.length()-2);
+        }
+        logger.logRaw(actionString.toString());
+
+        // Print flags
+        StringBuilder flagsString = new StringBuilder("Global Flags: ");
+        for (String flag : globalFlags.keySet()) {
+            flagsString.append(flag + ", ");
+        }
+        if (globalFlags.keySet().size() > 0) {
+            flagsString.deleteCharAt(flagsString.length()-2);
+        }
+        logger.logRaw(flagsString.toString());
+
+        logger.logLine();
     }
 
     private static String printTreeHelper(GameObject obj)  {
