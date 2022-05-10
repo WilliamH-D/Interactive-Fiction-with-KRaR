@@ -23,9 +23,7 @@ public class Main {
     // If initialisation fails, print the stack trace and safely exit
     public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, IOException {
 
-        boolean firstEngine = false;
-
-        /*if (args.length == 0 || !args[0].substring(args[0].length() - 4).equals(".txt")) {
+        if (args.length == 0 || !args[0].substring(args[0].length() - 4).equals(".txt")) {
             System.err.println("No story file argument.");
             return;
         }
@@ -50,22 +48,7 @@ public class Main {
             if(args.length > 1 && args[1].substring(args[1].length() - 4).equals(".txt")) {
                 readInputs = new File("src\\Test\\" + args[1]);
             }
-        }*/
-
-        boolean useEnhanced;
-        File readInputs = null;
-        Scanner inputReader = null;
-        String story = null;
-
-        if (firstEngine) {
-            useEnhanced = true;
-            story = "TreasureHuntEnhanced.txt";
         }
-        else {
-            useEnhanced = false;
-            story = "TreasureHuntTraditional.txt";
-        }
-        init(story, useEnhanced);
 
         if (readInputs != null) {
             inputReader = new Scanner(readInputs);
@@ -103,8 +86,6 @@ public class Main {
 
         // Create the Command Constructor
         Main.commandConstructor = new CommandConstructor();
-
-        //System.setErr(System.out);
 
         // Print a starting message
         System.out.println();

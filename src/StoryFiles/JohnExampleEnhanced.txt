@@ -1,0 +1,39 @@
+[room]
+{
+    ID: <STORAGEROOM>;
+    NAME: "Storage Room";
+    DESC: "It's a storage room filled with boxes.";
+}
+
+[object]
+{
+    ID: <SMALLBOX>;
+    LOCATION: <STORAGEROOM>;
+    NAME: "small box";
+    DESC: "A small cardboard box.";
+    SYNS: "little box", "tiny box", "box", "small";
+    PROPERTIES: _TAKEABLE;
+    VALUES: (capacity: 25), (volume: 25);
+}
+
+[object]
+{
+    ID: <MEDIUMBOX>;
+    LOCATION: <STORAGEROOM>;
+    NAME: "medium box";
+    DESC: "A medium cardboard box.";
+    SYNS: "middle box", "average box", "box", "medium";
+    PROPERTIES: _TAKEABLE;
+    VALUES: (capacity: 50), (volume: 50);
+}
+
+[object]
+{
+    ID: <BIGBOX>;
+    LOCATION: <STORAGEROOM>;
+    NAME: "big box";
+    DESC: "A big cardboard box.";
+    SYNS: "large box", "huge box", "box", "big";
+    PROPERTIES: _TAKEABLE;
+    VALUES: (capacity: 75), (volume: 75);
+}

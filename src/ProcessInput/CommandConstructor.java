@@ -426,7 +426,7 @@ public class CommandConstructor {
 
     // Check for special cases (e.g. input = "north")
     private static boolean specialCase(List<String> lemmas) {
-        if (lemmas.size() == 1) {
+        if (lemmas.size() == 1 || (lemmas.size() >= 2 && lemmas.get(1).equals("."))) {
             String l = lemmas.get(0).toUpperCase();
             if (l.equals("QUIT") || l.equals("Q")) { Main.quitGame(); GameController.setPRSA("quit"); return true;}
             if (l.equals("NORTH") || l.equals("N")) { GameController.setPRSO(GameController.northObj()); GameController.setPRSA("move"); return true; }
